@@ -1,27 +1,27 @@
 import React from 'react'
-import { IndexLink, Link } from 'react-router'
-import { Button, Menu } from 'semantic-ui-react'
+import {IndexLink, Link} from 'react-router'
+import {Button, Menu} from 'semantic-ui-react'
 
 import './Header.scss'
 function handleTouchTap() {
     alert('onTouchTap triggered on the title component');
 }
 
-class Header extends  React.Component {
+class Header extends React.Component {
     constructor() {
         super();
-        this.state = { activeItem: 'home' };
+        this.state = {activeItem: 'home'};
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, {name}) => this.setState({activeItem: name})
 
     render() {
-        const { activeItem } = this.state
+        const {activeItem} = this.state
 
         return (
             <Menu size='massive'>
-                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
-                <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />
+                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
+                <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick}/>
 
                 <Menu.Menu position='right'>
                     <Menu.Item>
@@ -34,19 +34,19 @@ class Header extends  React.Component {
 }
 
 /*
-export const Header = () => (
-  <div>
-    <h1>React Redux cool Kit</h1>
-    <IndexLink to='/' activeClassName='route--active'>
-      Home
-    </IndexLink>
-    {' · '}
-    <Link to='/counter' activeClassName='route--active'>
-      Counter
-    </Link>
-  </div>
-)
-*/
+ export const Header = () => (
+ <div>
+ <h1>React Redux cool Kit</h1>
+ <IndexLink to='/' activeClassName='route--active'>
+ Home
+ </IndexLink>
+ {' · '}
+ <Link to='/counter' activeClassName='route--active'>
+ Counter
+ </Link>
+ </div>
+ )
+ */
 
 
 export default Header
