@@ -6,10 +6,15 @@ This tool is build for dividing people into team given criteria.
 * Scaffolding Tool:
 	- [React Redux Starter Kit](https://github.com/davezuko/react-redux-starter-kit)
 * Front-End:
-	- [Reactjs](https://facebook.github.io/react/)
-	- [Redux](http://redux.js.org/)
-	- [Immutablejs](https://facebook.github.io/immutable-js/)
-	- [Material-UI](http://www.material-ui.com/)
+	- Control
+		- [Reactjs](https://facebook.github.io/react/)
+		- [Redux](http://redux.js.org/)
+		- [Immutablejs](https://facebook.github.io/immutable-js/)
+	- View
+		- [Material-UI](http://www.material-ui.com/)
+		- [Grommet](https://grommet.github.io/docs/filter-control)
+		- [Semantic-UI](https://github.com/Semantic-Org/Semantic-UI-React)
+		
 * Back-End:
 	- [Nodejs](https://nodejs.org/en/)
 	
