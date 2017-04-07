@@ -18,13 +18,11 @@ class AppContainer extends Component {
     const { routes, store } = this.props
 
     return (
-       <MuiThemeProvider>
-           <Provider store={store}>
+       <Provider store={store}>
            <div style={{ height: '100%' }}>
              <Router history={browserHistory} children={routes} />
            </div>
-         </Provider>
-       </MuiThemeProvider>
+     </Provider>
     )
   }
 }
