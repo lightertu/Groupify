@@ -1,13 +1,8 @@
 import React from 'react'
 import { IndexLink, Link } from 'react-router'
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
-import FlatButton from 'material-ui/FlatButton';
+import { Button, Menu } from 'semantic-ui-react'
 
-import SideMenu from './SideMenu'
 import './Header.scss'
-
 function handleTouchTap() {
     alert('onTouchTap triggered on the title component');
 }
@@ -15,26 +10,25 @@ function handleTouchTap() {
 class Header extends  React.Component {
     constructor() {
         super();
-        this.state = { sideMenuOpen: false };
+        this.state = { activeItem: 'home' };
     }
 
-    sideMenuToggle = () => {
-        this.setState( { sideMenuOpen: !this.state.sideMenuOpen } );
-    }
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
+        const { activeItem } = this.state
+
         return (
-            <div>
-                <AppBar
-                    title="Team Divider"
-                    iconClassNameRight="muidocs-icon-navigation-expand-more"
-                    onLeftIconButtonTouchTap={ this.sideMenuToggle }
-                />
-                <Link to='/counter' activeClassName='route--active'>
-                    Counter
-                </Link>
-                <SideMenu open = { this.state.sideMenuOpen } toggle = { this.sideMenuToggle } />
-            </div>
+            <Menu size='massive'>
+                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+                <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick} />
+
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Button primary>Sign Up</Button>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
         )
     }
 }
