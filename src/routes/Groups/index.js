@@ -2,6 +2,7 @@
  * Created by rui on 4/7/17.
  */
 
+
 export default (store) => ({
     path: 'groups',
     /*  Async getComponent is only invoked when route matches   */

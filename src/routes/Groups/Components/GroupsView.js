@@ -5,53 +5,32 @@ import React from 'react'
 import {Card, Feed} from 'semantic-ui-react'
 import {Icon, Label, Segment, Item, Grid, Image} from 'semantic-ui-react'
 
+import PeopleListSidebar from "./PeopleListSidebar"
+
+import GroupCard from "./GroupCard/GroupCard"
+
 export const Groups = (props) => (
-        <Grid columns='equal'>
-            <Grid.Row>
-                <Grid.Column>
-                    <Segment textAlign={ "center" } rised color='yellow'>
-                        <Label attached='top left'>Group 1</Label>
-                        <Card.Group itemsPerRow={5}>
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                        </Card.Group>
-                    </Segment>
-                </Grid.Column>
-                <Grid.Column>
-                    <Segment rised color="teal">
-                        <Label attached='top left'>group 2</Label>
-                        <Card.Group itemsPerRow={5}>
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                        </Card.Group>
-                    </Segment>
-                </Grid.Column>
-                <Grid.Column>
-                    <Segment textAlign={ "center" } rised color='yellow'>
-                        <Label attached='top left'>Group 1</Label>
-                        <Card.Group itemsPerRow={5}>
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                            <Card raised image={"http://react.semantic-ui.com/assets/images/wireframe/image.png"} />
-                        </Card.Group>
-                    </Segment>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+    <PeopleListSidebar
+        groups={
+            <div className="container">
+                <Grid columns="equal">
+                    <Grid.Row>
+                        <Grid.Column>
+                            <GroupCard/>
+                        </Grid.Column>
+
+                        <Grid.Column>
+                            <GroupCard/>
+                        </Grid.Column>
+
+                        <Grid.Column>
+                            <GroupCard/>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+            </div>
+        }
+    />
 )
 
 
