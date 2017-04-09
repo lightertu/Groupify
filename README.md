@@ -33,6 +33,15 @@ deterministic installs, but npm install will work just as well.
 yarn install
 yarn start
 ```
+### Posibile Issues
+####Windows
+**If you get the error**
+
+```bash
+Fatal Error: spawn cmd ENOENT
+```
+Add C:\Windows\System32\ to the PATH Environment variable
+
 
 ## Development
 #### Developer Tools
