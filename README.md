@@ -33,7 +33,7 @@ deterministic installs, but npm install will work just as well.
 yarn install
 yarn start
 ```
-### Posibile Issues
+### Possible Issues
 ### Windows
 **If you get the error**
 
