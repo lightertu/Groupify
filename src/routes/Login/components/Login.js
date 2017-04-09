@@ -15,7 +15,7 @@ export const Login = (props) => (
                     <label>Last Name</label>
                     <input type="text" name="last-name" placeholder="Last Name"/>
                 </div>
-                <button className="ui basic button" type="submit">Submit</button>
+                <button className="ui basic button center" type="submit">Submit</button>
             </form>
             <div className="extra content text-center">
                 <a>Is this your first time?  Click here.</a>
