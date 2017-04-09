@@ -25,28 +25,17 @@ class GroupCard extends React.Component {
             {
                 image: "http://react.semantic-ui.com/assets/images/wireframe/image.png"
             },
-            {
-                image: "http://react.semantic-ui.com/assets/images/wireframe/image.png"
-            },
-            {
-                image: "http://react.semantic-ui.com/assets/images/wireframe/image.png"
-            },
-            {
-                image: "http://react.semantic-ui.com/assets/images/wireframe/image.png"
-            },
-            {
-                image: "http://react.semantic-ui.com/assets/images/wireframe/image.png"
-            },
         ];
         // TODO: write a function to generate different row arrangements
         return (
 
-            <Segment color='yellow'>
+            <Segment color='yellow' raised padded={ true } size="large">
                 <Label attached='top left'>Group 1</Label>
-                <Card.Group itemsPerRow={ 5 }>
+                <Card.Group itemsPerRow={ 8 } stackable>
                     {
                         member.map((member) =>
-                            <Card raised image = { member.image }/>
+                            <Card image = { member.image }
+                            />
                         )
                     }
                 </Card.Group>
