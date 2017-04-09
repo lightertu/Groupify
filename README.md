@@ -34,7 +34,7 @@ yarn install
 yarn start
 ```
 ### Posibile Issues
-####Windows
+### Windows
 **If you get the error**
 
 ```bash
