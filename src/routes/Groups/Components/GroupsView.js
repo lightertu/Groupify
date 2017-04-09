@@ -13,6 +13,7 @@ export const Groups = (props) => (
     <PeopleListSidebar
         groups={
             <div className="container">
+                <div className="container">
                 <Grid columns="equal">
                     <Grid.Row>
                         <Grid.Column>
@@ -28,6 +29,7 @@ export const Groups = (props) => (
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                </div>
             </div>
         }
     />
