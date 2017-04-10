@@ -2,16 +2,12 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import {Icon, Label, Segment, Item, Grid, Image, List, Header, Menu, Button} from 'semantic-ui-react'
-import Sticky from 'react-stickynode'
+import { Label, Segment, Grid, Image, List } from 'semantic-ui-react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { Drawer } from "material-ui"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
-
-const styles = {
-    //height: "60%",
-    //overflow: "scroll"
-}
 
 class Person extends React.Component {
     constructor(props) {
@@ -34,64 +30,71 @@ class Person extends React.Component {
     }
 }
 
+class PeopleListSidebar extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            <MuiThemeProvider>
+                <Drawer
+                    docked={ true }
+                    open={ true }
+                    zDepth={ 1 }
+                    style = { drawerStyle }
+                    overlayStyle={ drawerStyle }
+                >
+                    <Segment basic>
+                        <List animated verticalAlign='middle' size="large" selection>
+                            {
+                                people.map((personObj) => (
+                                        <Person
+                                            name = { personObj.name }
+                                            isAssigned = { personObj.isAssigned }
+                                            image = { personObj.image }
+                                        />
+                                    )
+                                )
+                            }
+                        </List>
+                    </Segment>
+                </Drawer>
+            </MuiThemeProvider>
+        )
+    }
+
+}
+
 Person.propTypes = {
      isAssigned: React.PropTypes.bool.isRequired,
      name: React.PropTypes.string.isRequired,
      image: React.PropTypes.string.isRequired
 }
 
-
-const people =
-    [
-        {
-            name: "rui tu",
-            image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
-            isAssigned: true
-        },
-        {
-            name: "rui tu",
-            image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
-            isAssigned: true
-        },
-        {
-            name: "rui tu",
-            image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
-            isAssigned: true
-        },
-    ]
-
-const groups = [
+// test
+let person =
     {
-        groupNumber: 1,
-        capacity: 8,
-        members: people
-    },
-    {
-        groupNumber: 2,
-        capacity: 8,
-        members: people
-    },
-    {
-        groupNumber: 3,
-        capacity: 8,
-        members: people
-    },
-    {
-        groupNumber: 4,
-        capacity: 8,
-        members: people
-    },
-    {
-        groupNumber: 5,
-        capacity: 8,
-        members: people
-    },
-    {
-        groupNumber: 6,
-        capacity: 8,
-        members: people
+        name: "rui tu",
+        image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
+        isAssigned: true
     }
-];
+let people = [ ]
+for (let i = 0; i < 8; i++ ) {
+    people.push( person )
+}
+
+let group = { groupNumber: 1, capacity: 8, members: people.slice(0, 3) }
+let groups = [ ]
+for (let i = 0; i < 6; i++ ) {
+    groups.push( group )
+}
+// test
+
+
+const drawerStyle = {
+    zIndex: 0
+}
 
 export class GroupsView extends React.Component {
     constructor(props) {
@@ -99,47 +102,40 @@ export class GroupsView extends React.Component {
     }
 
     render() {
-        const peopleListWidth = 6;
-        const groupCardsWidth = 10;
+        const peopleListWidth = 4;
+        const groupCardsWidth = 12;
         const peopleListTopPadding = 110;
 
-        return (
-            <div className="container">
-                <Grid>
-                    <Grid.Row>
-                        <Grid.Column width={ peopleListWidth }>
-                            <Sticky top={ peopleListTopPadding }>
-                                <Segment raised style={ styles } color='teal'>
-                                    <Label attached='top'>People</Label>
-                                    <List verticalAlign='middle' size="small" selection>
-                                        {
-                                            people.map((personObj) => (
-                                                    <Person
-                                                        name = { personObj.name }
-                                                        isAssigned = { personObj.isAssigned }
-                                                        image = { personObj.image }
-                                                    />
-                                                )
-                                            )
-                                        }
-                                    </List>
-                                </Segment>
-                            </Sticky>
+        let getGroups = (groups) => {
+            return (
+                groups.map(
+                    (group) => (
+                        <Grid.Column>
+                        <GroupCard members={ group.members }
+                           capacity= { group.capacity }
+                           groupNumber= { group.groupNumber}/>
                         </Grid.Column>
+                    )
+                )
+            )
+        }
 
-                        <Grid.Column width={ groupCardsWidth }>
-                            {
-                                groups.map(
-                                    (group) => (
-                                        <GroupCard members={ group.members }
-                                                   capacity= { group.capacity }
-                                                   groupNumber= { group.groupNumber}/>
-                                    )
-                                )
-                            }
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+        return (
+            <div>
+            <PeopleListSidebar />
+                <div className="container">
+                    <Grid >
+                        <Grid.Row>
+                            <Grid.Column width={ peopleListWidth }>
+                            </Grid.Column>
+                            <Grid.Column width={ groupCardsWidth }>
+                                <Grid columns={ 2 }>
+                                    { getGroups(groups) }
+                                </Grid>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </div>
             </div>
         )
     }

@@ -10,6 +10,8 @@ This tool is build for dividing people into team given criteria.
 		- [Reactjs](https://facebook.github.io/react/)
 		- [Redux](http://redux.js.org/)
 		- [Immutablejs](https://facebook.github.io/immutable-js/)
+		- [React Drag and Drop](http://react-dnd.github.io/react-dnd/)
+		- [React Sticky Node](https://github.com/yahoo/react-stickynode)
 	- View
 		- [Material-UI](http://www.material-ui.com/)
 		- [Grommet](https://grommet.github.io/docs/filter-control)

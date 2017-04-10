@@ -20,7 +20,7 @@ class Header extends React.Component {
         const {activeItem} = this.state
 
         return (
-            <Sticky enabled = { true } innerZ={ 10 }>
+            <Sticky enabled = { true } innerZ={ 1000000000 }>
                 <Menu size='massive'>
                     <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
                     <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick}/>
