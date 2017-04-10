@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
  wiring in the actions and state necessary to render a presentational
  component - in this case */
 
-import Groups from '../components/GroupsView'
+import GroupsView from '../components/GroupsView'
 
 
 const mapDispatchToProps = (dispatch) => {
@@ -21,4 +21,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Groups)
+export default connect(mapStateToProps, mapDispatchToProps)(GroupsView)
