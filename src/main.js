@@ -1,10 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import createStore from './store/createStore'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppContainer from './containers/AppContainer'
+
+injectTapEventPlugin();
+
 // ========================================================
 // Store Instantiation
 // ========================================================
@@ -59,5 +61,6 @@ if (__DEV__) {
 // ========================================================
 // Go!
 // ========================================================
+
 render()
 

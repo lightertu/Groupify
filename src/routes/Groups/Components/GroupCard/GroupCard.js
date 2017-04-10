@@ -11,7 +11,7 @@ class GroupCard extends React.Component {
     }
 
     render() {
-        const itemsInRow = 8;
+        const itemsInRow = 5;
         return (
             <Segment color='yellow' raised padded={ true } size="large">
                 <Label attached='top left'> Group { this.props.groupNumber }</Label>
