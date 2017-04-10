@@ -14,7 +14,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-repeat: "../../public/sayagata-400px.png"
+  // background-image: linear-gradient(
+  //     rgba(16, 167, 248, 0.35), 
+  //     rgba(16, 167, 248, 0.35)
+  //   ), url("sayagata-400px.png");
+  // background-repeat: repeat; 
 }
 
 *,
@@ -22,3 +26,43 @@ body {
 *:after {
   box-sizing: inherit;
 }
+
+
+// start of welcome page styles
+.welcome-button-center {
+	
+}
+
+.welcome-button-left {
+	float: right;
+}
+
+.welcome-button-right {
+	float: left;
+}
+
+.welcome-header{
+	margin-top: 75px;
+	
+}
+
+.row {
+	margin-top: 50px;
+}
+
+// end of welcome page styles
+
+// start of login page styles
+.login-wrapper {
+	width: 300px;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.login-button {
+	margin: auto;
+	margin-bottom: 10px;
+	width: 85px;
+}
+
+// end of login page styles
