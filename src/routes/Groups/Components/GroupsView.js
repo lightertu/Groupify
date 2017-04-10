@@ -80,17 +80,18 @@ let person =
         isAssigned: true
     }
 let people = [ ]
-for (let i = 0; i < 8; i++ ) {
+
+for (let i = 0; i < 20; i++ ) {
     people.push( person )
 }
 
-let group = { groupNumber: 1, capacity: 8, members: people.slice(0, 3) }
 let groups = [ ]
-for (let i = 0; i < 6; i++ ) {
-    groups.push( group )
+function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
 }
-// test
-
+for (let i = 0; i < 19; i++ ) {
+    groups.push( { groupNumber: 1, capacity: 8, members: people.slice(0, getRandomArbitrary(0, 10)) } )
+}
 
 const drawerStyle = {
     zIndex: 0
