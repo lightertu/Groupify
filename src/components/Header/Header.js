@@ -1,6 +1,7 @@
 import React from 'react'
 import {IndexLink, Link} from 'react-router'
 import {Button, Menu} from 'semantic-ui-react'
+import Sticky from 'react-stickynode'
 
 import './Header.scss'
 function handleTouchTap() {
@@ -19,16 +20,18 @@ class Header extends React.Component {
         const {activeItem} = this.state
 
         return (
-            <Menu size='massive'>
-                <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
-                <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick}/>
+            <Sticky enabled = { true } innerZ={ 10 }>
+                <Menu size='massive'>
+                    <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
+                    <Menu.Item name='messages' active={activeItem === 'messages'} onClick={this.handleItemClick}/>
 
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <Button primary>Sign Up</Button>
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
+                    <Menu.Menu position='right'>
+                        <Menu.Item>
+                            <Button primary>Sign Up</Button>
+                        </Menu.Item>
+                    </Menu.Menu>
+                </Menu>
+            </Sticky>
         )
     }
 }
