@@ -21,6 +21,17 @@ class GroupCard extends React.Component {
         return result;
     }
 
+
+    labelColor = () => {
+        if (this.props.members.length === this.props.capacity) {
+            return "green";
+        } else if (this.props.members.length > this.props.capacity) {
+            return "red";
+        } else {
+            return "";
+        }
+    }
+
     render() {
         const itemsInRow = 5;
         return (
@@ -39,7 +50,7 @@ class GroupCard extends React.Component {
                     }
 
                 </Card.Group>
-                <Label attached="top right">
+                <Label color = {this.labelColor()} attached="top right">
                     <Icon name='user'/> { this.props.members.length}/{ this.props.capacity }
                     </Label>
             </Segment>

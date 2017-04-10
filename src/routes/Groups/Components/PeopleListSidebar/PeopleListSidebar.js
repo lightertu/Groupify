@@ -33,7 +33,7 @@ class Person extends React.Component {
 
 
 const peopleListStyle = {
-    paddingTop: "24%"
+    paddingTop: "23%"
 };
 
 class PeopleListSidebar extends React.Component {
