@@ -2,18 +2,17 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import { Input, Label, Segment, Grid, Image, List } from 'semantic-ui-react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { Drawer } from "material-ui"
-import Sticky from "react-stickynode"
+import { Grid } from 'semantic-ui-react'
 
 import PeopleListSidebar from "./PeopleListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
 
-
 // test
+function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 let person =
     {
         name: "rui tu",
@@ -22,18 +21,17 @@ let person =
     }
 let people = [ ]
 
-for (let i = 0; i < 20; i++ ) {
-    people.push( person )
+for (let i = 0; i < 40; i++ ) {
+    let newPerson = Object.assign({}, person);
+    newPerson.groupNumber = getRandomArbitrary(-4, 18);
+    people.push( newPerson )
 }
 
 let groups = [ ]
-function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-for (let i = 0; i < 19; i++ ) {
-    groups.push( { groupNumber: 1, capacity: 8, members: people.slice(0, getRandomArbitrary(0, 10)) } )
-}
 
+for (let i = 0; i < 19; i++ ) {
+    groups.push( { groupNumber: i, capacity: 8, members: people.slice(0, getRandomArbitrary(0, 10)) } )
+}
 
 export class GroupsView extends React.Component {
     constructor(props) {
@@ -61,7 +59,7 @@ export class GroupsView extends React.Component {
         return (
             <div>
             <PeopleListSidebar people={ people } />
-                <div className="container">
+                <div className="" style = { { marginTop: "-9%" } }>
                     <Grid >
                         <Grid.Row>
                             <Grid.Column width={ peopleListWidth }>
