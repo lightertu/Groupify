@@ -17,7 +17,7 @@ class Person extends React.Component {
     render() {
         return (
             <List.Item>
-                <Image avatar src={ this.props.image }/>
+                <Image shape="rounded" avatar src={ this.props.image }/>
                 <List.Content>
                     <List.Header> { this.props.name } </List.Header>
                 </List.Content>
