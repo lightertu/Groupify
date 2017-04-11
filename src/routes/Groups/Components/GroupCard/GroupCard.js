@@ -2,7 +2,7 @@
  * Created by rui on 4/8/17.
  */
 import React from 'react'
-import {Icon, Card, Label, Segment, } from 'semantic-ui-react'
+import {Icon, Card, Label, Segment, Popup, Image } from 'semantic-ui-react'
 
 class GroupCard extends React.Component {
     constructor() {
@@ -41,7 +41,15 @@ class GroupCard extends React.Component {
 
                     {
                         this.props.members.map((member) =>
-                            <Card image = { member.image } />
+                        <Card>
+                            <Popup
+                                key={ member.name }
+                                trigger= { <Image src = { member.image } /> }
+                                header={ member.name }
+                                content={ "Good stuff" }
+                            >
+                            </Popup>
+                        </Card>
                         )
                     }
 

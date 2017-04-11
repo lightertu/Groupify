@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Label, Segment, Image, List } from 'semantic-ui-react'
+import { Label, Segment, Image, List, Icon } from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Drawer } from "material-ui"
 
@@ -22,8 +22,8 @@ class Person extends React.Component {
                     <List.Header> { this.props.name } </List.Header>
                 </List.Content>
                 <List.Content floated="right" verticalAlign="middle">
-                    <Label as='a' tag color={ (this.props.groupNumber > 0) ? "green" : "red" }>
-                        { (this.props.groupNumber > 0) ? this.props.groupNumber : "N"}
+                    <Label as='a' color={ (this.props.groupNumber > 0) ? "green" : "red" }>
+                      &nbsp;&nbsp; { (this.props.groupNumber > 0) ? <Icon name="users"/> : <Icon name="user"/> }
                     </Label>
                 </List.Content>
             </List.Item>

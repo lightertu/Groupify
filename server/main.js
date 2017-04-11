@@ -66,4 +66,4 @@ if (project.env === 'development') {
     app.use(express.static(project.paths.dist()))
 }
 
-module.exports = app
+module.exports = app;
