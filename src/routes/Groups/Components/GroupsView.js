@@ -15,7 +15,7 @@ function getRandomArbitrary(min, max) {
 }
 let person =
     {
-        name: "rui tu",
+        name: "yooo tu",
         image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
         groupNumber: -1
     }
@@ -26,6 +26,7 @@ for (let i = 0; i < 40; i++ ) {
     newPerson.groupNumber = getRandomArbitrary(-4, 18);
     people.push( newPerson )
 }
+
 
 let groups = [ ]
 
