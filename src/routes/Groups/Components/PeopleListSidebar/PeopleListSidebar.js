@@ -23,7 +23,7 @@ class Person extends React.Component {
                 </List.Content>
                 <List.Content floated="right" verticalAlign="middle">
                     <Label as='a' tag color={ (this.props.groupNumber > 0) ? "green" : "red" }>
-                        { (this.props.groupNumber > 0) ? this.props.groupNumber : "unassigned"}
+                        { (this.props.groupNumber > 0) ? this.props.groupNumber : "N"}
                     </Label>
                 </List.Content>
             </List.Item>
