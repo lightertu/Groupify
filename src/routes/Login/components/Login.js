@@ -3,7 +3,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 export const Login = (props) => (
     <div className="login-wrapper">
-        <div className="ui card login">
+        <div className="ui card">
             <div className="content">
                 <div className="header text-center">Login</div>
             </div>
