@@ -14,11 +14,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  // background-image: linear-gradient(
-  //     rgba(16, 167, 248, 0.35), 
-  //     rgba(16, 167, 248, 0.35)
-  //   ), url("sayagata-400px.png");
-  // background-repeat: repeat; 
+  background-image: linear-gradient(
+      rgba(16, 167, 248, 0.05), 
+      rgba(16, 167, 248, 0.05)
+    ), url("sayagata-400px.png");
+  background-repeat: repeat; 
 }
 
 *,
@@ -29,25 +29,24 @@ body {
 
 
 // start of welcome page styles
-.welcome-button-center {
-	
-}
-
-.welcome-button-left {
-	float: right;
-}
-
-.welcome-button-right {
-	float: left;
-}
-
 .welcome-header{
 	margin-top: 75px;
-	
+	font-size: 35px;
+	weight: bold;
+
+}
+.inner {
+	display: inline;
+	font-size: 55px;
+	weight: thin;
 }
 
 .row {
-	margin-top: 50px;
+	margin-top: 75px;
+}
+
+.basic:hover {
+	background: yellow;
 }
 
 // end of welcome page styles

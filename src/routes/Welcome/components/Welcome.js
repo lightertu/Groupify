@@ -4,35 +4,32 @@ import { Grid, Row, Col } from 'react-bootstrap';
 export const Welcome = (props) => (
     <div className="container text-center">
         <div className="welcome-header">
-            <h1 className="ui header">WELCOME <i>to Team Divider...</i></h1>
+            <span><h1 className="header">WELCOME<div className="inner"> <i>to</i>Team Divider...</div></h1></span>
         </div>
-        <p>If this is your first time start by building a form.</p>
+        <h2 className="sub-header">If this is your first time start by building a form.</h2>
         <br />
         <br />
-        <Row className="row">
-            <Col className="col1" md={4} >
+        <div className="row">
+        <div className="ui stackable two column centered grid">
+            <div className="column">
             <div className="welcome-button-left">
-            <button className="ui labeled icon button black basic button">
-                <i className="write icon"></i>
-                Create Form
+            <button className="massive ui labeled icon button black basic button ">
+                <i className="download icon"></i>
+                Generate Link
             </button>
             </div>
-            </Col>
-            <Col className="col2" md={4}>
-            <button className="ui labeled icon button black basic button">
-                <i className="send icon"></i>
-                Send Form&nbsp;&nbsp;&nbsp;&nbsp;
-            </button>
-            </Col>
-            <Col className="col3" md={4}>
+            </div>
+            <div className="column">
             <div className="welcome-button-right">
-            <button className="ui labeled icon button black basic button">
+            <button className="massive ui labeled icon button black basic button ">
                 <i className="users icon"></i>
-                Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </button>
             </div>
-            </Col>
-        </Row>
+            </div>
+        </div>
+        </div>
+
 
     </div>
 )
