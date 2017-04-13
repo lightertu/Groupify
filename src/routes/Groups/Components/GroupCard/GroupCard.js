@@ -2,12 +2,34 @@
  * Created by rui on 4/8/17.
  */
 import React from 'react'
-import {Icon, Card, Label, Segment, } from 'semantic-ui-react'
+import {Icon, Card, Label, Segment, Popup, Image } from 'semantic-ui-react'
 
 class GroupCard extends React.Component {
     constructor() {
         super();
         this.state = {activeItem: 'home'}
+    }
+
+    insertEmptySpots = ()  => {
+        let emptyNum = this.props.capacity - this.props.members.length;
+        let result = [ ];
+        for (let i = 0; i < emptyNum; i++) {
+            result.push(
+                <Card image="http://www.iconarchive.com/download/i93787/custom-icon-design/silky-line-user/user2-add.ico"/>
+            )
+        }
+        return result;
+    }
+
+
+    labelColor = () => {
+        if (this.props.members.length === this.props.capacity) {
+            return "green";
+        } else if (this.props.members.length > this.props.capacity) {
+            return "red";
+        } else {
+            return "grey";
+        }
     }
 
     render() {
@@ -16,13 +38,27 @@ class GroupCard extends React.Component {
             <Segment color='yellow' raised padded={ true } size="large">
                 <Label attached='top left'> Group { this.props.groupNumber }</Label>
                 <Card.Group itemsPerRow={ itemsInRow } stackable>
+
                     {
                         this.props.members.map((member) =>
-                            <Card image = { member.image } />
+                        <Card>
+                            <Popup
+                                key={ member.name }
+                                trigger= { <Image src = { member.image } /> }
+                                header={ member.name }
+                                content={ "Good stuff" }
+                            >
+                            </Popup>
+                        </Card>
                         )
                     }
+
+                    {
+                        this.insertEmptySpots()
+                    }
+
                 </Card.Group>
-                <Label attached="top right">
+                <Label color = {this.labelColor()} attached="top right">
                     <Icon name='user'/> { this.props.members.length}/{ this.props.capacity }
                     </Label>
             </Segment>
