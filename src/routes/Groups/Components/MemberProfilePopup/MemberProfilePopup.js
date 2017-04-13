@@ -2,7 +2,7 @@
  * Created by rui on 4/8/17.
  */
 import React from 'react'
-import {Icon, Item, Button, Header, Grid, Label } from 'semantic-ui-react'
+import {Icon, Item, Grid, Popup } from 'semantic-ui-react'
 
 class PopupContent extends React.Component {
     constructor() {
@@ -32,4 +32,31 @@ class PopupContent extends React.Component {
     }
 }
 
-export default PopupContent;
+
+class MemberProfilePopup extends React.Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    return (
+        <Popup
+          trigger={ this.props.trigger }
+          position={ this.props.position }
+          offset={ this.props.offset }
+          flowing
+          wide="very"
+        >
+          <PopupContent/>
+        </Popup>
+    )
+  }
+}
+
+MemberProfilePopup.propTypes = {
+    trigger: React.PropTypes.node.isRequired,
+    position: React.PropTypes.string.isRequired,
+    offset: React.PropTypes.number
+};
+
+export default MemberProfilePopup;

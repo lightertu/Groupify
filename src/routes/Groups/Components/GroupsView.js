@@ -79,11 +79,10 @@ export class GroupsView extends React.Component {
 }
 
 
-GroupsView.propTypes = {
-    /*
+GroupsView.propTypes = { /*
     people: React.PropTypes.array.isRequired,
     groups: React.PropTypes.array.isRequired
     */
-}
+};
 
 export default GroupsView
