@@ -6,9 +6,10 @@
  */
 
 import React from 'react'
-import { Label, Segment, Image, List, Icon, Popup } from 'semantic-ui-react'
+import { Segment, Image, List, Icon, Popup } from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Drawer } from "material-ui"
+import PopupContent from "../PopupContent/PopupContent";
 
 class Person extends React.Component {
     constructor(props) {
@@ -29,9 +30,12 @@ class Person extends React.Component {
               </List.Content>
             </List.Item>
           }
-          content='I am positioned to the top left'
           position='right center'
-        />
+          offset={ 20 }
+          flowing
+        >
+            <PopupContent/>
+        </Popup>
         )
     }
 }
@@ -53,10 +57,11 @@ class PeopleListSidebar extends React.Component {
                     docked={ true }
                     open={ true }
                     zDepth={ 1 }
+                    overlayStyle={ { zIndex: -1 } }
                 >
                     <div style = { peopleListStyle }>
                         <Segment basic>
-                            <List verticalAlign='middle' size="small" selection>
+                            <List verticalAlign='middle' size="small" selection animated>
                                 {
                                     this.props.people.map((personObj) => (
                                             <Person

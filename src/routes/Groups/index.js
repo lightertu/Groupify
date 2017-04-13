@@ -21,6 +21,6 @@ export default (store) => ({
             cb(null, Groups)
 
             /* Webpack named bundle   */
-        }, 'counter')
+        }, 'groups')
     }
 })
