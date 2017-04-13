@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Label, Segment, Image, List, Icon } from 'semantic-ui-react'
+import { Label, Segment, Image, List, Icon, Popup } from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Drawer } from "material-ui"
 
@@ -16,17 +16,22 @@ class Person extends React.Component {
     }
     render() {
         return (
+
+        <Popup
+          trigger={
             <List.Item>
-                <Image shape="rounded" avatar src={ this.props.image }/>
-                <List.Content>
-                    <List.Header> { this.props.name } </List.Header>
-                </List.Content>
-                <List.Content floated="right" verticalAlign="middle">
-                    <Label as='a' color={ (this.props.groupNumber > 0) ? "green" : "red" }>
-                      &nbsp;&nbsp; { (this.props.groupNumber > 0) ? <Icon name="users"/> : <Icon name="user"/> }
-                    </Label>
-                </List.Content>
+              <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
+              <List.Content>
+                <List.Header> { this.props.name } </List.Header>
+              </List.Content>
+              <List.Content floated="right" verticalAlign="middle" style= { {paddingTop: "5%"}}>
+                { (this.props.groupNumber > 0) ? <Icon name="check" color="green"/> : <div>&nbsp;</div>}
+              </List.Content>
             </List.Item>
+          }
+          content='I am positioned to the top left'
+          position='right center'
+        />
         )
     }
 }
@@ -51,7 +56,7 @@ class PeopleListSidebar extends React.Component {
                 >
                     <div style = { peopleListStyle }>
                         <Segment basic>
-                            <List animated verticalAlign='middle' size="small" selection>
+                            <List verticalAlign='middle' size="small" selection>
                                 {
                                     this.props.people.map((personObj) => (
                                             <Person
@@ -75,10 +80,10 @@ Person.propTypes = {
     groupNumber: React.PropTypes.number.isRequired,
     name: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired
-}
+};
 
 PeopleListSidebar.propTypes = {
     people: React.PropTypes.array.isRequired,
-}
+};
 
 export default PeopleListSidebar

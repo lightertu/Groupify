@@ -28,7 +28,7 @@ class GroupCard extends React.Component {
         } else if (this.props.members.length > this.props.capacity) {
             return "red";
         } else {
-            return "";
+            return "grey";
         }
     }
 
