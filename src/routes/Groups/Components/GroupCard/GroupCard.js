@@ -3,6 +3,7 @@
  */
 import React from 'react'
 import {Icon, Card, Label, Segment, Popup, Image } from 'semantic-ui-react'
+import PopupContent from "../PopupContent/PopupContent";
 
 class GroupCard extends React.Component {
     constructor() {
@@ -45,9 +46,9 @@ class GroupCard extends React.Component {
                             <Popup
                                 key={ member.name }
                                 trigger= { <Image src = { member.image } /> }
-                                header={ member.name }
-                                content={ "Good stuff" }
+                                flowing
                             >
+                                <PopupContent/>
                             </Popup>
                         </Card>
                         )
