@@ -9,7 +9,8 @@ import React from 'react'
 import { Segment, Image, List, Icon, Popup } from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Drawer } from "material-ui"
-import PopupContent from "../PopupContent/PopupContent";
+
+import MemberProfilePopup from "../MemberProfilePopup";
 
 class Person extends React.Component {
     constructor(props) {
@@ -17,25 +18,22 @@ class Person extends React.Component {
     }
     render() {
         return (
-
-        <Popup
-          trigger={
-            <List.Item>
-              <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
-              <List.Content>
-                <List.Header> { this.props.name } </List.Header>
-              </List.Content>
-              <List.Content floated="right" verticalAlign="middle" style= { {paddingTop: "5%"}}>
-                { (this.props.groupNumber > 0) ? <Icon name="check" color="green"/> : <div>&nbsp;</div>}
-              </List.Content>
-            </List.Item>
-          }
-          position='right center'
+        <MemberProfilePopup
+          position="right center"
           offset={ 20 }
-          flowing
-        >
-            <PopupContent/>
-        </Popup>
+          hoverable
+          trigger={
+              <List.Item>
+                  <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
+                  <List.Content>
+                      <List.Header> { this.props.name } </List.Header>
+                  </List.Content>
+                  <List.Content floated="right" verticalAlign="middle" style= { {paddingTop: "5%"}}>
+                    { (this.props.groupNumber > 0) ? <Icon name="check" color="green"/> : <div>&nbsp;</div>}
+                  </List.Content>
+              </List.Item>
+          }
+         />
         )
     }
 }
@@ -62,16 +60,15 @@ class PeopleListSidebar extends React.Component {
                     <div style = { peopleListStyle }>
                         <Segment basic>
                             <List verticalAlign='middle' size="small" selection animated>
-                                {
-                                    this.props.people.map((personObj) => (
-                                            <Person
-                                                name = { personObj.name }
-                                                groupNumber = { personObj.groupNumber }
-                                                image = { personObj.image }
-                                            />
-                                        )
-                                    )
-                                }
+                            {
+                                this.props.people.map((personObj) => (
+                                    <Person
+                                        name = { personObj.name }
+                                        groupNumber = { personObj.groupNumber }
+                                        image = { personObj.image }
+                                    />
+                                ))
+                            }
                             </List>
                         </Segment>
                     </div>
