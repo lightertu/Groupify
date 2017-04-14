@@ -14,13 +14,6 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-	/*
-  background-image: linear-gradient(
-      rgba(16, 167, 248, 0.05), 
-      rgba(16, 167, 248, 0.05)
-    ), url("sayagata-400px.png");
-  background-repeat: repeat;
-  */
 	background-color: #E9EBEE;
 }
 
@@ -42,6 +35,7 @@ body {
 	display: inline;
 	font-size: 55px;
 	weight: thin;
+	text-decoration: underline;
 }
 
 .row {
@@ -96,3 +90,60 @@ body {
   transition: opacity 300ms ease-in;
 }
 // end of transition styles
+
+// card styles
+.card {
+	min-width: 200px;
+	width: 100%;
+	border: 1px solid #d3d3d3;
+	border-radius: 1px;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.25);
+	padding: 20px;
+	margin-bottom: 10px;
+	display: block;
+	text-decoration: none;
+	color: black;
+	text-align: left;
+}
+
+.card:hover {
+	// color: black;
+	// text-decoration: none;
+	// background-color: #E8E8EE;
+	/*border: none;*/
+}
+
+
+.cardWrapper:hover {
+	cursor: hand;
+	opacity: .9;
+}
+
+.prev-form {
+	height: 400px;
+}
+
+.plus {
+	background-color: white;
+	float: right;
+}
+
+.plus:active {
+	border: none;
+	background: white;
+	 outline: none;
+	box-shadow: none;
+}
+
+.glyphicon-plus {
+	color: green;
+	float: right;
+}
+.glyphicon-plus:active{
+	color: grey;
+}
+
+
+.glyphicon-plus:active{
+	color: grey;
+}

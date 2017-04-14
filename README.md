@@ -148,3 +148,14 @@ boilerplate.
 Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.com/package/babel-plugin-transform-runtime) 
 so transforms aren't inlined. In production, webpack will extract styles to a `.css` file, minify your JavaScript, 
 and perform additional optimizations such as module deduplication.
+
+
+###To Do
+
+###Week 2
+
+Goal: Finish UI. Focus on creating flexible React components. 
+
+1) Change login page to popup on welcome page
+2) Create a preview survey popup underneath welcome
+3) Create survey page
