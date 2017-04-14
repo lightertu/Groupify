@@ -2,37 +2,19 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import { Grid } from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 
 import PeopleListSidebar from "./PeopleListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
-
-// test
-function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-let person =
-    {
-        name: "yooo tu",
-        image: "http://react.semantic-ui.com/assets/images/avatar/small/joe.jpg",
-        groupNumber: -1
-    }
-let people = [ ]
-
-for (let i = 0; i < 40; i++ ) {
-    let newPerson = Object.assign({}, person);
-    newPerson.groupNumber = getRandomArbitrary(-4, 18);
-    people.push( newPerson )
-}
+import generateUsers from "../modules/UserGenerator";
 
 
-let groups = [ ]
+let numOfPeople = 60,
+    numOfGroups = 10;
 
-for (let i = 0; i < 19; i++ ) {
-    groups.push( { groupNumber: i, capacity: 8, members: people.slice(0, getRandomArbitrary(0, 10)) } )
-}
+let fakeUsers = generateUsers(numOfGroups, numOfPeople);
 
 export class GroupsView extends React.Component {
     constructor(props) {
@@ -43,31 +25,54 @@ export class GroupsView extends React.Component {
         const peopleListWidth = 4;
         const groupCardsWidth = 12;
 
-        let getGroups = (groups) => {
+        let separateIntoGroups = () => {
+            let groups = [];
+            for (let i = 0; i < numOfGroups; i++) {
+                let newGroup = {};
+                newGroup.capacity = Math.round(numOfPeople / numOfGroups);
+                newGroup.groupNumber = i;
+                newGroup.members = [];
+                groups.push(newGroup);
+            }
+
+            for (let i = 0; i < numOfPeople; i++) {
+                if (fakeUsers[i].groupNumber >= 0 && fakeUsers[i].groupNumber < numOfPeople) {
+                    groups[fakeUsers[i].groupNumber].members.push(fakeUsers[i]);
+                } else if (fakeUsers[i].groupNumber >= numOfPeople) {
+                    alert("user " + fakeUsers[i].name + "has group number: " + fakeUsers[i].groupNumber + " which is out of bound " );
+                }
+            }
+
+            console.log(groups);
+            return groups;
+        };
+
+        let getGroupCards = (groups) => {
             return (
                 groups.map(
                     (group) => (
-                        <Grid.Column>
-                        <GroupCard members={ group.members }
-                           capacity= { group.capacity }
-                           groupNumber= { group.groupNumber}/>
+                        <Grid.Column stretched>
+                            <GroupCard members={ group.members }
+                                       capacity={ group.capacity }
+                                       groupNumber={ group.groupNumber}
+                                       itemsPerRow= { 10 } />
                         </Grid.Column>
                     )
                 )
             )
-        }
+        };
 
         return (
             <div>
-            <PeopleListSidebar people={ people } />
-                <div className="" style = { { marginTop: "-9%", marginLeft: "5%"} }>
+                <PeopleListSidebar people={ fakeUsers }/>
+                <div className="" style={ {marginTop: "-6%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
                             <Grid.Column width={ peopleListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
-                                <Grid columns={ 2 }>
-                                    { getGroups(groups) }
+                                <Grid columns={ 1 }>
+                                    { getGroupCards(separateIntoGroups()) }
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
@@ -76,14 +81,6 @@ export class GroupsView extends React.Component {
             </div>
         )
     }
-}
-
-
-GroupsView.propTypes = {
-    /*
-    people: React.PropTypes.array.isRequired,
-    groups: React.PropTypes.array.isRequired
-    */
 }
 
 export default GroupsView

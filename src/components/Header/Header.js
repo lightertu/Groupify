@@ -15,18 +15,18 @@ class Header extends React.Component {
 
     render() {
         const {activeItem} = this.state;
-
         return (
-            <Sticky enabled = { true } innerZ={ 1000000 }>
-                <Menu size='small' attached="top">
-                     <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}/>
+                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "4%", zIndex: 1500 }} >
+                     <Menu.Item name='Groupify'
+                                active={activeItem === 'Groupify'}
+                                onClick={this.handleItemClick}
+                     />
                      <Menu.Menu position='right'>
                          <Menu.Item>
                              <Button primary>Sign Up</Button>
                          </Menu.Item>
                      </Menu.Menu>
                 </Menu>
-            </Sticky>
         )
     }
 }
