@@ -99,7 +99,6 @@
     "node-sass": "^4.5.2",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.1.0",
-    "prop-types": "^15.5.8",
     "react": "^15.4.2",
     "react-bootstrap": "^0.30.8",
     "react-dom": "^15.4.2",
