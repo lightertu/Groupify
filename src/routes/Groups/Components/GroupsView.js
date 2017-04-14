@@ -65,7 +65,7 @@ export class GroupsView extends React.Component {
         return (
             <div>
                 <PeopleListSidebar people={ fakeUsers }/>
-                <div className="" style={ {marginTop: "-6%", marginLeft: "5%"} }>
+                <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
                             <Grid.Column width={ peopleListWidth }>

@@ -1,7 +1,5 @@
 import React from 'react'
-import {IndexLink, Link} from 'react-router'
-import {Button, Menu, Input, Select, Icon} from 'semantic-ui-react'
-import Sticky from 'react-stickynode'
+import {Button, Menu } from 'semantic-ui-react'
 
 import './Header.scss'
 
@@ -16,7 +14,7 @@ class Header extends React.Component {
     render() {
         const {activeItem} = this.state;
         return (
-                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "4%", zIndex: 1500 }} >
+                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "6%", zIndex: 1500 }} >
                      <Menu.Item name='Groupify'
                                 active={activeItem === 'Groupify'}
                                 onClick={this.handleItemClick}
