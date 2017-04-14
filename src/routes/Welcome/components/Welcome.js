@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
+import CreateForm from './CreateForm'
 import { Button } from 'semantic-ui-react'
 
 class Welcome extends Component {
@@ -9,7 +10,7 @@ class Welcome extends Component {
     render() {
         const { visible } = this.state
         console.log(visible);
-        let link;
+        let link =(<div><p>&nbsp;</p></div>)
         let loading;
         if(visible) {
             link = <div className="link" key="visible"><p><strong> Copy Link:</strong>  <span className="line">OIGY*R^F*&TOYqipuehp9h&GO^GI%FI%FO&%</span></p></div>
@@ -18,7 +19,7 @@ class Welcome extends Component {
         return (
             <div className="container text-center">
         <div className="welcome-header">
-            <span><h1 className="header">WELCOME<div className="inner"> <i>to</i>Team Divider...</div></h1></span>
+            <span><h1 className="header">WELCOME <div className="inner"><i>to</i>Team Divider...</div></h1></span>
         </div>
         <h2 className="sub-header"><i>If this is your first time start by building a form.</i></h2>
         <br />
@@ -42,7 +43,6 @@ class Welcome extends Component {
             </div>
             </div>
         </div>
-        </div>
         <br />
         <br />
         <CSSTransitionGroup
@@ -51,6 +51,16 @@ class Welcome extends Component {
             transitionLeaveTimeout={300}>
             {link}
         </CSSTransitionGroup>
+        </div>
+        <div className="row">
+        <div className="row ui stackable two column centered grid">
+        <div className="column">
+        <div className="huge ui header">Form Preview</div>
+        <CreateForm />
+        </div>
+ 
+        </div>
+        </div>
     </div>
         )
     }
