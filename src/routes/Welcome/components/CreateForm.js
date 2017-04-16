@@ -22,20 +22,31 @@ class CreateForm extends React.Component {
         const styles = {
           allowAdditions: 'true',
         };
-        const countryOptions = [ { key: 1, value: 'Hadoop', text: 'Hadoop' },
-        { key: 2, value: 'Python', text: 'Python' },
-        { key: 3, value: 'Java', text: 'Java' },
-        { key: 4, value: 'JavaScript', text: 'JavaScript' },
-        { key: 5, value: 'C', text: 'C' },
-        { key: 6, value: 'C++', text: 'C++' },
-        { key: 7, value: 'Bash', text: 'Bash' },
-        { key: 8, value: 'PHP', text: 'PHP' },
-        { key: 9, value: 'Ruby', text: 'Ruby' },
-        { key: 10, value: 'Git', text: 'Git' },
-        { key: 11, value: 'React', text: 'React' },
-        { key: 12, value: 'Flask', text: 'Flask' },
-        { key: 13, value: 'Nodejs', text: 'NodeJS' },
-        { key: 14, value: 'Earlang', text: 'Earlang' },
+        const LanguageOptions = [ 
+          { key: 1, value: 'Hadoop', text: 'Hadoop' },
+          { key: 2, value: 'Python', text: 'Python' },
+          { key: 3, value: 'Java', text: 'Java' },
+          { key: 4, value: 'JavaScript', text: 'JavaScript' },
+          { key: 5, value: 'C', text: 'C' },
+          { key: 6, value: 'C++', text: 'C++' },
+          { key: 7, value: 'Bash', text: 'Bash' },
+          { key: 8, value: 'PHP', text: 'PHP' },
+          { key: 9, value: 'Ruby', text: 'Ruby' },
+          { key: 10, value: 'Git', text: 'Git' },
+          { key: 11, value: 'React', text: 'React' },
+          { key: 12, value: 'Flask', text: 'Flask' },
+          { key: 13, value: 'Nodejs', text: 'NodeJS' },
+          { key: 14, value: 'Earlang', text: 'Earlang' },
+        ]
+
+        const DayOptions = [ 
+          { key: 1, value: 'M', text: 'monday'},
+          { key: 2, value: 'T', text: 'tuesday'},
+          { key: 3, value: 'W', text: 'wednesday'},
+          { key: 4, value: 'TH', text: 'thursday'},
+          { key: 5, value: 'F', text: 'friday'},
+          { key: 6, value: 'S', text: 'saturday'},
+          { key: 7, value: 'SU', text: 'sunday'}
         ]
 
         let form;
@@ -59,18 +70,17 @@ class CreateForm extends React.Component {
                           </div>
                           <div className="field">
                             <label>Meeting Times</label>
-                            <select className="ui fluid search dropdown" multiple="">
-                              <option value="">M</option>
-                              <option value="T">T</option>
-                              <option value="W">W</option>
-                              <option value="T">T</option>
-                              <option value="F">F</option>
-                              <option value="S">S</option>
-                            </select>
+                            <Dropdown 
+                              allowAdditions={true} 
+                              fluid multiple selection 
+                              options={DayOptions}/>
                           </div>
                           <div className="field">
                             <label>Languages</label>
-                            <Dropdown allowAdditions={true} fluid multiple search selection options={countryOptions}/>
+                            <Dropdown 
+                              allowAdditions={true} 
+                              fluid multiple search selection 
+                              options={LanguageOptions}/>
                         </div>
                         <div className="field">
                           <label>Requests</label>
