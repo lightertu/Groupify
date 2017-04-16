@@ -4,88 +4,92 @@ import { FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap'
 class CreateForm extends React.Component {
     constructor() {
         super();
-        this.state = {value:""}
     }
 
-    getValidationState() {
-    const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-  }
+    toggleVisibility() {
+      this.props.toggleVisibility();
+    }
 
-  handleChange(e) {
-    this.setState({ value: e.target.value });
-  }
 
     render() {
-        
+        const linkStyles = {
+            color: 'black',
+            };
+        let form;
+        if(this.props.active) {
+          form = (<div className="card big">
+                    <div className="ui card">
+                      <div className="header">Preview Survey</div>
+                        <div className="content">
+                          <form className="ui form">
+                            <div className="field">
+                            <label>First Name</label>
+                            <input type="text" name="first-name" placeholder="First Name"/>
+                          </div>
+                          <div className="field">
+                            <label>Last Name</label>
+                            <input type="text" name="last-name" placeholder="Last Name"/>
+                          </div>
+                           <div className="field">
+                            <label>Email</label>
+                            <input type="text" name="email" placeholder="Email"/>
+                          </div>
+                          <div className="field">
+                            <label>Meeting Times</label>
+                            <select className="ui inline dropdown" multiple="">
+                              <option value="">M</option>
+                              <option value="T">T</option>
+                              <option value="W">W</option>
+                              <option value="T">T</option>
+                              <option value="F">F</option>
+                              <option value="S">S</option>
+                            </select>
+                          </div>
+                          <div className="field">
+                            <label>Languages</label>
+                            <select className="ui fluid search dropdown" maxSelections="" multiple="">
+                              <option value="">Hadoop</option>
+                              <option value="AL">Python</option>
+                              <option value="AK">Java</option>
+                              <option value="AZ">JavaScript</option>
+                              <option value="AR">C</option>
+                              <option value="CA">C++</option>
+                              <option value="CO">Bash</option>
+                              <option value="CT">PHP</option>
+                              <option value="DE">Ruby</option>
+                              <option value="DC">Git</option>
+                              <option value="FL">React</option>
+                              <option value="GA">Flask</option>
+                              <option value="HI">NodeJS</option>
+                              <option value="ID">Bash</option>
+                              <option value="IL">Earlang</option>
+                            </select>
+                        </div>
+                        <div className="field">
+                          <label>Requests</label>
+                          <textarea rows="2"></textarea>
+               
+                        </div>
+                        </form>
+                        <div className="extra content">
+                          <div className="link" key="visible">
+                            <p><strong> Copy Link:</strong> </p> 
+                            <span className={"line " + linkStyles}>OIGY*R^F*&og787TOYq%FI%FO&%</span>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  </div>
+                  )
+        }
         return (
-            <div className="card prev-form">
-                <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>First Name</ControlLabel>
-          <FormGroup controlId="formInlineName">
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <button type="button" className="btn plus navbar-btn">
-        <span className="glyphicon glyphicon-plus"></span>
-        </button>
-        </FormGroup>
-        
-          <br />
-           <ControlLabel>Second Name</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <br />
-           <ControlLabel>Email</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <br />
-          <ControlLabel>Language Proficiency</ControlLabel>
-          <FormGroup validationState="">
-              <Checkbox inline>
-                Checkbox
-              </Checkbox>
-              {' '}
-              <Checkbox inline>
-                with
-              </Checkbox>
-              {' '}
-              <Checkbox inline>
-                success
-              </Checkbox>
-            </FormGroup>
-        </FormGroup>
-        <br />
-        <button type="button" className="btn plus">
-        <span className="glyphicon glyphicon-plus"></span>
-        </button>
-      </form>
+          <div>
+            {form}
+            <div className="overlay" onClick={this.toggleVisibility.bind(this)}>
             </div>
+          </div>
         )   
     }
 }
-
-// GroupCard.propTypes = {
-//     members: React.PropTypes.array.isRequired,
-//     capacity: React.PropTypes.number.isRequired,
-//     groupNumber: React.PropTypes.number.isRequired
-// }
 
 export default CreateForm;
