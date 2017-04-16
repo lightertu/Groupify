@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
+import {Dropdown} from 'semantic-ui-react'
 
 class CreateForm extends React.Component {
     constructor() {
@@ -10,11 +10,34 @@ class CreateForm extends React.Component {
       this.props.toggleVisibility();
     }
 
+    componentDidMount() {
+      $('.ui.fluid.search.dropdown').dropdown();
+    }
 
     render() {
         const linkStyles = {
             color: 'black',
             };
+
+        const styles = {
+          allowAdditions: 'true',
+        };
+        const countryOptions = [ { key: 1, value: 'Hadoop', text: 'Hadoop' },
+        { key: 2, value: 'Python', text: 'Python' },
+        { key: 3, value: 'Java', text: 'Java' },
+        { key: 4, value: 'JavaScript', text: 'JavaScript' },
+        { key: 5, value: 'C', text: 'C' },
+        { key: 6, value: 'C++', text: 'C++' },
+        { key: 7, value: 'Bash', text: 'Bash' },
+        { key: 8, value: 'PHP', text: 'PHP' },
+        { key: 9, value: 'Ruby', text: 'Ruby' },
+        { key: 10, value: 'Git', text: 'Git' },
+        { key: 11, value: 'React', text: 'React' },
+        { key: 12, value: 'Flask', text: 'Flask' },
+        { key: 13, value: 'Nodejs', text: 'NodeJS' },
+        { key: 14, value: 'Earlang', text: 'Earlang' },
+        ]
+
         let form;
         if(this.props.active) {
           form = (<div className="card big">
@@ -36,7 +59,7 @@ class CreateForm extends React.Component {
                           </div>
                           <div className="field">
                             <label>Meeting Times</label>
-                            <select className="ui inline dropdown" multiple="">
+                            <select className="ui fluid search dropdown" multiple="">
                               <option value="">M</option>
                               <option value="T">T</option>
                               <option value="W">W</option>
@@ -47,23 +70,7 @@ class CreateForm extends React.Component {
                           </div>
                           <div className="field">
                             <label>Languages</label>
-                            <select className="ui fluid search dropdown" maxSelections="" multiple="">
-                              <option value="">Hadoop</option>
-                              <option value="AL">Python</option>
-                              <option value="AK">Java</option>
-                              <option value="AZ">JavaScript</option>
-                              <option value="AR">C</option>
-                              <option value="CA">C++</option>
-                              <option value="CO">Bash</option>
-                              <option value="CT">PHP</option>
-                              <option value="DE">Ruby</option>
-                              <option value="DC">Git</option>
-                              <option value="FL">React</option>
-                              <option value="GA">Flask</option>
-                              <option value="HI">NodeJS</option>
-                              <option value="ID">Bash</option>
-                              <option value="IL">Earlang</option>
-                            </select>
+                            <Dropdown allowAdditions={true} fluid multiple search selection options={countryOptions}/>
                         </div>
                         <div className="field">
                           <label>Requests</label>
