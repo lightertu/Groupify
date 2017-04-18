@@ -4,21 +4,23 @@ import {browserHistory} from 'react-router'
 import makeRootReducer from './reducers'
 import {updateLocation} from './location'
 
+import generateUsers from "../routes/Groups/modules/UserGenerator"
+
 export default (initialState = {}) => {
     // ======================================================
     // Middleware Configuration
     // ======================================================
-    const middleware = [thunk]
+    const middleware = [thunk];
 
     // ======================================================
     // Store Enhancers
     // ======================================================
-    const enhancers = []
+    const enhancers = [];
 
-    let composeEnhancers = compose
+    let composeEnhancers = compose;
 
     if (__DEV__) {
-        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
         if (typeof composeWithDevToolsExtension === 'function') {
             composeEnhancers = composeWithDevToolsExtension
         }
@@ -34,15 +36,17 @@ export default (initialState = {}) => {
             applyMiddleware(...middleware),
             ...enhancers
         )
-    )
-    store.asyncReducers = {}
+    );
+
+    store.asyncReducers = {};
+    store.participants = generateUsers(10, 60);
 
     // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-    store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
+    store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
-            const reducers = require('./reducers').default
+            const reducers = require('./reducers').default;
             store.replaceReducer(reducers(store.asyncReducers))
         })
     }

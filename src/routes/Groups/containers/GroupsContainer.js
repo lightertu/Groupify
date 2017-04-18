@@ -14,11 +14,12 @@ import GroupsView from '../components/GroupsView'
 const mapDispatchToProps = (dispatch) => {
     // TODO: dispatch functions
     return { something: 1 };
-}
+};
 
 const mapStateToProps = (state) => ({
-    counter: state.counter
-})
+    participants: state.participants
+});
+
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsView)
