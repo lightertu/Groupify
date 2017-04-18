@@ -10,7 +10,16 @@ import {Segment, Image, List, Icon, Button, Header} from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 import MemberProfilePopup from "../MemberProfilePopup";
+
+const sidebarSource = {
+    beginDrag(props) {
+        return { };
+    }
+};
 
 class Person extends React.Component {
     constructor(props) {
@@ -130,4 +139,4 @@ PeopleListSidebar.propTypes = {
     people: PropTypes.array.isRequired
 };
 
-export default PeopleListSidebar
+export default DragDropContext(HTML5Backend)(PeopleListSidebar)
