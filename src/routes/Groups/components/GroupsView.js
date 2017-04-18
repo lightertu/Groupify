@@ -12,19 +12,14 @@ import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
 import generateUsers from "../modules/UserGenerator";
 
-
 let numOfPeople = 60,
     numOfGroups = 10;
 
 let fakeUsers = generateUsers(numOfGroups, numOfPeople);
 
 export class GroupsView extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
-        const peopleListWidth = 4;
+        const participantsListWidth = 4;
         const groupCardsWidth = 12;
 
         let separateIntoGroups = () => {
@@ -65,11 +60,11 @@ export class GroupsView extends React.Component {
 
         return (
             <div>
-                <ParticipantListSidebar people={ fakeUsers }/>
+                <ParticipantListSidebar participants={ fakeUsers }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
-                            <Grid.Column width={ peopleListWidth }>
+                            <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
                                 <Grid columns={ 1 }>

@@ -22,6 +22,12 @@ const participantSidebarItemSource = {
     isDragging: monitor.isDragging(),
 }))
 class DraggableParticipantListItem extends React.Component {
+
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+    };
+
     render() {
 
         const {image, name, connectDragSource, isDragging} = this.props;
@@ -38,9 +44,13 @@ class DraggableParticipantListItem extends React.Component {
 }
 
 class Participant extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        groupNumber: PropTypes.number.isRequired,
+        availability: PropTypes.array.isRequired,
+        skills: PropTypes.array.isRequired,
+    };
 
     render() {
         const draggableParticipantListItem = (
@@ -67,7 +77,7 @@ class Participant extends React.Component {
     }
 }
 
-const peopleListStyle = {
+const participantsListStyle = {
     paddingTop: "23%"
 };
 
@@ -87,9 +97,9 @@ function collectDrop(connect, monitor) {
 
 @DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantSidebarTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
-    constructor(props) {
-        super(props)
-    }
+    static propTypes = {
+        participants: PropTypes.array.isRequired,
+    };
 
     render() {
         const {connectDropTarget, isOver} = this.props;
@@ -141,11 +151,11 @@ class ParticipantListSidebar extends React.Component {
                         zDepth={ 1 }
                         containerStyle={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }
                     >
-                        <div style={ peopleListStyle }>
+                        <div style={ participantsListStyle }>
                             <Segment basic>
                                 {
-                                    (getUngroupedNumber(this.props.people)) ?
-                                        generateSidebarList(this.props.people) :
+                                    (getUngroupedNumber(this.props.participants)) ?
+                                        generateSidebarList(this.props.participants) :
                                         generateEmailButton()
                                 }
                             </Segment>
@@ -156,18 +166,5 @@ class ParticipantListSidebar extends React.Component {
         )
     }
 }
-
-Participant.propTypes = {
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    groupNumber: PropTypes.number.isRequired,
-    availability: PropTypes.array.isRequired,
-    skills: PropTypes.array.isRequired,
-};
-
-ParticipantListSidebar.propTypes = {
-    people: PropTypes.array.isRequired,
-    isOver: PropTypes.bool.isRequired
-};
 
 export default ParticipantListSidebar;

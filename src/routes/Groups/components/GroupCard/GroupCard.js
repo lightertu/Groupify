@@ -21,9 +21,9 @@ const participantCardItemSource = {
     isDragging: monitor.isDragging()
 }))
 class DraggableCard extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    static propTypes = {
+        participant: PropTypes.object.isRequired
+    };
 
     render() {
         const {connectDragSource, isDragging, participant} = this.props;
@@ -51,19 +51,19 @@ const participantTarget = {
     }
 };
 
-function collectDrop(connect, monitor) {
-    return {
+@DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT],
+    participantTarget, (connect, monitor) => ({
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver()
-    }
-}
-
-@DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT], participantTarget, collectDrop)
+    })
+)
 class GroupCard extends React.Component {
-    constructor() {
-        super();
-        this.state = {activeItem: 'home'}
-    }
+    static propTypes = {
+        participants: PropTypes.array.isRequired,
+        capacity: PropTypes.number.isRequired,
+        groupNumber: PropTypes.number.isRequired,
+        itemsPerRow: PropTypes.number.isRequired
+    };
 
     render() {
         const { connectDropTarget, isOver } = this.props;
@@ -110,16 +110,5 @@ class GroupCard extends React.Component {
         )
     }
 }
-
-DraggableCard.propTypes = {
-    participant: PropTypes.object.isRequired
-};
-
-GroupCard.propTypes = {
-    participants: PropTypes.array.isRequired,
-    capacity: PropTypes.number.isRequired,
-    groupNumber: PropTypes.number.isRequired,
-    itemsPerRow: PropTypes.number.isRequired
-};
 
 export default GroupCard;
