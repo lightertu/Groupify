@@ -5,12 +5,24 @@ const webpack = require('webpack')
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
+var mongoose = require('mongoose');
+
+var dbUrl = 'mongodb://localhost/team-divider'
+mongoose.connect(dbUrl, function(err, res){
+  if(err){
+    console.log("DB CONNECTION FAILED: "+err)
+  } else {
+    console.log("DB CONNECTION SUCCES")
+  }
+})
+
+var api = require('./routes/api');
 
 const app = express()
 
 // Apply gzip compression
 app.use(compress())
-
+app.use('/api', api);
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
