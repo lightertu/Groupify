@@ -33,13 +33,13 @@ export class GroupsView extends React.Component {
                 let newGroup = {};
                 newGroup.capacity = Math.round(numOfPeople / numOfGroups);
                 newGroup.groupNumber = i;
-                newGroup.members = [];
+                newGroup.participants = [];
                 groups.push(newGroup);
             }
 
             for (let i = 0; i < numOfPeople; i++) {
                 if (fakeUsers[i].groupNumber >= 0 && fakeUsers[i].groupNumber < numOfPeople) {
-                    groups[fakeUsers[i].groupNumber].members.push(fakeUsers[i]);
+                    groups[fakeUsers[i].groupNumber].participants.push(fakeUsers[i]);
                 } else if (fakeUsers[i].groupNumber >= numOfPeople) {
                     alert("user " + fakeUsers[i].name + "has group number: " + fakeUsers[i].groupNumber + " which is out of bound " );
                 }
@@ -53,7 +53,7 @@ export class GroupsView extends React.Component {
                 groups.map(
                     (group) => (
                         <Grid.Column stretched>
-                            <GroupCard members={ group.members }
+                            <GroupCard participants={ group.participants }
                                        capacity={ group.capacity }
                                        groupNumber={ group.groupNumber}
                                        itemsPerRow= { 10 } />

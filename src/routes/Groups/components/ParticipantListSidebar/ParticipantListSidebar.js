@@ -10,15 +10,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
 import {DragSource} from 'react-dnd';
-import {findDOMNode} from 'react-dom';
-
 
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
 const participantSource = {
     beginDrag(props) {
-        return {participantId: props.id};
+        return { participantId: props.id };
     }
 };
 
