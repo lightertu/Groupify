@@ -5,7 +5,7 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import {Segment, Image, List, Icon, Button, Header, Card} from 'semantic-ui-react'
+import {Segment, Image, List, Icon, Button, Header, Card, Popup} from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
@@ -31,18 +31,14 @@ function collect(connect, monitor) {
 
 @DragSource(ParticipantTypes.PARTICIPANT, participantSource, collect)
 class DraggableParticipantListItem extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
-        const {connectDragSource, isDragging} = this.props;
+        const {image, name, connectDragSource, isDragging} = this.props;
 
         return connectDragSource(
-            <div className="item">
-                <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
+            <div className="item" {...this.props } style = { { visibility: isDragging ? "hidden": "visible"} }>
+                <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
-                    <List.Header> { this.props.name } </List.Header>
+                    <List.Header> { name } </List.Header>
                 </List.Content>
             </div>
         )
@@ -59,8 +55,7 @@ class Participant extends React.Component {
             <DraggableParticipantListItem
                 name={ this.props.name }
                 image={ this.props.image }
-            >
-            </DraggableParticipantListItem>
+            />
         );
         return (
             <ParticipantProfilePopup
@@ -73,9 +68,21 @@ class Participant extends React.Component {
                 offset={ 20 }
                 hoverable
                 trigger={
-                    draggableParticipantListItem
+                     draggableParticipantListItem
                 }
             />
+            /*
+             <Popup
+             trigger={ draggableParticipantListItem }
+             position={ this.props.position }
+             offset={ this.props.offset }
+             flowing
+             hoverable
+             style={ {padding: 0} }
+             >
+             something
+             </Popup>
+             */
         )
     }
 }
