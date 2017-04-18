@@ -13,22 +13,16 @@ import PropTypes from "prop-types"
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import MemberProfilePopup from "../MemberProfilePopup";
+import ParticipantProfilePopup from "../ParticipantProfilePopup";
 
-const sidebarSource = {
-    beginDrag(props) {
-        return { };
-    }
-};
-
-class Person extends React.Component {
+class Participant extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
         return (
-            <MemberProfilePopup
+            <ParticipantProfilePopup
                 name={ this.props.name }
                 image={ this.props.image }
                 groupNumber={ this.props.groupNumber }
@@ -57,7 +51,7 @@ const peopleListStyle = {
     paddingTop: "23%"
 };
 
-class PeopleListSidebar extends React.Component {
+class ParticipantListSidebar extends React.Component {
     constructor(props) {
         super(props)
     }
@@ -78,7 +72,7 @@ class PeopleListSidebar extends React.Component {
                     ))
 
                     .map((personObj) => (
-                        <Person
+                        <Participant
                             name={ personObj.name }
                             image={ personObj.image }
                             groupNumber={ personObj.groupNumber }
@@ -90,7 +84,7 @@ class PeopleListSidebar extends React.Component {
             </List>
         );
 
-        let generateEmailButtom = () => (
+        let generateEmailButton = () => (
             <div style={ {paddingTop: "200%", textAlign: "center"} }>
                 <Header as='h2'>
                     All Grouped!
@@ -115,7 +109,7 @@ class PeopleListSidebar extends React.Component {
                             {
                                 (getUngroupedNumber(this.props.people)) ?
                                     generateSidebarList(this.props.people) :
-                                    generateEmailButtom()
+                                    generateEmailButton()
                             }
                         </Segment>
                     </div>
@@ -127,7 +121,7 @@ class PeopleListSidebar extends React.Component {
 
 /*
  */
-Person.propTypes = {
+Participant.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     groupNumber: PropTypes.number.isRequired,
@@ -135,8 +129,8 @@ Person.propTypes = {
     skills: PropTypes.array.isRequired,
 };
 
-PeopleListSidebar.propTypes = {
+ParticipantListSidebar.propTypes = {
     people: PropTypes.array.isRequired
 };
 
-export default DragDropContext(HTML5Backend)(PeopleListSidebar)
+export default ParticipantListSidebar;
