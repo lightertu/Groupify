@@ -1,6 +1,6 @@
 import React from 'react'
 import MenuSideBar from './MenuSideBar';
-import View from './Content';
+import View from './View';
 
 class Dashboard extends React.Component {
     constructor() {
