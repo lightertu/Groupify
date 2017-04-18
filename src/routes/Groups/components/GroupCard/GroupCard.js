@@ -4,7 +4,47 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Icon, Card, Label, Segment, Image } from 'semantic-ui-react'
-import MemberProfilePopup from "../ParticipantProfilePopup";
+import ParticipantProfilePopup from "../ParticipantProfilePopup";
+import {DragSource} from 'react-dnd';
+
+import {ParticipantTypes} from "../../constants/ParticipantTypes"
+
+const participantSource = {
+    beginDrag(props) {
+        return { participantId: props.id };
+    }
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
+@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collect)
+class DraggableCard extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const {connectDragSource, isDragging, participant} = this.props;
+        return connectDragSource(
+            <div className="card" style = { { visibility: isDragging ? "hidden": "visible"} }>
+                <ParticipantProfilePopup trigger = { <Image src= { participant.image } /> }
+                                         position ="top right"
+                                         offset = { 0 }
+                                         name = { participant.name }
+                                         image = { participant.image }
+                                         groupNumber = {participant.groupNumber }
+                                         skills = { participant.skills }
+                                         availability = { participant.availability }
+                />
+            </div>
+        )
+    }
+}
 
 class GroupCard extends React.Component {
     constructor() {
@@ -14,7 +54,7 @@ class GroupCard extends React.Component {
 
     render() {
         let generateEmptySpots = ()  => {
-            let emptyNum = this.props.capacity - this.props.members.length;
+            let emptyNum = this.props.capacity - this.props.participants.length;
             let result = [ ];
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
@@ -31,40 +71,36 @@ class GroupCard extends React.Component {
             else
                 return null;
         };
-        let generateMemberPictures = (members) => (
-            members.map((member) =>
-                <Card>
-                    <MemberProfilePopup trigger = { <Image src = { member.image } /> }
-                                        position ="top right"
-                                        offset = { 0 }
-                                        name = { member.name }
-                                        image = { member.image }
-                                        groupNumber = {member.groupNumber }
-                                        skills = { member.skills }
-                                        availability = { member.availability }
-                    />
-                </Card>
-            )
-        );
+        let generateParticipantPictures = (participants) => {
+            return (
+                participants.map((participant) =>
+                    <DraggableCard participant = { participant } />
+                )
+            );
+        };
 
         return (
             <Segment color='yellow' raised padded={ true } size="large">
                 <Label attached='top left'> Group { this.props.groupNumber }</Label>
                 <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                    { generateMemberPictures(this.props.members) }
+                    { generateParticipantPictures(this.props.participants) }
                     { generateEmptySpots() }
                 </Card.Group>
-                <Label color = { pickLabelColor(this.props.members.length, this.props.capacity) }
+                <Label color = { pickLabelColor(this.props.participants.length, this.props.capacity) }
                        attached="top right">
-                    <Icon name='user'/> { this.props.members.length } / { this.props.capacity }
+                    <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
                 </Label>
             </Segment>
         )
     }
 }
 
+DraggableCard.propTypes = {
+    participant: PropTypes.object.isRequired
+};
+
 GroupCard.propTypes = {
-    members: PropTypes.array.isRequired,
+    participants: PropTypes.array.isRequired,
     capacity: PropTypes.number.isRequired,
     groupNumber: PropTypes.number.isRequired,
     itemsPerRow: PropTypes.number.isRequired
