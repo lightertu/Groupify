@@ -16,7 +16,7 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
 const participantSource = {
     beginDrag(props) {
-        return { participantId: props.id };
+        return { participantId: props.name };
     }
 };
 
@@ -78,9 +78,10 @@ const peopleListStyle = {
 };
 
 const participantTarget = {
-    drop(props) {
+    drop(props, monitor) {
         //TODO: implement actions after dropping
-        console.log(JSON.stringify(props));
+        alert("Card group id is -1");
+        alert(JSON.stringify(monitor.getItem()));
     },
 };
 
@@ -100,16 +101,16 @@ class ParticipantListSidebar extends React.Component {
     render() {
         const { connectDropTarget, isOver } = this.props;
 
-        let getUngroupedNumber = (members) => (
-            members.filter((personObj) => (
+        let getUngroupedNumber = (participants) => (
+            participants.filter((personObj) => (
                 personObj.groupNumber < 0
             )).length
         );
 
-        let generateSidebarList = (members) => (
+        let generateSidebarList = (participants) => (
             <List verticalAlign='middle' size="small" selection>
                 {
-                    members.filter((personObj) => (
+                    participants.filter((personObj) => (
                         personObj.groupNumber < 0
                     ))
 
@@ -145,7 +146,7 @@ class ParticipantListSidebar extends React.Component {
                         docked={ true }
                         open={ true }
                         zDepth={ 1 }
-                        containerStyle={ {backgroundColor: (!isOver) ? "#F6F7F9" : "#C1C1C1"} }
+                        containerStyle={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#C1C1C1"} }
                     >
                         <div style={ peopleListStyle }>
                             <Segment basic>

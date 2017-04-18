@@ -11,7 +11,8 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
 const participantSource = {
     beginDrag(props) {
-        return { participantId: props.id };
+        // TODO: return a good object
+        return props.participant;
     }
 };
 
@@ -49,7 +50,7 @@ class DraggableCard extends React.Component {
 const participantTarget = {
     drop(props) {
         // TODO: implement dropped
-        alert(JSON.stringify(props))
+        alert(JSON.stringify(props.groupNumber))
     }
 };
 
@@ -60,7 +61,7 @@ function collectDrop(connect, monitor) {
     }
 }
 
-@DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantTarget, collectDrop)
+@DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT], participantTarget, collectDrop)
 class GroupCard extends React.Component {
     constructor() {
         super();
