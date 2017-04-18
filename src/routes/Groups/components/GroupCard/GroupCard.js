@@ -16,14 +16,10 @@ const participantCardItemSource = {
     }
 };
 
-function collectDrag(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
-    }
-}
-
-@DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantCardItemSource, collectDrag)
+@DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantCardItemSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+}))
 class DraggableCard extends React.Component {
     constructor(props) {
         super(props);
@@ -50,8 +46,8 @@ class DraggableCard extends React.Component {
 const participantTarget = {
     drop(props, monitor) {
         // TODO: implement dropped
-        alert(JSON.stringify(monitor.getItem()))
-        //console.log(monitor.getItem().participantId + " is being switched to group:" + props.groupNumber);
+        const participantDropped = monitor.getItem();
+        console.log(participantDropped.participantId + " is being switched to group: " + props.groupNumber);
     }
 };
 

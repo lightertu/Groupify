@@ -14,18 +14,13 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
 const participantSidebarItemSource = {
     beginDrag(props) {
-        return {participantId: props};
+        return {participantId: props.name};
     }
 };
-
-function collectDrag(connect, monitor) {
-    return {
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging(),
-    }
-}
-
-@DragSource(ParticipantTypes.UNGROUPED_PARTICIPANT, participantSidebarItemSource, collectDrag)
+@DragSource(ParticipantTypes.UNGROUPED_PARTICIPANT, participantSidebarItemSource, (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging(),
+}))
 class DraggableParticipantListItem extends React.Component {
     render() {
 

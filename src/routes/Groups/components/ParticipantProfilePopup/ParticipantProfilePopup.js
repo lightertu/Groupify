@@ -14,7 +14,7 @@ class PopupContent extends React.Component {
         let generateAvailabilities = (availability) => {
             let weekdayInitial = ['S', 'M', 'T', 'W', 'T', 'F'];
             if (availability.length !== 7) {
-                alert("availability array:  is creater than 7")
+                alert("availability array:  is greater than 7")
             }
 
             let labels = [];
