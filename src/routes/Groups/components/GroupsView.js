@@ -3,13 +3,14 @@
  */
 import React from 'react'
 import {Grid} from 'semantic-ui-react'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-import PeopleListSidebar from "./PeopleListSidebar"
+import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
 import generateUsers from "../modules/UserGenerator";
-
 
 let numOfPeople = 60,
     numOfGroups = 10;
@@ -17,12 +18,8 @@ let numOfPeople = 60,
 let fakeUsers = generateUsers(numOfGroups, numOfPeople);
 
 export class GroupsView extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
-        const peopleListWidth = 4;
+        const participantsListWidth = 4;
         const groupCardsWidth = 12;
 
         let separateIntoGroups = () => {
@@ -31,19 +28,18 @@ export class GroupsView extends React.Component {
                 let newGroup = {};
                 newGroup.capacity = Math.round(numOfPeople / numOfGroups);
                 newGroup.groupNumber = i;
-                newGroup.members = [];
+                newGroup.participants = [];
                 groups.push(newGroup);
             }
 
             for (let i = 0; i < numOfPeople; i++) {
                 if (fakeUsers[i].groupNumber >= 0 && fakeUsers[i].groupNumber < numOfPeople) {
-                    groups[fakeUsers[i].groupNumber].members.push(fakeUsers[i]);
+                    groups[fakeUsers[i].groupNumber].participants.push(fakeUsers[i]);
                 } else if (fakeUsers[i].groupNumber >= numOfPeople) {
                     alert("user " + fakeUsers[i].name + "has group number: " + fakeUsers[i].groupNumber + " which is out of bound " );
                 }
             }
 
-            console.log(groups);
             return groups;
         };
 
@@ -52,7 +48,7 @@ export class GroupsView extends React.Component {
                 groups.map(
                     (group) => (
                         <Grid.Column stretched>
-                            <GroupCard members={ group.members }
+                            <GroupCard participants={ group.participants }
                                        capacity={ group.capacity }
                                        groupNumber={ group.groupNumber}
                                        itemsPerRow= { 10 } />
@@ -64,11 +60,11 @@ export class GroupsView extends React.Component {
 
         return (
             <div>
-                <PeopleListSidebar people={ fakeUsers }/>
+                <ParticipantListSidebar participants={ fakeUsers }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
-                            <Grid.Column width={ peopleListWidth }>
+                            <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
                                 <Grid columns={ 1 }>
@@ -83,4 +79,4 @@ export class GroupsView extends React.Component {
     }
 }
 
-export default GroupsView
+export default DragDropContext(HTML5Backend)(GroupsView)
