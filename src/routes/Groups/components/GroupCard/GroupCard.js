@@ -29,7 +29,7 @@ class GroupCard extends React.Component {
             else if (size > capacity)
                 return "red";
             else
-                return "";
+                return null;
         };
         let generateMemberPictures = (members) => (
             members.map((member) =>

@@ -4,16 +4,50 @@
 /**
  * Created by rui on 4/7/17.
  */
-
 import React from 'react'
-import {Segment, Image, List, Icon, Button, Header} from 'semantic-ui-react'
+import {Segment, Image, List, Icon, Button, Header, Card} from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
+import {DragSource} from 'react-dnd';
+import {findDOMNode} from 'react-dom';
+
 
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
+import {ParticipantTypes} from "../../constants/ParticipantTypes"
+
+const participantSource = {
+    beginDrag(props) {
+        return {participantId: props.id};
+    }
+};
+
+function collect(connect, monitor) {
+    return {
+        connectDragSource: connect.dragSource(),
+        isDragging: monitor.isDragging()
+    }
+}
+
+@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collect)
+class DraggableParticipantListItem extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        const {connectDragSource, isDragging} = this.props;
+
+        return connectDragSource(
+            <div className="item">
+                <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
+                <List.Content>
+                    <List.Header> { this.props.name } </List.Header>
+                </List.Content>
+            </div>
+        )
+    }
+}
 
 class Participant extends React.Component {
     constructor(props) {
@@ -21,6 +55,13 @@ class Participant extends React.Component {
     }
 
     render() {
+        const draggableParticipantListItem = (
+            <DraggableParticipantListItem
+                name={ this.props.name }
+                image={ this.props.image }
+            >
+            </DraggableParticipantListItem>
+        );
         return (
             <ParticipantProfilePopup
                 name={ this.props.name }
@@ -32,21 +73,21 @@ class Participant extends React.Component {
                 offset={ 20 }
                 hoverable
                 trigger={
-                    <List.Item>
-                        <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
-                        <List.Content>
-                            <List.Header> { this.props.name } </List.Header>
-                        </List.Content>
-                        <List.Content floated="right" verticalAlign="middle" style={ {paddingTop: "5%"}}>
-                            { (this.props.groupNumber >= 0) ? <Icon name="check" color="green"/> : <div>&nbsp;</div>}
-                        </List.Content>
-                    </List.Item>
+                    draggableParticipantListItem
                 }
             />
         )
     }
 }
 
+/*
+ <List.Item>
+ <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
+ <List.Content>
+ <List.Header> { this.props.name } </List.Header>
+ </List.Content>
+ </List.Item>
+ */
 const peopleListStyle = {
     paddingTop: "23%"
 };
@@ -65,21 +106,21 @@ class ParticipantListSidebar extends React.Component {
         );
 
         let generateSidebarList = (members) => (
-            <List verticalAlign='middle' size="small" selection animated>
+            <List verticalAlign='middle' size="small" selection>
                 {
                     members.filter((personObj) => (
                         personObj.groupNumber < 0
                     ))
 
-                    .map((personObj) => (
-                        <Participant
-                            name={ personObj.name }
-                            image={ personObj.image }
-                            groupNumber={ personObj.groupNumber }
-                            skills={ personObj.skills }
-                            availability={ personObj.availability }
-                        />
-                    ))
+                        .map((personObj) => (
+                            <Participant
+                                name={ personObj.name }
+                                image={ personObj.image }
+                                groupNumber={ personObj.groupNumber }
+                                skills={ personObj.skills }
+                                availability={ personObj.availability }
+                            />
+                        ))
                 }
             </List>
         );
@@ -121,6 +162,7 @@ class ParticipantListSidebar extends React.Component {
 
 /*
  */
+
 Participant.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,

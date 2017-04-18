@@ -45,7 +45,6 @@ export class GroupsView extends React.Component {
                 }
             }
 
-            console.log(groups);
             return groups;
         };
 
