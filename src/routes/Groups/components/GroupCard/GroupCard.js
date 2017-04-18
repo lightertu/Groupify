@@ -75,7 +75,7 @@ class GroupCard extends React.Component {
             let result = [ ];
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
-                    <Card image={ transparentImage }/>
+                    <Card image={ transparentImage } key={ i }/>
                 )
             }
             return result;
@@ -91,7 +91,7 @@ class GroupCard extends React.Component {
         let generateParticipantPictures = (participants) => {
             return (
                 participants.map((participant) =>
-                    <DraggableCard participant = { participant } />
+                    <DraggableCard participant = { participant } key={ participant.id } />
                 )
             );
         };

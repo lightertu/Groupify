@@ -47,7 +47,7 @@ export class GroupsView extends React.Component {
             return (
                 groups.map(
                     (group) => (
-                        <Grid.Column stretched>
+                        <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
                                        capacity={ group.capacity }
                                        groupNumber={ group.groupNumber}

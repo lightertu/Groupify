@@ -21,7 +21,15 @@ let images = [
 let skills = ["Java", "C++", "JavaScript", "Lisp", "Python", "Node.js", "React.js"];
 let skillLevel = ["Beginner", "Some Experience", "Expert" ];
 
-
+let guid = () => {
+    let s4 =() => {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    };
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+        s4() + '-' + s4() + s4() + s4();
+};
 let randomBetween = (minVal, maxVal) => {
     return Math.floor((Math.random() * maxVal) + minVal);
 };
@@ -56,21 +64,23 @@ let pickAvailability = () => {
     return week;
 };
 let generateUsers = (numOfGroups, numOfPeople) => {
-    function generateUser () {
-        let randName = pickName(),
+    let generateUser = () => {
+        let randId = guid(),
+            randName = pickName(),
             randImage = pickImage(),
             randSkills = pickSkills(),
             randGroupNumber = pickGroup(numOfGroups),
             randAvailability = pickAvailability();
 
         return ({
+            id: randId,
             name: randName,
             image: randImage,
             skills: randSkills,
             groupNumber: randGroupNumber,
             availability: randAvailability
         });
-    }
+    };
 
     let users = [];
     for (let i = 0; i < numOfPeople; i++) {
