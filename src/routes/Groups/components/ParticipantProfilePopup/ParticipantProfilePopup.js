@@ -6,8 +6,8 @@ import {Card, Popup, Image, Label, Button} from 'semantic-ui-react'
 import PropTypes from "prop-types"
 
 class PopupContent extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -66,9 +66,9 @@ class PopupContent extends React.Component {
 }
 
 
-class MemberProfilePopup extends React.Component {
-    constructor() {
-        super();
+class ParticipantProfilePopup extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -103,7 +103,7 @@ PopupContent.propTypes = {
     skills: PropTypes.array.isRequired
 };
 
-MemberProfilePopup.propTypes = {
+ParticipantProfilePopup.propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     groupNumber: PropTypes.number.isRequired,
@@ -115,4 +115,4 @@ MemberProfilePopup.propTypes = {
     offset: PropTypes.number.isRequired
 };
 
-export default MemberProfilePopup;
+export default ParticipantProfilePopup;
