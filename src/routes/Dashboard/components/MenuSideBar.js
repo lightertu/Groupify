@@ -3,13 +3,20 @@ import React from 'react'
 class MenuSideBar extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {};
+    }
+
+    toggleView(e) {
+        console.log("toggle view")
+        e.preventDefault();
+        console.log(this.props)
+        this.props.toggleView();
     }
 
     render() {
         var menuStyle = {
-            paddingTop: 55,
-            marginRight: 100
+            paddingTop: 75,
+            paddingRight: 0
         };
 
         var menuContentStyle = {
@@ -35,11 +42,11 @@ class MenuSideBar extends React.Component {
                     </div>
                 </div>
 
-                <a className="item">
+                <a className="item" href="#" onClick={this.toggleView.bind(this)}>
                   <i className="group icon"></i>
                   Groups
                 </a>
-                <a className="item">
+                <a className="item" href="#" onClick={this.toggleView.bind(this)}>
                   <i className="write icon"></i>
                   Survey
                 </a>
