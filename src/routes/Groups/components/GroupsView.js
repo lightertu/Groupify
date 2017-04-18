@@ -3,8 +3,10 @@
  */
 import React from 'react'
 import {Grid} from 'semantic-ui-react'
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 
-import PeopleListSidebar from "./PeopleListSidebar"
+import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
@@ -64,7 +66,7 @@ export class GroupsView extends React.Component {
 
         return (
             <div>
-                <PeopleListSidebar people={ fakeUsers }/>
+                <ParticipantListSidebar people={ fakeUsers }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
@@ -83,4 +85,4 @@ export class GroupsView extends React.Component {
     }
 }
 
-export default GroupsView
+export default DragDropContext(HTML5Backend)(GroupsView)

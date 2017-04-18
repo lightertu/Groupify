@@ -4,7 +4,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { Icon, Card, Label, Segment, Image } from 'semantic-ui-react'
-import MemberProfilePopup from "../MemberProfilePopup";
+import MemberProfilePopup from "../ParticipantProfilePopup";
 
 class GroupCard extends React.Component {
     constructor() {
