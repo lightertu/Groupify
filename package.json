@@ -115,6 +115,7 @@
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.0",
     "semantic-ui-css": "^2.2.10",
+    "semantic-ui-dropdown": "^2.2.10",
     "semantic-ui-react": "^0.68",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.6",
