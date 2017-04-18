@@ -5,7 +5,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { Icon, Card, Label, Segment, Image } from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
-import {DragSource} from 'react-dnd';
+import {DragSource, DropTarget} from 'react-dnd';
 
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
@@ -15,14 +15,14 @@ const participantSource = {
     }
 };
 
-function collect(connect, monitor) {
+function collectDrag(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
     }
 }
 
-@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collect)
+@DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantSource, collectDrag)
 class DraggableCard extends React.Component {
     constructor(props) {
         super(props);
@@ -46,6 +46,21 @@ class DraggableCard extends React.Component {
     }
 }
 
+const participantTarget = {
+    drop(props) {
+        // TODO: implement dropped
+        alert(JSON.stringify(props))
+    }
+};
+
+function collectDrop(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver()
+    }
+}
+
+@DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantTarget, collectDrop)
 class GroupCard extends React.Component {
     constructor() {
         super();
@@ -53,6 +68,8 @@ class GroupCard extends React.Component {
     }
 
     render() {
+        const { connectDropTarget, isOver } = this.props;
+
         let generateEmptySpots = ()  => {
             let emptyNum = this.props.capacity - this.props.participants.length;
             let result = [ ];
@@ -78,19 +95,20 @@ class GroupCard extends React.Component {
                 )
             );
         };
-
-        return (
-            <Segment color='yellow' raised padded={ true } size="large">
-                <Label attached='top left'> Group { this.props.groupNumber }</Label>
-                <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                    { generateParticipantPictures(this.props.participants) }
-                    { generateEmptySpots() }
-                </Card.Group>
-                <Label color = { pickLabelColor(this.props.participants.length, this.props.capacity) }
-                       attached="top right">
-                    <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
-                </Label>
-            </Segment>
+        return connectDropTarget(
+            <div style={ {backgroundColor: (!isOver) ? "#F6F7F9" : "#C1C1C1"} }>
+                <Segment color='yellow' raised padded={ true } size="large">
+                    <Label attached='top left'> Group { this.props.groupNumber }</Label>
+                    <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
+                        { generateParticipantPictures(this.props.participants) }
+                        { generateEmptySpots() }
+                    </Card.Group>
+                    <Label color = { pickLabelColor(this.props.participants.length, this.props.capacity) }
+                           attached="top right">
+                        <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
+                    </Label>
+                </Segment>
+            </div>
         )
     }
 }

@@ -2,5 +2,6 @@
  * Created by rui on 4/17/17.
  */
 export const ParticipantTypes = {
-    PARTICIPANT: 'participant'
+    GROUPED_PARTICIPANT: 'grouped_participant',
+    UNGROUPED_PARTICIPANT: 'ungrouped_participant',
 };

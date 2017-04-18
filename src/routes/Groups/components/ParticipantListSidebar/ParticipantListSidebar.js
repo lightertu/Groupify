@@ -27,7 +27,7 @@ function collectDrag(connect, monitor) {
     }
 }
 
-@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collectDrag)
+@DragSource(ParticipantTypes.UNGROUPED_PARTICIPANT, participantSource, collectDrag)
 class DraggableParticipantListItem extends React.Component {
     render() {
         const {image, name, connectDragSource, isDragging} = this.props;
@@ -91,7 +91,7 @@ function collectDrop(connect, monitor) {
     }
 }
 
-@DropTarget(ParticipantTypes.PARTICIPANT, participantTarget, collectDrop)
+@DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
     constructor(props) {
         super(props)
