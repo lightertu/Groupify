@@ -13,7 +13,7 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Groups = require('./containers/GroupsContainer').default
+            const Groups = require('./containers/GroupsContainer').default;
             /*  Add the reducer to the store on key 'counter'  */
             // injectReducer(store, {key: 'counter', reducer})
 

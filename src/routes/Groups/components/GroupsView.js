@@ -12,31 +12,32 @@ import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
 import generateUsers from "../modules/UserGenerator";
 
-let numOfPeople = 60,
+let capacity = 6,
     numOfGroups = 10;
 
-let fakeUsers = generateUsers(numOfGroups, numOfPeople);
 
 export class GroupsView extends React.Component {
     render() {
+        alert(this.props.participants);
         const participantsListWidth = 4;
         const groupCardsWidth = 12;
 
-        let separateIntoGroups = () => {
+        let separateIntoGroups = (participants) => {
             let groups = [];
-            for (let i = 0; i < numOfGroups; i++) {
+            for (let i = 0; i < this.props.participants.length / capacity; i++) {
                 let newGroup = {};
-                newGroup.capacity = Math.round(numOfPeople / numOfGroups);
+                newGroup.capacity = capacity;
                 newGroup.groupNumber = i;
                 newGroup.participants = [];
                 groups.push(newGroup);
             }
 
-            for (let i = 0; i < numOfPeople; i++) {
-                if (fakeUsers[i].groupNumber >= 0 && fakeUsers[i].groupNumber < numOfPeople) {
-                    groups[fakeUsers[i].groupNumber].participants.push(fakeUsers[i]);
-                } else if (fakeUsers[i].groupNumber >= numOfPeople) {
-                    alert("user " + fakeUsers[i].name + "has group number: " + fakeUsers[i].groupNumber + " which is out of bound " );
+
+            for (let i = 0; i < this.props.participants.length; i++) {
+                if (participants[i].groupNumber >= 0 && participants[i].groupNumber < this.props.participants.length) {
+                    groups[participants[i].groupNumber].participants.push(participants[i]);
+                } else if (participants[i].groupNumber >= this.props.participants.length) {
+                    alert("user " + participants[i].name + "has group number: " + participants[i].groupNumber + " which is out of bound " );
                 }
             }
 
@@ -60,7 +61,7 @@ export class GroupsView extends React.Component {
 
         return (
             <div>
-                <ParticipantListSidebar participants={ fakeUsers }/>
+                <ParticipantListSidebar participants={ this.props.participants }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
@@ -68,7 +69,7 @@ export class GroupsView extends React.Component {
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
                                 <Grid columns={ 1 }>
-                                    { getGroupCards(separateIntoGroups()) }
+                                    { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
