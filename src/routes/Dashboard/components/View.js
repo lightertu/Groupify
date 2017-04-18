@@ -1,6 +1,6 @@
 import React from 'react'
 import DashboardCard from './DashboardCard';
-import {Grid} from 'semantic-ui-react'
+import {Grid, Card} from 'semantic-ui-react'
 
 class View extends React.Component {
     constructor() {
@@ -11,18 +11,20 @@ class View extends React.Component {
     render() {
         var viewStyles = {
           paddingLeft: 0,
-          marginRight: 35,
-          paddingRight: 0
+          marginRight: 0,
+          paddingTop: 65
         }
 
         let getCards = (item) => {
           return (
               item.map(
-                  (item) => (
-                      <Grid.Column stretched mobile={16} tablet={8} computer={5}>
+                  (item, i) => (
+                      <Grid.Column stretched mobile={16} key={i} tablet={8} computer={5}>
                         <DashboardCard title={item.title}
                                         link={item.link}
-                                        color={item.color} />
+                                        color={item.color} 
+                                        date={item.date}
+                                        icon={item.icon}/>
                       </Grid.Column>
                 )
               )
@@ -30,7 +32,7 @@ class View extends React.Component {
         };
 
         return (
-              <div style={viewStyles}>
+              <div className="dashcards" style={viewStyles}>
                 <Grid container columns={3}>
                           { getCards(this.props.data) }
                 </Grid>

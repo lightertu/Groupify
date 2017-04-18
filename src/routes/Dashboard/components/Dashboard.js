@@ -12,15 +12,30 @@ class Dashboard extends React.Component {
 
     render() {
         let data = [];
-        for (let i = 0; i < 10; i++) {
-                let card = {};
-                card.color = "blue";
-                card.title = "test";
-                data.push(card);
-            }
-
+        if(this.state.groups){
+            for (let i = 0; i < 10; i++) {
+                    let card = {};
+                    card.color = "blue";
+                    card.title = "Groups";
+                    card.link = "http://localhost:3000/groups";
+                    card.date = "01/01/2016"
+                    card.icon = "group"
+                    data.push(card);
+                }
+        } else {
+             for (let i = 0; i < 10; i++) {
+                    let card = {};
+                    card.color = "red";
+                    card.title = "Surveys";
+                    card.link = "http://localhost:3000/groups";
+                    card.date = "12/31/2017"
+                    card.icon = "write"
+                    data.push(card);
+                }
+        }
+        console.log(this.state.groups);
         return (
-            <div class="ui bottom attached segment pushable">
+            <div className="">
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
                 <View data={data}/> 
             </div>

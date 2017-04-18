@@ -37,8 +37,8 @@ class Welcome extends Component {
             <div className="column">
             <div className="welcome-button-right">
             <Button className="massive ui labeled icon blue button">
-                <i className="users icon"></i>
-                Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i className="dashboard icon"></i>
+                Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Button>
             </div>
             </div>

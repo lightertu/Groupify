@@ -88,6 +88,10 @@ class CreateForm extends React.Component {
                           <textarea rows="2"></textarea>
                
                         </div>
+                        <div className="field">
+                          <label>Upload Image</label>
+                         <input type="file" name="pic" accept="image/*"/>
+                        </div>
                         </form>
                         <div className="extra content">
                           <div className="link" key="visible">
