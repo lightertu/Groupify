@@ -9,6 +9,8 @@ import {DragSource, DropTarget} from 'react-dnd';
 
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
+const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png";
+
 const participantCardItemSource = {
     beginDrag(props) {
         // TODO: this is where action will be fired:w
@@ -28,8 +30,8 @@ class DraggableCard extends React.Component {
     render() {
         const {connectDragSource, isDragging, participant} = this.props;
         return connectDragSource(
-            <div className="card" style = { { visibility: isDragging ? "hidden": "visible"} }>
-                <ParticipantProfilePopup trigger = { <Image src= { participant.image } /> }
+            <div className="card">
+                <ParticipantProfilePopup trigger = { <Image src= { (isDragging) ? transparentImage : participant.image } /> }
                                          position ="top right"
                                          offset = { 0 }
                                          name = { participant.name }
@@ -73,7 +75,7 @@ class GroupCard extends React.Component {
             let result = [ ];
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
-                    <Card image="https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png"/>
+                    <Card image={ transparentImage }/>
                 )
             }
             return result;
