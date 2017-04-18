@@ -11,13 +11,8 @@ class Welcome extends Component {
 
     render() {
         const { visible } = this.state
-        console.log(visible);
-        let link =(<div><p>&nbsp;</p></div>)
-        let loading;
         let form;
         if(visible) {
-            // link = <div className="link" key="visible"><p><strong> Copy Link:</strong>  <span className="line">OIGY*R^F*&TOYqipuehp9h&GO^GI%FI%FO&%</span></p></div>
-            // loading = "loading button"
             form = <CreateForm active={visible} key="key" toggleVisibility={this.toggleVisibility.bind(this)}/>
         }
         return (
@@ -32,7 +27,7 @@ class Welcome extends Component {
         <div className="ui stackable two column centered grid">
             <div className="column">
             <div className="welcome-button-left">
-            <Button onClick={this.toggleVisibility} className={"massive ui labeled icon blue button button " + loading}>
+            <Button onClick={this.toggleVisibility} className={"massive ui labeled icon blue button button " }>
                 <i className="download icon"></i>
                 Generate Form
             </Button>
@@ -43,7 +38,7 @@ class Welcome extends Component {
             <div className="welcome-button-right">
             <Button className="massive ui labeled icon blue button">
                 <i className="users icon"></i>
-                Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Classes&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Button>
             </div>
             </div>
