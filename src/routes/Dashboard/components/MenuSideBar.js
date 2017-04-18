@@ -8,7 +8,8 @@ class MenuSideBar extends React.Component {
 
     render() {
         var menuStyle = {
-            paddingTop: 55
+            paddingTop: 55,
+            marginRight: 100
         };
 
         var menuContentStyle = {
