@@ -9,10 +9,10 @@ import {DragSource, DropTarget} from 'react-dnd';
 
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
-const participantSource = {
+const participantCardItemSource = {
     beginDrag(props) {
-        // TODO: return a good object
-        return props.participant;
+        // TODO: this is where action will be fired:w
+        return { participantId: props.participant.name };
     }
 };
 
@@ -23,7 +23,7 @@ function collectDrag(connect, monitor) {
     }
 }
 
-@DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantSource, collectDrag)
+@DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantCardItemSource, collectDrag)
 class DraggableCard extends React.Component {
     constructor(props) {
         super(props);
@@ -48,9 +48,10 @@ class DraggableCard extends React.Component {
 }
 
 const participantTarget = {
-    drop(props) {
+    drop(props, monitor) {
         // TODO: implement dropped
-        alert(JSON.stringify(props.groupNumber))
+        alert(JSON.stringify(monitor.getItem()))
+        //console.log(monitor.getItem().participantId + " is being switched to group:" + props.groupNumber);
     }
 };
 
