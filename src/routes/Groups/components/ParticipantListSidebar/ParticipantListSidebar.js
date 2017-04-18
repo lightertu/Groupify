@@ -9,7 +9,7 @@ import {Segment, Image, List, Icon, Button, Header, Card, Popup} from 'semantic-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
-import {DragSource} from 'react-dnd';
+import {DragSource, DropTarget} from 'react-dnd';
 
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
@@ -20,14 +20,14 @@ const participantSource = {
     }
 };
 
-function collect(connect, monitor) {
+function collectDrag(connect, monitor) {
     return {
         connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging()
+        isDragging: monitor.isDragging(),
     }
 }
 
-@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collect)
+@DragSource(ParticipantTypes.PARTICIPANT, participantSource, collectDrag)
 class DraggableParticipantListItem extends React.Component {
     render() {
         const {image, name, connectDragSource, isDragging} = this.props;
@@ -69,40 +69,36 @@ class Participant extends React.Component {
                      draggableParticipantListItem
                 }
             />
-            /*
-             <Popup
-             trigger={ draggableParticipantListItem }
-             position={ this.props.position }
-             offset={ this.props.offset }
-             flowing
-             hoverable
-             style={ {padding: 0} }
-             >
-             something
-             </Popup>
-             */
         )
     }
 }
 
-/*
- <List.Item>
- <Image size="mini" shape="rounded" verticalAlign="middle" src={ this.props.image }/>
- <List.Content>
- <List.Header> { this.props.name } </List.Header>
- </List.Content>
- </List.Item>
- */
 const peopleListStyle = {
     paddingTop: "23%"
 };
 
+const participantTarget = {
+    drop(props) {
+        //TODO: implement actions after dropping
+        console.log(JSON.stringify(props));
+    },
+};
+
+function collectDrop(connect, monitor) {
+    return {
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+    }
+}
+
+@DropTarget(ParticipantTypes.PARTICIPANT, participantTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
     constructor(props) {
         super(props)
     }
 
     render() {
+        const { connectDropTarget, isOver } = this.props;
 
         let getUngroupedNumber = (members) => (
             members.filter((personObj) => (
@@ -142,31 +138,30 @@ class ParticipantListSidebar extends React.Component {
             </div>
         );
 
-        return (
-            <MuiThemeProvider>
-                <Drawer
-                    docked={ true }
-                    open={ true }
-                    zDepth={ 1 }
-                    containerStyle={ {backgroundColor: "#F6F7F9"} }
-                >
-                    <div style={ peopleListStyle }>
-                        <Segment basic>
-                            {
-                                (getUngroupedNumber(this.props.people)) ?
-                                    generateSidebarList(this.props.people) :
-                                    generateEmailButton()
-                            }
-                        </Segment>
-                    </div>
-                </Drawer>
-            </MuiThemeProvider>
+        return connectDropTarget(
+            <div>
+                <MuiThemeProvider>
+                    <Drawer
+                        docked={ true }
+                        open={ true }
+                        zDepth={ 1 }
+                        containerStyle={ {backgroundColor: (!isOver) ? "#F6F7F9" : "#C1C1C1"} }
+                    >
+                        <div style={ peopleListStyle }>
+                            <Segment basic>
+                                {
+                                    (getUngroupedNumber(this.props.people)) ?
+                                        generateSidebarList(this.props.people) :
+                                        generateEmailButton()
+                                }
+                            </Segment>
+                        </div>
+                    </Drawer>
+                </MuiThemeProvider>
+            </div>
         )
     }
 }
-
-/*
- */
 
 Participant.propTypes = {
     name: PropTypes.string.isRequired,
@@ -177,7 +172,8 @@ Participant.propTypes = {
 };
 
 ParticipantListSidebar.propTypes = {
-    people: PropTypes.array.isRequired
+    people: PropTypes.array.isRequired,
+    isOver: PropTypes.bool.isRequired
 };
 
 export default ParticipantListSidebar;
