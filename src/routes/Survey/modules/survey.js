@@ -55,28 +55,25 @@ function surveyError(error) {
 }
 
 
-export function generateSurvey(id) {
+export function generateSurvey(id, data) {
     console.log("updating survey")
-    let promise = axios.post('http://localhost:3000/api/groups', {
-      form: id,
-      color: "pink",
-      title: "TEST"
-    })
+    let promise = axios.post('http://localhost:3000/api/groups/'+id, data)
       return dispatch => {
         promise.then(
           res => {
               console.log("success")
-              dispatch(generateSuccess(res));
+              dispatch(surveySuccess(res));
         },
           err => {
             console.log("failure")
-            dispatch(generateError(err));
+            dispatch(surveyError(err));
           })
   }
 }
 
 export const actions = {
-  fetchSurvey
+  fetchSurvey,
+  generateSurvey
 }
 
 // ------------------------------------
