@@ -96,7 +96,7 @@ class CreateForm extends React.Component {
                         <div className="extra content">
                           <div className="link" key="visible">
                             <p><strong> Copy Link:</strong> </p> 
-                            <span className={"line " + linkStyles}>OIGY*R^F*&og787TOYq%FI%FO&%</span>
+                            <span className={"line " + linkStyles}>{this.props.link}</span>
                           </div>
                         </div>
                       </div>

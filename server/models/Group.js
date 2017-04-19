@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 
 var GroupSchema = new mongoose.Schema({
-	form: {type:Number, default: -1},
+	form: {type:String, default: null},
 	students: {type:Array, default: []},
 	color: {type:String, default: 'blue'},
 	timestamp: {type:Date, default:Date.now},
