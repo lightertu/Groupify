@@ -40,7 +40,7 @@ let pickImage = () => {
     return images[randomBetween(0, images.length)];
 };
 let pickGroup = (numOfGroups) => {
-    return randomBetween(-1, numOfGroups + 1);
+    return randomBetween(-1, numOfGroups);
     //return -1;
 };
 let pickSkills = () => {
@@ -73,7 +73,7 @@ let generateUsers = (numOfGroups, numOfPeople) => {
             randAvailability = pickAvailability();
 
         return ({
-            id: randId,
+            participantId: randId,
             name: randName,
             image: randImage,
             skills: randSkills,
