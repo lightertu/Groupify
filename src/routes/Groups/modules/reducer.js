@@ -19,9 +19,17 @@ let arrayObjectIndexOf = (myArray, searchTerm, property) => {
     return -1;
 };
 
+let handleFetchParticipantListSuccess = (payload) => {
+    return {
+        participants: payload.participants,
+        groupCapacity: payload.groupCapacity,
+        totalCapacity: payload.totalCapacity
+    };
+};
 
-let handleUpdateParticipantGroupsNumber = (state, payload) => {
-    let newState = Object.assign({}, state),
+function handleUpdateParticipantGroupsNumber (state, payload) {
+    let newState = (JSON.parse(JSON.stringify(state))),
+
         participantId = payload.participantId,
         oldGroupNumber = payload.oldGroupNumber,
         newGroupNumber = payload.newGroupNumber,
@@ -34,32 +42,26 @@ let handleUpdateParticipantGroupsNumber = (state, payload) => {
     newState.participants.push(temp);
 
     return newState;
-};
+}
 
 export default function groupsReducer (state = initialState, action) {
     switch(action.type) {
         case Actions.FETCH_PARTICIPANT_LIST:
             return state;
-            break;
         case Actions.FETCH_PARTICIPANT_LIST_SUCCESS:
-            return {
-                participants: action.payload.participants,
-                groupCapacity: action.payload.groupCapacity,
-                totalCapacity: action.payload.totalCapacity
-            };
-            break;
+            return handleFetchParticipantListSuccess(action.payload);
         case Actions.FETCH_PARTICIPANT_LIST_FAILURE:
             return state;
-            break;
         case Actions.UPDATE_PARTICIPANT_GROUP_NUMBER:
-            handleUpdateParticipantGroupsNumber(state, action.payload);
+            //console.log(JSON.stringify(state, null, 2));
+            return handleUpdateParticipantGroupsNumber(state, action.payload);
+            //console.log(JSON.stringify(state, null, 2));
             return state;
         case Actions.UPDATE_PARTICIPANT_GROUP_NUMBER_SUCCESS:
             return state;
         case Actions.UPDATE_PARTICIPANT_GROUP_NUMBER_FAILURE:
             // TODO: revert the change
             return state;
-
     }
 
     return initialState;
