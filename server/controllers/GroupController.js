@@ -35,9 +35,7 @@ module.exports = {
 	},
 
 	update: function(id, params, callback){
-		console.log("updating!")
-		console.log("params " + params)
-		Group.findOneAndUpdate({"form": id}, params, {new:true}, function(err, group){
+		Group.findOneAndUpdate({"form": id},{$push: params}, function(err, group){
 			if(err){
 				callback(err, null)
 				return

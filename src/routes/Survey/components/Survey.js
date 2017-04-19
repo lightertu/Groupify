@@ -12,11 +12,18 @@ class Survey extends React.Component {
         this.props.fetchSurvey(this.props.params.id);
     }
 
+    handleFormSubmit(data) {
+        console.log("Submitting survey...")
+        var obj = {}
+        obj['students'] = []
+        obj['students'].push(data)
+        this.props.generateSurvey(this.props.params.id, obj);
+    }
+
     render() {
         let survey;
-        
         if(this.props.counter['confirmation'] == 'success') {
-            survey = <CreateForm id={this.props.params.id}/>
+            survey = <CreateForm handleFormSubmit={this.handleFormSubmit.bind(this)} id={this.props.params.id}/>
         } else {
             survey = <h1>Sorry there is no survey here</h1>
         }

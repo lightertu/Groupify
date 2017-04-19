@@ -13,16 +13,24 @@ class CreateForm extends React.Component {
           requests: [],
           image: undefined
         };
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    handleFormSubmit() {
+    handleFormSubmit(e) {
       e.preventDefault()
 
       let firstName = this.state.firstName.trim();
       let lastName = this.state.lastName.trim();
       let email = this.state.email.trim();
       
-      this.props.handleFormSubmit({firstName: firstName, lastName: lastName, email: email, languages: this.state.languages});
+      this.props.handleFormSubmit({
+        firstName: firstName,
+        lastName: lastName, 
+        email: email, 
+        languages: this.state.languages, 
+        meetingTimes: this.state.meetingTimes,
+        requests: this.state.requests});
+      
       this.setState({
           firstName: "",
           lastName: "",
@@ -48,7 +56,6 @@ class CreateForm extends React.Component {
 
   setMultipleValue(input, event) {
     let field = this.state['languages']
-    console.log(this.state)
     if(event.target.getAttribute('name') === null) {
       let item = event.target.parentNode.getAttribute('value');
       let index = field.indexOf(item);
@@ -99,7 +106,6 @@ class CreateForm extends React.Component {
         ]
 
         let form;
-        console.log(this.state)
         form = (<div className="card big ">
                     <div className="ui card blue">
                       <div className="header">Survey ID:</div>
