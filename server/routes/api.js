@@ -3,7 +3,7 @@ var router = express.Router()
 var controllers = require('../controllers') // gets index.js
 
 router.get('/:resource', function(req, res, next){
-		
+	console.log("getting")
 	var resource = req.params.resource
 	var controller = controllers[resource]
 
@@ -36,20 +36,20 @@ router.get('/:resource/:id', function(req, res, next){
 	var resource = req.params.resource
 	var id = req.params.id
 	var controller = controllers[resource]
-
+	console.log('getting '+id)
 	if(controller == null){
 		res.json({
 			conirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
 		})
 	}
-	controller.findById(id, function(err, results){
+	controller.findById(id, function(err, result){
 		if(err){
 			res.json({
 				confirmation: 'fail',
 				message: 'Not Found'
 			})
-
+			
 			return
 		}
 
@@ -61,7 +61,7 @@ router.get('/:resource/:id', function(req, res, next){
 })
 
 router.post('/:resource', function(req, res, next){
-	console.log(req.body)
+	console.log('updating')
 	var resource = req.params.resource
 	var controller = controllers[resource]
 	if(controller == null){
@@ -87,5 +87,63 @@ router.post('/:resource', function(req, res, next){
 		})
 	})
 })
+
+router.post('/:resource/:id', function(req, res, next){
+	var resource = req.params.resource
+	var id = req.params.id
+	var controller = controllers[resource]
+	if(controller == null){
+		res.json({
+			conirmation: 'fail',
+			message: 'Invalid Resource Request: '+resource
+		})
+	}
+	console.log(req.body)
+	controller.update(id, req.body, function(err, result){
+		if(err){
+			res.json({
+				confirmation: 'fail',
+				message: err
+			})
+
+			return
+		}
+
+		res.json({
+			confirmation: 'success',
+			result: result
+		})
+	})
+})
+
+// router.put('/:resouce/:id', function(req, res, next){
+// 	console.log('updating')
+// 	var resource = req.params.resource
+// 	var id = req.params.id
+// 	var controller = controllers[resource]
+// 	console.log(req.body)
+// 	if(controller == null){
+// 		res.json({
+// 			conirmation: 'fail',
+// 			message: 'Invalid Resource Request: '+resource
+// 		})
+// 	}
+
+// 	controller.update(id, req.body, function(err, result){
+// 		if(err){
+// 			res.json({
+// 				confirmation: 'fail',
+// 				message: err
+// 			})
+
+// 			return
+// 		}
+
+// 		res.json({
+// 			confirmation: 'success',
+// 			result: result
+// 		})
+// 	})
+// })
 
 module.exports = router

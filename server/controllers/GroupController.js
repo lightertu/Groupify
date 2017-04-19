@@ -13,7 +13,7 @@ module.exports = {
 	},
 
 	findById: function(id, callback){
-		Group.findById(id, function(err, group){
+		Group.find({"form": id}, function(err, group){
 			if(err){
 				callback(err, null)
 				return
@@ -35,7 +35,9 @@ module.exports = {
 	},
 
 	update: function(id, params, callback){
-		Group.findByIdAndUpdate(id, params, {new:true}, function(err, group){
+		console.log("updating!")
+		console.log("params " + params)
+		Group.findOneAndUpdate({"form": id}, params, {new:true}, function(err, group){
 			if(err){
 				callback(err, null)
 				return
