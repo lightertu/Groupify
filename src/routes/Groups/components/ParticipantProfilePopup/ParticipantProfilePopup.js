@@ -6,15 +6,18 @@ import {Card, Popup, Image, Label, Button} from 'semantic-ui-react'
 import PropTypes from "prop-types"
 
 class PopupContent extends React.Component {
-    constructor() {
-        super();
-    }
-
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        groupNumber: PropTypes.number.isRequired,
+        availability: PropTypes.array.isRequired,
+        skills: PropTypes.array.isRequired
+    };
     render() {
         let generateAvailabilities = (availability) => {
             let weekdayInitial = ['S', 'M', 'T', 'W', 'T', 'F'];
             if (availability.length !== 7) {
-                alert("availability array:  is creater than 7")
+                alert("availability array:  is greater than 7")
             }
 
             let labels = [];
@@ -66,10 +69,18 @@ class PopupContent extends React.Component {
 }
 
 
-class MemberProfilePopup extends React.Component {
-    constructor() {
-        super();
-    }
+class ParticipantProfilePopup extends React.Component {
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        image: PropTypes.string.isRequired,
+        groupNumber: PropTypes.number.isRequired,
+        availability: PropTypes.array.isRequired,
+        skills: PropTypes.array.isRequired,
+
+        trigger: PropTypes.node.isRequired,
+        position:PropTypes.string.isRequired,
+        offset: PropTypes.number.isRequired
+    };
 
     render() {
         return (
@@ -93,26 +104,4 @@ class MemberProfilePopup extends React.Component {
     }
 }
 
-
-
-PopupContent.propTypes = {
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    groupNumber: PropTypes.number.isRequired,
-    availability: PropTypes.array.isRequired,
-    skills: PropTypes.array.isRequired
-};
-
-MemberProfilePopup.propTypes = {
-    name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    groupNumber: PropTypes.number.isRequired,
-    availability: PropTypes.array.isRequired,
-    skills: PropTypes.array.isRequired,
-
-    trigger: PropTypes.node.isRequired,
-    position:PropTypes.string.isRequired,
-    offset: PropTypes.number.isRequired
-};
-
-export default MemberProfilePopup;
+export default ParticipantProfilePopup;
