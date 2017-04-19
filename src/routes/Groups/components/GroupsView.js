@@ -10,7 +10,6 @@ import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
-import * as Actions from "../modules/actions"
 
 export class GroupsView extends React.Component {
     constructor(props) {
@@ -30,7 +29,6 @@ export class GroupsView extends React.Component {
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
                     groupNumber: i,
-
                     participants: []
                 })
             }
@@ -60,6 +58,8 @@ export class GroupsView extends React.Component {
                 )
             )
         };
+
+        console.log("re-render");
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
