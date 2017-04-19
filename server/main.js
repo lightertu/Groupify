@@ -6,6 +6,7 @@ const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
 const compress = require('compression')
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 var dbUrl = 'mongodb://localhost/team-divider'
 mongoose.connect(dbUrl, function(err, res){
@@ -19,6 +20,8 @@ mongoose.connect(dbUrl, function(err, res){
 var api = require('./routes/api');
 
 const app = express()
+app.use(bodyParser.json());
+
 
 // Apply gzip compression
 app.use(compress())
