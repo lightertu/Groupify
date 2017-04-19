@@ -10,34 +10,37 @@ import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
-import generateUsers from "../modules/UserGenerator";
-
-let capacity = 6,
-    numOfGroups = 10;
-
+import * as Actions from "../modules/actions"
 
 export class GroupsView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.fetchParticipantList();
+    }
+
     render() {
-        alert(this.props.participants);
         const participantsListWidth = 4;
         const groupCardsWidth = 12;
+        let numOfGroups = this.props.participants.length / this.props.groupCapacity;
+
+        //console.log(this.props.groupCapacity);
 
         let separateIntoGroups = (participants) => {
             let groups = [];
-            for (let i = 0; i < this.props.participants.length / capacity; i++) {
-                let newGroup = {};
-                newGroup.capacity = capacity;
-                newGroup.groupNumber = i;
-                newGroup.participants = [];
-                groups.push(newGroup);
+            let i = 0;
+
+            for (let i = 0; i < numOfGroups; i++) {
+                groups.push({
+                    groupNumber: i,
+
+                    participants: []
+                })
             }
 
-
-            for (let i = 0; i < this.props.participants.length; i++) {
-                if (participants[i].groupNumber >= 0 && participants[i].groupNumber < this.props.participants.length) {
-                    groups[participants[i].groupNumber].participants.push(participants[i]);
-                } else if (participants[i].groupNumber >= this.props.participants.length) {
-                    alert("user " + participants[i].name + "has group number: " + participants[i].groupNumber + " which is out of bound " );
+            for (let i = 0; i < participants.length; i++) {
+                let participantGroupNumber = participants[i].groupNumber;
+                if (participantGroupNumber >= 0 && participantGroupNumber <= participants.length) {
+                    groups[participantGroupNumber].participants.push(participants[i]);
                 }
             }
 
@@ -50,15 +53,14 @@ export class GroupsView extends React.Component {
                     (group) => (
                         <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
-                                       capacity={ group.capacity }
-                                       groupNumber={ group.groupNumber}
+                                       capacity={ this.props.groupCapacity }
+                                       groupNumber={ group.groupNumber }
                                        itemsPerRow= { 10 } />
                         </Grid.Column>
                     )
                 )
             )
         };
-
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }/>
