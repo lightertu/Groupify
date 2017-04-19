@@ -96,19 +96,17 @@ class GroupCard extends React.Component {
             else
                 return null;
         };
-        let generateParticipantPictures = (participants) => {
-            return (
-                participants.map((participant) =>
-                    <DraggableCard participant={ participant } key={ participant.participantId }/>
-                )
-            );
-        };
+
         return connectDropTarget(
             <div style={ {backgroundColor: (!isOver) ? "#F6F7F9" : "#C1C1C1"} }>
                 <Segment color='yellow' raised padded={ true } size="large">
                     <Label attached='top left'> Group { this.props.groupNumber }</Label>
                     <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                        { generateParticipantPictures(this.props.participants) }
+                        {
+                            this.props.participants.map((participant) =>
+                                <DraggableCard participant={ participant } key={ participant.participantId }/>
+                            )
+                        }
                         { generateEmptySpots() }
                     </Card.Group>
                     <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }

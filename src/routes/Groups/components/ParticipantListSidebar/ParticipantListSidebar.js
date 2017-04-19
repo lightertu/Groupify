@@ -35,7 +35,7 @@ class DraggableParticipantListItem extends React.Component {
     render() {
         const {image, name, participantId, connectDragSource, isDragging} = this.props;
         return connectDragSource(
-            <div className="item" {...this.props } style={ {visibility: isDragging ? "hidden" : "visible"} }>
+            <div className="item" /*{...this.props }*/ style={ {visibility: isDragging ? "hidden" : "visible"} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
