@@ -74,6 +74,11 @@ class GroupCard extends React.Component {
         itemsPerRow: PropTypes.number.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
     };
+    constructor(props) {
+        super(props);
+        this.state = { participants: this.props.participants };
+    }
+
 
     render() {
         const {connectDropTarget, isOver} = this.props;
@@ -103,15 +108,15 @@ class GroupCard extends React.Component {
                     <Label attached='top left'> Group { this.props.groupNumber }</Label>
                     <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                         {
-                            this.props.participants.map((participant) =>
+                            this.state.participants.map((participant) =>
                                 <DraggableCard participant={ participant } key={ participant.participantId }/>
                             )
                         }
                         { generateEmptySpots() }
                     </Card.Group>
-                    <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
+                    <Label color={ pickLabelColor(this.state.participants.length, this.props.capacity) }
                            attached="top right">
-                        <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
+                        <Icon name='user'/> { this.state.participants.length } / { this.props.capacity }
                     </Label>
                 </Segment>
             </div>

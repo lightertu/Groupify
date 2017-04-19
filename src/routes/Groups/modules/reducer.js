@@ -29,6 +29,10 @@ let handleUpdateParticipantGroupsNumber = (state, payload) => {
 
     //console.log(JSON.stringify(participantIndex, null, 2));
     newState.participants[participantIndex].groupNumber = newGroupNumber;
+    let temp = Object.assign({}, newState.participants[participantIndex]);
+    newState.participants.splice(participantIndex, 1);
+    newState.participants.push(temp);
+
     return newState;
 };
 
