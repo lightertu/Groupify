@@ -116,34 +116,4 @@ router.post('/:resource/:id', function(req, res, next){
 	})
 })
 
-// router.put('/:resouce/:id', function(req, res, next){
-// 	console.log('updating')
-// 	var resource = req.params.resource
-// 	var id = req.params.id
-// 	var controller = controllers[resource]
-// 	console.log(req.body)
-// 	if(controller == null){
-// 		res.json({
-// 			conirmation: 'fail',
-// 			message: 'Invalid Resource Request: '+resource
-// 		})
-// 	}
-
-// 	controller.update(id, req.body, function(err, result){
-// 		if(err){
-// 			res.json({
-// 				confirmation: 'fail',
-// 				message: err
-// 			})
-
-// 			return
-// 		}
-
-// 		res.json({
-// 			confirmation: 'success',
-// 			result: result
-// 		})
-// 	})
-// })
-
 module.exports = router

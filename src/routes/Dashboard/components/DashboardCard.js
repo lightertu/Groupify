@@ -23,7 +23,7 @@ class DashboardCard extends React.Component {
                 <Card.Content extra>
                     <a>
                      <Icon name={this.props.icon} />
-                        22 Friends
+                        {this.props.num} {this.props.counting}
                     </a>
                 </Card.Content>
             </Card>
