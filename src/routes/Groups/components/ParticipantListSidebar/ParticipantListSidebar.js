@@ -47,6 +47,7 @@ class DraggableParticipantListItem extends React.Component {
 
 class Participant extends React.Component {
     static propTypes = {
+        participantId: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
         groupNumber: PropTypes.number.isRequired,
@@ -63,6 +64,7 @@ class Participant extends React.Component {
         );
         return (
             <ParticipantProfilePopup
+                participantId={ this.props.participantId }
                 name={ this.props.name }
                 image={ this.props.image }
                 groupNumber={ this.props.groupNumber }

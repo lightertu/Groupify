@@ -23,15 +23,16 @@ class PopupContent extends React.Component {
             let labels = [];
             for (let i = 0; i < weekdayInitial.length; i++) {
                 (availability[i]) ?
-                    labels.push(<Label as='a' color="green">{ weekdayInitial[i] }</Label>):
-                    labels.push(<Label as='a'>{ weekdayInitial[i] }</Label>);
+                    labels.push(<Label key = { i } as='a' color="green">{ weekdayInitial[i] }</Label>):
+                    labels.push(<Label key = { i } as='a'>{ weekdayInitial[i] }</Label>);
             }
             return labels;
         };
 
         let generateSkillLabels = (skills) => {
+            let i = 0;
             return skills.map((skill) =>
-                <Label>
+                <Label key = { i++ }>
                     { skill.name }
                     <Label.Detail>{ skill.level }</Label.Detail>
                 </Label>
@@ -72,6 +73,7 @@ class PopupContent extends React.Component {
 class ParticipantProfilePopup extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
+        participantId: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
         groupNumber: PropTypes.number.isRequired,
         availability: PropTypes.array.isRequired,
@@ -93,6 +95,7 @@ class ParticipantProfilePopup extends React.Component {
                 style = { {padding: 0} }
             >
                 <PopupContent
+                    key = { this.props.participantId }
                     name = {this.props.name}
                     groupNumber = { this.props.groupNumber }
                     availability = { this.props.availability }

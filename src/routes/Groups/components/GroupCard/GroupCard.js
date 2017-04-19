@@ -42,7 +42,7 @@ class DraggableCard extends React.Component {
                     groupNumber={participant.groupNumber }
                     skills={ participant.skills }
                     availability={ participant.availability }
-                />
+                    participantId={ participant.id }/>
             </div>
         )
     }
