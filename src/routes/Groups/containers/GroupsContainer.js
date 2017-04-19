@@ -10,16 +10,21 @@ import {connect} from 'react-redux'
 
 import GroupsView from '../components/GroupsView'
 
+import * as Actions from "../modules/actions"
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => ({
     // TODO: dispatch functions
-    return { something: 1 };
-};
+    fetchParticipantList: Actions.fetchParticipantList(dispatch),
 
-const mapStateToProps = (state) => ({
-    participants: state.participants
 });
 
 
+const mapStateToProps = (state) => {
+    return {
+        participants: state.groups.participants,
+        groupCapacity: state.groups.groupCapacity,
+        totalCapacity: state.groups.totalCapacity
+    }
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsView)

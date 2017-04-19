@@ -39,7 +39,6 @@ export default (initialState = {}) => {
     );
 
     store.asyncReducers = {};
-    store.participants = generateUsers(10, 60);
 
     // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
     store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
