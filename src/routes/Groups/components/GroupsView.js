@@ -60,6 +60,7 @@ export class GroupsView extends React.Component {
         };
 
         console.log("re-render");
+
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }

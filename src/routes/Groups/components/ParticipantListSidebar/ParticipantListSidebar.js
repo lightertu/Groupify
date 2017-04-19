@@ -87,8 +87,7 @@ const participantsListStyle = {
 
 const participantSidebarTarget = {
     drop(props, monitor) {
-        //TODO: implement actions after dropping
-        console.log(JSON.stringify(monitor.getItem(), null, 2));
+        //console.log(JSON.stringify(monitor.getItem(), null, 2));
         let droppedItem = monitor.getItem();
         props.updateParticipantGroupNumber(droppedItem.participantId,
                                            droppedItem.oldGroupNumber,

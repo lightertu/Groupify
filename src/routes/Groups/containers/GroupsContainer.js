@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => ({
     updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch)
 });
 
-
 const mapStateToProps = (state) => {
     return {
         participants: state.groups.participants,
