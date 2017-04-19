@@ -14,7 +14,7 @@ const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0
 const participantCardItemSource = {
     beginDrag(props) {
         return {
-            participantId: props.participant.id,
+            participantId: props.participant.participantId,
             oldGroupNumber: props.participant.groupNumber
         };
     }
@@ -42,7 +42,7 @@ class DraggableCard extends React.Component {
                     groupNumber={participant.groupNumber }
                     skills={ participant.skills }
                     availability={ participant.availability }
-                    participantId={ participant.id }/>
+                    participantId={ participant.participantId }/>
             </div>
         )
     }
@@ -99,7 +99,7 @@ class GroupCard extends React.Component {
         let generateParticipantPictures = (participants) => {
             return (
                 participants.map((participant) =>
-                    <DraggableCard participant={ participant } key={ participant.id }/>
+                    <DraggableCard participant={ participant } key={ participant.participantId }/>
                 )
             );
         };
