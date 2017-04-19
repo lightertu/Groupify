@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { Button } from 'semantic-ui-react'
 import CreateForm from './CreateForm';
+
 class Welcome extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {visible:false, link:''};
         this.toggleVisibility = this.toggleVisibility.bind(this);
         this.generateSurvey = this.generateSurvey.bind(this);
@@ -13,6 +14,7 @@ class Welcome extends Component {
     generateSurvey() {
           //push survey id to DB
           this.toggleVisibility();
+          this.props.generateSurvey(this.state.link);
     }
 
     toggleVisibility() {
@@ -30,6 +32,7 @@ class Welcome extends Component {
     }
 
     render() {
+        console.log(this.props)
         const { visible } = this.state
         let form;
         if(visible) {
@@ -58,7 +61,7 @@ class Welcome extends Component {
             <div className="welcome-button-right">
             <Button className="massive ui labeled icon blue button">
                 <i className="dashboard icon"></i>
-                Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Button>
             </div>
             </div>

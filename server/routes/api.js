@@ -61,9 +61,9 @@ router.get('/:resource/:id', function(req, res, next){
 })
 
 router.post('/:resource', function(req, res, next){
+	console.log(req.body)
 	var resource = req.params.resource
 	var controller = controllers[resource]
-
 	if(controller == null){
 		res.json({
 			conirmation: 'fail',
