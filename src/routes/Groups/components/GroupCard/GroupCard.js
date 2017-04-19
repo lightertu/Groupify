@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types';
-import { Icon, Card, Label, Segment, Image } from 'semantic-ui-react'
+import {Icon, Card, Label, Segment, Image} from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {DragSource, DropTarget} from 'react-dnd';
 
@@ -13,8 +13,10 @@ const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0
 
 const participantCardItemSource = {
     beginDrag(props) {
-        // TODO: this is where action will be fired:w
-        return { participantId: props.participant.name };
+        return {
+            participantId: props.participant.id,
+            oldGroupNumber: props.participant.groupNumber
+        };
     }
 };
 
@@ -31,14 +33,15 @@ class DraggableCard extends React.Component {
         const {connectDragSource, isDragging, participant} = this.props;
         return connectDragSource(
             <div className="card">
-                <ParticipantProfilePopup trigger = { <Image src= { (isDragging) ? transparentImage : participant.image } /> }
-                                         position ="top right"
-                                         offset = { 0 }
-                                         name = { participant.name }
-                                         image = { participant.image }
-                                         groupNumber = {participant.groupNumber }
-                                         skills = { participant.skills }
-                                         availability = { participant.availability }
+                <ParticipantProfilePopup
+                    trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
+                    position="top right"
+                    offset={ 0 }
+                    name={ participant.name }
+                    image={ participant.image }
+                    groupNumber={participant.groupNumber }
+                    skills={ participant.skills }
+                    availability={ participant.availability }
                 />
             </div>
         )
@@ -49,7 +52,11 @@ const participantTarget = {
     drop(props, monitor) {
         // TODO: implement dropped
         const participantDropped = monitor.getItem();
-        console.log(participantDropped.participantId + " is being switched to group: " + props.groupNumber);
+        console.log(JSON.stringify(participantDropped, null, 2));
+        props.updateParticipantGroupNumber(participantDropped.participantId,
+                                           participantDropped.oldGroupNumber,
+                                           props.groupNumber )
+
     }
 };
 
@@ -64,15 +71,16 @@ class GroupCard extends React.Component {
         participants: PropTypes.array.isRequired,
         capacity: PropTypes.number.isRequired,
         groupNumber: PropTypes.number.isRequired,
-        itemsPerRow: PropTypes.number.isRequired
+        itemsPerRow: PropTypes.number.isRequired,
+        updateParticipantGroupNumber: PropTypes.func.isRequired
     };
 
     render() {
-        const { connectDropTarget, isOver } = this.props;
+        const {connectDropTarget, isOver} = this.props;
 
-        let generateEmptySpots = ()  => {
+        let generateEmptySpots = () => {
             let emptyNum = this.props.capacity - this.props.participants.length;
-            let result = [ ];
+            let result = [];
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
                     <Card image={ transparentImage } key={ i }/>
@@ -91,7 +99,7 @@ class GroupCard extends React.Component {
         let generateParticipantPictures = (participants) => {
             return (
                 participants.map((participant) =>
-                    <DraggableCard participant = { participant } key={ participant.id } />
+                    <DraggableCard participant={ participant } key={ participant.id }/>
                 )
             );
         };
@@ -103,7 +111,7 @@ class GroupCard extends React.Component {
                         { generateParticipantPictures(this.props.participants) }
                         { generateEmptySpots() }
                     </Card.Group>
-                    <Label color = { pickLabelColor(this.props.participants.length, this.props.capacity) }
+                    <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
                            attached="top right">
                         <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
                     </Label>

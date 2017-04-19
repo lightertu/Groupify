@@ -46,15 +46,27 @@ let fetchParticipantListFailure = (error) => {
 /* update put requests */
 export const UPDATE_PARTICIPANT_GROUP_NUMBER = "UPDATE_PARTICIPANT_GROUP";
 let updateParticipantGroupNumber = (dispatch) => {
-    return (participantId, newGroupNumber) => {
-        dispatch({ type: UPDATE_PARTICIPANT_GROUP_NUMBER });
-        axios.put(SERVER_URL + "/api/participants/" + participantId, { newGroupNumber: newGroupNumber})
+    return (participantId, oldGroupNumber, newGroupNumber) => {
+        dispatch({ type: UPDATE_PARTICIPANT_GROUP_NUMBER,
+            payload: {
+                participantId: participantId,
+                oldGroupNumber: oldGroupNumber,
+                newGroupNumber: newGroupNumber
+            }
+        });
+
+        /*
+        axios.put(SERVER_URL + "/api/participants/" + participantId, {
+                oldGroupsNumber: OldGroupNumber,
+                newGroupNumber: newGroupNumber
+            })
             .then((response) => {
                 dispatch(updateParticipantGroupNumberSuccess());
             })
             .catch((error) => {
                 dispatch(updateParticipantGroupNumberFailure(error));
             });
+        */
     }
 };
 

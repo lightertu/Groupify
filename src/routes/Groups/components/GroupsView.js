@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import {Grid} from 'semantic-ui-react'
-import { DragDropContext } from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import ParticipantListSidebar from "./ParticipantListSidebar"
@@ -22,8 +22,6 @@ export class GroupsView extends React.Component {
         const participantsListWidth = 4;
         const groupCardsWidth = 12;
         let numOfGroups = this.props.participants.length / this.props.groupCapacity;
-
-        //console.log(this.props.groupCapacity);
 
         let separateIntoGroups = (participants) => {
             let groups = [];
@@ -55,7 +53,8 @@ export class GroupsView extends React.Component {
                             <GroupCard participants={ group.participants }
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
-                                       itemsPerRow= { 10 } />
+                                       itemsPerRow={ 10 }
+                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                         </Grid.Column>
                     )
                 )
@@ -63,7 +62,8 @@ export class GroupsView extends React.Component {
         };
         return (
             <div>
-                <ParticipantListSidebar participants={ this.props.participants }/>
+                <ParticipantListSidebar participants={ this.props.participants }
+                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
