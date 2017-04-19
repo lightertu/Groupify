@@ -5,15 +5,35 @@ import CreateForm from './CreateForm';
 class Welcome extends Component {
     constructor() {
         super();
-        this.state = {visible:false}
+        this.state = {visible:false, link:''};
+        this.toggleVisibility = this.toggleVisibility.bind(this);
+        this.generateSurvey = this.generateSurvey.bind(this);
     }
-    toggleVisibility = () => this.setState({ visible: !this.state.visible })
+
+    generateSurvey() {
+          //push survey id to DB
+          this.toggleVisibility();
+    }
+
+    toggleVisibility() {
+        this.setState({ visible: !this.state.visible, link: this.makeid() })
+    } 
+
+    makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for(var i=0; i < 25; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return 'http://localhost:3000/survey/'+text;
+    }
 
     render() {
         const { visible } = this.state
         let form;
         if(visible) {
-            form = <CreateForm active={visible} key="key" toggleVisibility={this.toggleVisibility.bind(this)}/>
+            form = <CreateForm active={visible} key="key" link={this.state.link} toggleVisibility={this.toggleVisibility.bind(this)}/>
         }
         return (
             <div className="container text-center">
@@ -27,7 +47,7 @@ class Welcome extends Component {
         <div className="ui stackable two column centered grid">
             <div className="column">
             <div className="welcome-button-left">
-            <Button onClick={this.toggleVisibility} className={"massive ui labeled icon blue button button " }>
+            <Button onClick={this.generateSurvey} className={"massive ui labeled icon blue button button " }>
                 <i className="download icon"></i>
                 Generate Form
             </Button>
