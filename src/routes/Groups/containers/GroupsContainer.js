@@ -12,7 +12,6 @@ import GroupsView from '../components/GroupsView'
 import * as Actions from "../modules/actions"
 
 const mapDispatchToProps = (dispatch) => ({
-    // TODO: dispatch functions
     fetchParticipantList: Actions.fetchParticipantList(dispatch),
     updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch)
 });
