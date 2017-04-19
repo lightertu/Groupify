@@ -51,11 +51,11 @@ class DraggableCard extends React.Component {
 const participantTarget = {
     drop(props, monitor) {
         const participantDropped = monitor.getItem();
-        //console.log(JSON.stringify(participantDropped, null, 2));
-        props.updateParticipantGroupNumber(participantDropped.participantId,
-                                           participantDropped.oldGroupNumber,
-                                           props.groupNumber )
-
+        if (props.groupNumber !== participantDropped.oldGroupNumber) {
+            props.updateParticipantGroupNumber(participantDropped.participantId,
+                participantDropped.oldGroupNumber,
+                props.groupNumber)
+        }
     }
 };
 
