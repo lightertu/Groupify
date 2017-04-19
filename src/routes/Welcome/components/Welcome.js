@@ -13,12 +13,13 @@ class Welcome extends Component {
 
     generateSurvey() {
           //push survey id to DB
-          this.toggleVisibility();
-          this.props.generateSurvey(this.state.link);
+          var link = this.makeid();
+          this.setState({ visible: !this.state.visible, link: link })
+          this.props.generateSurvey(link);
     }
 
     toggleVisibility() {
-        this.setState({ visible: !this.state.visible, link: this.makeid() })
+        this.setState({ visible: !this.state.visible})
     } 
 
     makeid() {
@@ -28,7 +29,7 @@ class Welcome extends Component {
         for(var i=0; i < 25; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-        return 'http://localhost:3000/survey/'+text;
+        return text;
     }
 
     render() {
@@ -36,7 +37,7 @@ class Welcome extends Component {
         const { visible } = this.state
         let form;
         if(visible) {
-            form = <CreateForm active={visible} key="key" link={this.state.link} toggleVisibility={this.toggleVisibility.bind(this)}/>
+            form = <CreateForm active={visible} key="key" link={"http://localhost:3000/survey/"+this.state.link} toggleVisibility={this.toggleVisibility.bind(this)}/>
         }
         return (
             <div className="container text-center">
