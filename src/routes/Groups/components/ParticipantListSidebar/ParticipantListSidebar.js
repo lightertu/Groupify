@@ -128,8 +128,8 @@ class ParticipantListSidebar extends React.Component {
 
                         .map((participantObj) => (
                             <Participant
-                                key={ participantObj.id }
-                                participantId={ participantObj.id }
+                                key={ participantObj.participantId }
+                                participantId={ participantObj.participantId }
                                 name={ participantObj.name }
                                 image={ participantObj.image }
                                 groupNumber={ participantObj.groupNumber }
