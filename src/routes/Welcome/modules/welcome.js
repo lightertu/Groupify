@@ -1,12 +1,51 @@
+import fetch from 'isomorphic-fetch'
+import axios from 'axios';
 // ------------------------------------
 // Constants
 // ------------------------------------
 export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
 export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
+export const GENERATE_ERROR = 'GENERATE_ERROR'
+export const GENERATE_SUCCESS = 'GENERATE_SUCCESS'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+function generateSuccess(res) {
+  return {
+    type: GENERATE_SUCCESS,
+    message: res
+  }
+}
+
+function generateError(error) {
+  return {
+    type: GENERATE_ERROR,
+    error: error.response.data.error
+  }
+}
+
+
+export function generateSurvey(id) {
+    console.log("generating survey")
+    let promise = axios.post('http://localhost:3000/api/groups', {
+      form: id,
+      color: "pink",
+      title: "TEST"
+    })
+      return dispatch => {
+        promise.then(
+          res => {
+              console.log("success")
+              dispatch(generateSuccess(res));
+        },
+          err => {
+            console.log("failure")
+            dispatch(generateError(err));
+          })
+  }
+}
+
 export function increment (value = 1) {
   return {
     type    : COUNTER_INCREMENT,
@@ -34,7 +73,8 @@ export const doubleAsync = () => {
 
 export const actions = {
   increment,
-  doubleAsync
+  doubleAsync,
+  generateSurvey
 }
 
 // ------------------------------------
@@ -42,7 +82,9 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
-  [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
+  [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2,
+  [GENERATE_SUCCESS]     : (state, action) => "success",
+  [GENERATE_ERROR]       : (state, action) => "failure"
 }
 
 // ------------------------------------
