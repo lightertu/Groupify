@@ -14,24 +14,26 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
 const participantSidebarItemSource = {
     beginDrag(props) {
-        return {participantId: props.name};
+        return {
+            participantId: props.participantId,
+            oldGroupNumber: -1
+        };
     }
 };
+
 @DragSource(ParticipantTypes.UNGROUPED_PARTICIPANT, participantSidebarItemSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging(),
 }))
 class DraggableParticipantListItem extends React.Component {
-
     static propTypes = {
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
+        participantId: PropTypes.string.isRequired
     };
 
     render() {
-
-        const {image, name, connectDragSource, isDragging} = this.props;
-
+        const {image, name, participantId, connectDragSource, isDragging} = this.props;
         return connectDragSource(
             <div className="item" {...this.props } style={ {visibility: isDragging ? "hidden" : "visible"} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
@@ -57,7 +59,7 @@ class Participant extends React.Component {
             <DraggableParticipantListItem
                 name={ this.props.name }
                 image={ this.props.image }
-            />
+                participantId={ this.props.participantId }/>
         );
         return (
             <ParticipantProfilePopup
@@ -84,7 +86,11 @@ const participantsListStyle = {
 const participantSidebarTarget = {
     drop(props, monitor) {
         //TODO: implement actions after dropping
-        console.log(monitor.getItem().participantId + " is being switched to group: -1");
+        console.log(JSON.stringify(monitor.getItem(), null, 2));
+        let droppedItem = monitor.getItem();
+        props.updateParticipantGroupNumber(droppedItem.participantId,
+                                           droppedItem.oldGroupNumber,
+                                           -1)
     },
 };
 
@@ -99,6 +105,7 @@ function collectDrop(connect, monitor) {
 class ParticipantListSidebar extends React.Component {
     static propTypes = {
         participants: PropTypes.array.isRequired,
+        updateParticipantGroupNumber: PropTypes.func.isRequired
     };
 
     render() {
@@ -120,6 +127,7 @@ class ParticipantListSidebar extends React.Component {
                         .map((participantObj) => (
                             <Participant
                                 key={ participantObj.id }
+                                participantId={ participantObj.id }
                                 name={ participantObj.name }
                                 image={ participantObj.image }
                                 groupNumber={ participantObj.groupNumber }
