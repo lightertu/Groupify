@@ -26,10 +26,11 @@ function generateError(error) {
 }
 
 
-export function generateSurvey(id) {
+export function generateSurvey(id, data) {
     console.log("generating survey")
     let promise = axios.post('http://localhost:3000/api/groups', {
       form: id,
+      questions: data,
       color: "pink",
       title: "TEST"
     })
