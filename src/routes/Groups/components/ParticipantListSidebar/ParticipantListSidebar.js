@@ -152,6 +152,17 @@ class ParticipantListSidebar extends React.Component {
             </div>
         );
 
+        let generateEmptyMessage = () => (
+            <div style={ {paddingTop: "200%", textAlign: "center"} }>
+                <Header as='h2'>
+                    Get a coffee
+                    <Header.Subheader>
+                        No one has answered your call
+                    </Header.Subheader>
+                </Header>
+            </div>
+        );
+
         return connectDropTarget(
             <div>
                 <MuiThemeProvider>
@@ -164,9 +175,11 @@ class ParticipantListSidebar extends React.Component {
                         <div style={ participantsListStyle }>
                             <Segment basic>
                                 {
-                                    (getUngroupedNumber(this.props.participants)) ?
-                                        generateSidebarList(this.props.participants) :
-                                        generateEmailButton()
+                                    (this.props.participants.length <= 0) ?
+                                         generateEmptyMessage() :
+                                        ((getUngroupedNumber(this.props.participants)) ?
+                                             generateSidebarList(this.props.participants) :
+                                             generateEmailButton())
                                 }
                             </Segment>
                         </div>
