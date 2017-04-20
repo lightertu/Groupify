@@ -48,6 +48,18 @@ class DraggableCard extends React.Component {
     }
 }
 
+class MatchingStatus extends React.Component {
+    static propTypes = {
+        participant: PropTypes.object.isRequired,
+    };
+
+    render() {
+        return ( <div>Bottom</div> );
+    }
+}
+
+
+
 const participantTarget = {
     drop(props, monitor) {
         const participantDropped = monitor.getItem();
@@ -101,22 +113,95 @@ class GroupCard extends React.Component {
         };
 
         return connectDropTarget(
-            <div style={ {backgroundColor: (!isOver) ? "#F6F7F9" : "#C1C1C1"} }>
-                <Segment color='yellow' raised padded={ true } size="large">
-                    <Label attached='top left'> Group { this.props.groupNumber }</Label>
-                    <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                        {
-                            this.props.participants.map((participant) =>
-                                <DraggableCard participant={ participant } key={ participant.participantId }/>
-                            )
-                        }
-                        { generateEmptySpots() }
-                    </Card.Group>
-                    <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
-                           attached="top right">
-                        <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
-                    </Label>
-                </Segment>
+            <div>
+                <Segment.Group>
+                    <Segment color='yellow' raised padded={ true } size="large" basic style={ {backgroundColor: (!isOver) ? "#fafbfd" : "#EFF0F2"} }>
+                        <Label attached='top left'> Group { this.props.groupNumber }</Label>
+                        <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
+                            {
+                                this.props.participants.map((participant) =>
+                                    <DraggableCard participant={ participant } key={ participant.participantId }/>
+                                )
+                            }
+                            { generateEmptySpots() }
+                        </Card.Group>
+                        <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
+                               attached="top right">
+                            <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
+                        </Label>
+                    </Segment>
+                    <Segment basic style={ { padding: "0%", backgroundColor: (!isOver) ? "#f4f5f7" : "#EFF0F2"} }>
+                        <Label.Group circular size={"huge"} style={ { marginLeft: "2%",  paddingTop: "2%"} }>
+                            <Label as='a'>S</Label>
+                            <Label as='a'>M</Label>
+                            <Label as='a'>T</Label>
+                            <Label as='a'>W</Label>
+                            <Label as='a'>T</Label>
+                            <Label as='a'>F</Label>
+                            <Label as='a'>S</Label>
+                        </Label.Group>
+                    </Segment>
+                    <Segment basic style={ { backgroundColor: (!isOver) ? "#f4f5f7" : "#EFF0F2"} }>
+                        <Label.Group style={ { marginTop: "-1%"} }>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                            <Label as='a'>
+                                Happy
+                                <Label.Detail>22</Label.Detail>
+                            </Label>
+                        </Label.Group>
+                    </Segment>
+                </Segment.Group>
             </div>
         )
     }
