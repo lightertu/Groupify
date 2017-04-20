@@ -40,7 +40,7 @@ export default class SkillCountSegment extends React.Component {
 
     render() {
         return (
-            <Segment basic style={ {backgroundColor: (!this.props.isOver) ? "#f4f5f7" : "#EFF0F2"} }>
+            <Segment basic style={ { backgroundColor: (!this.props.isOver) ? "#f4f5f7" : "#EFF0F2" } }>
                 <Label.Group style={ {marginTop: "-1%"} }>
                     { this.generateLanguageTags(this.props.participants) }
                 </Label.Group>
