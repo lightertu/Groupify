@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {Icon, Card, Label, Segment, Image} from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {DragSource, DropTarget} from 'react-dnd';
+import { AvailabilitySegment, SkillCountSegment } from "./MatchingStatusSegments"
 
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
@@ -130,77 +131,8 @@ class GroupCard extends React.Component {
                             <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
                         </Label>
                     </Segment>
-                    <Segment basic style={ { padding: "0%", backgroundColor: (!isOver) ? "#f4f5f7" : "#EFF0F2"} }>
-                        <Label.Group circular size={"huge"} style={ { marginLeft: "2%",  paddingTop: "2%"} }>
-                            <Label as='a'>S</Label>
-                            <Label as='a'>M</Label>
-                            <Label as='a'>T</Label>
-                            <Label as='a'>W</Label>
-                            <Label as='a'>T</Label>
-                            <Label as='a'>F</Label>
-                            <Label as='a'>S</Label>
-                        </Label.Group>
-                    </Segment>
-                    <Segment basic style={ { backgroundColor: (!isOver) ? "#f4f5f7" : "#EFF0F2"} }>
-                        <Label.Group style={ { marginTop: "-1%"} }>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                            <Label as='a'>
-                                Happy
-                                <Label.Detail>22</Label.Detail>
-                            </Label>
-                        </Label.Group>
-                    </Segment>
+                    <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/>
+                    <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/>
                 </Segment.Group>
             </div>
         )

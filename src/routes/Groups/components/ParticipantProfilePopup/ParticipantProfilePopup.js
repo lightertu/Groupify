@@ -5,6 +5,8 @@ import React from 'react'
 import {Card, Popup, Image, Label, Button} from 'semantic-ui-react'
 import PropTypes from "prop-types"
 
+import getColorByLanguage from  "../../modules/LanguageColorMap";
+
 class PopupContent extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
@@ -32,9 +34,8 @@ class PopupContent extends React.Component {
         let generateSkillLabels = (skills) => {
             let i = 0;
             return skills.map((skill) =>
-                <Label key = { i++ }>
+                <Label as='a' key={ i++ } style = {{backgroundColor: getColorByLanguage(skill.name), color: "white"}} >
                     { skill.name }
-                    <Label.Detail>{ skill.level }</Label.Detail>
                 </Label>
             );
         };
