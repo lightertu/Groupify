@@ -1,5 +1,6 @@
 import React from 'react'
-import {Dropdown} from 'semantic-ui-react'
+import {Dropdown, Popup, Button} from 'semantic-ui-react'
+import SurveyPopup from './SurveyPopup';
 
 class CreateForm extends React.Component {
     constructor() {
@@ -92,6 +93,8 @@ class CreateForm extends React.Component {
                           <label>Upload Image</label>
                          <input type="file" name="pic" accept="image/*"/>
                         </div>
+                        <SurveyPopup
+                        />
                         </form>
                         <div className="extra content">
                           <div className="link" key="visible">
