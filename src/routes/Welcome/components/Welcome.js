@@ -2,18 +2,47 @@ import React, { Component } from 'react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import { Button } from 'semantic-ui-react'
 import CreateForm from './CreateForm';
+
 class Welcome extends Component {
-    constructor() {
-        super();
-        this.state = {visible:false}
+    constructor(props) {
+        super(props);
+        this.state = {visible:false, link:''};
+        this.toggleVisibility = this.toggleVisibility.bind(this);
+        this.generateSurvey = this.generateSurvey.bind(this);
+        this.handleForm = this.handleForm.bind(this);
     }
-    toggleVisibility = () => this.setState({ visible: !this.state.visible })
+
+    generateSurvey(data) {
+        console.log("Welcome class - generateSurvey")
+         this.props.generateSurvey(this.state.link, data);
+    }
+
+    handleForm() {
+          var link = this.makeid();
+          this.setState({ visible: !this.state.visible, link: link })
+    }
+
+    toggleVisibility() {
+        this.setState({ visible: !this.state.visible})
+    } 
+
+    makeid() {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for(var i=0; i < 25; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        return text;
+    }
 
     render() {
+        console.log(this.props)
         const { visible } = this.state
         let form;
         if(visible) {
-            form = <CreateForm active={visible} key="key" toggleVisibility={this.toggleVisibility.bind(this)}/>
+            form = <CreateForm active={visible} key="key" link={"http://localhost:3000/survey/"+this.state.link} 
+                toggleVisibility={this.toggleVisibility.bind(this)} generateSurvey={this.generateSurvey.bind(this)}/>
         }
         return (
             <div className="container text-center">
@@ -27,7 +56,7 @@ class Welcome extends Component {
         <div className="ui stackable two column centered grid">
             <div className="column">
             <div className="welcome-button-left">
-            <Button onClick={this.toggleVisibility} className={"massive ui labeled icon blue button button " }>
+            <Button onClick={this.handleForm} className={"massive ui labeled icon blue button button " }>
                 <i className="download icon"></i>
                 Generate Form
             </Button>
@@ -38,7 +67,7 @@ class Welcome extends Component {
             <div className="welcome-button-right">
             <Button className="massive ui labeled icon blue button">
                 <i className="dashboard icon"></i>
-                Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </Button>
             </div>
             </div>

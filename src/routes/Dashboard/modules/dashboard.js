@@ -1,50 +1,51 @@
+import fetch from 'isomorphic-fetch'
+import axios from 'axios';
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const COUNTER_INCREMENT = 'COUNTER_INCREMENT'
-export const COUNTER_DOUBLE_ASYNC = 'COUNTER_DOUBLE_ASYNC'
+export const REQUEST_GROUPS = 'REQUEST_GROUPS'
+export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
-export function increment (value = 1) {
+function requestGroups(url) {
   return {
-    type    : COUNTER_INCREMENT,
-    payload : value
+    type: REQUEST_GROUPS,
+    url
   }
 }
 
-/*  This is a thunk, meaning it is a function that immediately
-    returns a function for lazy evaluation. It is incredibly useful for
-    creating async actions, especially when combined with redux-thunk! */
+function receiveGroups(url, json) {
+  return {
+    type: RECEIVE_GROUPS,
+    url,
+    data: json,
+    receivedAt: Date.now()
+  }
+}
 
-export const doubleAsync = () => {
-  return (dispatch, getState) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        dispatch({
-          type    : COUNTER_DOUBLE_ASYNC,
-          payload : getState().counter
-        })
-        resolve()
-      }, 200)
-    })
+export function fetchGroups() { // fetch survey
+  let url = 'http://localhost:3000/api/groups';
+  return dispatch => {
+    dispatch(requestGroups(url))
+    return fetch(url)
+      .then(response => response.json())
+      .then(json => dispatch(receiveGroups(url, json)))
   }
 }
 
 export const actions = {
-  increment,
-  doubleAsync
+  fetchGroups
 }
 
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
 const ACTION_HANDLERS = {
-  [COUNTER_INCREMENT]    : (state, action) => state + action.payload,
-  [COUNTER_DOUBLE_ASYNC] : (state, action) => state * 2
+  [RECEIVE_GROUPS]   : (state, action) => action.data,
+  [REQUEST_GROUPS]    : (state, action) => []
 }
-
 // ------------------------------------
 // Reducer
 // ------------------------------------
