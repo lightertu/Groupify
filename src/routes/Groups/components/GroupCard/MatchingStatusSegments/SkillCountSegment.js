@@ -13,16 +13,15 @@ export default class SkillCountSegment extends React.Component {
     };
 
     generateSkillCountMap = (participants) => {
-        //alert(participants);
         let skillCountMap = {};
         for (let i = 0; i < participants.length; i++) {
-            participants[i].skills = ["JavaScript", "Java", "C++", "Python", "C", "Haskell", "Shell"];
             let skills = participants[i].skills;
             for (let j = 0; j < skills.length; j++) {
-                if (skills[j] in skillCountMap) {
-                    skillCountMap[skills[j]] = 1;
+                let skillName = skills[j].name;
+                if (!(skillName in skillCountMap)) {
+                    skillCountMap[skillName] = 1;
                 } else {
-                    skillCountMap[skills[j]]++;
+                    skillCountMap[skillName]++;
                 }
             }
         }

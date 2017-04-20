@@ -18,7 +18,7 @@ let images = [
     "https://semantic-ui.com/images/avatar/large/helen.jpg",
 
 ];
-let skills = ["Java", "C++", "JavaScript", "Lisp", "Python", "Node.js", "React.js"];
+let skills = ["Java", "C++", "JavaScript", "Python", "HTML", "CSS" ];
 
 let guid = () => {
     let s4 =() => {
