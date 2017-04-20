@@ -39,8 +39,8 @@ let pickImage = () => {
     return images[randomBetween(0, images.length)];
 };
 let pickGroup = (numOfGroups) => {
-    return randomBetween(-1, numOfGroups);
-    //return -1;
+    //return randomBetween(-1, numOfGroups);
+    return -1;
 };
 let pickSkills = () => {
     let maxSkillNum = 5;
@@ -56,7 +56,7 @@ let pickSkills = () => {
 let pickAvailability = () => {
     let week = [];
     for (let i = 0; i < 7; i++) {
-        (randomBetween(0, 5) >= 3) ? week.push(false) : week.push(true);
+        (randomBetween(0, 5) >= 1) ? week.push(true) : week.push(false);
 
     }
     return week;

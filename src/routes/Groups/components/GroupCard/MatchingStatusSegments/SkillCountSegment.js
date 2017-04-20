@@ -30,9 +30,6 @@ export default class SkillCountSegment extends React.Component {
 
     generateLanguageTags = (participants) => {
         let skillCountMap = this.generateSkillCountMap(participants);
-        //alert(JSON.stringify(skillCountMap));
-        //console.log(JSON.stringify(Object.keys(skillCountMap)));
-
         return Object.keys(skillCountMap).map((key) => (
             <Label as='a' style = {{backgroundColor: getColorByLanguage(key), color: "white"}}>
                 { key }
