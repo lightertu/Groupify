@@ -24,13 +24,15 @@ class View extends React.Component {
                                         link={item.link}
                                         color={item.color} 
                                         date={item.date}
-                                        icon={item.icon}/>
+                                        icon={item.icon}
+                                        counting={item.counting}
+                                        num={item.num}/>
                       </Grid.Column>
                 )
               )
             )
         };
-
+        console.log(this.props.data)
         return (
               <div className="dashcards" style={viewStyles}>
                 <Grid container columns={3}>

@@ -6,7 +6,7 @@ var GroupSchema = new mongoose.Schema({
 	color: {type:String, default: 'blue'},
 	timestamp: {type:Date, default:Date.now},
 	title: {type:String, default: ''},
-	success: {type:Number, default: -1}
+	questions: {type:Array, default: []}
 })
 
 module.exports = mongoose.model('GroupSchema', GroupSchema)

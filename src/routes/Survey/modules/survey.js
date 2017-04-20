@@ -81,7 +81,7 @@ export const actions = {
 // ------------------------------------
 const ACTION_HANDLERS = {
   [RECEIVE_SURVEY]   : (state, action) => action.data,
-  [REQUEST_SURVEY]    : (state, action) => 'requesting'
+  [REQUEST_SURVEY]    : (state, action) => "requesting"
 
 }
 

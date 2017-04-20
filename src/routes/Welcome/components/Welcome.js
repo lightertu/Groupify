@@ -9,13 +9,17 @@ class Welcome extends Component {
         this.state = {visible:false, link:''};
         this.toggleVisibility = this.toggleVisibility.bind(this);
         this.generateSurvey = this.generateSurvey.bind(this);
+        this.handleForm = this.handleForm.bind(this);
     }
 
-    generateSurvey() {
-          //push survey id to DB
+    generateSurvey(data) {
+        console.log("Welcome class - generateSurvey")
+         this.props.generateSurvey(this.state.link, data);
+    }
+
+    handleForm() {
           var link = this.makeid();
           this.setState({ visible: !this.state.visible, link: link })
-          this.props.generateSurvey(link);
     }
 
     toggleVisibility() {
@@ -37,7 +41,8 @@ class Welcome extends Component {
         const { visible } = this.state
         let form;
         if(visible) {
-            form = <CreateForm active={visible} key="key" link={"http://localhost:3000/survey/"+this.state.link} toggleVisibility={this.toggleVisibility.bind(this)}/>
+            form = <CreateForm active={visible} key="key" link={"http://localhost:3000/survey/"+this.state.link} 
+                toggleVisibility={this.toggleVisibility.bind(this)} generateSurvey={this.generateSurvey.bind(this)}/>
         }
         return (
             <div className="container text-center">
@@ -51,7 +56,7 @@ class Welcome extends Component {
         <div className="ui stackable two column centered grid">
             <div className="column">
             <div className="welcome-button-left">
-            <Button onClick={this.generateSurvey} className={"massive ui labeled icon blue button button " }>
+            <Button onClick={this.handleForm} className={"massive ui labeled icon blue button button " }>
                 <i className="download icon"></i>
                 Generate Form
             </Button>

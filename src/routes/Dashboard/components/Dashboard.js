@@ -8,20 +8,27 @@ class Dashboard extends React.Component {
         this.state = {groups: true}
     }
 
+    componentWillMount() {
+        this.props.fetchGroups();
+    }
+
+
     toggleView = () => this.setState({ groups: !this.state.groups })
 
     render() {
         let data = [];
         if(this.state.groups){
-            for (let i = 0; i < 10; i++) {
-                    let card = {};
-                    card.color = "blue";
-                    card.title = "Groups";
-                    card.link = "http://localhost:3000/groups";
-                    card.date = "01/01/2016"
-                    card.icon = "group"
-                    data.push(card);
-                }
+            if(this.props.counter.results !== undefined) {
+                data = this.props.counter.results.map(function(item, i){
+                    item.title = "Group: "+i,
+                    item.link = "http://localhost:3000/groups/"+item.form,
+                    item.icon = "group",
+                    item.counting = "Students",
+                    item.date = "12/31/2017",
+                    item.num = item.students.length
+                    return item
+                });
+            }
         } else {
              for (let i = 0; i < 10; i++) {
                     let card = {};
@@ -30,10 +37,10 @@ class Dashboard extends React.Component {
                     card.link = "http://localhost:3000/groups";
                     card.date = "12/31/2017"
                     card.icon = "write"
+                    card.num = "22"
                     data.push(card);
                 }
         }
-        console.log(this.state.groups);
         return (
             <div className="">
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
