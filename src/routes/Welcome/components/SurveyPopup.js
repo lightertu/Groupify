@@ -19,7 +19,8 @@ class SurveyPopup extends Component {
                 flowing
 
             >
-            <EditForm/>
+
+            <EditForm handleQuestionAdd={this.props.handleQuestionAdd}/>
             </Popup>
             </div>
         )

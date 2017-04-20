@@ -70,7 +70,7 @@ router.post('/:resource', function(req, res, next){
 			message: 'Invalid Resource Request: '+resource
 		})
 	}
-
+	console.log(req.body)
 	controller.create(req.body, function(err, result){
 		if(err){
 			res.json({

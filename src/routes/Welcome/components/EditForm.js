@@ -15,6 +15,8 @@ class EditForm extends Component {
       e.preventDefault()
       // this.props.handleFormSubmit({Question: this.state.question});
       console.log("Adding Question")
+      console.log(this.props)
+      this.props.handleQuestionAdd(this.state.question)
       this.setState({question: ""})
     }
 
