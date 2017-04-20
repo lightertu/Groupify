@@ -19,7 +19,6 @@ let images = [
 
 ];
 let skills = ["Java", "C++", "JavaScript", "Lisp", "Python", "Node.js", "React.js"];
-let skillLevel = ["Beginner", "Some Experience", "Expert" ];
 
 let guid = () => {
     let s4 =() => {
@@ -50,7 +49,6 @@ let pickSkills = () => {
     for (let i = 0; i < numSkills; i++) {
         let skill = {};
         skill.name = skills[randomBetween(1, skills.length - 1)];
-        skill.level = skillLevel[randomBetween(0, skillLevel.length - 1)];
         userSkills.push( skill );
     }
     return userSkills;
