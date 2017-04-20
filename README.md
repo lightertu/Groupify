@@ -159,3 +159,18 @@ Goal: Finish UI. Focus on creating flexible React components.
 1) Change login page to popup on welcome page
 2) Create a preview survey popup underneath welcome
 3) Create survey page
+
+
+###API End Points
+
+##Grab all Groups
+
+```
+http://localhost:3000/api/groups
+```
+
+##Fetch Survey/Group by ID
+
+```
+http://localhost:3000/api/groups/ID
+```
