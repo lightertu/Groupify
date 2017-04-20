@@ -1,7 +1,7 @@
 import {injectReducer} from '../../store/reducers'
 
 export default (store) => ({
-    path: 'sendform',
+    path: 'survey/:id',
     /*  Async getComponent is only invoked when route matches   */
     getComponent (nextState, cb) {
         /*  Webpack - use 'require.ensure' to create a split point
@@ -9,16 +9,16 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const SendForm = require('./containers/SendFormContainer').default
-            const reducer = require('./modules/sendform').default
+            const Survey = require('./containers/SurveyContainer').default
+            const reducer = require('./modules/survey').default
 
             /*  Add the reducer to the store on key 'counter'  */
-            injectReducer(store, {key: 'sendform', reducer})
+            injectReducer(store, {key: 'counter', reducer})
 
             /*  Return getComponent   */
-            cb(null, SendForm)
+            cb(null, Survey)
 
             /* Webpack named bundle   */
-        }, 'sendform')
+        }, 'survey')
     }
 })
