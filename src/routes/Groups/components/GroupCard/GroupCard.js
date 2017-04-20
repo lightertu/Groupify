@@ -49,18 +49,6 @@ class DraggableCard extends React.Component {
     }
 }
 
-class MatchingStatus extends React.Component {
-    static propTypes = {
-        participant: PropTypes.object.isRequired,
-    };
-
-    render() {
-        return ( <div>Bottom</div> );
-    }
-}
-
-
-
 const participantTarget = {
     drop(props, monitor) {
         const participantDropped = monitor.getItem();
@@ -115,8 +103,8 @@ class GroupCard extends React.Component {
 
         return connectDropTarget(
             <div>
-                <Segment.Group>
-                    <Segment color='yellow' raised padded={ true } size="large" basic style={ {backgroundColor: (!isOver) ? "#fafbfd" : "#EFF0F2"} }>
+                <Segment.Group raised>
+                    <Segment padded={ true } size="large">
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {
@@ -131,8 +119,8 @@ class GroupCard extends React.Component {
                             <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
                         </Label>
                     </Segment>
-                    <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/>
-                    <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/>
+                    { this.props.participants.length > 0 && <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
+                    { this.props.participants.length > 0 && <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
                 </Segment.Group>
             </div>
         )
