@@ -20,12 +20,10 @@ export class GroupsView extends React.Component {
     render() {
         const participantsListWidth = 4;
         const groupCardsWidth = 12;
-        let numOfGroups = this.props.participants.length / this.props.groupCapacity;
+        let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
         let separateIntoGroups = (participants) => {
             let groups = [];
-            let i = 0;
-
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
                     groupNumber: i,
