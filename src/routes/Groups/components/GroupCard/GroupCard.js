@@ -33,7 +33,7 @@ class DraggableCard extends React.Component {
     render() {
         const {connectDragSource, isDragging, participant} = this.props;
         return connectDragSource(
-            <div className="card">
+            <div className="card" style={ {cursor: "move"} }>
                 <ParticipantProfilePopup
                     trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
                     position="top right"
@@ -110,10 +110,10 @@ class GroupCard extends React.Component {
 
         return connectDropTarget(
             <div>
-                <Segment.Group raised>
+                <Segment.Group raised style={ {cursor: "pointer"} }
+                               onClick={ this.toggleMatchingStatus } >
                     <Segment padded={ true } size="large"
                              style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
-                             onClick={ this.toggleMatchingStatus }
                              >
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
