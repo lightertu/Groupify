@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {Icon, Card, Label, Segment, Image} from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {DragSource, DropTarget} from 'react-dnd';
-import { AvailabilitySegment, SkillCountSegment } from "./MatchingStatusSegments"
+import {AvailabilitySegment, SkillCountSegment} from "./MatchingStatusSegments"
 
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 
@@ -64,7 +64,6 @@ const participantTarget = {
     participantTarget, (connect, monitor) => ({
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver(),
-        overItem: monitor.getItem()
     })
 )
 class GroupCard extends React.Component {
@@ -75,12 +74,20 @@ class GroupCard extends React.Component {
         itemsPerRow: PropTypes.number.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
     };
+
     constructor(props) {
         super(props);
+        this.state = {
+            matchingStatusOpen: true,
+        };
     }
 
+    toggleMatchingStatus = () => {
+        this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
+    };
+
     render() {
-        const {connectDropTarget, isOver, overItem} = this.props;
+        const {connectDropTarget, isOver } = this.props;
 
         let generateEmptySpots = () => {
             let emptyNum = this.props.capacity - this.props.participants.length;
@@ -104,7 +111,10 @@ class GroupCard extends React.Component {
         return connectDropTarget(
             <div>
                 <Segment.Group raised>
-                    <Segment padded={ true } size="large" style={ { backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2" } }>
+                    <Segment padded={ true } size="large"
+                             style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
+                             onClick={ this.toggleMatchingStatus }
+                             >
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {
@@ -119,8 +129,12 @@ class GroupCard extends React.Component {
                             <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
                         </Label>
                     </Segment>
-                    { this.props.participants.length > 0 && <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
-                    { this.props.participants.length > 0 && <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
+
+                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                    <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
+
+                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                    <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
                 </Segment.Group>
             </div>
         )
