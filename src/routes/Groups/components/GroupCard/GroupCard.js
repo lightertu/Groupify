@@ -63,7 +63,8 @@ const participantTarget = {
 @DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT],
     participantTarget, (connect, monitor) => ({
         connectDropTarget: connect.dropTarget(),
-        isOver: monitor.isOver()
+        isOver: monitor.isOver(),
+        overItem: monitor.getItem()
     })
 )
 class GroupCard extends React.Component {
@@ -78,9 +79,8 @@ class GroupCard extends React.Component {
         super(props);
     }
 
-
     render() {
-        const {connectDropTarget, isOver} = this.props;
+        const {connectDropTarget, isOver, overItem} = this.props;
 
         let generateEmptySpots = () => {
             let emptyNum = this.props.capacity - this.props.participants.length;
@@ -104,7 +104,7 @@ class GroupCard extends React.Component {
         return connectDropTarget(
             <div>
                 <Segment.Group raised>
-                    <Segment padded={ true } size="large">
+                    <Segment padded={ true } size="large" style={ { backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2" } }>
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {

@@ -4,6 +4,9 @@
 import axios from "axios";
 import generateUsers from "../modules/UserGenerator"
 const SERVER_URL = "localhost:3000";
+const numOfPeople = 50,
+      groupCapacity = 6,
+      totalCapacity = 60;
 
 /* fetching, get requests */
 export const FETCH_PARTICIPANT_LIST = "FETCH_PARTICIPANT_LIST";
@@ -12,9 +15,9 @@ let fetchParticipantList = (dispatch) => {
         dispatch({ type: FETCH_PARTICIPANT_LIST });
         dispatch(fetchParticipantListSuccess(
             {
-                participants: generateUsers(10, 60),
-                groupCapacity: 10,
-                totalCapacity: 60
+                participants: generateUsers(groupCapacity, numOfPeople),
+                groupCapacity: groupCapacity,
+                totalCapacity: totalCapacity
             }
         ));
         /*

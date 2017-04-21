@@ -23,6 +23,7 @@ export class GroupsView extends React.Component {
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
         let separateIntoGroups = (participants) => {
+            //alert(participants);
             let groups = [];
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
@@ -33,7 +34,7 @@ export class GroupsView extends React.Component {
 
             for (let i = 0; i < participants.length; i++) {
                 let participantGroupNumber = participants[i].groupNumber;
-                if (participantGroupNumber >= 0 && participantGroupNumber <= participants.length) {
+                if (participantGroupNumber >= 0 && participantGroupNumber < numOfGroups) {
                     groups[participantGroupNumber].participants.push(participants[i]);
                 }
             }
@@ -57,8 +58,7 @@ export class GroupsView extends React.Component {
             )
         };
 
-        console.log("re-render");
-
+        //console.log("re-render");
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }

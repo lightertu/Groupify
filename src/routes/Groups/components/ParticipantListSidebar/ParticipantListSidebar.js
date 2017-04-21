@@ -148,7 +148,7 @@ class ParticipantListSidebar extends React.Component {
                         Next step is to notify all the students
                     </Header.Subheader>
                 </Header>
-                <Button color='green'>Send Out Email</Button>
+                <Button color="green">Send out Email</Button>
             </div>
         );
 
