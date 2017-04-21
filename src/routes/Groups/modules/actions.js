@@ -17,7 +17,7 @@ let fetchParticipantList = (dispatch) => {
             {
                 participants: generateUsers(groupCapacity, numOfPeople),
                 groupCapacity: groupCapacity,
-                totalCapacity: totalCapacity
+                totalCapacity: numOfPeople
             }
         ));
         /*

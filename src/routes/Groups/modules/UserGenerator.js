@@ -40,7 +40,7 @@ let pickImage = () => {
 };
 let pickGroup = (numOfGroups) => {
     return randomBetween(-1, numOfGroups);
-    //return -1;
+    //return ;
 };
 let pickSkills = () => {
     let maxSkillNum = 5;
