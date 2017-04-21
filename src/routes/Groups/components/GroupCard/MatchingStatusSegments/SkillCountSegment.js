@@ -30,10 +30,11 @@ export default class SkillCountSegment extends React.Component {
 
     generateLanguageTags = (participants) => {
         let skillCountMap = this.generateSkillCountMap(participants);
-        return Object.keys(skillCountMap).map((key) => (
-            <Label as='a' style = {{backgroundColor: getColorByLanguage(key), color: "white"}}>
-                { key }
-                <Label.Detail style = { {color: "white"} }> {skillCountMap[key]} </Label.Detail>
+        let key = 0;
+        return Object.keys(skillCountMap).map((skillName) => (
+            <Label as='a' key = { key++ } style = {{backgroundColor: getColorByLanguage(skillName), color: "white"}}>
+                { skillName }
+                <Label.Detail style = { {color: "white"} }> {skillCountMap[skillName]} </Label.Detail>
             </Label>
         ));
     };
@@ -41,7 +42,7 @@ export default class SkillCountSegment extends React.Component {
     render() {
         return (
             <Segment basic style={ { backgroundColor: (!this.props.isOver) ? "#f4f5f7" : "#EFF0F2" } }>
-                <Label.Group style={ {marginTop: "-1%"} }>
+                <Label.Group style={ {marginTop: "-1%"} } size="medium">
                     { this.generateLanguageTags(this.props.participants) }
                 </Label.Group>
             </Segment>

@@ -12,9 +12,9 @@ let fetchParticipantList = (dispatch) => {
         dispatch({ type: FETCH_PARTICIPANT_LIST });
         dispatch(fetchParticipantListSuccess(
             {
-                participants: [],//generateUsers(8/3, 8),
-                groupCapacity: 3,
-                totalCapacity: 30
+                participants: generateUsers(10, 60),
+                groupCapacity: 10,
+                totalCapacity: 60
             }
         ));
         /*

@@ -82,7 +82,7 @@ class Participant extends React.Component {
 }
 
 const participantsListStyle = {
-    paddingTop: "23%"
+    paddingTop: "20%"
 };
 
 const participantSidebarTarget = {
