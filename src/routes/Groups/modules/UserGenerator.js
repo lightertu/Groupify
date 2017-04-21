@@ -61,13 +61,13 @@ let pickAvailability = () => {
     }
     return week;
 };
-let generateUsers = (numOfGroups, numOfPeople) => {
+let generateUsers = (groupCapacity, numOfPeople) => {
     let generateUser = () => {
         let randId = guid(),
             randName = pickName(),
             randImage = pickImage(),
             randSkills = pickSkills(),
-            randGroupNumber = pickGroup(numOfGroups),
+            randGroupNumber = pickGroup( numOfPeople / groupCapacity ),
             randAvailability = pickAvailability();
 
         return ({

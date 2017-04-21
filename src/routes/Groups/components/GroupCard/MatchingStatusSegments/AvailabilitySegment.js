@@ -40,7 +40,7 @@ export default class AvailabilitySegment extends React.Component {
 
         return (
             <Segment basic style={ {padding: "0%", backgroundColor: (!this.props.isOver) ? "#f4f5f7" : "#EFF0F2"} }>
-                <Label.Group circular size={"bigt"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
+                <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     { generateAvailabilities(overAllAvailability(this.props.participants)) }
                 </Label.Group>
             </Segment>
