@@ -88,7 +88,7 @@ router.post('/:resource', function(req, res, next){
 	})
 })
 
-router.post('/:resource/:id', function(req, res, next){
+router.post('/:resource/:id', function(req, res, next){ // this is for updating the group with survey responses
 	var resource = req.params.resource
 	var id = req.params.id
 	var controller = controllers[resource]

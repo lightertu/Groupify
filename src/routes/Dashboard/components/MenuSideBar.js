@@ -6,11 +6,9 @@ class MenuSideBar extends React.Component {
         this.state = {};
     }
 
-    toggleView(e) {
-        console.log("toggle view")
+    toggleView(view, e) {
         e.preventDefault();
-        console.log(this.props)
-        this.props.toggleView();
+        this.props.toggleView(view);
     }
 
     render() {
@@ -42,13 +40,17 @@ class MenuSideBar extends React.Component {
                     </div>
                 </div>
 
-                <a className="item" href="#" onClick={this.toggleView.bind(this)}>
+                <a className="item" href="#" onClick={this.toggleView.bind(this, 'groups')}>
                   <i className="group icon"></i>
                   Groups
                 </a>
-                <a className="item" href="#" onClick={this.toggleView.bind(this)}>
+                <a className="item" href="#" onClick={this.toggleView.bind(this, 'surveys')}>
                   <i className="write icon"></i>
                   Survey
+                </a>
+                 <a className="item" href="#" onClick={this.toggleView.bind(this, 'upload')}>
+                  <i className="upload icon"></i>
+                  Upload users
                 </a>
                 <a className="item">
                   <i className="cloud icon"></i>

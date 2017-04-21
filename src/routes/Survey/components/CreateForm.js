@@ -159,7 +159,7 @@ class CreateForm extends React.Component {
                             trigger={
                               <div>
                               <label>Upload Image</label>
-                              <input type="file" name="pic" accept="image/*"/>
+                              <Form.Input type="file" name="pic" accept="image/*"/>
                               </div>
                             }
                             wide='very'
