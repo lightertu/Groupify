@@ -7,16 +7,12 @@ class AppContainer extends Component {
     static propTypes = {
         routes: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired
-    }
-
-    shouldComponentUpdate() {
-        return false
-    }
+    };
 
     /*<div style={{height: '100%'}}>*/
     render() {
-        const {routes, store} = this.props
-        // const Survey = () => <h1>We are located at 555 Jackson St. {this.props.id}</h1>
+        const {routes, store} = this.props;
+
         return (
             <Provider store={ store }>
                 <div>
@@ -24,7 +20,7 @@ class AppContainer extends Component {
                     </Router>
                 </div>
             </Provider>
-        )
+        );
     }
 }
 
