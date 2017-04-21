@@ -2,6 +2,7 @@
  * Created by rui on 4/7/17.
  */
 
+import {injectReducer} from '../../store/reducers'
 
 export default (store) => ({
     path: 'groups',
@@ -13,9 +14,12 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Groups = require('./containers/GroupsContainer').default
+            const Groups = require('./containers/GroupsContainer').default;
             /*  Add the reducer to the store on key 'counter'  */
             // injectReducer(store, {key: 'counter', reducer})
+            const reducer = require('./modules/reducer').default;
+
+            injectReducer(store, {key: 'groups', reducer});
 
             /*  Return getComponent   */
             cb(null, Groups)

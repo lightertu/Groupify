@@ -3,40 +3,39 @@
  */
 import React from 'react'
 import {Grid} from 'semantic-ui-react'
-import { DragDropContext } from 'react-dnd';
+import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
 import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
-import generateUsers from "../modules/UserGenerator";
-
-let numOfPeople = 60,
-    numOfGroups = 10;
-
-let fakeUsers = generateUsers(numOfGroups, numOfPeople);
 
 export class GroupsView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.props.fetchParticipantList();
+    }
+
     render() {
         const participantsListWidth = 4;
         const groupCardsWidth = 12;
+        let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
-        let separateIntoGroups = () => {
+        let separateIntoGroups = (participants) => {
+            //alert(participants);
             let groups = [];
             for (let i = 0; i < numOfGroups; i++) {
-                let newGroup = {};
-                newGroup.capacity = Math.round(numOfPeople / numOfGroups);
-                newGroup.groupNumber = i;
-                newGroup.participants = [];
-                groups.push(newGroup);
+                groups.push({
+                    groupNumber: i,
+                    participants: []
+                })
             }
 
-            for (let i = 0; i < numOfPeople; i++) {
-                if (fakeUsers[i].groupNumber >= 0 && fakeUsers[i].groupNumber < numOfPeople) {
-                    groups[fakeUsers[i].groupNumber].participants.push(fakeUsers[i]);
-                } else if (fakeUsers[i].groupNumber >= numOfPeople) {
-                    alert("user " + fakeUsers[i].name + "has group number: " + fakeUsers[i].groupNumber + " which is out of bound " );
+            for (let i = 0; i < participants.length; i++) {
+                let participantGroupNumber = participants[i].groupNumber;
+                if (participantGroupNumber >= 0 && participantGroupNumber < numOfGroups) {
+                    groups[participantGroupNumber].participants.push(participants[i]);
                 }
             }
 
@@ -47,20 +46,23 @@ export class GroupsView extends React.Component {
             return (
                 groups.map(
                     (group) => (
-                        <Grid.Column stretched>
+                        <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
-                                       capacity={ group.capacity }
-                                       groupNumber={ group.groupNumber}
-                                       itemsPerRow= { 10 } />
+                                       capacity={ this.props.groupCapacity }
+                                       groupNumber={ group.groupNumber }
+                                       itemsPerRow={ 10 }
+                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                         </Grid.Column>
                     )
                 )
             )
         };
 
+        //console.log("re-render");
         return (
             <div>
-                <ParticipantListSidebar participants={ fakeUsers }/>
+                <ParticipantListSidebar participants={ this.props.participants }
+                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                 <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
                     <Grid >
                         <Grid.Row>
@@ -68,7 +70,7 @@ export class GroupsView extends React.Component {
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
                                 <Grid columns={ 1 }>
-                                    { getGroupCards(separateIntoGroups()) }
+                                    { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
                             </Grid.Column>
                         </Grid.Row>
