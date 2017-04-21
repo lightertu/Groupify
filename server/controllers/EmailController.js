@@ -1,4 +1,5 @@
 'use strict';
+var Student = require('../models/Student.js')
 const nodemailer = require('nodemailer');
 
 module.exports = {
@@ -13,31 +14,38 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-		// create reusable transporter object using the default SMTP transport
-		let transporter = nodemailer.createTransport({
-			service: 'gmail',
-			auth: {
-				user: 'jdlivni@gmail.com',
-				pass: 'booger103'
-			}
-		});
-
-		let mailOptions = {
-			from: '"Joseph Livni" <jdlivni@gmail.com>',
-			to: params.students.toString(),
-			subject: 'Hello Class',
-			text: ' Hello Class! Here is a link to the survey. ' + params.survey,
-		}
-
-		transporter.sendMail(mailOptions, (err, info) => {
-			if(err) {
+		Student.find(params, function(err, students){
+			if(err){
 				callback(err, null)
-				return
+					return
 			}
 
-			callback(null, info)
-		})
+			// create reusable transporter object using the default SMTP transport
+			console.log(students)
+			let transporter = nodemailer.createTransport({
+				service: 'gmail',
+				auth: {
+					user: '422apptest@gmail.com',
+					pass: 'thebest101'
+				}
+			});
 
+			let mailOptions = {
+				from: '"Joseph Livni" <jdlivni@gmail.com>',
+				to: '422apptest@gmail.com',
+				subject: 'Hello Class',
+				text: ' Hello Class! Here is a link to the survey. ',
+			}
+
+			transporter.sendMail(mailOptions, (err, info) => {
+				if(err) {
+					callback(err, null)
+					return
+				}
+				console.log("email succesfully sent")
+				callback(null, info)
+			})
+		})
 
 	},
 
@@ -49,4 +57,5 @@ module.exports = {
 	delete: function(id, callback){
 		callback("email API does not have this functionality", null);
 		return
+	}
 }
