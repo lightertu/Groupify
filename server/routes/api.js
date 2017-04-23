@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 var controllers = require('../controllers') // gets index.js
 
+
 router.get('/:resource', function(req, res, next){
 	console.log("getting")
 	var resource = req.params.resource

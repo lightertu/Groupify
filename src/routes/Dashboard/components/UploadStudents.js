@@ -4,7 +4,21 @@ import { Card, Label, Segment, Image, Button, Icon, Form, Header } from 'semanti
 class UploadStudent extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {students:null}
+        this.UploadStudents = this.UploadStudents.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+    }
+
+    UploadStudents(e) {
+        e.preventDefault();
+        this.props.UploadStudents(this.state.students);
+        this.setState({students:null})
+    }
+
+    handleFileUpload(e, files) {
+        console.log( files)
+        console.log(e.target.files)
+        this.setState({students: e.target.files[0]});
     }
 
     render() {
@@ -26,10 +40,10 @@ class UploadStudent extends React.Component {
                         <br />
                         <Form>
                             <Form.Field>
-                                <Form.Input type="file" name="pic" accept="image/*"/>
+                                <Form.Input type="file" name="students" accept=".json" onChange={this.handleFileUpload}/>
                             </Form.Field>
                             <br />
-                            <Form.Button basic color='green'>Upload</Form.Button>
+                            <Form.Button basic color='green' onClick={this.UploadStudents}>Upload</Form.Button>
                         </Form>
                     </Segment>
                 </div>

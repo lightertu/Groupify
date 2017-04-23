@@ -14,7 +14,9 @@ class MenuSideBar extends React.Component {
     render() {
         var menuStyle = {
             paddingTop: 75,
-            paddingRight: 0
+            paddingRight: 0,
+            float: 'left'
+
         };
 
         var menuContentStyle = {
@@ -28,7 +30,6 @@ class MenuSideBar extends React.Component {
         return (
             <div>
                 <div className="ui visible left vertical sidebar menu" style={menuStyle} >
-        
                 <img className="ui centered small circular bordered image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"/>
                 <div className="menu content" style={menuContentStyle}>
                     <a className="header">Michael</a>
