@@ -58,12 +58,8 @@ class Dashboard extends React.Component {
             display = <UploadStudents UploadStudents={this.UploadStudents.bind(this)}/>
         }
 
-        var dashStyle = {
-       
-        }
-
         return (
-            <div className="dashWrapper" style={dashStyle}>
+            <div className="dashWrapper">
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
                 {display}
             </div>
