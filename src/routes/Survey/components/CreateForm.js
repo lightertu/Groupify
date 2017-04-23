@@ -4,6 +4,10 @@ import {Dropdown, Header, Button, Form, Popup} from 'semantic-ui-react'
 class CreateForm extends React.Component {
     constructor(props) {
         super(props);
+        var obj = {}
+        this.props.questions[0].questions.forEach(function(data) {
+            obj[data] = ""
+          });
         this.state = {
           firstName: "",
           lastName: "",
@@ -12,26 +16,35 @@ class CreateForm extends React.Component {
           languages: [],
           requests: [],
           image: undefined,
-          extraQuestions: this.props.questions[0]
+          extraQuestions: obj
         };
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.extraQuestionsGeneration = this.extraQuestionsGeneration.bind(this);
     }
 
     handleFormSubmit(e) {
       e.preventDefault()
-
+      console.log(this.state)
       let firstName = this.state.firstName.trim();
       let lastName = this.state.lastName.trim();
       let email = this.state.email.trim();
       
+
+
       this.props.handleFormSubmit({
         firstName: firstName,
         lastName: lastName, 
         email: email, 
         languages: this.state.languages, 
         meetingTimes: this.state.meetingTimes,
-        requests: this.state.requests});
+        requests: this.state.requests,
+        extraQuestions: this.state.extraQuestions});
       
+      var obj = {}
+        this.props.questions[0].questions.forEach(function(data) {
+            obj[data] = ""
+          });
+
       this.setState({
           firstName: "",
           lastName: "",
@@ -39,8 +52,9 @@ class CreateForm extends React.Component {
           meetingTimes: [],
           languages: [],
           requests: [],
-          image: undefined
-      })
+          image: undefined,
+          extraQuestions: obj
+      });
     }
 
     validateEmail(value) {
@@ -54,6 +68,11 @@ class CreateForm extends React.Component {
       object[field] = event.target.value;
       this.setState(object);
   }
+
+    extraSetValue(field, event) {
+      this.state.extraQuestions[field] = event.target.value;
+      this.setState({extraQuestions:this.state.extraQuestions})
+    }
 
   setMultipleValue(input, event) {
     let field = this.state['languages']
@@ -70,8 +89,20 @@ class CreateForm extends React.Component {
     
     this.setState({field:field});
   }
+
+  extraQuestionsGeneration(questions) {
+    var result = []
+    for(var i = 0; i < questions.length; i++) {
+      result.push(<Form.Field key={i}>
+                    <label>{questions[i]}</label>
+                                <textarea rows="2" value={this.state.extraQuestions[questions[i]]} onChange={this.extraSetValue.bind(this, questions[i])}></textarea>
+                  </Form.Field>)
+    }
+    return result
+  }
+
+
     render() {
-        console.log(this.props)
         const linkStyles = {
             color: 'black',
             };
@@ -107,15 +138,7 @@ class CreateForm extends React.Component {
           { key: 7, value: 'SU', text: 'sunday'}
         ]
 
-        let extraQuestions = this.state.extraQuestions.questions.map(function(question, i) {
-          return (
-                  <Form.Field key={i}>
-                    <label>{question}</label>
-                                <textarea rows="2" value={"placeholder"}></textarea>
-                  </Form.Field>
-            );
-        });
-
+        let extraQuestions = this.extraQuestionsGeneration(this.props.questions[0].questions);
         
         let form = (<div className="card big ">
                     <div className="ui card blue">
