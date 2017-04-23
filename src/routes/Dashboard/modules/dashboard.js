@@ -54,9 +54,35 @@ function uploadError(error) {
 }
 
 export function uploadStudents(data) {
-    console.log("generating survey")
-    let promise = axios.post('http://localhost:3000/api/groups', {
-      students: data
+
+
+    let promise = axios.post('http://localhost:3000/api/email', {
+      students:  [ {
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "email": "422apptest@gmail.com"
+    },
+     {
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "email": "422apptest@gmail.com"
+    },
+     {
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "email": "422apptest@gmail.com"
+    },
+    {
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "email": "j.d.livni@gmail.com"
+    },
+    {
+    "firstName": "Jack",
+    "lastName": "Smith",
+    "email": "422apptest@gmail.com"
+    }
+  ]
     })
       return dispatch => {
         promise.then(

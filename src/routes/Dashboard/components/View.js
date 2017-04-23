@@ -12,7 +12,8 @@ class View extends React.Component {
         var viewStyles = {
           paddingLeft: 0,
           marginRight: 0,
-          paddingTop: 65
+          paddingTop: 65,
+          float: 'left'
         }
 
         let getCards = (item) => {

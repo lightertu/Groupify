@@ -8,6 +8,7 @@ class Dashboard extends React.Component {
         super();
         this.state = {view: 'groups'}
         this.toggleView = this.toggleView.bind(this);
+        this.UploadStudents = this.UploadStudents.bind(this);
     }
 
     componentWillMount() {
@@ -15,8 +16,7 @@ class Dashboard extends React.Component {
     }
 
     UploadStudents(students) {
-        console.log(students);
-        this.props.UploadStudents(students)
+        this.props.uploadStudents(students)
     }
 
     toggleView(view) {
@@ -29,34 +29,41 @@ class Dashboard extends React.Component {
         if(this.state.view == 'groups'){
             if(this.props.counter.results !== undefined) {
                 data = this.props.counter.results.map(function(item, i){
-                    item.title = "Group: "+i,
-                    item.link = "http://localhost:3000/groups/"+item.form,
-                    item.icon = "group",
-                    item.counting = "Students",
-                    item.date = "12/31/2017",
-                    item.num = item.students.length
+                    item.title = "Group: "+i;
+                    item.link = "http://localhost:3000/groups/"+item.form;
+                    item.icon = "group";
+                    item.counting = "Students";
+                    item.date = "12/31/2017";
+                    item.num = item.students.length;
                     return item
                 });
             }
             display = <View data={data}/>
 
         } else if(this.state.view == 'surveys') {
-             for (let i = 0; i < 10; i++) {
-                    let card = {};
-                    card.color = "red";
-                    card.title = "Surveys";
-                    card.link = "http://localhost:3000/groups";
-                    card.date = "12/31/2017";
-                    card.icon = "write";
-                    card.num = "22";
-                    data.push(card);
-                }
+            if(this.props.counter.results !== undefined) {
+                 data = this.props.counter.results.map(function(item, i){
+                        item.color = "red";
+                        item.title = "Surveys";
+                        item.link = "http://localhost:3000/survey/"+item.form;
+                        item.date = "12/31/2017";
+                        item.icon = "write";
+                        item.num = item.questions.length;
+                        item.counting = "Extra Questions"
+                        return item
+                });
                 display = <View data={data}/>
+            }
         } else {
             display = <UploadStudents UploadStudents={this.UploadStudents.bind(this)}/>
         }
+
+        var dashStyle = {
+       
+        }
+
         return (
-            <div className="">
+            <div className="dashWrapper" style={dashStyle}>
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
                 {display}
             </div>

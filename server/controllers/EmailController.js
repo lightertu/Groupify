@@ -4,8 +4,14 @@ const nodemailer = require('nodemailer');
 
 module.exports = {
 	find: function(params, callback){
-			callback("email API does not have this functionality", null);
-			return
+			Student.find(params, function(err, group){
+			if(err){
+				callback(err, null)
+					return
+			}
+
+			callback(null, group)
+		})
 	},
 
 	findById: function(id, callback){
@@ -14,14 +20,14 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-		Student.find(params, function(err, students){
-			if(err){
-				callback(err, null)
-					return
-			}
+		// Student.find(params, function(err, students){
+		// 	if(err){
+		// 		callback(err, null)
+		// 			return
+		// 	}
 
 			// create reusable transporter object using the default SMTP transport
-			console.log(students)
+			console.log("students", params)
 			let transporter = nodemailer.createTransport({
 				service: 'gmail',
 				auth: {
@@ -32,7 +38,7 @@ module.exports = {
 
 			let mailOptions = {
 				from: '"Joseph Livni" <jdlivni@gmail.com>',
-				to: '422apptest@gmail.com',
+				to: params.students.map(student => { return student.email }),
 				subject: 'Hello Class',
 				text: ' Hello Class! Here is a link to the survey. ',
 			}
@@ -45,7 +51,7 @@ module.exports = {
 				console.log("email succesfully sent")
 				callback(null, info)
 			})
-		})
+		//})
 
 	},
 

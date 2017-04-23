@@ -7,7 +7,7 @@ const project = require('../config/project.config')
 const compress = require('compression')
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var session = require('express-session')
+var session = require('express-session');
 
 var dbUrl = 'mongodb://localhost/team-divider'
 mongoose.connect(dbUrl, function(err, res){
@@ -29,14 +29,6 @@ app.use(session({
     saveUnitialized: true
 }));
 
-// Authentication and Authorization Middleware
-var auth = function(req, res, next) {
-    if(req.session && req.session.user === "joseph" && req.session.admin)
-        return next();
-    else
-        return res.sendStatus(401);
-};
-
 // Login endpoint
 // Authentication and Authorization Middleware
 var auth = function(req, res, next) {
@@ -47,7 +39,7 @@ var auth = function(req, res, next) {
 };
  
 // Login endpoint
-app.get('/login', function (req, res) {
+app.get('/api/login', function (req, res) {
   if (!req.query.username || !req.query.password) {
     res.send('login failed');    
   } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
@@ -95,7 +87,7 @@ if (project.env === 'development') {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
-    app.use('*', auth, function (req, res, next) {
+    app.use('*', function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html')
         compiler.outputFileSystem.readFile(filename, (err, result) => {
             if (err) {
