@@ -91,7 +91,7 @@ class CreateForm extends React.Component {
         }
 
         let formStyle = {
-          marginTop: 100,
+          marginTop: "20%",
           marginBottom: 100
         }
 

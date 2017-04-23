@@ -45,28 +45,6 @@ body {
 	margin-top: 75px;
 }
 
-// .basic:hover {
-// 	background: yellow;
-// }
-
-// // end of welcome page styles
-
-// // start of login page styles
-// .login-wrapper {
-// 	width: 300px;
-// 	margin: auto;
-// 	margin-top: 100px;
-// }
-
-// .login-button {
-// 	margin: auto;
-// 	margin-bottom: 10px;
-// 	width: 85px;
-// }
-
-// // end of login page styles
-
-// // transition styles
 .line {
 	text-decoration: underline;
 }
@@ -105,7 +83,8 @@ body {
 	bottom: 0; 
 	right: 0;  
 	z-index: 2;  
-	background-color: rgba(0, 0, 0, 0.4); }
+	// background-color: rgba(0, 0, 0, 0.4); 
+}
  
 .card.big {  
 	position: absolute;  
@@ -141,8 +120,8 @@ body {
 
 .card.big {
 	margin-top: 300px;
-	margin-bottom: 50px;
-	padding-bottom: 50px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
 }
 
 //http://www.fontfabric.com/code-pro/
