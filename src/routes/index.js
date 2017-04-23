@@ -14,6 +14,7 @@ import Survey from './Survey'
 
 export const createRoutes = (store) => ({
     path: '/',
+    
     component: CoreLayout,
     indexRoute: Home,
     childRoutes: [

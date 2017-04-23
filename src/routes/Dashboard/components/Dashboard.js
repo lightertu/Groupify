@@ -1,50 +1,71 @@
 import React from 'react'
 import MenuSideBar from './MenuSideBar';
 import View from './View';
+import UploadStudents from './UploadStudents';
 
 class Dashboard extends React.Component {
     constructor() {
         super();
-        this.state = {groups: true}
+        this.state = {view: 'groups'}
+        this.toggleView = this.toggleView.bind(this);
+        this.UploadStudents = this.UploadStudents.bind(this);
     }
 
     componentWillMount() {
         this.props.fetchGroups();
     }
 
+    UploadStudents(students) {
+        this.props.uploadStudents(students)
+    }
 
-    toggleView = () => this.setState({ groups: !this.state.groups })
+    toggleView(view) {
+        this.setState({view: view});
+    }
 
     render() {
         let data = [];
-        if(this.state.groups){
+        let display = ''
+        if(this.state.view == 'groups'){
             if(this.props.counter.results !== undefined) {
                 data = this.props.counter.results.map(function(item, i){
-                    item.title = "Group: "+i,
-                    item.link = "http://localhost:3000/groups/"+item.form,
-                    item.icon = "group",
-                    item.counting = "Students",
-                    item.date = "12/31/2017",
-                    item.num = item.students.length
+                    item.title = "Group: "+i;
+                    item.link = "http://localhost:3000/groups/"+item.form;
+                    item.icon = "group";
+                    item.counting = "Students";
+                    item.date = "12/31/2017";
+                    item.num = item.students.length;
                     return item
                 });
             }
+            display = <View data={data}/>
+
+        } else if(this.state.view == 'surveys') {
+            if(this.props.counter.results !== undefined) {
+                 data = this.props.counter.results.map(function(item, i){
+                        item.color = "red";
+                        item.title = "Surveys";
+                        item.link = "http://localhost:3000/survey/"+item.form;
+                        item.date = "12/31/2017";
+                        item.icon = "write";
+                        item.num = item.questions.length;
+                        item.counting = "Extra Questions"
+                        return item
+                });
+                display = <View data={data}/>
+            }
         } else {
-             for (let i = 0; i < 10; i++) {
-                    let card = {};
-                    card.color = "red";
-                    card.title = "Surveys";
-                    card.link = "http://localhost:3000/groups";
-                    card.date = "12/31/2017"
-                    card.icon = "write"
-                    card.num = "22"
-                    data.push(card);
-                }
+            display = <UploadStudents UploadStudents={this.UploadStudents.bind(this)}/>
         }
+
+        var dashStyle = {
+       
+        }
+
         return (
-            <div className="">
+            <div className="dashWrapper" style={dashStyle}>
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
-                <View data={data}/> 
+                {display}
             </div>
         )
     }

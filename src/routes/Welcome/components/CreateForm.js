@@ -75,7 +75,7 @@ class CreateForm extends React.Component {
 
         let questions = this.state.questions.map(function(question, i) {
                           return (
-                                    <Form.Field key={i}>
+                                    <Form.Field key={i} disabled>
                                       <label>{question}</label>
                                         <textarea rows="2"></textarea>
                                     </Form.Field>
@@ -91,52 +91,57 @@ class CreateForm extends React.Component {
         }
 
         let formStyle = {
-          marginTop: 200
+          marginTop: "20%",
+          marginBottom: 100
         }
 
         let form;
         if(this.props.active) {
           form = (<div className="card big" >
-                    <div className="ui card">
+                    <div className="ui card" style={formStyle}>
                       <div className="header">Preview Survey</div>
                         <div className="content">
-                          <form className="ui form" style={formStyle}>
-                            <div className="field">
+                          <form className="ui form">
+                            <div className=" disabled field">
                             <label>First Name</label>
                             <input type="text" name="first-name" placeholder="First Name"/>
                           </div>
-                          <div className="field">
+                          <div className="disabled field">
                             <label>Last Name</label>
                             <input type="text" name="last-name" placeholder="Last Name"/>
                           </div>
-                           <div className="field">
+                           <div className="disabled field">
                             <label>Email</label>
                             <input type="text" name="email" placeholder="Email"/>
                           </div>
-                          <div className="field">
+                          <div className="disabled field">
                             <label>Meeting Times</label>
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple selection 
                               options={DayOptions}/>
                           </div>
-                          <div className="field">
+                          <div className="disabled field">
                             <label>Languages</label>
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple search selection 
                               options={LanguageOptions}/>
                         </div>
-                        <div className="field">
+                        <div className="disabled field">
                           <label>Requests</label>
                           <textarea rows="2"></textarea>
                
                         </div>
-                        <div className="field">
-                          <label>Upload Image</label>
-                         <input type="file" name="pic" accept="image/*"/>
-                        </div>
+                           <Form.Field disabled>
+                                <label>Upload Image</label>
+                                <Form.Input type="file" name="pic" accept="image/*"/>
+                          </Form.Field>
                         {questions}
+                             <Form.Field>
+                                <label>Upload Group</label>
+                                <Form.Input type="file" name="pic" accept="image/*"/>
+                          </Form.Field>
                         <SurveyPopup 
                           handleQuestionAdd={this.handleQuestionAdd.bind(this)}
                         />

@@ -5,6 +5,9 @@ import axios from 'axios';
 // ------------------------------------
 export const REQUEST_GROUPS = 'REQUEST_GROUPS'
 export const RECEIVE_GROUPS = 'RECEIVE_GROUPS'
+export const UPLOAD_ERROR = 'UPLOAD_ERROR'
+export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS'
+
 
 // ------------------------------------
 // Actions
@@ -35,8 +38,41 @@ export function fetchGroups() { // fetch survey
   }
 }
 
+// upload student list
+function uploadSuccess(res) {
+  return {
+    type: UPLOAD_SUCCESS,
+    message: res
+  }
+}
+
+function uploadError(error) {
+  return {
+    type: UPLOAD_ERROR,
+    error: error.response.data.error
+  }
+}
+
+export function uploadStudents(data) {
+
+
+    let promise = axios.post('http://localhost:3000/api/email', data)
+      return dispatch => {
+        promise.then(
+          res => {
+              console.log("success")
+              dispatch(uploadSuccess(res));
+        },
+          err => {
+            console.log("failure")
+            dispatch(uploadError(err));
+          })
+  }
+}
+
 export const actions = {
-  fetchGroups
+  fetchGroups,
+  uploadStudents
 }
 
 // ------------------------------------
