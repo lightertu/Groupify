@@ -27,11 +27,11 @@ function generateError(error) {
 
 
 export function generateSurvey(id, data) {
-    console.log("generating survey")
+    let colors = ['red', 'orange', 'yellow', 'olive', 'green', 'teal', 'blue', 'violet', 'purple', 'pink', 'brown']
     let promise = axios.post('http://localhost:3000/api/groups', {
       form: id,
       questions: data,
-      color: "pink",
+      color: colors[Math.floor(Math.random()*colors.length)],
       title: "TEST"
     })
       return dispatch => {
