@@ -149,10 +149,10 @@ Babel is configured to use [babel-plugin-transform-runtime](https://www.npmjs.co
 so transforms aren't inlined. In production, webpack will extract styles to a `.css` file, minify your JavaScript, 
 and perform additional optimizations such as module deduplication.
 
+ 
+### To Do
 
-###To Do
-
-###Week 2
+### Week 2
 
 Goal: Finish UI. Focus on creating flexible React components. 
 
@@ -161,15 +161,15 @@ Goal: Finish UI. Focus on creating flexible React components.
 3) Create survey page
 
 
-###API End Points
+### API End Points
 
-##Grab all Groups
+## Grab all Groups
 
 ```
 http://localhost:3000/api/groups
 ```
 
-##Fetch Survey/Group by ID
+## Fetch Survey/Group by ID
 
 ```
 http://localhost:3000/api/groups/ID
