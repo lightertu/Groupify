@@ -56,34 +56,7 @@ function uploadError(error) {
 export function uploadStudents(data) {
 
 
-    let promise = axios.post('http://localhost:3000/api/email', {
-      students:  [ {
-    "firstName": "Jack",
-    "lastName": "Smith",
-    "email": "422apptest@gmail.com"
-    },
-     {
-    "firstName": "Jack",
-    "lastName": "Smith",
-    "email": "422apptest@gmail.com"
-    },
-     {
-    "firstName": "Jack",
-    "lastName": "Smith",
-    "email": "422apptest@gmail.com"
-    },
-    {
-    "firstName": "Jack",
-    "lastName": "Smith",
-    "email": "j.d.livni@gmail.com"
-    },
-    {
-    "firstName": "Jack",
-    "lastName": "Smith",
-    "email": "422apptest@gmail.com"
-    }
-  ]
-    })
+    let promise = axios.post('http://localhost:3000/api/email', data)
       return dispatch => {
         promise.then(
           res => {

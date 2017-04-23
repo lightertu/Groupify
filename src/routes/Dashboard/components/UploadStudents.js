@@ -1,3 +1,4 @@
+'use strict'
 import React from 'react'
 import { Card, Label, Segment, Image, Button, Icon, Form, Header } from 'semantic-ui-react'
 
@@ -15,10 +16,19 @@ class UploadStudent extends React.Component {
         this.setState({students:null})
     }
 
-    handleFileUpload(e, files) {
-        console.log( files)
-        console.log(e.target.files)
-        this.setState({students: e.target.files[0]});
+    loadFile(e) {
+        console.log(e);
+        var result = JSON.parse(e.target.result);
+        console.log(result)
+        this.setState({students: result});
+    }
+
+    handleFileUpload(e) {
+        var file = e.target.files.item(0);
+        var fr = new FileReader();
+        fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
+        fr.readAsText(file);
+
     }
 
     render() {
