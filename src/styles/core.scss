@@ -26,35 +26,12 @@ body {
 
 // start of welcome page styles
 
-.welcome-header{
-	margin-top: 75px;
-	font-size: 35px;
-	weight: bold;
-	color:#155484;
-
-}
-.inner {
-	display: inline;
-	font-size: 55px;
-	weight: thin;
-	text-decoration: underline;
-	color:#2185D0;
-}
-
-.row {
-	margin-top: 75px;
-}
-
 .line {
 	text-decoration: underline;
 }
 
 .line:hover {
 	color: blue;
-}
-
-.link {
-	margin-top: 25px;
 }
 
 .example-enter {
@@ -86,18 +63,6 @@ body {
 	// background-color: rgba(0, 0, 0, 0.4); 
 }
  
-.card.big {  
-	position: absolute;  
-	width: 450px;  
-	height: 200px;  
-	margin: auto;  
-	padding: 15px;  
-	top: 0; 
-	left: 0; 
-	bottom: 100px; 
-	right: 0;  
-	z-index: 3; 
-}
 
  .big > .ui.card {
     position: absolute;
@@ -107,21 +72,8 @@ body {
     transform: translateX(-50%) translateY(-50%);
   }
 
-.ui.card > .header {
-  	font-size: 30px;
-  	font-weight: bold;
-  	padding: 20px;
-  	color:#2185D0;
-  }
-
 .field > label {
 	text-align: left;
-}
-
-.card.big {
-	margin-top: 300px;
-	margin-bottom: 0px;
-	padding-bottom: 0px;
 }
 
 //http://www.fontfabric.com/code-pro/
