@@ -17,9 +17,7 @@ class UploadStudent extends React.Component {
     }
 
     loadFile(e) {
-        console.log(e);
         var result = JSON.parse(e.target.result);
-        console.log(result)
         this.setState({students: result});
     }
 
