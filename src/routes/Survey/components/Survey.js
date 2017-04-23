@@ -23,7 +23,7 @@ class Survey extends React.Component {
     render() {
         let survey;
         if(this.props.counter['confirmation'] == 'success') {
-            survey = <CreateForm handleFormSubmit={this.handleFormSubmit.bind(this)} id={this.props.params.id}/>
+            survey = <CreateForm handleFormSubmit={this.handleFormSubmit.bind(this)} id={this.props.params.id} questions={this.props.counter.result}/>
         } else {
             survey = <h1>Sorry there is no survey here</h1>
         }

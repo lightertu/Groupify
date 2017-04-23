@@ -7,6 +7,7 @@ const project = require('../config/project.config')
 const compress = require('compression')
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var dbUrl = 'mongodb://localhost/team-divider'
 mongoose.connect(dbUrl, function(err, res){
@@ -22,7 +23,38 @@ var api = require('./routes/api');
 const app = express()
 app.use(bodyParser.json());
 
+app.use(session({
+    secret: 'secret_key',
+    resave: true,
+    saveUnitialized: true
+}));
 
+// Login endpoint
+// Authentication and Authorization Middleware
+var auth = function(req, res, next) {
+  if (req.session && req.session.user === "amy" && req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
+ 
+// Login endpoint
+app.get('/api/login', function (req, res) {
+  if (!req.query.username || !req.query.password) {
+    res.send('login failed');    
+  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
+    req.session.user = "amy";
+    req.session.admin = true;
+    res.send("login success!");
+  }
+});
+ 
+// Logout endpoint
+app.get('/logout', auth, function (req, res) {
+  req.session.destroy();
+  res.send("logout success!");
+});
+ 
 // Apply gzip compression
 app.use(compress())
 app.use('/api', api);

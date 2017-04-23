@@ -37,7 +37,6 @@ class Welcome extends Component {
     }
 
     render() {
-        console.log(this.props)
         const { visible } = this.state
         let form;
         if(visible) {
@@ -65,10 +64,10 @@ class Welcome extends Component {
 
             <div className="column">
             <div className="welcome-button-right">
-            <Button className="massive ui labeled icon blue button">
+            <a href="/dashboard"><Button className="massive ui labeled icon blue button">
                 <i className="dashboard icon"></i>
                 Dashboard&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </Button>
+            </Button></a>
             </div>
             </div>
         </div>
