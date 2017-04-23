@@ -2,8 +2,8 @@ import React from 'react'
 import {Dropdown, Header, Button, Form, Popup} from 'semantic-ui-react'
 
 class CreateForm extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
           firstName: "",
           lastName: "",
@@ -11,7 +11,8 @@ class CreateForm extends React.Component {
           meetingTimes: [],
           languages: [],
           requests: [],
-          image: undefined
+          image: undefined,
+          extraQuestions: this.props.questions[0]
         };
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -70,6 +71,7 @@ class CreateForm extends React.Component {
     this.setState({field:field});
   }
     render() {
+        console.log(this.props)
         const linkStyles = {
             color: 'black',
             };
@@ -105,8 +107,17 @@ class CreateForm extends React.Component {
           { key: 7, value: 'SU', text: 'sunday'}
         ]
 
-        let form;
-        form = (<div className="card big ">
+        let extraQuestions = this.state.extraQuestions.questions.map(function(question, i) {
+          return (
+                  <Form.Field key={i}>
+                    <label>{question}</label>
+                                <textarea rows="2" value={"placeholder"}></textarea>
+                  </Form.Field>
+            );
+        });
+
+        
+        let form = (<div className="card big ">
                     <div className="ui card blue">
                       <div className="header">Survey ID:</div>
                         <div className="content">
@@ -168,6 +179,8 @@ class CreateForm extends React.Component {
                             </Popup>
                          
                         </div>
+                        {extraQuestions}
+
                          <Button>Submit</Button>
                         </Form>
                       </div>
