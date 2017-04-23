@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dropdown, Header, Button, Form, Popup} from 'semantic-ui-react'
+import {Dropdown, Header, Button, Form, Popup, Card} from 'semantic-ui-react'
 
 class CreateForm extends React.Component {
     constructor(props) {
@@ -62,6 +62,18 @@ class CreateForm extends React.Component {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(value);
     }
+
+    loadFile(e) {
+        var result = JSON.parse(e.target.result);
+        this.setState({image: result});
+    }
+
+    handleFileUpload(e) {
+        var file = e.target.files.item(0);
+        var fr = new FileReader();
+        fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
+        fr.readAsText(file);
+      }
 
     setValue(field, event) {
       var object = {};
@@ -139,32 +151,61 @@ class CreateForm extends React.Component {
         ]
 
         let extraQuestions = this.extraQuestionsGeneration(this.props.questions[0].questions);
+
+        let formStyles = {
+          marginTop: "10%",
+          marginBottom: 100
+        }
+
+        let cardStyle = {
+            position: 'absolute',
+            width: 450,  
+            height: 200,  
+            margin: 'auto',  
+            padding: 15,
+            top: 0,
+            left: 0, 
+            bottom: 100, 
+            right: 0,
+            zIndex: 3,
+            marginTop: 300,
+            marginBottom: 0,
+            paddingBottom: 0 
+
+        }
+
+        let headerStyle = {
+          fontSize: 30,
+          fontWeight: 'bold',
+          padding: 20,
+          color: '#2185D0'
+        }
         
-        let form = (<div className="card big ">
-                    <div className="ui card blue">
-                      <div className="header">Survey ID:</div>
-                        <div className="content">
-                          <Form className="ui form" onSubmit={this.handleFormSubmit}>
-                            <div className="field">
+        let form = (<div className="card big " style={cardStyle}>
+                    <Card style={formStyles} color={'blue'}>
+                      <Header style={headerStyle}>Survey ID:</Header>
+                        <Card.Content>
+                          <Form onSubmit={this.handleFormSubmit}>
+                            <Form.Field>
                             <label>First Name</label>
                             <input type="text" placeholder="First Name" value={this.state.firstName} onChange={this.setValue.bind(this, 'firstName')}/>
-                          </div>
-                          <div className="field">
+                          </Form.Field>
+                           <Form.Field>
                             <label>Last Name</label>
                             <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.setValue.bind(this, 'lastName')}/>
-                          </div>
-                           <div className="field">
+                          </Form.Field>
+                            <Form.Field>
                             <label>Email</label>
                             <input type="text" placeholder="Email" value={this.state.email} onChange={this.setValue.bind(this, 'email')}/>
-                          </div>
-                          <div className="field">
+                          </Form.Field>
+                           <Form.Field>
                             <label>Meeting Times</label>
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple selection 
                               options={DayOptions}/>
-                          </div>
-                          <div className="field">
+                          </Form.Field>
+                           <Form.Field>
                             <label>Languages</label>
                             <Dropdown 
                               allowAdditions={true} 
@@ -174,8 +215,8 @@ class CreateForm extends React.Component {
                               onChange={this.setMultipleValue.bind(this, 'languages')}
                          />
 
-                        </div>
-                        <div className="field">
+                        </Form.Field>
+                         <Form.Field>
                           <Popup 
                             trigger={
                               <div>
@@ -187,13 +228,13 @@ class CreateForm extends React.Component {
                           >
                           Separate teammate requests by a comma  ei: Joseph, Rui, Kai
                           </Popup>
-                        </div>
-                        <div className="field">
+                        </Form.Field>
+                         <Form.Field>
                           <Popup
                             trigger={
                               <div>
                               <label>Upload Image</label>
-                              <Form.Input type="file" name="pic" accept="image/*"/>
+                              <Form.Input type="file" name="pic" accept="" onChange={this.handleFileUpload}/>
                               </div>
                             }
                             wide='very'
@@ -201,13 +242,13 @@ class CreateForm extends React.Component {
                             This will be your profile picture for the professor to view
                             </Popup>
                          
-                        </div>
+                        </Form.Field>
                         {extraQuestions}
 
-                         <Button>Submit</Button>
+                         <Button basic color={'blue'}>Submit</Button>
                         </Form>
-                      </div>
-                  </div>
+                      </Card.Content>
+                  </Card>
                   </div>
                   )
         return (
