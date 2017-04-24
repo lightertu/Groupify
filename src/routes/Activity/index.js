@@ -5,7 +5,7 @@
 import {injectReducer} from '../../store/reducers'
 
 export default (store) => ({
-    path: 'groups',
+    path: 'activity',
 
     /*  Async getComponent is only invoked when route matches   */
     getComponent (nextState, cb) {
@@ -14,17 +14,17 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Groups = require('./containers/GroupsContainer').default;
+            const Groups = require('./containers/ActivityContainer').default;
             /*  Add the reducer to the store on key 'counter'  */
             // injectReducer(store, {key: 'counter', reducer})
             const reducer = require('./modules/reducer').default;
 
-            injectReducer(store, {key: 'groups', reducer});
+            injectReducer(store, {key: 'activity', reducer});
 
             /*  Return getComponent   */
             cb(null, Groups)
 
             /* Webpack named bundle   */
-        }, 'groups')
+        }, 'activity')
     }
 })

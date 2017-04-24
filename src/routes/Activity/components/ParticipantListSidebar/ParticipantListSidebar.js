@@ -35,7 +35,8 @@ class DraggableParticipantListItem extends React.Component {
     render() {
         const {image, name, participantId, connectDragSource, isDragging} = this.props;
         return connectDragSource(
-            <div className="item" {...this.props } style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move"} }>
+            <div className="item" {...this.props }
+                 style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move"} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
@@ -89,9 +90,11 @@ const participantSidebarTarget = {
     drop(props, monitor) {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
         let droppedItem = monitor.getItem();
-        props.updateParticipantGroupNumber(droppedItem.participantId,
-                                           droppedItem.oldGroupNumber,
-                                           -1)
+        props.updateParticipantGroupNumber(
+            "activityId", // TODO: replace this with activity Id
+            droppedItem.participantId,
+            droppedItem.oldGroupNumber,
+            -1)
     },
 };
 
@@ -176,10 +179,10 @@ class ParticipantListSidebar extends React.Component {
                             <Segment basic>
                                 {
                                     (this.props.participants.length <= 0) ?
-                                         generateEmptyMessage() :
+                                        generateEmptyMessage() :
                                         ((getUngroupedNumber(this.props.participants)) ?
-                                             generateSidebarList(this.props.participants) :
-                                             generateEmailButton())
+                                            generateSidebarList(this.props.participants) :
+                                            generateEmailButton())
                                 }
                             </Segment>
                         </div>
