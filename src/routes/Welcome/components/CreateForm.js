@@ -9,7 +9,8 @@ class CreateForm extends React.Component {
           questions: [],
           students: null,
           title: '',
-          link: false
+          link: false,
+          groups: []
         })
         this.handleSurveySubmit = this.handleSurveySubmit.bind(this);
         this.handleFileUpload = this.handleFileUpload.bind(this);
@@ -37,6 +38,12 @@ class CreateForm extends React.Component {
       $('.ui.fluid.search.dropdown').dropdown();
     }
 
+    componentWillMount() {
+      if(this.props.groups) {
+        this.setState({groups: this.props.groups});
+      }
+    }
+
     handleQuestionAdd(question) {
       let questions = this.state.questions
       questions.push(question)
@@ -50,6 +57,10 @@ class CreateForm extends React.Component {
       obj['students'] = this.state.students;
       obj['questions'] = this.state.questions;
       this.props.generateSurvey(obj);
+    }
+
+    handleStudents(e) {
+        this.setState({students: e.target.getAttribute('name')});
     }
 
     render() {
@@ -112,14 +123,15 @@ class CreateForm extends React.Component {
         }
 
         let idDrop;
-        if(this.props.groups !== undefined) {
-          idDrop  = this.props.groups.map(function(item, i) {
+        // if(this.props.groups !== undefined) {
+          idDrop  = this.state.groups.map(function(item, i) {
             item.key = i;
             item.value = item._id;
             item.text = item._id;
+            item.name = item._id
             return item;
           })
-        }
+        // }
 
 
         let formStyle = {
@@ -205,7 +217,9 @@ class CreateForm extends React.Component {
                             <label>Choose Group</label>
                             <Dropdown 
                               fluid search selection 
-                              options={idDrop}/>
+                              options={idDrop}
+                              value={this.state.students}
+                              onChange={this.handleStudents.bind(this)}/>
                           </Form.Field>
 
                         <SurveyPopup 
