@@ -12,7 +12,7 @@ class UploadStudent extends React.Component {
 
     UploadStudents(e) {
         e.preventDefault();
-        this.props.UploadStudents(this.state.students);
+        //this.props.UploadStudents(this.state.students);
         this.setState({students:null})
     }
 
