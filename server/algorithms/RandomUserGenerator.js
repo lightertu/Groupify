@@ -1,3 +1,8 @@
+/*
+Author: ReiTu and Kai Huang
+Email: huangkai2518@gmail.com
+*/
+
 let names = ["Rui Tu", "Kai Huang", "Joseph I", "Matt", "He daHe"];
 let images = [
     "https://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg",

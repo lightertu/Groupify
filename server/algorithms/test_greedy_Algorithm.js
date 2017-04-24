@@ -1,3 +1,8 @@
+/*
+Author: Kai Huang
+Email: huangkai2518@gmail.com
+*/
+
 // var randomAlgorithm = require('./randomAlgorithm').randomAlgorithm;
 // var Std = require('./greedy_algorithm').Std;
 // var clCompare = require('./greedy_algorithm').clCompare;
