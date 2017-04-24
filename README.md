@@ -174,3 +174,8 @@ http://localhost:3000/api/groups
 ```
 http://localhost:3000/api/groups/ID
 ```
+
+# Future Features
+* filtering and search based on questions in the survey on the group assignment page
+* Smart Layout: generate different layouts given different group capacities
+* Allow modifying activity infomation such as group capacity, total number of participants, on the grouping page
