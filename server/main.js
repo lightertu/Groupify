@@ -22,6 +22,7 @@ var api = require('./routes/api');
 
 const app = express()
 app.use(bodyParser.json());
+app.use(bodyParser({limit: '50mb'}))
 
 app.use(session({
     secret: 'secret_key',

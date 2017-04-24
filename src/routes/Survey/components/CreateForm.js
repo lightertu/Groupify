@@ -20,6 +20,7 @@ class CreateForm extends React.Component {
         };
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.extraQuestionsGeneration = this.extraQuestionsGeneration.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
     }
 
     handleFormSubmit(e) {
@@ -38,6 +39,7 @@ class CreateForm extends React.Component {
         languages: this.state.languages, 
         meetingTimes: this.state.meetingTimes,
         requests: this.state.requests,
+        image: this.state.image,
         extraQuestions: this.state.extraQuestions});
       
       var obj = {}
@@ -53,26 +55,23 @@ class CreateForm extends React.Component {
           languages: [],
           requests: [],
           image: undefined,
-          extraQuestions: obj
+          extraQuestions: obj,
+          file: undefined
       });
     }
 
-    validateEmail(value) {
-      // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(value);
-    }
-
-    loadFile(e) {
-        var result = JSON.parse(e.target.result);
-        this.setState({image: result});
-    }
-
     handleFileUpload(e) {
-        var file = e.target.files.item(0);
-        var fr = new FileReader();
-        fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
-        fr.readAsText(file);
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+          this.setState({
+            file: file,
+            image: reader.result
+          });
+        }
+
+        reader.readAsDataURL(file)
       }
 
     setValue(field, event) {
@@ -180,7 +179,24 @@ class CreateForm extends React.Component {
           padding: 20,
           color: '#2185D0'
         }
+
+        let imgStyles = {
+          width: 150,
+          height: 150,
+          padding: 5
+        }
         
+        let picPopup;
+        if(this.state.image) {
+          picPopup = (
+                  <div>
+                  <Header>Preview</Header>
+                  <img  style={imgStyles} src={this.state.image}/>
+                  </div>)
+        } else {
+          picPopup = 'This will be your profile picture for the professor to view'
+        }
+
         let form = (<div className="card big " style={cardStyle}>
                     <Card style={formStyles} color={'blue'}>
                       <Header style={headerStyle}>Survey ID:</Header>
@@ -239,7 +255,7 @@ class CreateForm extends React.Component {
                             }
                             wide='very'
                             >
-                            This will be your profile picture for the professor to view
+                            {picPopup}
                             </Popup>
                          
                         </Form.Field>
@@ -251,11 +267,10 @@ class CreateForm extends React.Component {
                   </Card>
                   </div>
                   )
+     
         return (
           <div>
             {form}
-            <div className="">
-            </div>
           </div>
         )   
     }
