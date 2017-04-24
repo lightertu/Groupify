@@ -7,9 +7,26 @@ class CreateForm extends React.Component {
         super();
         this.state = ({
           questions: [],
+          students: null,
+          title: '',
           link: false
         })
         this.handleSurveySubmit = this.handleSurveySubmit.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+    }
+
+    loadFile(e) {
+      var result = JSON.parse(e.target.result);
+      this.setState({students: result});
+      this.props.createStudents(result)
+    }
+
+    handleFileUpload(e) {
+      var file = e.target.files.item(0);
+      var fr = new FileReader();
+      fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
+      fr.readAsText(file);
+
     }
 
     toggleVisibility() {
@@ -29,7 +46,10 @@ class CreateForm extends React.Component {
     handleSurveySubmit() {
       // padd custom questions to parent and create survey and display link
       this.setState({link: true});
-      this.props.generateSurvey(this.state.questions);
+      var obj = {}
+      obj['students'] = this.state.students;
+      obj['questions'] = this.state.questions;
+      this.props.generateSurvey(obj);
     }
 
     render() {
@@ -91,8 +111,19 @@ class CreateForm extends React.Component {
                     )
         }
 
+        let idDrop;
+        if(this.props.groups !== undefined) {
+          idDrop  = this.props.groups.map(function(item, i) {
+            item.key = i;
+            item.value = item._id;
+            item.text = item._id;
+            return item;
+          })
+        }
+
+
         let formStyle = {
-          marginTop: "20%",
+          marginTop: 200,
           marginBottom: 100
         }
 
@@ -161,11 +192,22 @@ class CreateForm extends React.Component {
                                 <label>Upload Image</label>
                                 <Form.Input type="file" name="pic" accept="image/*"/>
                           </Form.Field>
+                           <Form.Field>
+                            <label>Class Name</label>
+                            <input type="text" name="className" placeholder="Class Name"/>
+                          </Form.Field>
                         {questions}
                              <Form.Field>
                                 <label>Upload Group</label>
-                                <Form.Input type="file" name="pic" accept="image/*"/>
+                                <Form.Input type="file" name="students" accept=".json" onChange={this.handleFileUpload}/>
                           </Form.Field>
+                           <Form.Field>
+                            <label>Choose Group</label>
+                            <Dropdown 
+                              fluid search selection 
+                              options={idDrop}/>
+                          </Form.Field>
+
                         <SurveyPopup 
                           handleQuestionAdd={this.handleQuestionAdd.bind(this)}
                         />

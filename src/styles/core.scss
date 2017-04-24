@@ -5,8 +5,15 @@
 // Just remove them if they're not what you want
 
 
+// font styles
+
+@font-face {
+  font-family: Mosk-Ultra-Boldimport;
+  src:url('./Mosk-Ultra-Bold.ttf')
+}
+
 html {
-  box-sizing: border-box;
+  box-sizing: border-box; 
 }
 
 html,
@@ -81,4 +88,4 @@ body {
 	text-align: left;
 }
 
-//http://www.fontfabric.com/code-pro/
+
