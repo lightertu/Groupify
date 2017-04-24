@@ -1,13 +1,36 @@
 import React, { Component } from 'react'
 import { Button, Form, Header, Card } from 'semantic-ui-react'
+import axios from 'axios';
 
-
-class Welcome extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {visible:false, link:''};
+        this.state = {username: '', password: ''};
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+
+    handleInputChange(field, event) {
+        var object = {};
+        object[field] = event.target.value;
+        this.setState(object);
+    }
+
+    handleSubmit(e) {
+
+        axios.post('/api/login', {
+            username: this.state.username,
+            password: this.state.password
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+    }
 
     render() {
 
@@ -47,14 +70,14 @@ class Welcome extends Component {
                         <Button.Or />
                         <Button positive>Sign Up</Button>
                     </Button.Group>
-                        <Form action='/welcome'>
+                        <Form onSubmit={this.handleSubmit} action='/welcome'>
                             <Form.Field>
                                 <label>User Name</label>
-                                <input type="text"/>
+                                <input type="text" value={this.state.username} onChange={this.handleInputChange.bind(this, 'username')}/>
                             </Form.Field>
                             <Form.Field>
                                 <label>Passoword</label>
-                                <input type="password"/>
+                                <input type="password" value={this.state.password} onChange={this.handleInputChange.bind(this, 'password')}/>
                             </Form.Field>
                             <a href="/welcome"><Button color={'green'}>Login</Button></a>
                         </Form>
@@ -65,4 +88,4 @@ class Welcome extends Component {
     }
 }
 
-export default Welcome
+export default Login
