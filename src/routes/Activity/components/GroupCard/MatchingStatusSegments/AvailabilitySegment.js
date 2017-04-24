@@ -11,7 +11,7 @@ export default class AvailabilitySegment extends React.Component {
 
     render() {
         let generateAvailabilities = (availability) => {
-            let weekdayInitial = ['S', 'M', 'T', 'W', 'T', 'F'];
+            let weekdayInitial = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
             if (availability.length !== 7) {
                 alert("availability array:  is greater than 7")
             }

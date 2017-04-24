@@ -18,8 +18,10 @@ export class ActivityView extends React.Component {
     }
 
     render() {
-        const participantsListWidth = 4;
-        const groupCardsWidth = 12;
+        const participantsListWidth = 1;
+        const groupCardsWidth = 15;
+        const itemsPerRow = 10;
+        const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
         let separateIntoGroups = (participants) => {
@@ -49,7 +51,7 @@ export class ActivityView extends React.Component {
                             <GroupCard participants={ group.participants }
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
-                                       itemsPerRow={ 10 }
+                                       itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                         </Grid.Column>
                     )
@@ -61,13 +63,18 @@ export class ActivityView extends React.Component {
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
-                <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
+                <div className="" style={ {
+                    marginTop: "2%",
+                    marginLeft: "5%",
+                    width: '100%',
+                    paddingLeft: '10.5%',
+                } }>
                     <Grid >
                         <Grid.Row>
                             <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
-                                <Grid columns={ 1 }>
+                                <Grid columns={ cardsPerRow }>
                                     { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
                             </Grid.Column>
