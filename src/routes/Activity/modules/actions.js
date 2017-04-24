@@ -5,7 +5,7 @@ import axios from "axios";
 import generateUsers from "../modules/UserGenerator"
 const SERVER_URL = "http://localhost:3000";
 const numOfPeople = 50,
-      groupCapacity = 6,
+      groupCapacity = 3,
       totalCapacity = 60;
 
 /* fetching, get requests */
@@ -19,7 +19,7 @@ let fetchParticipantList = (dispatch) => {
                 activityId: activityId,
                 participants: generateUsers(groupCapacity, numOfPeople),
                 groupCapacity: groupCapacity,
-                totalCapacity: numOfPeople
+                totalCapacity: totalCapacity
             }
         ));
 
@@ -100,12 +100,12 @@ let updateParticipantGroupNumberFailure = (error, payload) => {
 /* put request */
 export const GENERATE_GROUP_ASSIGNMENT = "GENERATE_GROUP_ASSIGNMENT";
 let generateGroupAssignment = (dispatch) => {
-    return (activityKey, algorithmKey) => {
+    return (activityId, algorithmId) => {
        dispatch({
             type: GENERATE_GROUP_ASSIGNMENT
        });
 
-        let url = SERVER_URL + "/api/activities/" + activityKey + "/" + algorithmKey;
+        let url = SERVER_URL + "/api/activities/" + activityId + "/" + algorithmId;
         axios.put(url)
         .then((response) => {
             dispatch(generateGroupAssignmentFailure());
@@ -114,7 +114,7 @@ let generateGroupAssignment = (dispatch) => {
             dispatch(generateGroupAssignmentFailure(error));
         });
 
-        fetchParticipantList(dispatch)();
+        fetchParticipantList(dispatch)(activityId);
     }
 };
 
