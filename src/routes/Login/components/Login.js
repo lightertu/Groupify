@@ -5,7 +5,7 @@ import axios from 'axios';
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {username: '', password: ''};
+        this.state = {username: '', password: '', login: true};
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -18,7 +18,6 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-
         axios.post('/api/login', {
             username: this.state.username,
             password: this.state.password
