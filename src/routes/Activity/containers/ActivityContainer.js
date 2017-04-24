@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
  wiring in the actions and state necessary to render a presentational
  component - in this case */
 
-import GroupsView from '../components/GroupsView'
+import GroupsView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,9 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        participants: state.groups.participants,
-        groupCapacity: state.groups.groupCapacity,
-        totalCapacity: state.groups.totalCapacity
+        participants: state.activity.participants,
+        groupCapacity: state.activity.groupCapacity,
+        totalCapacity: state.activity.totalCapacity
     }
 };
 

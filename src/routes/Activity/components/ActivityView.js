@@ -8,13 +8,12 @@ import HTML5Backend from 'react-dnd-html5-backend';
 
 import ParticipantListSidebar from "./ParticipantListSidebar"
 
-import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
 
 export class GroupsView extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchParticipantList();
+        this.props.fetchParticipantList("cool");
     }
 
     render() {
@@ -23,7 +22,6 @@ export class GroupsView extends React.Component {
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
         let separateIntoGroups = (participants) => {
-            //alert(participants);
             let groups = [];
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
@@ -58,7 +56,6 @@ export class GroupsView extends React.Component {
             )
         };
 
-        //console.log("re-render");
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
