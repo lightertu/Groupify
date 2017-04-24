@@ -1,8 +1,13 @@
+/*
+Author: Kai Huang
+Email: huangkai2518@gmail.com
+*/
+
 // //default size of group
 // let defaultSize = 3;
-/* 
+/*
 Input and output are  array. If input is not array, return [].
-Input example: 
+Input example:
 [{id: 1, groupNumber: -1}, {id:2, groupNumber:-1}]
 */
 
@@ -40,16 +45,16 @@ function randomAlgorithm(input, size)
 	}
 	let sLength = input.length;
 	let groupNum = Math.floor(sLength/size);
-	
+
 	//there will be r group with size one more than default size.
-	let rest = input.length%size; 
+	let rest = input.length%size;
 
 	let groupList = getGroupList(groupNum, rest, size);
 	let groupIndex =[];
 	for (let i=0; i<groupNum; i++){
 		groupIndex[i] = i;
 	}
-	
+
 	for (let j=0; j<sLength; j++){
 		let num = getRandomNum(0, groupList.length-1);
 		input[j].groupNumber = groupIndex[num];

@@ -1,4 +1,7 @@
 /*
+Author: Kai Huang
+Email: huangkai2518@gmail.com
+
 let names = ["Rui Tu", "Kai Huang", "Joseph I", "Matt", "He daHe"];
 let skills = ["Java", "C++", "JavaScript", "Lisp", "Python", "Node.js", "React.js"];
 let skillLevel = ["Beginner", "Some Experience", "Expert" ];
@@ -223,7 +226,7 @@ function removeStd(pos, sortL){
 }
 
 function match(list, sortL, size){
-	let unavlStd = []; 
+	let unavlStd = [];
 	let teams 	 = [];
 	let ptNum    = size - 1;
 	while(sortL.length >= size){
