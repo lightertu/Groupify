@@ -10,10 +10,11 @@ import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import GroupCard from "./GroupCard/GroupCard"
 
-export class GroupsView extends React.Component {
+export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchParticipantList("cool");
+        console.log(this.props.params.activityId);
+        this.props.fetchParticipantList(this.props.params.activityId);
     }
 
     render() {
@@ -78,4 +79,4 @@ export class GroupsView extends React.Component {
     }
 }
 
-export default DragDropContext(HTML5Backend)(GroupsView)
+export default DragDropContext(HTML5Backend)(ActivityView)
