@@ -5,7 +5,7 @@
 import {injectReducer} from '../../store/reducers'
 
 export default (store) => ({
-    path: 'activity',
+    path: 'activity/:activityId',
 
     /*  Async getComponent is only invoked when route matches   */
     getComponent (nextState, cb) {
