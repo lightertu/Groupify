@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {Segment, Image, List, Button, Header} from 'semantic-ui-react'
+import {Segment, Image, List, Button, Header, Icon} from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
@@ -152,7 +152,10 @@ class ParticipantListSidebar extends React.Component {
                         Next step is to notify all the students
                     </Header.Subheader>
                 </Header>
-                <Button color="green">Send out Email</Button>
+                <Button color="green">
+                    <Icon name='send' />
+                    Send out Email
+                </Button>
             </div>
         );
 

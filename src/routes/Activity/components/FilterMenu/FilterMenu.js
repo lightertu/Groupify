@@ -45,7 +45,7 @@ class FilterMenu extends React.Component {
         };
 
         const afterStickedStyle = {
-            zIndex: 3000,
+            zIndex: 1200,
             marginTop: '54px',
             borderRadius: "4px",
             backgroundColor: '#4f5254',
@@ -77,7 +77,7 @@ class FilterMenu extends React.Component {
 
 
                             <Menu.Item fitted>
-                                <Dropdown text='Skill' icon='filter' floating labeled button className='icon' style={ {zIndex: 400000000} }>
+                                <Dropdown text='Skill' icon='filter' floating labeled button className='icon'>
                                     <Dropdown.Menu>
                                         <Dropdown.Header content='Search Issues'/>
                                         <Input icon='search' iconPosition='left' name='search'/>
