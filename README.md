@@ -23,6 +23,10 @@ This tool is build for dividing people into team given criteria.
 * Database:
 	- [Mongodb]()
 	
+  
+## ScreenShots
+![activity page](https://cloud.githubusercontent.com/assets/11642176/25405277/ae7cd63e-29b7-11e7-9458-eb76afa5f40f.png)
+
 ```bash
 cd <Your-Directory>
 git clone https://github.com/lightertu/TeamDivider.git
