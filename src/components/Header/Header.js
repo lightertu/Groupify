@@ -14,7 +14,7 @@ class Header extends React.Component {
     render() {
         const {activeItem} = this.state;
         return (
-                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "55px", zIndex: 1500 }} >
+                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "55px", zIndex: 1500, position:"fixed" }} >
                      <Menu.Item name='Groupify'
                                 active={activeItem === 'Groupify'}
                                 onClick={this.handleItemClick}
