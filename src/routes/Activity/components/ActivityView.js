@@ -64,7 +64,7 @@ export class ActivityView extends React.Component {
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
                 <div className="" style={ {
-                    marginTop: "2%",
+                    marginTop: "3%",
                     marginLeft: "5%",
                     width: '100%',
                     paddingLeft: '10.5%',
