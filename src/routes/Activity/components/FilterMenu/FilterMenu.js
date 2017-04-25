@@ -10,18 +10,26 @@ import {Sticky} from "react-sticky";
 class FilterMenu extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            inputInverted: false
+        }
     }
 
     static propTypes = {
         generateGroupAssignment: PropTypes.func.isRequired,
         activityId: PropTypes.string.isRequired,
+
     };
 
     generateGroupButtonHandlerMaker = (algorithmKey) => {
-        let random = () => { this.props.generateGroupAssignment(this.props.activityId, "random"); };
-        let greedy = () => { this.props.generateGroupAssignment(this.props.activityId, "greedy"); };
+        let random = () => {
+            this.props.generateGroupAssignment(this.props.activityId, "random");
+        };
+        let greedy = () => {
+            this.props.generateGroupAssignment(this.props.activityId, "greedy");
+        };
 
-        switch(algorithmKey) {
+        switch (algorithmKey) {
             case("random"):
                 return random;
             case("greedy"):
@@ -31,11 +39,11 @@ class FilterMenu extends React.Component {
         }
     };
 
-    render() {
-        const options = [
-            {key: 'skill', text: 'Java', value: 'Java'},
-        ];
+    handleStickyStateChange = () => {
+        this.setState({inputInverted: !this.state.inputInverted});
+    };
 
+    render() {
         const filterMenuStyle = {
             marginBottom: '4%',
             zIndex: 3000,
@@ -49,11 +57,12 @@ class FilterMenu extends React.Component {
             marginTop: '54px',
             borderRadius: "4px",
             backgroundColor: '#4f5254',
+            color: "white",
         };
 
         const inputStyle = {
             marginLeft: "-11%",
-            //border: "0px !important",
+            border: "0px !important",
         };
 
         const buttonStyle = {
@@ -62,7 +71,12 @@ class FilterMenu extends React.Component {
 
         return (
             <div>
-                <Sticky isActive={true} style={ filterMenuStyle } topOffset={-55} stickyStyle={ afterStickedStyle  }>
+                <Sticky isActive={true}
+                        style={ filterMenuStyle }
+                        topOffset={-55}
+                        stickyStyle={ afterStickedStyle }
+                        onStickyStateChange={this.handleStickyStateChange}
+                >
                     <Segment basic>
                         <Menu secondary>
                             <Menu.Item fitted>
@@ -72,6 +86,8 @@ class FilterMenu extends React.Component {
                                     placeholder='Search By Name...'
                                     size="big"
                                     style={inputStyle}
+                                    transparent
+                                    inverted={ this.state.inputInverted }
                                 />
                             </Menu.Item>
 
