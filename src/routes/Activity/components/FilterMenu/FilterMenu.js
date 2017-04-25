@@ -47,7 +47,7 @@ class FilterMenu extends React.Component {
         const filterMenuStyle = {
             position: "relative",
             marginBottom: '4%',
-            zIndex: 1500,
+            zIndex: 1000,
             backgroundColor: '#f9fafc',
             paddingLeft: "30px",
             borderRadius: "5px",
