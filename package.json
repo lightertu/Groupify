@@ -89,6 +89,7 @@
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
     "debug": "^2.2.0",
+    "express-session": "^1.15.2",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^1.0.0",
@@ -97,6 +98,7 @@
     "ip": "^1.1.2",
     "json-loader": "^0.5.4",
     "material-ui": "^0.17.1",
+    "mongoose": "latest",
     "node-sass": "^4.5.2",
     "normalize.css": "^5.0.0",
     "postcss-loader": "^1.1.0",
@@ -122,8 +124,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.14",
-    "yargs": "^6.3.0",
-    "mongoose": "latest"
+    "yargs": "^6.3.0"
   },
   "devDependencies": {
     "axios": "^0.16.1",
