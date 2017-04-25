@@ -13,7 +13,7 @@ import FilterMenu from "./FilterMenu"
 export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.params.activityId);
+        //console.log(this.props.params.activityId);
         this.props.fetchParticipantList(this.props.params.activityId);
     }
 
@@ -76,7 +76,10 @@ export class ActivityView extends React.Component {
                             <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
-                                <FilterMenu  activityId={ this.props.params.activityId }  generateGroupAssignment={ this.props.generateGroupAssignment }/>
+                                {
+                                    (this.props.participants.length > 0) && <FilterMenu activityId={ this.props.params.activityId }
+                                                generateGroupAssignment={ this.props.generateGroupAssignment }/>
+                                }
                                 <Grid columns={ cardsPerRow }>
                                     { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>

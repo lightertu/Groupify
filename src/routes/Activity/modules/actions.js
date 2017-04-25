@@ -26,13 +26,13 @@ let fetchParticipantList = (dispatch) => {
         let url = SERVER_URL + "/api/activities/" + activityId + "/participants/";
         axios.get(url)
         .then((response) => {
-            console.log(JSON.stringify(response, null, 2));
+            //console.log(JSON.stringify(response, null, 2));
             dispatch(fetchParticipantListSuccess(response.data));
         })
         .catch((error) => {
             dispatch(fetchParticipantListFailure(error));
         });
-        */
+         */
     }
 };
 
