@@ -3,49 +3,38 @@ Author: Kai Huang
 Email: huangkai2518@gmail.com
 */
 
-// var randomAlgorithm = require('./randomAlgorithm').randomAlgorithm;
-// var Std = require('./greedy_algorithm').Std;
-// var clCompare = require('./greedy_algorithm').clCompare;
-// var createList = require('./greedy_algorithm').createList;
-// var msSortTwoList = require('./greedy_algorithm').msSortTwoList;
-// var msSplit = require('./greedy_algorithm').msSplit;
-// var mergeSort = require('./greedy_algorithm').mergeSort;
-// var contain = require('./greedy_algorithm').contain;
-// var min = require('./greedy_algorithm').min;
-// var minPartners = require('./greedy_algorithm').minPartners;
-// var addRestStd = require('./greedy_algorithm').addRestStd;
-// var order = require('./greedy_algorithm').order;
-// var removePotential = require('./greedy_algorithm').removePotential;
-// var match = require('./greedy_algorithm').match;
+
 var greedy_algorithm_based_on_Time = require('./greedy_algorithm').greedy_algorithm_based_on_Time;
-
-
-// var names = require('./RandomUserGenerator').names;
-// var images = require('./RandomUserGenerator').images;
-// var skills = require('./RandomUserGenerator').skills;
-// var skillLevel = require('./RandomUserGenerator').skillLevel;
-// var guid = require('./RandomUserGenerator').guid;
-// var randomBetween = require('./RandomUserGenerator').randomBetween;
-// var pickName = require('./RandomUserGenerator').ickName;
-// var pickImage = require('./RandomUserGenerator').pickImage;
-// var pickGroup = require('./RandomUserGenerator').pickGroup;
-// var pickSkills = require('./RandomUserGenerator').pickSkills;
-// var pickAvailability = require('./RandomUserGenerator').pickAvailability;
 var generateUsers = require('./RandomUserGenerator').generateUsers;
 
 
-var size = 3;
-var num  = 50;
+var size 	= 3;
+var num  	= 50;
+var pos  	= 40;
+var dayTime = 30;
 
-// console.log(input);
-// console.log();
+var times = 1000;
 
-console.log("\"Num\", \"successRate\"")
-for (let i=0; i<1000; i++){
-	let input = generateUsers(size,num);
+// console.log("\"Possibility\", \"Mean of the Success Rate\"")
+// for (let p=25; p<75; p++){
+// 	let sum = 0;
+// 	for (let i=0; i<times; i++){
+// 		let input = generateUsers(size,num, p, dayTime);
+// 		let succRate = greedy_algorithm_based_on_Time(input, size);
+// 		sum += succRate;
+// 	}
+// 	console.log(p + ", " + sum/times*100)
+
+// }
+
+console.log("\"Num\", \"Success Rate\"");
+for (let i=0; i<times; i++){
+	let input = generateUsers(size,num, pos, dayTime);
 	let succRate = greedy_algorithm_based_on_Time(input, size);
-	console.log((i+1)+ "," +succRate*100);
+	console.log(i + ", " + succRate*100);
 }
 
-// console.log(input);
+
+	
+
 
