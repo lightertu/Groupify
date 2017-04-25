@@ -2,13 +2,13 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Segment} from 'semantic-ui-react'
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
 import ParticipantListSidebar from "./ParticipantListSidebar"
 
 import GroupCard from "./GroupCard/GroupCard"
+import FilterMenu from "./FilterMenu"
 
 export class ActivityView extends React.Component {
     constructor(props) {
@@ -74,6 +74,7 @@ export class ActivityView extends React.Component {
                             <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
+                                <FilterMenu />
                                 <Grid columns={ cardsPerRow }>
                                     { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
