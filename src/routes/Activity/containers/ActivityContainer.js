@@ -8,20 +8,22 @@ import {connect} from 'react-redux'
  wiring in the actions and state necessary to render a presentational
  component - in this case */
 
-import GroupsView from '../components/GroupsView'
+import ActivityView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
 
 const mapDispatchToProps = (dispatch) => ({
     fetchParticipantList: Actions.fetchParticipantList(dispatch),
-    updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch)
+    updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch),
+    generateGroupAssignment: Actions.generateGroupAssignment(dispatch),
 });
 
 const mapStateToProps = (state) => {
     return {
-        participants: state.groups.participants,
-        groupCapacity: state.groups.groupCapacity,
-        totalCapacity: state.groups.totalCapacity
+        activityId: state.activity.activityId,
+        participants: state.activity.participants,
+        groupCapacity: state.activity.groupCapacity,
+        totalCapacity: state.activity.totalCapacity
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupsView)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityView);

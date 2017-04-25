@@ -35,7 +35,7 @@ function handleUpdateParticipantGroupsNumber (state, payload) {
         newGroupNumber = payload.newGroupNumber,
         participantIndex = arrayObjectIndexOf(newState.participants, participantId, "participantId");
 
-    //console.log(JSON.stringify(participantIndex, null, 2));
+    console.log(JSON.stringify(participantIndex, null, 2));
     newState.participants[participantIndex].groupNumber = newGroupNumber;
     let temp = Object.assign({}, newState.participants[participantIndex]);
     newState.participants.splice(participantIndex, 1);
@@ -44,7 +44,7 @@ function handleUpdateParticipantGroupsNumber (state, payload) {
     return newState;
 }
 
-export default function groupsReducer (state = initialState, action) {
+export default function activityReducer (state = initialState, action) {
     switch(action.type) {
         case Actions.FETCH_PARTICIPANT_LIST:
             return state;

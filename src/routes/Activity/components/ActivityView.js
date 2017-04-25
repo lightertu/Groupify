@@ -2,28 +2,29 @@
  * Created by rui on 4/7/17.
  */
 import React from 'react'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Segment} from 'semantic-ui-react'
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
-
 import ParticipantListSidebar from "./ParticipantListSidebar"
 
-import "./GroupsView.scss"
 import GroupCard from "./GroupCard/GroupCard"
+import FilterMenu from "./FilterMenu"
 
-export class GroupsView extends React.Component {
+export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
-        this.props.fetchParticipantList();
+        //console.log(this.props.params.activityId);
+        this.props.fetchParticipantList(this.props.params.activityId);
     }
 
     render() {
-        const participantsListWidth = 4;
-        const groupCardsWidth = 12;
+        const participantsListWidth = 1;
+        const groupCardsWidth = 15;
+        const itemsPerRow = 10;
+        const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
 
         let separateIntoGroups = (participants) => {
-            //alert(participants);
             let groups = [];
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
@@ -50,26 +51,36 @@ export class GroupsView extends React.Component {
                             <GroupCard participants={ group.participants }
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
-                                       itemsPerRow={ 10 }
-                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
+                                       itemsPerRow={ itemsPerRow }
+                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                                       activityId={ this.props.params.activityId }/>
                         </Grid.Column>
                     )
                 )
             )
         };
 
-        //console.log("re-render");
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
-                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
-                <div className="" style={ {marginTop: "2%", marginLeft: "5%"} }>
+                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                                        activityId={ this.props.params.activityId }/>
+                <div className="" style={ {
+                    marginTop: "3%",
+                    marginLeft: "5%",
+                    width: '100%',
+                    paddingLeft: '10.5%',
+                } }>
                     <Grid >
                         <Grid.Row>
                             <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
-                                <Grid columns={ 1 }>
+                                {
+                                    (this.props.participants.length > 0) && <FilterMenu activityId={ this.props.params.activityId }
+                                                generateGroupAssignment={ this.props.generateGroupAssignment }/>
+                                }
+                                <Grid columns={ cardsPerRow }>
                                     { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
                             </Grid.Column>
@@ -81,4 +92,4 @@ export class GroupsView extends React.Component {
     }
 }
 
-export default DragDropContext(HTML5Backend)(GroupsView)
+export default DragDropContext(HTML5Backend)(ActivityView)

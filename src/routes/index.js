@@ -2,7 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout'
 import Home from './Home'
 import LoginRoute from './Login'
-import GroupsRoute from './Groups'
+import ActivityRoute from './Activity'
 import CounterRoute from './Counter'
 import WelcomeRoute from './Welcome'
 import Dashboard from './Dashboard'
@@ -19,13 +19,13 @@ export const createRoutes = (store) => ({
     indexRoute: Home,
     childRoutes: [
         CounterRoute(store),
-        GroupsRoute(store),
+        ActivityRoute(store),
         LoginRoute(store),
         WelcomeRoute(store),
         Dashboard(store),
         Survey(store)
     ]
-})
+});
 
 
 /*

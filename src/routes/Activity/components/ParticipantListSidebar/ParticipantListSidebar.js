@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {Segment, Image, List, Button, Header} from 'semantic-ui-react'
+import {Segment, Image, List, Button, Header, Icon} from 'semantic-ui-react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
@@ -35,7 +35,8 @@ class DraggableParticipantListItem extends React.Component {
     render() {
         const {image, name, participantId, connectDragSource, isDragging} = this.props;
         return connectDragSource(
-            <div className="item" {...this.props } style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move"} }>
+            <div className="item" {...this.props }
+                 style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move"} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
@@ -89,9 +90,11 @@ const participantSidebarTarget = {
     drop(props, monitor) {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
         let droppedItem = monitor.getItem();
-        props.updateParticipantGroupNumber(droppedItem.participantId,
-                                           droppedItem.oldGroupNumber,
-                                           -1)
+        props.updateParticipantGroupNumber(
+            props.activityId,
+            droppedItem.participantId,
+            droppedItem.oldGroupNumber,
+            -1)
     },
 };
 
@@ -105,6 +108,7 @@ function collectDrop(connect, monitor) {
 @DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantSidebarTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
     static propTypes = {
+        activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
     };
@@ -148,7 +152,10 @@ class ParticipantListSidebar extends React.Component {
                         Next step is to notify all the students
                     </Header.Subheader>
                 </Header>
-                <Button color="green">Send out Email</Button>
+                <Button color="green">
+                    <Icon name='send' />
+                    Send out Email
+                </Button>
             </div>
         );
 
@@ -171,15 +178,16 @@ class ParticipantListSidebar extends React.Component {
                         open={ true }
                         zDepth={ 1 }
                         containerStyle={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }
+                        style={ {zIndex: '1000 !important'} }
                     >
                         <div style={ participantsListStyle }>
                             <Segment basic>
                                 {
                                     (this.props.participants.length <= 0) ?
-                                         generateEmptyMessage() :
+                                        generateEmptyMessage() :
                                         ((getUngroupedNumber(this.props.participants)) ?
-                                             generateSidebarList(this.props.participants) :
-                                             generateEmailButton())
+                                            generateSidebarList(this.props.participants) :
+                                            generateEmailButton())
                                 }
                             </Segment>
                         </div>
