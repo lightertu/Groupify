@@ -9,6 +9,8 @@ This tool is build for dividing people into team given criteria.
 #### Popup
 ![screen shot 2017-04-25 at 13 07 02](https://cloud.githubusercontent.com/assets/11642176/25405468/3d54aa3a-29b8-11e7-8f2b-99886fbba09d.png)
 
+![screen shot 2017-04-25 at 13 09 36](https://cloud.githubusercontent.com/assets/11642176/25405545/7a7c9d50-29b8-11e7-8468-b9dc4f004ca6.png)
+
 
 ## Technologies Deployed
 * Scaffolding Tool:
