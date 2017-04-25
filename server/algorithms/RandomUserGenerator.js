@@ -3,6 +3,9 @@ Author: ReiTu and Kai Huang
 Email: huangkai2518@gmail.com
 */
 
+// let posibility = 25;
+// let dayTime    = 5;
+
 let names = ["Rui Tu", "Kai Huang", "Joseph I", "Matt", "He daHe"];
 let images = [
     "https://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg",
@@ -55,22 +58,22 @@ let pickSkills = () => {
     }
     return userSkills;
 };
-let pickAvailability = () => {
+let pickAvailability = (possibility, dayTime) => {
     let week = [];
-    for (let i = 0; i < 30; i++) {
-        (randomBetween(1, 100) >= 25) ? week.push(false) : week.push(true);
+    for (let i = 0; i < dayTime; i++) {
+        (randomBetween(1, 100) >= possibility) ? week.push(false) : week.push(true);
 
     }
     return week;
 };
-let generateUsers = (numOfGroups, numOfPeople) => {
+let generateUsers = (numOfGroups, numOfPeople, posibility, dayTime) => {
     let generateUser = () => {
         let randId = guid(),
             randName = pickName(),
             randImage = pickImage(),
             randSkills = pickSkills(),
             randGroupNumber = pickGroup(numOfGroups),
-            randAvailability = pickAvailability();
+            randAvailability = pickAvailability(posibility, dayTime);
 
         return ({
             id: randId,
