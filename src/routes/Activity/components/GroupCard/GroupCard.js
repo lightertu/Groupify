@@ -112,7 +112,7 @@ class GroupCard extends React.Component {
 
         return connectDropTarget(
             <div>
-                <Segment.Group raised style={ {cursor: "pointer"} }
+                <Segment.Group style={ {cursor: "pointer"} }
                                onClick={ this.toggleMatchingStatus }>
                     <Segment padded={ true } size="large"
                              style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }

@@ -24,4 +24,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityView)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityView);

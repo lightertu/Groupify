@@ -174,6 +174,7 @@ class ParticipantListSidebar extends React.Component {
                         open={ true }
                         zDepth={ 1 }
                         containerStyle={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }
+                        style={ {zIndex: '1000 !important'} }
                     >
                         <div style={ participantsListStyle }>
                             <Segment basic>

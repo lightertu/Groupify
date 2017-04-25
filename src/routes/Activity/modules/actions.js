@@ -15,6 +15,7 @@ let fetchParticipantList = (dispatch) => {
         dispatch({ type: FETCH_PARTICIPANT_LIST });
 
         dispatch(fetchParticipantListSuccess(
+
             {
                 activityId: activityId,
                 participants: generateUsers(groupCapacity, numOfPeople),
@@ -67,7 +68,6 @@ let updateParticipantGroupNumber = (dispatch) => {
             payload: payload
         });
 
-        /*
         let url = SERVER_URL + "/api/activities/" + activityId + "/participants/" + participantId;
         axios.put(url, {
             oldGroupsNumber: oldGroupNumber,
@@ -79,7 +79,6 @@ let updateParticipantGroupNumber = (dispatch) => {
         .catch((error) => {
             dispatch(updateParticipantGroupNumberFailure(error, payload));
         });
-        */
     }
 };
 
@@ -94,8 +93,6 @@ export const UPDATE_PARTICIPANT_GROUP_NUMBER_FAILURE = "UPDATE_PARTICIPANT_GROUP
 let updateParticipantGroupNumberFailure = (error, payload) => {
     return { type: UPDATE_PARTICIPANT_GROUP_NUMBER_FAILURE, error: error, payload: payload };
 };
-
-
 
 /* put request */
 export const GENERATE_GROUP_ASSIGNMENT = "GENERATE_GROUP_ASSIGNMENT";
