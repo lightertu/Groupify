@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card, Label, Segment, Image, Button, Icon, Menu } from 'semantic-ui-react'
 
 class MenuSideBar extends React.Component {
     constructor() {
@@ -13,9 +14,7 @@ class MenuSideBar extends React.Component {
 
     render() {
         var menuStyle = {
-            paddingTop: 75,
-            paddingRight: 0,
-            float: 'left'
+            paddingTop: 75
 
         };
 
@@ -30,7 +29,7 @@ class MenuSideBar extends React.Component {
         return (
             <div>
                 <div className="ui visible left vertical sidebar menu" style={menuStyle} >
-                <img className="ui centered small circular bordered image" src="https://semantic-ui.com/images/avatar2/large/matthew.png"/>
+                <Image centered={true} size={'small'} bordered={true} shape={'circular'} src="https://semantic-ui.com/images/avatar2/large/matthew.png"/>
                 <div className="menu content" style={menuContentStyle}>
                     <a className="header">Michael</a>
                     <div className="meta">
@@ -42,23 +41,23 @@ class MenuSideBar extends React.Component {
                 </div>
 
                 <a className="item" href="#" onClick={this.toggleView.bind(this, 'groups')}>
-                  <i className="group icon"></i>
+                  <Icon name="group"></Icon>
                   Groups
                 </a>
                 <a className="item" href="#" onClick={this.toggleView.bind(this, 'surveys')}>
-                  <i className="write icon"></i>
+                  <Icon name="write"></Icon>
                   Survey
                 </a>
                  <a className="item" href="#" onClick={this.toggleView.bind(this, 'upload')}>
-                  <i className="upload icon"></i>
+                  <Icon name="upload"></Icon>
                   Upload users
                 </a>
                 <a className="item">
-                  <i className="cloud icon"></i>
+                  <Icon name="cloud"></Icon>
                   Data
                 </a>
                 <a className="item">
-                  <i className="calendar icon"></i>
+                  <Icon name="calendar"></Icon>
                   History
                 </a>
               </div>

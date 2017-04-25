@@ -10,17 +10,16 @@ class View extends React.Component {
 
     render() {
         var viewStyles = {
-          paddingLeft: 0,
-          marginRight: 0,
-          paddingTop: 65,
-          float: 'left'
+          width: '100%',
+          paddingLeft: 250,
+          paddingTop: 65
         }
 
         let getCards = (item) => {
           return (
               item.map(
                   (item, i) => (
-                      <Grid.Column stretched mobile={16} key={i} tablet={8} computer={5}>
+                      <Grid.Column stretched mobile={16} key={i} tablet={8} computer={4}>
                         <DashboardCard title={item.title}
                                         link={item.link}
                                         color={item.color} 
@@ -33,7 +32,6 @@ class View extends React.Component {
               )
             )
         };
-        console.log(this.props.data)
         return (
               <div className="dashcards" style={viewStyles}>
                 <Grid container columns={3}>

@@ -22,6 +22,7 @@ var api = require('./routes/api');
 
 const app = express()
 app.use(bodyParser.json());
+app.use(bodyParser({limit: '50mb'}))
 
 app.use(session({
     secret: 'secret_key',
@@ -37,16 +38,18 @@ var auth = function(req, res, next) {
   else
     return res.sendStatus(401);
 };
- 
+
 // Login endpoint
-app.get('/api/login', function (req, res) {
-  if (!req.query.username || !req.query.password) {
+app.post('/api/login', function (req, res) {
+    console.log(req.body)
+  if (!req.body.username || !req.body.password) {
     res.send('login failed');    
-  } else if(req.query.username === "amy" || req.query.password === "amyspassword") {
+  } else if(req.body.username === "amy" || req.body.password === "amyspassword") {
     req.session.user = "amy";
     req.session.admin = true;
     res.send("login success!");
   }
+  res.send('what is happening')
 });
  
 // Logout endpoint
@@ -87,7 +90,20 @@ if (project.env === 'development') {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
-    app.use('*', function (req, res, next) {
+    app.use('/login' , function (req, res, next) {
+        const filename = path.join(compiler.outputPath, 'index.html')
+        compiler.outputFileSystem.readFile(filename, (err, result) => {
+            if (err) {
+                return next(err)
+            }
+            res.set('content-type', 'text/html')
+            res.send(result)
+            res.end()
+        })
+    })
+
+
+    app.use('*', auth, function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html')
         compiler.outputFileSystem.readFile(filename, (err, result) => {
             if (err) {

@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
         } else if(this.state.view == 'surveys') {
             if(this.props.counter.results !== undefined) {
                  data = this.props.counter.results.map(function(item, i){
-                        item.color = "red";
+                        item.color = item.color;
                         item.title = "Surveys";
                         item.link = "http://localhost:3000/survey/"+item.form;
                         item.date = "12/31/2017";
@@ -58,12 +58,8 @@ class Dashboard extends React.Component {
             display = <UploadStudents UploadStudents={this.UploadStudents.bind(this)}/>
         }
 
-        var dashStyle = {
-       
-        }
-
         return (
-            <div className="dashWrapper" style={dashStyle}>
+            <div className="dashWrapper">
                 <MenuSideBar toggleView={this.toggleView.bind(this)}/>
                 {display}
             </div>

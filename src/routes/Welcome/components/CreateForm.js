@@ -1,5 +1,5 @@
 import React from 'react'
-import {Dropdown, Popup, Button, Form, Icon} from 'semantic-ui-react'
+import {Dropdown, Popup, Button, Form, Icon, Header, Card} from 'semantic-ui-react'
 import SurveyPopup from './SurveyPopup';
 
 class CreateForm extends React.Component {
@@ -7,9 +7,27 @@ class CreateForm extends React.Component {
         super();
         this.state = ({
           questions: [],
-          link: false
+          students: null,
+          title: '',
+          link: false,
+          groups: []
         })
         this.handleSurveySubmit = this.handleSurveySubmit.bind(this);
+        this.handleFileUpload = this.handleFileUpload.bind(this);
+    }
+
+    loadFile(e) {
+      var result = JSON.parse(e.target.result);
+      this.setState({students: result});
+      this.props.createStudents(result)
+    }
+
+    handleFileUpload(e) {
+      var file = e.target.files.item(0);
+      var fr = new FileReader();
+      fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
+      fr.readAsText(file);
+
     }
 
     toggleVisibility() {
@@ -18,6 +36,12 @@ class CreateForm extends React.Component {
 
     componentDidMount() {
       $('.ui.fluid.search.dropdown').dropdown();
+    }
+
+    componentWillMount() {
+      if(this.props.groups) {
+        this.setState({groups: this.props.groups});
+      }
     }
 
     handleQuestionAdd(question) {
@@ -29,12 +53,21 @@ class CreateForm extends React.Component {
     handleSurveySubmit() {
       // padd custom questions to parent and create survey and display link
       this.setState({link: true});
-      this.props.generateSurvey(this.state.questions);
+      var obj = {}
+      obj['students'] = this.state.students;
+      obj['questions'] = this.state.questions;
+      this.props.generateSurvey(obj);
+    }
+
+    handleStudents(e) {
+        this.setState({students: e.target.getAttribute('name')});
     }
 
     render() {
         const linkStyles = {
             color: 'black',
+            marginTop: 25,
+            textDecoration: 'underline'
             };
 
         const styles = {
@@ -42,8 +75,7 @@ class CreateForm extends React.Component {
         };
 
         const buttonStyle = {
-          margin: 5,
-          marginBottom: 20
+          margin: 20
         }
         
         const LanguageOptions = [ 
@@ -90,63 +122,111 @@ class CreateForm extends React.Component {
                     )
         }
 
+        let idDrop;
+        // if(this.props.groups !== undefined) {
+          idDrop  = this.state.groups.map(function(item, i) {
+            item.key = i;
+            item.value = item._id;
+            item.text = item._id;
+            item.name = item._id
+            return item;
+          })
+        // }
+
+
         let formStyle = {
-          marginTop: "20%",
+          marginTop: 200,
           marginBottom: 100
+        }
+
+        let cardStyle = {
+            position: 'absolute',
+            width: 450,  
+            height: 200,  
+            margin: 'auto',  
+            padding: 15,
+            top: 0,
+            left: 0, 
+            bottom: 100, 
+            right: 0,
+            zIndex: 3,
+            marginTop: 300,
+            marginBottom: 0,
+            paddingBottom: 0 
+
+        }
+
+        let headerStyle = {
+          fontSize: 30,
+          fontWeight: 'bold',
+          padding: 20,
+          color: '#2185D0'
         }
 
         let form;
         if(this.props.active) {
-          form = (<div className="card big" >
-                    <div className="ui card" style={formStyle}>
-                      <div className="header">Preview Survey</div>
-                        <div className="content">
-                          <form className="ui form">
-                            <div className=" disabled field">
+          form = (<div className="card big" style={cardStyle}>
+                    <Card style={formStyle} color={"blue"}>
+                      <Header style={headerStyle}>Preview Survey</Header>
+                        <Card.Content>
+                          <Form>
+                            <Form.Field disabled={true}>
                             <label>First Name</label>
                             <input type="text" name="first-name" placeholder="First Name"/>
-                          </div>
-                          <div className="disabled field">
+                          </Form.Field>
+                          <Form.Field disabled={true}>
                             <label>Last Name</label>
                             <input type="text" name="last-name" placeholder="Last Name"/>
-                          </div>
-                           <div className="disabled field">
+                          </Form.Field>
+                           <Form.Field disabled={true}>
                             <label>Email</label>
                             <input type="text" name="email" placeholder="Email"/>
-                          </div>
-                          <div className="disabled field">
+                          </Form.Field>
+                          <Form.Field disabled={true}>
                             <label>Meeting Times</label>
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple selection 
                               options={DayOptions}/>
-                          </div>
-                          <div className="disabled field">
+                          </Form.Field>
+                          <Form.Field disabled={true}>
                             <label>Languages</label>
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple search selection 
                               options={LanguageOptions}/>
-                        </div>
-                        <div className="disabled field">
+                        </Form.Field>
+                        <Form.Field disabled={true}>
                           <label>Requests</label>
                           <textarea rows="2"></textarea>
-               
-                        </div>
+                       </Form.Field>
                            <Form.Field disabled>
                                 <label>Upload Image</label>
                                 <Form.Input type="file" name="pic" accept="image/*"/>
                           </Form.Field>
+                           <Form.Field>
+                            <label>Class Name</label>
+                            <input type="text" name="className" placeholder="Class Name"/>
+                          </Form.Field>
                         {questions}
                              <Form.Field>
                                 <label>Upload Group</label>
-                                <Form.Input type="file" name="pic" accept="image/*"/>
+                                <Form.Input type="file" name="students" accept=".json" onChange={this.handleFileUpload}/>
                           </Form.Field>
+                           <Form.Field>
+                            <label>Choose Group</label>
+                            <Dropdown 
+                              fluid search selection 
+                              options={idDrop}
+                              value={this.state.students}
+                              onChange={this.handleStudents.bind(this)}/>
+                          </Form.Field>
+
                         <SurveyPopup 
                           handleQuestionAdd={this.handleQuestionAdd.bind(this)}
                         />
-                        </form>
-                        <div className="extra content">
+                        </Form>
+                        <Card.Content extra={true}>
                           <div className="link" key="visible">
                             <Button basic small color={"green"} positive size="large" animated="vertical" style={buttonStyle} onClick={this.handleSurveySubmit}>
                                <Button.Content visible>Generate</Button.Content>
@@ -156,9 +236,9 @@ class CreateForm extends React.Component {
                             </Button>
                             {link}
                           </div>
-                        </div>
-                      </div>
-                  </div>
+                        </Card.Content>
+                      </Card.Content>
+                  </Card>
                   </div>
                   )
         }
