@@ -18,8 +18,8 @@ export class ActivityView extends React.Component {
     }
 
     render() {
-        const participantsListWidth = 1;
-        const groupCardsWidth = 15;
+        const participantsListWidth = 4;
+        const groupCardsWidth = 12;
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -67,9 +67,9 @@ export class ActivityView extends React.Component {
                                         activityId={ this.props.params.activityId }/>
                 <div className="" style={ {
                     marginTop: "3%",
-                    marginLeft: "5%",
+                    //marginLeft: "5%",
                     width: '100%',
-                    paddingLeft: '10.5%',
+                    //paddingLeft: '3%',
                 } }>
                     <Grid >
                         <Grid.Row>
