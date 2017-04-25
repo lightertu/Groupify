@@ -54,7 +54,7 @@ const participantTarget = {
         const participantDropped = monitor.getItem();
         if (props.groupNumber !== participantDropped.oldGroupNumber) {
             props.updateParticipantGroupNumber(
-                "activityId", // TODO: replace this line with activity id
+                props.activityId,
                 participantDropped.participantId,
                 participantDropped.oldGroupNumber,
                 props.groupNumber)
@@ -70,6 +70,7 @@ const participantTarget = {
 )
 class GroupCard extends React.Component {
     static propTypes = {
+        activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         capacity: PropTypes.number.isRequired,
         groupNumber: PropTypes.number.isRequired,

@@ -2,6 +2,7 @@
  * Created by rui on 4/24/17.
  */
 import React from 'react'
+import PropTypes from 'prop-types';
 import {Button, Dropdown, Input, Menu, Segment} from 'semantic-ui-react'
 import {Sticky} from "react-sticky";
 
@@ -9,15 +10,26 @@ import {Sticky} from "react-sticky";
 class FilterMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            filterMenuStyle: {
-                marginBottom: '4%',
-                zIndex: 3000,
-                backgroundColor: '#F6F7F9',
-                paddingLeft: "30px"
-            }
-        }
     }
+
+    static propTypes = {
+        generateGroupAssignment: PropTypes.func.isRequired,
+        activityId: PropTypes.string.isRequired,
+    };
+
+    generateGroupButtonHandlerMaker = (algorithmKey) => {
+        let random = () => { this.props.generateGroupAssignment(this.props.activityId, "random"); };
+        let greedy = () => { this.props.generateGroupAssignment(this.props.activityId, "greedy"); };
+
+        switch(algorithmKey) {
+            case("random"):
+                return random;
+            case("greedy"):
+                return greedy;
+            default:
+                return greedy;
+        }
+    };
 
     render() {
         const options = [
@@ -27,16 +39,16 @@ class FilterMenu extends React.Component {
         const filterMenuStyle = {
             marginBottom: '4%',
             zIndex: 3000,
-            backgroundColor: '#F6F7F9',
+            backgroundColor: '#f9fafc',
             paddingLeft: "30px",
-            borderRadius: "10px",
+            borderRadius: "5px",
         };
 
         const afterStickedStyle = {
             zIndex: 3000,
             marginTop: '54px',
             borderRadius: "4px",
-            backgroundColor: '#454749',
+            backgroundColor: '#4f5254',
         };
 
         const inputStyle = {
@@ -47,6 +59,7 @@ class FilterMenu extends React.Component {
         const buttonStyle = {
             width: "120px"
         };
+
         return (
             <div>
                 <Sticky isActive={true} style={ filterMenuStyle } topOffset={-55} stickyStyle={ afterStickedStyle  }>
@@ -59,7 +72,6 @@ class FilterMenu extends React.Component {
                                     placeholder='Search By Name...'
                                     size="big"
                                     style={inputStyle}
-                                    disabled
                                 />
                             </Menu.Item>
 
@@ -91,8 +103,21 @@ class FilterMenu extends React.Component {
                             </Menu.Item>
 
                             <Menu.Menu position='right'>
-                                <Button icon='detective' content='Smart' size="medium" color="green" style={ buttonStyle }/>
-                                <Button icon='shuffle' content='Random ' size="medium" color="yellow" style={ buttonStyle }/>
+                                <Button icon='detective'
+                                        content='Smart'
+                                        size="medium"
+                                        color="green"
+                                        style={ buttonStyle }
+                                        onClick={ this.generateGroupButtonHandlerMaker("random") }
+                                />
+
+                                <Button icon='shuffle'
+                                        content='Random '
+                                        size="medium"
+                                        color="yellow"
+                                        style={ buttonStyle }
+                                        onClick={ this.generateGroupButtonHandlerMaker("greedy") }
+                                />
                             </Menu.Menu>
                         </Menu>
                     </Segment>

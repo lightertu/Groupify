@@ -13,11 +13,13 @@ import * as Actions from "../modules/actions"
 
 const mapDispatchToProps = (dispatch) => ({
     fetchParticipantList: Actions.fetchParticipantList(dispatch),
-    updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch)
+    updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch),
+    generateGroupAssignment: Actions.generateGroupAssignment(dispatch),
 });
 
 const mapStateToProps = (state) => {
     return {
+        activityId: state.activity.activityId,
         participants: state.activity.participants,
         groupCapacity: state.activity.groupCapacity,
         totalCapacity: state.activity.totalCapacity
