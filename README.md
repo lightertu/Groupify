@@ -1,6 +1,9 @@
 # Team Divider
 
 This tool is build for dividing people into team given criteria.
+## ScreenShots
+![activity page](https://cloud.githubusercontent.com/assets/11642176/25405277/ae7cd63e-29b7-11e7-9458-eb76afa5f40f.png)
+
 
 ## Technologies Deployed
 * Scaffolding Tool:
@@ -24,8 +27,7 @@ This tool is build for dividing people into team given criteria.
 	- [Mongodb]()
 	
   
-## ScreenShots
-![activity page](https://cloud.githubusercontent.com/assets/11642176/25405277/ae7cd63e-29b7-11e7-9458-eb76afa5f40f.png)
+
 
 ```bash
 cd <Your-Directory>
