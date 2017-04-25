@@ -45,19 +45,18 @@ class FilterMenu extends React.Component {
 
     render() {
         const filterMenuStyle = {
+            position: "relative",
             marginBottom: '4%',
-            zIndex: 3000,
+            zIndex: 1500,
             backgroundColor: '#f9fafc',
             paddingLeft: "30px",
             borderRadius: "5px",
         };
 
         const afterStickedStyle = {
-            zIndex: 1200,
             marginTop: '54px',
             borderRadius: "4px",
             backgroundColor: '#4f5254',
-            color: "white",
         };
 
         const inputStyle = {
@@ -68,6 +67,11 @@ class FilterMenu extends React.Component {
         const buttonStyle = {
             width: "120px"
         };
+        const options = [
+            { key: 1, text: 'Choice 1', value: 1 },
+            { key: 2, text: 'Choice 2', value: 2 },
+            { key: 3, text: 'Choice 3', value: 3 },
+        ];
 
         return (
             <div>
@@ -78,9 +82,9 @@ class FilterMenu extends React.Component {
                         onStickyStateChange={this.handleStickyStateChange}
                 >
                     <Segment basic>
-                        <Menu secondary>
+                        <Menu fluid secondary>
                             <Menu.Item fitted>
-                                <Input
+                                { true && <Input
                                     icon='search'
                                     iconPosition='left'
                                     placeholder='Search By Name...'
@@ -88,34 +92,7 @@ class FilterMenu extends React.Component {
                                     style={inputStyle}
                                     transparent
                                     inverted={ this.state.inputInverted }
-                                />
-                            </Menu.Item>
-
-
-                            <Menu.Item fitted>
-                                <Dropdown text='Skill' icon='filter' floating labeled button className='icon'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Header content='Search Issues'/>
-                                        <Input icon='search' iconPosition='left' name='search'/>
-                                        <Dropdown.Header icon='tags' content='Filter by tag'/>
-                                        <Dropdown.Divider />
-                                        <Dropdown.Item label={{color: 'red', empty: true, circular: true}}
-                                                       text='Important'/>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </Menu.Item>
-
-                            <Menu.Item fitted>
-                                <Dropdown text='Time' icon='filter' floating labeled button className='icon'>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Header content='Search Issues'/>
-                                        <Input icon='search' iconPosition='left' name='search'/>
-                                        <Dropdown.Header icon='tags' content='Filter by tag'/>
-                                        <Dropdown.Divider />
-                                        <Dropdown.Item label={{color: 'red', empty: true, circular: true}}
-                                                       text='Important'/>
-                                    </Dropdown.Menu>
-                                </Dropdown>
+                                /> }
                             </Menu.Item>
 
                             <Menu.Menu position='right'>

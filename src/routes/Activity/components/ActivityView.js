@@ -77,7 +77,8 @@ export class ActivityView extends React.Component {
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
                                 {
-                                    (this.props.participants.length > 0) && <FilterMenu activityId={ this.props.params.activityId }
+                                    (this.props.participants.length > 0) &&
+                                    <FilterMenu activityId={ this.props.params.activityId }
                                                 generateGroupAssignment={ this.props.generateGroupAssignment }/>
                                 }
                                 <Grid columns={ cardsPerRow }>
