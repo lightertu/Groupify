@@ -31,6 +31,8 @@ cd TeamDivider
 Then install dependencies and check to see it works. It is recommended that you use Yarn for 
 deterministic installs, but npm install will work just as well.
 
+
+Make sure that mongodb is running in the background
 ```bash
 yarn install
 yarn start
