@@ -53,7 +53,9 @@ const participantTarget = {
     drop(props, monitor) {
         const participantDropped = monitor.getItem();
         if (props.groupNumber !== participantDropped.oldGroupNumber) {
-            props.updateParticipantGroupNumber(participantDropped.participantId,
+            props.updateParticipantGroupNumber(
+                props.activityId,
+                participantDropped.participantId,
                 participantDropped.oldGroupNumber,
                 props.groupNumber)
         }
@@ -68,6 +70,7 @@ const participantTarget = {
 )
 class GroupCard extends React.Component {
     static propTypes = {
+        activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         capacity: PropTypes.number.isRequired,
         groupNumber: PropTypes.number.isRequired,
@@ -87,7 +90,7 @@ class GroupCard extends React.Component {
     };
 
     render() {
-        const {connectDropTarget, isOver } = this.props;
+        const {connectDropTarget, isOver} = this.props;
 
         let generateEmptySpots = () => {
             let emptyNum = this.props.capacity - this.props.participants.length;
@@ -111,10 +114,10 @@ class GroupCard extends React.Component {
         return connectDropTarget(
             <div>
                 <Segment.Group raised style={ {cursor: "pointer"} }
-                               onClick={ this.toggleMatchingStatus } >
+                               onClick={ this.toggleMatchingStatus }>
                     <Segment padded={ true } size="large"
                              style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
-                             >
+                    >
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {
