@@ -15,9 +15,7 @@ let fetchParticipantList = (dispatch) => {
         dispatch({ type: FETCH_PARTICIPANT_LIST });
 
         dispatch(fetchParticipantListSuccess(
-
             {
-                activityId: activityId,
                 participants: generateUsers(groupCapacity, numOfPeople),
                 groupCapacity: groupCapacity,
                 totalCapacity: totalCapacity
@@ -102,7 +100,7 @@ let generateGroupAssignment = (dispatch) => {
             type: GENERATE_GROUP_ASSIGNMENT
        });
 
-        let url = SERVER_URL + "/api/activities/" + activityId + "/" + algorithmId;
+        let url = SERVER_URL + "/api/activities/" + activityId + "/" + "algorithm/" + algorithmId;
         axios.put(url)
         .then((response) => {
             dispatch(generateGroupAssignmentFailure());

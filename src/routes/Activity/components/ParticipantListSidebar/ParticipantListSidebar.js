@@ -91,7 +91,7 @@ const participantSidebarTarget = {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
         let droppedItem = monitor.getItem();
         props.updateParticipantGroupNumber(
-            "activityId", // TODO: replace this with activity Id
+            props.activityId,
             droppedItem.participantId,
             droppedItem.oldGroupNumber,
             -1)
@@ -108,6 +108,7 @@ function collectDrop(connect, monitor) {
 @DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantSidebarTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
     static propTypes = {
+        activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
     };

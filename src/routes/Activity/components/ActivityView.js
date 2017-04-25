@@ -52,7 +52,8 @@ export class ActivityView extends React.Component {
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
                                        itemsPerRow={ itemsPerRow }
-                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
+                                       updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                                       activityId={ this.props.params.activityId }/>
                         </Grid.Column>
                     )
                 )
@@ -62,7 +63,8 @@ export class ActivityView extends React.Component {
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
-                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }/>
+                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                                        activityId={ this.props.params.activityId }/>
                 <div className="" style={ {
                     marginTop: "3%",
                     marginLeft: "5%",
@@ -74,7 +76,7 @@ export class ActivityView extends React.Component {
                             <Grid.Column width={ participantsListWidth }>
                             </Grid.Column>
                             <Grid.Column width={ groupCardsWidth }>
-                                <FilterMenu />
+                                <FilterMenu  activityId={ this.props.params.activityId }  generateGroupAssignment={ this.props.generateGroupAssignment }/>
                                 <Grid columns={ cardsPerRow }>
                                     { getGroupCards(separateIntoGroups(this.props.participants)) }
                                 </Grid>
