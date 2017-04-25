@@ -4,12 +4,8 @@ This tool is build for dividing people into team given criteria.
 ## ScreenShots
 
 #### Application page
-![activity page](https://cloud.githubusercontent.com/assets/11642176/25405277/ae7cd63e-29b7-11e7-9458-eb76afa5f40f.png)
+![app page](https://cloud.githubusercontent.com/assets/11642176/25405696/ee38118e-29b8-11e7-8b3f-b4f84c71155e.png)
 
-#### Popup
-![screen shot 2017-04-25 at 13 07 02](https://cloud.githubusercontent.com/assets/11642176/25405468/3d54aa3a-29b8-11e7-8f2b-99886fbba09d.png)
-
-![screen shot 2017-04-25 at 13 09 36](https://cloud.githubusercontent.com/assets/11642176/25405545/7a7c9d50-29b8-11e7-8468-b9dc4f004ca6.png)
 
 
 ## Technologies Deployed
