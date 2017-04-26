@@ -33,8 +33,6 @@ class Welcome extends Component {
     }
 
     generateSurvey(data) {
-        console.log(data.students)
-        this.props.createStudents(data.students);
         this.props.generateSurvey(this.state.link, data);
     }
 

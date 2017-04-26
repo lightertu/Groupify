@@ -60,7 +60,12 @@ class CreateForm extends React.Component {
     }
 
     handleStudents(e) {
-        this.setState({students: e.target.getAttribute('name')});
+        e.preventDefault();
+        if(e.target.getAttribute('name')) {
+          this.setState({students: e.target.getAttribute('name')});
+        } else {
+          this.setState({students: e.target.innerHTML});
+        }
     }
 
     render() {
@@ -123,15 +128,15 @@ class CreateForm extends React.Component {
         }
 
         let idDrop;
-        // if(this.props.groups !== undefined) {
-          idDrop  = this.state.groups.map(function(item, i) {
-            item.key = i;
+        if(this.props.groups !== undefined) {
+          idDrop  = this.props.groups.map(function(item, i) {
+            item.key = item._id;
             item.value = item._id;
             item.text = item._id;
             item.name = item._id
             return item;
           })
-        // }
+         }
 
 
         let formStyle = {
@@ -228,11 +233,8 @@ class CreateForm extends React.Component {
                         </Form>
                         <Card.Content extra={true}>
                           <div className="link" key="visible">
-                            <Button basic small color={"green"} positive size="large" animated="vertical" style={buttonStyle} onClick={this.handleSurveySubmit}>
+                            <Button basic small color={"green"} positive size="large" style={buttonStyle} onClick={this.handleSurveySubmit}>
                                <Button.Content visible>Generate</Button.Content>
-                               <Button.Content hidden>
-                                Testing
-                              </Button.Content>
                             </Button>
                             {link}
                           </div>
