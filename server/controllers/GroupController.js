@@ -1,6 +1,7 @@
 var Group = require('../models/Group.js')
 var Students = require('../models/Student.js')
 const nodemailer = require('nodemailer');
+var greedy_algorithm_based_on_Time = require('../algorithms/greedy_algorithm').greedy_algorithm_based_on_Time;
 
 module.exports = {
 	find: function(params, callback){
@@ -20,7 +21,20 @@ module.exports = {
 				callback(err, null)
 				return
 			}
+			group[0].students.shift()
 
+			group[0].students = group[0].students.map(function(item) {
+				return item[0];
+			})
+			// algorithm goes here
+			console.log(group[0].students)
+			console.log("groupCapacity", group[0].groupCapacity)
+			if(group.[0].students.length > 3) {
+			let successRate = greedy_algorithm_based_on_Time(group[0].students, group[0].groupCapacity) 
+			console.log("succes rate: ", successRate)
+			} else {
+				console.log('Not enough user responses')
+			}
 			callback(null, group)
 		})
 	},

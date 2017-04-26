@@ -16,8 +16,8 @@ time = [M.t0, M.t1, M.t2, ... , M.t5,   -> 0
 let samplePerson =
 {
 	id: 			1,
-	groupNum: 		-1,
-	freeTime:   	[false, false, false, false ... false],
+	groupNumber: 		-1,
+	meetingTimes:   	[false, false, false, false ... false],
 						^		^		^	  ^			^
 						M:t1    M:t2    M:t3  M:t4      F:t5
 };
@@ -43,10 +43,11 @@ function Std(index, num, ord, potn){
 }
 
 function clCompare(st_a, st_b){
-	let l = st_a.freeTime.length;
+	console.log(st_a)
+	let l = st_a.meetingTimes.length;
 	let val = 0;
 	for (let i=0; i<l; i++){
-		if (st_a.freeTime[i]==true && st_b.freeTime[i]==true)
+		if (st_a.meetingTimes[i]==true && st_b.meetingTimes[i]==true)
 			val++;
 	}
 	return val;
@@ -264,7 +265,7 @@ function grouping(teams, stds, size){
 	for (let i=0; i<lgth; i++){
 		for (let j=0; j<teams[i].length; j++){
 			let index = teams[i][j];
-			stds[index].groupNum = i;
+			stds[index].groupNumber = i;
 		}
 	}
 	return stds;
@@ -278,7 +279,7 @@ function successRate(teams, stds){
 			let sum = 0;
 			for (let j=0; j<teams[i].length; j++){
 				let index = teams[i][j];
-				sum += stds[index].freeTime[ii];
+				sum += stds[index].meetingTimes[ii];
 			}
 			if (sum == teams[i].length){
 				success++;
