@@ -33,12 +33,14 @@ class CreateForm extends React.Component {
       console.log(this.state.meetingTimes)
 
       let size = 7;
-      let days = {0: 'monday', 1: 'tuesday', 2: 'wednesday', 3:'thursday', 4: 'friday', 5 :'saturday', 6: 'sunday'}
+      let days = {'monday':0, 'tuesday':1, 'wednesday':2, 'thursday':3, 'friday':4, 'saturday':5, 'sunday':6}
       let meetingTimes = [];
       while(size--) meetingTimes[size] = false;
 
       for(let i = 0; i < this.state.meetingTimes.length; i++) {
+        console.log(days[this.state.meetingTimes[i]])
         meetingTimes[days[this.state.meetingTimes[i]]] = true;
+        console.log(meetingTimes)
       }
 
 
