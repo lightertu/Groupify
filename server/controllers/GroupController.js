@@ -26,17 +26,20 @@ module.exports = {
 	},
 
 	create: function(params, callback){
-		Group.create(params, function(err, group){
-			if(err){
-				callback(err, null)
-				return
-			}
 
 			Students.findById(params.students, function(err, students){
 				if(err){
 					callback(err, null)
 					return
 				}
+
+				params.totalCapacity = students.students.length;
+					Group.create(params, function(err, group){
+						if(err){
+						callback(err, null)
+						return
+						}
+
 				console.log(students)
 				let transporter = nodemailer.createTransport({
 					service: 'gmail',
