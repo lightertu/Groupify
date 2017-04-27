@@ -52,29 +52,16 @@ yarn serve
 	- [Mongodb](https://nodejs.org/en/)
 	
 
-```bash
-cd <Your-Directory>
-git clone https://github.com/lightertu/TeamDivider.git
-cd TeamDivider
-```
-Then install dependencies and check to see it works. It is recommended that you use Yarn for 
-deterministic installs, but npm install will work just as well.
-
-
-Make sure that mongodb is running in the background
-```bash
-yarn install
-yarn start
-```
-
 ### Possible Issues
-### Windows
+#### Windows
 **If you get the error**
 
 ```bash
 Fatal Error: spawn cmd ENOENT
 ```
 Add C:\Windows\System32\ to the PATH Environment variable
+
+
 
 ## Progress Log
 
