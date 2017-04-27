@@ -84,10 +84,10 @@ class FilterMenu extends React.Component {
                     <Segment basic>
                         <Menu fluid secondary>
                             <Menu.Item fitted>
-                                { true && <Input
+                                { <Input
                                     icon='search'
                                     iconPosition='left'
-                                    placeholder='Search By Name...'
+                                    placeholder='Search . . .'
                                     size="big"
                                     style={inputStyle}
                                     transparent
@@ -96,7 +96,7 @@ class FilterMenu extends React.Component {
                             </Menu.Item>
 
                             <Menu.Menu position='right'>
-                                <Button icon='detective'
+                                <Button icon='users'
                                         content='Smart'
                                         size="medium"
                                         color="green"
