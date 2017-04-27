@@ -29,7 +29,7 @@ module.exports = {
 			// algorithm goes here
 			console.log(group[0].students)
 			console.log("groupCapacity", group[0].groupCapacity)
-			if(group.[0].students.length > 3) {
+			if(group[0].students.length > 3) {
 			let successRate = greedy_algorithm_based_on_Time(group[0].students, group[0].groupCapacity) 
 			console.log("succes rate: ", successRate)
 			} else {
