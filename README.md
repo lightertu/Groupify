@@ -42,7 +42,6 @@ yarn serve
 		- [React Sticky Node](https://github.com/yahoo/react-stickynode)
 	- View
 		- [Material-UI](http://www.material-ui.com/)
-		- [Grommet](https://grommet.github.io/docs/filter-control)
 		- [Semantic-UI](https://github.com/Semantic-Org/Semantic-UI-React)
 		
 * Back-End:
