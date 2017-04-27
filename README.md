@@ -161,7 +161,7 @@ so transforms aren't inlined. In production, webpack will extract styles to a `.
 and perform additional optimizations such as module deduplication.
 
  
-##Progress Log
+## Progress Log
 
 ### Week 1
 
