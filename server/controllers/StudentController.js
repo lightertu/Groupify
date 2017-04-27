@@ -1,11 +1,11 @@
-var Student = require('../models/Student.js')
-var Group = require('../models/Group.js')
+let Student = require('../models/Student.js');
+let Group = require('../models/Group.js');
 
 module.exports = {
 	find: function(params, callback){
 			Student.find(params, function(err, students){
 				if(err){
-					callback(err, null)
+					callback(err, null);
 						return
 				}
 				callback(null, students)
@@ -15,7 +15,7 @@ module.exports = {
 	findById: function(id, callback){
 		Student.find({"student_id": id}, function(err, students){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
 
@@ -26,16 +26,16 @@ module.exports = {
 	create: function(params, callback){
 		Student.create(params, function(err, students){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
-			console.log('params', params.students)
+			console.log('params', params.students);
 			Student.find({"students": params.students}, function(err, student){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
-			console.log(student)
+			console.log(student);
 			callback(null, student)
 		})
 		})
@@ -44,7 +44,7 @@ module.exports = {
 	update: function(id, params, callback){
 		Student.findOneAndUpdate({"form": id},{$push: params}, function(err, students){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
 
@@ -55,11 +55,11 @@ module.exports = {
 	delete: function(id, callback){
 		Group.findByIdAndRemove(id, function(err){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
 
 			callback(null, null)
 		})
 	}
-}
+};

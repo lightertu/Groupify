@@ -10,7 +10,7 @@ router.get('/:resource', function(req, res, next){
 
 	if(controller === null){
 		res.json({
-			conirmation: 'fail',
+            confirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
 		})
 	}
@@ -95,7 +95,7 @@ router.post('/:resource/:id', function(req, res, next){ // this is for updating 
 	let controller = controllers[resource];
 	if(controller === null){
 		res.json({
-			conirmation: 'fail',
+            confirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
 		})
 	}

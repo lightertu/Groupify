@@ -54,7 +54,7 @@ class FilterMenu extends React.Component {
         };
 
         const afterStickedStyle = {
-            marginTop: '54px',
+            //marginTop: '54px',
             borderRadius: "4px",
             backgroundColor: '#4f5254',
         };
@@ -77,7 +77,7 @@ class FilterMenu extends React.Component {
             <div>
                 <Sticky isActive={true}
                         style={ filterMenuStyle }
-                        topOffset={-55}
+                        //topOffset={-55}
                         stickyStyle={ afterStickedStyle }
                         onStickyStateChange={this.handleStickyStateChange}
                 >

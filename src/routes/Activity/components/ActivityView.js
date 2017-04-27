@@ -66,7 +66,7 @@ export class ActivityView extends React.Component {
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                         activityId={ this.props.params.activityId }/>
                 <div className="" style={ {
-                    marginTop: "3%",
+                    marginTop: "-3%",
                     //marginLeft: "5%",
                     width: '100%',
                     //paddingLeft: '3%',

@@ -1,4 +1,4 @@
-var Group = require('../models/Group.js')
+let Group = require('../models/Group.js')
 
 module.exports = {
 	find: function(params, callback){
@@ -19,11 +19,11 @@ module.exports = {
 	update: function(id, params, callback){
 		Group.find({"form": id},{students: 1}, function(err, students){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 			}
 			students = students[0].students;
-			let idx = params.idx
+			let idx = params.idx;
 			students[idx][0].groupNumber = params.groupNumber;
 			let tmp = students[idx];
 			students.splice(idx, 1);
@@ -31,7 +31,7 @@ module.exports = {
 
 			Group.update({"form":id}, {"students": students}, function(err, student){
 				if(err){
-				callback(err, null)
+				callback(err, null);
 				return
 				}
 			})

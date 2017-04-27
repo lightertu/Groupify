@@ -81,7 +81,7 @@ class GroupCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            matchingStatusOpen: true,
+            matchingStatusOpen: false,
         };
     }
 

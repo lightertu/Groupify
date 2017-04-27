@@ -28,7 +28,7 @@ class Header extends React.Component {
         ];
 
         return (
-                <Menu size='small' attached="top" borderless fixed="top" style={ { height: "55px", zIndex: 1500, position:"fixed" }} >
+                <Menu size='small' attached="top" borderless style={ { height: "55px", zIndex: 1500, position: "relative" }} >
                      <Menu.Item name='Groupify'
                                 active={activeItem === 'Groupify'}
                                 onClick={this.handleItemClick}
@@ -36,14 +36,6 @@ class Header extends React.Component {
                      <Menu.Menu position='right'>
                          <Menu.Item>
                              CIS 422 Software Methodology
-                         </Menu.Item>
-                         <Menu.Item>
-                             <Dropdown trigger={
-                                 <span>
-                                    <Icon name='user' size={"large"} color={"grey"}/>
-                                 </span>
-                             } options={options} />
-
                          </Menu.Item>
                      </Menu.Menu>
                 </Menu>
