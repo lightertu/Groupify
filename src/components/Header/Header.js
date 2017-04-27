@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Menu } from 'semantic-ui-react'
+import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
 
 import './Header.scss'
 
@@ -13,6 +13,20 @@ class Header extends React.Component {
 
     render() {
         const {activeItem} = this.state;
+        const options = [
+            {
+                key: 'user',
+                text: <span>Signed in as <strong>Michael Young</strong></span>,
+                disabled: true,
+            },
+            { key: 'profile', text: 'Your Profile' },
+            { key: 'activities', text: 'Your Activities' },
+            { key: 'survey', text: 'Your Survey Forms' },
+            { key: 'help', text: 'Help' },
+            { key: 'settings', text: 'Settings' },
+            { key: 'sign-out', text: 'Sign Out' },
+        ];
+
         return (
                 <Menu size='small' attached="top" borderless fixed="top" style={ { height: "55px", zIndex: 1500, position:"fixed" }} >
                      <Menu.Item name='Groupify'
@@ -21,7 +35,15 @@ class Header extends React.Component {
                      />
                      <Menu.Menu position='right'>
                          <Menu.Item>
-                             <Button primary>Sign Up</Button>
+                             CIS 422 Software Methodology
+                         </Menu.Item>
+                         <Menu.Item>
+                             <Dropdown trigger={
+                                 <span>
+                                    <Icon name='user' size={"large"} color={"grey"}/>
+                                 </span>
+                             } options={options} />
+
                          </Menu.Item>
                      </Menu.Menu>
                 </Menu>
