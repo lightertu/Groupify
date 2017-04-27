@@ -10,7 +10,7 @@ A web application to help activity organizer divide participants into different 
 * MongoDB v3.4.x
 * [Yarn v0.23.x](https://yarnpkg.com/en/)
 
-## How to deploy
+## How to Deploy
 After you have installed Node.js and MongoDB make sure the `node`, `mongod`, `yarn`, and `npm` are in your `$PATH` environment variable. Then do the following steps.
 
 ```bash
@@ -26,6 +26,7 @@ yarn serve
 
 # it will be availible at "localhost:3000/activity/cis422"
 ```
+
 ## Technologies Deployed
 * Scaffolding Tool:
 	- [React Redux Starter Kit](https://github.com/davezuko/react-redux-starter-kit)
@@ -62,6 +63,7 @@ Make sure that mongodb is running in the background
 yarn install
 yarn start
 ```
+
 ### Possible Issues
 ### Windows
 **If you get the error**
