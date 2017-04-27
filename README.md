@@ -11,7 +11,7 @@ A web application to help activity organizer divide participants into different 
 * [Yarn v0.23.x](https://yarnpkg.com/en/)
 
 ## How to deploy
-After you have installed Node.js and MongoDB make sure the `node`, `mongod`, and `npm` are in your `$PATH` environment variable. Then do the following steps.
+After you have installed Node.js and MongoDB make sure the `node`, `mongod`, `yarn`, and `npm` are in your `$PATH` environment variable. Then do the following steps.
 
 ```bash
 # this will clone the 'submission' branch
@@ -23,6 +23,8 @@ npm install
 
 # to serve the web page
 yarn serve
+
+# it will be availible at "localhost:3000/activity/cis422"
 ```
 ## Technologies Deployed
 * Scaffolding Tool:
