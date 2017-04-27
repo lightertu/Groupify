@@ -26,10 +26,8 @@ sudo mongod
 
 # to serve the web page
 yarn serve
-
-# it will be availible at "localhost:3000/activity/cis422"
 ```
-it will be availible at 
+It will be availible at 
 ```
 localhost:3000/activity/cis422
 ```
