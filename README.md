@@ -64,31 +64,6 @@ Fatal Error: spawn cmd ENOENT
 Add `C:\Windows\System32\` to the `PATH` Environment variable
 
 
-
-```
-http://localhost:3000/api/studentUpdate/{form id}
-```
-pass:
-
-idx: 'current student idx' note: index starts at 1
-gruopNumber: 'new group number:
-
-#Example:
-```
-axios.post('/api/studentUpdate/YPYj0yQMFBpilutfIk6NXWVcc', {
-            idx: 2,
-            groupNumber: 6
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-```
-
-
-
 # Future Features
 * filtering and search based on questions in the survey on the group assignment page
 * Smart Layout: generate different layouts given different group capacities
