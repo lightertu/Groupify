@@ -166,6 +166,7 @@
     "react-addons-test-utils": "^15.0.0",
     "react-dnd": "^2.3.0",
     "react-dnd-html5-backend": "^2.3.0",
+    "react-sticky": "^5.0.8",
     "redbox-react": "^1.2.10",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
