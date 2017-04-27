@@ -29,6 +29,11 @@ yarn serve
 
 # it will be availible at "localhost:3000/activity/cis422"
 ```
+it will be availible at 
+```
+localhost:3000/activity/cis422
+```
+
 
 ## Technologies Deployed
 * Scaffolding Tool:
