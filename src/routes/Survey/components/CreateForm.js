@@ -30,6 +30,18 @@ class CreateForm extends React.Component {
       let lastName = this.state.lastName.trim();
       let email = this.state.email.trim();
       
+      console.log(this.state.meetingTimes)
+
+      let size = 7;
+      let days = {'monday':0, 'tuesday':1, 'wednesday':2, 'thursday':3, 'friday':4, 'saturday':5, 'sunday':6}
+      let meetingTimes = [];
+      while(size--) meetingTimes[size] = false;
+
+      for(let i = 0; i < this.state.meetingTimes.length; i++) {
+        console.log(days[this.state.meetingTimes[i]])
+        meetingTimes[days[this.state.meetingTimes[i]]] = true;
+        console.log(meetingTimes)
+      }
 
 
       this.props.handleFormSubmit({
@@ -37,9 +49,10 @@ class CreateForm extends React.Component {
         lastName: lastName, 
         email: email, 
         languages: this.state.languages, 
-        meetingTimes: this.state.meetingTimes,
+        meetingTimes: meetingTimes,
         requests: this.state.requests,
         image: this.state.image,
+        groupNumber: -1,
         extraQuestions: this.state.extraQuestions});
       
       var obj = {}
@@ -86,7 +99,7 @@ class CreateForm extends React.Component {
     }
 
   setMultipleValue(input, event) {
-    let field = this.state['languages']
+    let field = this.state[input]
     if(event.target.getAttribute('name') === null) {
       let item = event.target.parentNode.getAttribute('value');
       let index = field.indexOf(item);
@@ -140,13 +153,13 @@ class CreateForm extends React.Component {
         ]
 
         const DayOptions = [ 
-          { key: 1, value: 'M', text: 'monday'},
-          { key: 2, value: 'T', text: 'tuesday'},
-          { key: 3, value: 'W', text: 'wednesday'},
-          { key: 4, value: 'TH', text: 'thursday'},
-          { key: 5, value: 'F', text: 'friday'},
-          { key: 6, value: 'S', text: 'saturday'},
-          { key: 7, value: 'SU', text: 'sunday'}
+          { key: 1, value: 'monday', text: 'monday', name: 'monday'},
+          { key: 2, value: 'tuesday', text: 'tuesday', name: 'tuesday'},
+          { key: 3, value: 'wednesday', text: 'wednesday', name: 'wednesday'},
+          { key: 4, value: 'thursday', text: 'thursday', name: 'thursday'},
+          { key: 5, value: 'friday', text: 'friday', name: 'friday'},
+          { key: 6, value: 'saturday', text: 'saturday', name: 'saturday'},
+          { key: 7, value: 'sunday', text: 'sunday', name: 'sunday'}
         ]
 
         let extraQuestions = this.extraQuestionsGeneration(this.props.questions[0].questions);
@@ -219,7 +232,8 @@ class CreateForm extends React.Component {
                             <Dropdown 
                               allowAdditions={true} 
                               fluid multiple selection 
-                              options={DayOptions}/>
+                              options={DayOptions}
+                              onChange={this.setMultipleValue.bind(this, 'meetingTimes')}/>
                           </Form.Field>
                            <Form.Field>
                             <label>Languages</label>
