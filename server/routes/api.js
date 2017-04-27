@@ -1,14 +1,14 @@
-var express = require('express')
-var router = express.Router()
-var controllers = require('../controllers') // gets index.js
+let express = require('express');
+let router = express.Router();
+let controllers = require('../controllers'); // gets index.js
 
 
 router.get('/:resource', function(req, res, next){
-	console.log("getting")
-	var resource = req.params.resource
-	var controller = controllers[resource]
+	console.log("getting");
+	let resource = req.params.resource;
+	let controller = controllers[resource];
 
-	if(controller == null){
+	if(controller === null){
 		res.json({
 			conirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
@@ -17,12 +17,12 @@ router.get('/:resource', function(req, res, next){
 
 	controller.find(req.query, function(err, results){
 		if(err){
-				res.json({
-					confirmation: 'fail',
-					message: err
-				})
+            res.json({
+                confirmation: 'fail',
+                message: err
+            });
 
-				return
+            return
 		}
 
 		res.json({
@@ -31,14 +31,14 @@ router.get('/:resource', function(req, res, next){
 		})
 	})
 	
-})
+});
 
 router.get('/:resource/:id', function(req, res, next){
-	var resource = req.params.resource
-	var id = req.params.id
-	var controller = controllers[resource]
-	console.log('getting '+id)
-	if(controller == null){
+	let resource = req.params.resource;
+	let id = req.params.id;
+	let controller = controllers[resource];
+	console.log('getting '+id);
+	if(controller === null){
 		res.json({
 			conirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
@@ -49,7 +49,7 @@ router.get('/:resource/:id', function(req, res, next){
 			res.json({
 				confirmation: 'fail',
 				message: 'Not Found'
-			})
+			});
 			
 			return
 		}
@@ -59,25 +59,25 @@ router.get('/:resource/:id', function(req, res, next){
 			result: result
 		})
 	})
-})
+});
 
 router.post('/:resource', function(req, res, next){
-	console.log('updating')
-	var resource = req.params.resource
-	var controller = controllers[resource]
-	if(controller == null){
+	console.log('updating');
+	let resource = req.params.resource;
+	let controller = controllers[resource];
+	if(controller === null){
 		res.json({
 			conirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
 		})
 	}
-	console.log(req.body)
+	console.log(req.body);
 	controller.create(req.body, function(err, result){
 		if(err){
 			res.json({
 				confirmation: 'fail',
 				message: err
-			})
+			});
 
 			return
 		}
@@ -87,25 +87,25 @@ router.post('/:resource', function(req, res, next){
 			result: result
 		})
 	})
-})
+});
 
 router.post('/:resource/:id', function(req, res, next){ // this is for updating the group with survey responses
-	var resource = req.params.resource
-	var id = req.params.id
-	var controller = controllers[resource]
-	if(controller == null){
+	let resource = req.params.resource;
+	let id = req.params.id;
+	let controller = controllers[resource];
+	if(controller === null){
 		res.json({
 			conirmation: 'fail',
 			message: 'Invalid Resource Request: '+resource
 		})
 	}
-	console.log(req.body)
+	console.log(req.body);
 	controller.update(id, req.body, function(err, result){
 		if(err){
 			res.json({
 				confirmation: 'fail',
 				message: err
-			})
+			});
 
 			return
 		}
@@ -115,6 +115,6 @@ router.post('/:resource/:id', function(req, res, next){ // this is for updating 
 			result: result
 		})
 	})
-})
+});
 
-module.exports = router
+module.exports = router;
