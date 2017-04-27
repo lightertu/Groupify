@@ -58,7 +58,7 @@ yarn serve
 ```bash
 Fatal Error: spawn cmd ENOENT
 ```
-Add C:\Windows\System32\ to the PATH Environment variable
+Add `C:\Windows\System32\` to the `PATH` Environment variable
 
 
 
