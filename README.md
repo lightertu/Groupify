@@ -161,15 +161,47 @@ so transforms aren't inlined. In production, webpack will extract styles to a `.
 and perform additional optimizations such as module deduplication.
 
  
-### To Do
+##Progress Log
+
+### Week 1
+
+Goal: Finish first UI sprint. Focus on creating flexible React components. 
+
+1) Done with core functionality of drag and drop team creation page - Rui Tu
+2) Done with core functionality of welcome page - Joseph Livni
+3) Generate project scaffolding - Rui Tu
+4) Design the logic of the application(front end/ back end) - Rui Tu, Joseph Livni
 
 ### Week 2
 
-Goal: Finish UI. Focus on creating flexible React components. 
+Goal: Finish up UI and begin work on algorithm
 
-1) Change login page to popup on welcome page
-2) Create a preview survey popup underneath welcome
-3) Create survey page
+1) Cleaned up UI bugs and added more functionality to drag and drop team creation page - Rui Tu
+2) Dynamic dashboard created to navigate to groups and surveys - Joseph Livni
+3) Created login page - Joseph Livni
+4) Created survey page - Joseph Livni
+5) started planning out algorithm strategy - Kai Huang
+
+### Week 3
+
+Goal: Finish the core backend. Finish the algorithm. Add features to the front end.
+
+1) Built database - Joseph Livni
+2) Build server - Joseph Livni
+3) Built API to communicate with front end components - Joseph Livni
+4) Created ability to add custom surey questions - Joseph Livni
+5) Finished algorithn and tested accuracy - Kai Huang
+6) More progress made on drag and drop team creation page - Rui Tu
+
+### Week 4
+
+Goal: Fix bugs. Integrate algorithm into backend. Connect front end with API end points. Finish Documentation.
+
+1) Integrated algorithm into back end - Joseph Livni, Kai Huang
+2) Created auto emailer - Joseph Livni
+3) Created ability to upload list of users - Joseph Livni
+4) Made final connections between the backend and the front end - Joseph Livni, Rui Tu
+5) Added ability for database to store front end user card position state - Joseph Livni
 
 
 ### API End Points
