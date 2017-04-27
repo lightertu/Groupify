@@ -61,21 +61,6 @@ Fatal Error: spawn cmd ENOENT
 Add `C:\Windows\System32\` to the `PATH` Environment variable
 
 
-### API End Points
-
-## Grab all Groups
-
-```
-http://localhost:3000/api/groups
-```
-
-## Fetch Survey/Group by ID
-
-```
-http://localhost:3000/api/groups/{form id}
-```
-
-## Update User on Dnd interface
 
 ```
 http://localhost:3000/api/studentUpdate/{form id}
