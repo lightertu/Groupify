@@ -1,12 +1,13 @@
 # Team Divider
+A web application to help activity organizer divide participants into different teams.
 
-This tool is build for dividing people into team given criteria.
 ## ScreenShots
-
 #### Application page
 ![app page](https://cloud.githubusercontent.com/assets/11642176/25405696/ee38118e-29b8-11e7-8b3f-b4f84c71155e.png)
 
-
+## Dependecies Required to Deploy
+* Node.js v6.10.x
+* MongoDB v3.4
 
 ## Technologies Deployed
 * Scaffolding Tool:
@@ -27,10 +28,8 @@ This tool is build for dividing people into team given criteria.
 	- [Nodejs](https://nodejs.org/en/)
 	
 * Database:
-	- [Mongodb]()
+	- [Mongodb](https://nodejs.org/en/)
 	
-  
-
 
 ```bash
 cd <Your-Directory>
