@@ -6,9 +6,24 @@ A web application to help activity organizer divide participants into different 
 ![app page](https://cloud.githubusercontent.com/assets/11642176/25405696/ee38118e-29b8-11e7-8b3f-b4f84c71155e.png)
 
 ## Dependecies Required to Deploy
-* Node.js v6.10.x
-* MongoDB v3.4
+* Node.js v6.10.x >
+* MongoDB v3.4 >
+* [Yarn v0.23.2 >](https://yarnpkg.com/en/)
 
+## How to deploy
+After you have installed Node.js and MongoDB make sure the `node`, `mongod`, and `npm` are in your `$PATH` environment variable. Then do the following steps.
+
+```bash
+# this will clone the 'submission' branch
+git clone https://github.com/lightertu/TeamDivider/tree/submission <path>
+
+# installing all the project dependencies
+cd <path>/TeamDivider
+npm install
+
+# to serve the web page
+yarn serve
+```
 ## Technologies Deployed
 * Scaffolding Tool:
 	- [React Redux Starter Kit](https://github.com/davezuko/react-redux-starter-kit)
