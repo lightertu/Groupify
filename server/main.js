@@ -24,6 +24,7 @@ const app = express()
 app.use(bodyParser.json());
 app.use(bodyParser({limit: '50mb'}))
 
+/*
 app.use(session({
     secret: 'secret_key',
     resave: true,
@@ -57,6 +58,7 @@ app.get('/logout', auth, function (req, res) {
   req.session.destroy();
   res.send("logout success!");
 });
+*/
  
 // Apply gzip compression
 app.use(compress())
@@ -90,6 +92,19 @@ if (project.env === 'development') {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
+
+    app.use('*', function (req, res, next) {
+        const filename = path.join(compiler.outputPath, 'index.html')
+        compiler.outputFileSystem.readFile(filename, (err, result) => {
+            if (err) {
+                return next(err)
+            }
+            res.set('content-type', 'text/html')
+            res.send(result)
+            res.end()
+        })
+    })
+    /*
     app.use('/login' , function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html')
         compiler.outputFileSystem.readFile(filename, (err, result) => {
@@ -114,6 +129,7 @@ if (project.env === 'development') {
             res.end()
         })
     })
+    */
 } else {
     debug(
         'Server is being run outside of live development mode, meaning it will ' +
