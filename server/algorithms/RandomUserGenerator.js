@@ -72,7 +72,7 @@ let generateUsers = (numOfGroups, numOfPeople, posibility, dayTime) => {
             randName = pickName(),
             randImage = pickImage(),
             randSkills = pickSkills(),
-            randGroupNumber = pickGroup(numOfGroups),
+            // randGroupNumber = pickGroup(numOfGroups),
             randAvailability = pickAvailability(posibility, dayTime);
 
         return ({
@@ -80,7 +80,7 @@ let generateUsers = (numOfGroups, numOfPeople, posibility, dayTime) => {
             // name: randName,
             // image: randImage,
             // skills: randSkills,
-            groupNum: randGroupNumber,
+            groupNum: -1,
             freeTime: randAvailability
         });
     };
