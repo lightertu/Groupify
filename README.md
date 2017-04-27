@@ -21,6 +21,9 @@ git clone https://github.com/lightertu/TeamDivider/tree/submission <path>
 cd <path>/TeamDivider
 npm install
 
+# make sure mongodb is running
+sudo mongod
+
 # to serve the web page
 yarn serve
 
