@@ -183,7 +183,7 @@ http://localhost:3000/api/groups
 ## Fetch Survey/Group by ID
 
 ```
-http://localhost:3000/api/groups/ID
+http://localhost:3000/api/groups/{form id}
 ```
 
 ## Update User on Dnd interface
