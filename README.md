@@ -25,7 +25,7 @@ npm install
 sudo mongod
 
 # to serve the web page
-yarn serve
+yarn start
 ```
 It will be availible at 
 ```
