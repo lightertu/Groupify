@@ -187,9 +187,9 @@ Goal: Finish up UI and begin work on algorithm
 Goal: Finish the core backend. Finish the algorithm. Add features to the front end.
 
 1) Built database - Joseph Livni
-2) Build server - Joseph Livni
+2) Built server - Joseph Livni
 3) Built API to communicate with front end components - Joseph Livni
-4) Created ability to add custom surey questions - Joseph Livni
+4) Created ability to add custom survey questions - Joseph Livni
 5) Finished algorithn and tested accuracy - Kai Huang
 6) More progress made on drag and drop team creation page - Rui Tu
 
