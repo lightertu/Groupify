@@ -32,6 +32,9 @@ It will be availible at
 localhost:3000/activity/cis422
 ```
 
+### More infomation
+For more information is availible at [Wiki](https://github.com/lightertu/TeamDivider/wiki), especially our [MVP Feautures](https://github.com/lightertu/TeamDivider/wiki) and our [Beta Features](https://github.com/lightertu/TeamDivider/wiki/BETA-Features-(Not-in-MVP))
+
 
 ## Technologies Deployed
 * Scaffolding Tool:
