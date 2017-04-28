@@ -248,3 +248,4 @@ axios.post('/api/studentUpdate/YPYj0yQMFBpilutfIk6NXWVcc', {
 * filtering and search based on questions in the survey on the group assignment page
 * Smart Layout: generate different layouts given different group capacities
 * Allow modifying activity infomation such as group capacity, total number of participants, on the grouping page
+* A matching assistent that will highlight students that would be good matches with the currently selected student
