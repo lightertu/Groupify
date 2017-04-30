@@ -249,3 +249,8 @@ axios.post('/api/studentUpdate/YPYj0yQMFBpilutfIk6NXWVcc', {
 * Smart Layout: generate different layouts given different group capacities
 * Allow modifying activity infomation such as group capacity, total number of participants, on the grouping page
 * A matching assistent that will highlight students that would be good matches with the currently selected student
+* user sessions
+* dynamic charts and graphs displaying statistics pulled from database
+* track github repos through github API
+* containerize student projects
+* real time project critiques and inquiry 
