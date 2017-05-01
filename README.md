@@ -254,3 +254,4 @@ axios.post('/api/studentUpdate/YPYj0yQMFBpilutfIk6NXWVcc', {
 * track github repos through github API
 * containerize student projects
 * real time project critiques and inquiry 
+* utilize redis
