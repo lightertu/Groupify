@@ -1,7 +1,7 @@
 import React from 'react'
 import {Image, Button, Icon, Menu, Header, Dimmer} from 'semantic-ui-react'
 
-import SidebarMenu from "../../../components/SidebarMenu/SidebarMenu";
+import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
 
 class _UserProfileSnippet extends React.Component {
     constructor() {
@@ -73,7 +73,7 @@ class _MenuOptions extends React.Component {
     }
 }
 
-class MenuSideBar extends React.Component {
+class DashboardSideMenu extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -90,4 +90,4 @@ class MenuSideBar extends React.Component {
 }
 
 
-export default MenuSideBar;
+export default DashboardSideMenu;
