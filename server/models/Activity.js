@@ -2,12 +2,12 @@
  * Created by rui on 4/24/17.
  */
 let mongoose = require('mongoose');
-let Participant = require('./Activity');
+let Survey = require('./Survey');
 
 let ActivitySchema = new mongoose.Schema({
     // copied this from yours, not sure what it is, Id maybe?
-    form: {
-        type:String,
+    survey: {
+        type: Survey,
         default: null
     },
 
@@ -22,7 +22,7 @@ let ActivitySchema = new mongoose.Schema({
     },
 
     participants: {
-        type: [Participant],
+        type: [ participantId ],
         default: []
     },
 
@@ -31,7 +31,13 @@ let ActivitySchema = new mongoose.Schema({
         default: ""
     },
 
-    timeCreated: {
+
+    creationDate{
+        type: Date,
+        default: Date.now
+    },
+
+    endDate: {
         type: Date,
         default: Date.now
     },
