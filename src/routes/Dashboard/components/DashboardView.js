@@ -2,10 +2,6 @@ import React from 'react'
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import {Card, Grid, Icon, Image, Segment} from "semantic-ui-react";
 
-const participantsListWidth = 4;
-const groupCardsWidth = 12;
-const cardsPerRow = 2;
-
 class _DashboardContentWrapper extends React.Component {
     constructor() {
         super();
@@ -29,146 +25,42 @@ class DashboardView extends React.Component {
         super();
     }
 
+
     render() {
+        let test = () => {
+            let cards = []
+            for (let i = 0; i < 100; i++) {
+                cards.push(
+                    <Card style={{maxWidth: "273px"}}>
+                        <div style={{height: "130px", background: "#13b4ff"}}></div>
+                        <Card.Content>
+                            <Card.Header>
+                                CIS 422
+                            </Card.Header>
+                            <Card.Meta>
+                                <span className='date'>
+                                  Ends on 6/12/2015
+                                </span>
+                            </Card.Meta>
+                        </Card.Content>
+                        <Card.Content extra>
+                            <a>
+                                <Icon name='user'/>
+                                3/40
+                            </a>
+                        </Card.Content>
+                    </Card>
+                )
+            }
+
+            return cards;
+        };
         return (
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
                 <Card.Group>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-                    <Card>
-                        <div style={{height: "160px", background: "#13b4ff"}}></div>
-                        <Card.Content>
-                            <Card.Header>
-                                CIS 422
-                            </Card.Header>
-                            <Card.Meta>
-                                <span className='date'>
-                                  Ends on 6/12/2015
-                                </span>
-                            </Card.Meta>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <a>
-                                <Icon name='user'/>
-                                3/40
-                            </a>
-                        </Card.Content>
-                    </Card>
-
+                    { test() }
                 </Card.Group>
                 </_DashboardContentWrapper>
             </div>
