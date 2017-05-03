@@ -1,5 +1,6 @@
 import React from 'react'
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
+import randomColor from "randomcolor";
 import {Card, Grid, Icon, Image, Segment} from "semantic-ui-react";
 
 class _DashboardContentWrapper extends React.Component {
@@ -8,7 +9,7 @@ class _DashboardContentWrapper extends React.Component {
     }
 
     render() {
-        return(
+        return (
             <div style={ {
                 marginTop: "5%",
                 width: '100%',
@@ -32,7 +33,13 @@ class DashboardView extends React.Component {
             for (let i = 0; i < 100; i++) {
                 cards.push(
                     <Card style={{maxWidth: "273px"}}>
-                        <div style={{height: "130px", background: "#13b4ff"}}></div>
+                        <div style={{
+                            height: "130px", background: randomColor({
+                                luminosity: 'dark',
+                                format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
+                                alpha: 0.7
+                            })
+                        }}> </div>
                         <Card.Content>
                             <Card.Header>
                                 CIS 422
