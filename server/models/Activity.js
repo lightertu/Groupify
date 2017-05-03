@@ -3,6 +3,7 @@
  */
 let mongoose = require('mongoose');
 let Survey = require('./Survey');
+let Participant = require('./Participant');
 
 let ActivitySchema = new mongoose.Schema({
     // copied this from yours, not sure what it is, Id maybe?
@@ -12,7 +13,7 @@ let ActivitySchema = new mongoose.Schema({
     },
 
     groupCapacity: {
-        type: number,
+        type: Number,
         default: 3
     },
 
@@ -22,7 +23,7 @@ let ActivitySchema = new mongoose.Schema({
     },
 
     participants: {
-        type: [ participantId ],
+        type: [ String ],
         default: []
     },
 
@@ -32,7 +33,7 @@ let ActivitySchema = new mongoose.Schema({
     },
 
 
-    creationDate{
+    creationDate: {
         type: Date,
         default: Date.now
     },

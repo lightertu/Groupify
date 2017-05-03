@@ -1,5 +1,5 @@
-var Student = require('../models/Student.js')
-var Group = require('../models/Group.js')
+let Student = require('../models/Participant.js');
+let Group = require('../models/Activity.js');
 
 module.exports = {
 	find: function(params, callback){
