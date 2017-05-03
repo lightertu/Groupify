@@ -27,7 +27,7 @@ class _UserProfileSnippet extends React.Component {
                     onMouseEnter={this.handleShow}
                     onMouseLeave={this.handleHide}
                     size='small'
-                    src='https://react.semantic-ui.com/assets/images/wireframe/square-image.png'
+                    src='https://react.semantic-ui.com/assets/images/avatar/large/matthew.png'
                     shape="circular"
                 />
                 <Header as='h3'>
