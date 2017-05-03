@@ -13,12 +13,12 @@ class MenuSideBar extends React.Component {
     }
 
     render() {
-        var menuStyle = {
+        let menuStyle = {
             paddingTop: 75
 
         };
 
-        var menuContentStyle = {
+        let menuContentStyle = {
             paddingTop: 10,
             paddingBottom: 10,
             paddingLeft: 10,

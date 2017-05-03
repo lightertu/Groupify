@@ -17,13 +17,13 @@ class UploadStudent extends React.Component {
     }
 
     loadFile(e) {
-        var result = JSON.parse(e.target.result);
+        let result = JSON.parse(e.target.result);
         this.setState({students: result});
     }
 
     handleFileUpload(e) {
-        var file = e.target.files.item(0);
-        var fr = new FileReader();
+        let file = e.target.files.item(0);
+        let fr = new FileReader();
         fr.onload = this.loadFile.bind(this); // this it key to passing in the global 'this' into the fr.onload function
         fr.readAsText(file);
 
