@@ -1,7 +1,7 @@
 import React from 'react'
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import randomColor from "randomcolor";
-import {Card, Grid, Icon, Image, Segment} from "semantic-ui-react";
+import {Card, Grid, Header, Icon, Image, Segment} from "semantic-ui-react";
 
 class _DashboardContentWrapper extends React.Component {
     constructor() {
@@ -11,7 +11,7 @@ class _DashboardContentWrapper extends React.Component {
     render() {
         return (
             <div style={ {
-                marginTop: "5%",
+                marginTop: "3%",
                 width: '100%',
                 paddingLeft: "290px",
             } }>
@@ -66,6 +66,10 @@ class DashboardView extends React.Component {
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
+                    <Header as='h2'>
+                        Current Activities: 10
+                    </Header>
+                    <hr style={{borderTop: "2px solid #8c8b8b", paddingBottom: "8px"}}/>
                     <Card.Group>
                         { test() }
                     </Card.Group>
