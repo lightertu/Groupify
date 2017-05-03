@@ -7,7 +7,6 @@ import {connect} from 'react-redux'
  nor does it import React. This component is **only** responsible for
  wiring in the actions and state necessary to render a presentational
  component - in this case */
-
 import ActivityView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
 
