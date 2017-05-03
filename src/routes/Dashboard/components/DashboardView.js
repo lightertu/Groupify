@@ -1,45 +1,28 @@
 import React from 'react'
-import DashboardCard from './DashboardCard';
-import {Grid, Card} from 'semantic-ui-react'
+import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 
-class DashboardView extends React.Component {
+class Dashboard extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.state = {view: 'groups'};
+        this.toggleView = this.toggleView.bind(this);
     }
 
-    render() {
-        let viewStyles = {
-          width: '100%',
-          paddingLeft: 250,
-          paddingTop: 65
-        };
+    componentWillMount() {
+        this.props.fetchGroups();
+    }
 
-        let getCards = (item) => {
-          return (
-              item.map(
-                  (item, i) => (
-                      <Grid.Column stretched mobile={16} key={i} tablet={8} computer={4}>
-                        <DashboardCard title={item.title}
-                                        link={item.link}
-                                        color={item.color} 
-                                        date={item.date}
-                                        icon={item.icon}
-                                        counting={item.counting}
-                                        num={item.num}/>
-                      </Grid.Column>
-                )
-              )
-            )
-        };
+    toggleView = (view) => {
+        this.setState({view: view});
+    };
+
+    render() {
         return (
-              <div className="dashcards" style={viewStyles}>
-                <Grid container columns={3}>
-                          { getCards(this.props.data) }
-                </Grid>
-              </div>
+            <div>
+                <DashboardSideMenu toggleView={this.toggleView.bind(this)}/>
+            </div>
         )
     }
 }
 
-export default DashboardView;
+export default Dashboard;
