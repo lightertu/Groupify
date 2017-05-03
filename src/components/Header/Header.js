@@ -28,9 +28,9 @@ class Header extends React.Component {
         ];
 
         return (
-                <Menu size='small' attached="top" borderless style={ { height: "55px", zIndex: 1500, position:"relative" }} >
-                     <Menu.Item name='Groupify'
-                                active={activeItem === 'Groupify'}
+                <Menu size='small' attached="top" fixed="top" borderless style={ { height: "55px", zIndex: 1500 }} >
+                     <Menu.Item name='Team Divider'
+                                active={activeItem === 'Team Divider'}
                                 onClick={this.handleItemClick}
                      />
                      <Menu.Menu position='right'>
