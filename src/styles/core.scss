@@ -4,16 +4,15 @@
 // Some best-practice CSS that's useful for most apps
 // Just remove them if they're not what you want
 
-
 // font styles
 
 @font-face {
   font-family: Mosk-Ultra-Boldimport;
-  src:url('./Mosk-Ultra-Bold.ttf')
+  src: url('./Mosk-Ultra-Bold.ttf')
 }
 
 html {
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }
 
 html,
@@ -21,9 +20,10 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+
   background: linear-gradient(
-                  rgba(242, 242, 242, 0.25),
-                  rgba(242, 242, 242, 0.25)
+                  rgba(233, 235, 238, 0.25),
+                  rgba(233, 235, 238, 0.19)
   ), url("shattered.png") repeat;
 }
 
@@ -33,9 +33,7 @@ body {
   box-sizing: inherit;
 }
 
-
 // start of welcome page styles
-
 
 /*
 .line {
