@@ -59,9 +59,9 @@ class DashboardView extends React.Component {
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
-                <Card.Group>
-                    { test() }
-                </Card.Group>
+                    <Card.Group>
+                        { test() }
+                    </Card.Group>
                 </_DashboardContentWrapper>
             </div>
         )
