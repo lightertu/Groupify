@@ -7,14 +7,14 @@ import '../../styles/core.scss'
 
 export const CoreLayout = ({children}) => (
     <div>
-            <Header />
-            <div className="container">
-                <div className='core-layout__viewport'>
-                    <StickyContainer>
-                    {children}
-                    </StickyContainer>
-                </div>
+        <Header />
+        <div className="container-fluid">
+            <div className='core-layout__viewport'>
+                <StickyContainer>
+                {children}
+                </StickyContainer>
             </div>
+        </div>
     </div>
 );
 
