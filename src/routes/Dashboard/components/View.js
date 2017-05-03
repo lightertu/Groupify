@@ -9,11 +9,11 @@ class View extends React.Component {
     }
 
     render() {
-        var viewStyles = {
+        let viewStyles = {
           width: '100%',
           paddingLeft: 250,
           paddingTop: 65
-        }
+        };
 
         let getCards = (item) => {
           return (
