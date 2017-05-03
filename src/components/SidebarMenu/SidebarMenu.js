@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
 
 class Sidebar extends React.Component {
@@ -6,10 +7,13 @@ class Sidebar extends React.Component {
         super();
     }
 
+    static PropTypes = {
+        size: PropTypes.string
+    };
 
     render() {
         return (
-            <Menu vertical fixed={"left"} style={{width: "250px", paddingTop: "55px"}}>
+            <Menu vertical fixed={"left"} style={{width: "290px", paddingTop: "55px"}} size={this.props.size}>
                 { this.props.children }
             </Menu>
         )

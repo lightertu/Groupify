@@ -1,7 +1,7 @@
 import React from 'react'
-import {Card, Label, Segment, Image, Button, Icon, Menu, Header, Dimmer} from 'semantic-ui-react'
-import SidebarMenu from "../../../components/SidebarMenu/SidebarMenu";
+import {Image, Button, Icon, Menu, Header, Dimmer} from 'semantic-ui-react'
 
+import SidebarMenu from "../../../components/SidebarMenu/SidebarMenu";
 
 class MenuSideBar extends React.Component {
     constructor() {
@@ -21,13 +21,11 @@ class MenuSideBar extends React.Component {
         const { activeItem } = this.state;
         const { active } = this.state;
         const content = (
-            <div>
                 <Button size={"mini"}>Upload</Button>
-            </div>
         );
         return (
 
-            <SidebarMenu>
+            <SidebarMenu size="massive">
                 <div style={ { textAlign: "center", padding: "24px"} }>
                     <Dimmer.Dimmable
                         as={Image}
@@ -43,7 +41,7 @@ class MenuSideBar extends React.Component {
                         <Header.Content>
                             Michal Young
                             <Header.Subheader>
-                                Joined since 1900
+                                Member since 1900
                             </Header.Subheader>
                         </Header.Content>
                     </Header>
@@ -55,6 +53,10 @@ class MenuSideBar extends React.Component {
                 <Menu.Item name='Surveys' active={activeItem === 'Surveys'} onClick={this.handleItemClick}>
                     <Icon name='file text outline' />
                     Surveys
+                </Menu.Item>
+                <Menu.Item name='Account Settings' active={activeItem === 'Account Settings'} onClick={this.handleItemClick}>
+                    <Icon name='setting' />
+                    Account Settings
                 </Menu.Item>
             </SidebarMenu>
         )
