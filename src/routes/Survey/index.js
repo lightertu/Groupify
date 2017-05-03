@@ -9,11 +9,11 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Survey = require('./containers/SurveyContainer').default
-            const reducer = require('./modules/survey').default
+            const Survey = require('./containers/SurveyContainer').default;
+            const reducer = require('./modules/survey').default;
 
             /*  Add the reducer to the store on key 'counter'  */
-            injectReducer(store, {key: 'counter', reducer})
+            injectReducer(store, {key: 'counter', reducer});
 
             /*  Return getComponent   */
             cb(null, Survey)
