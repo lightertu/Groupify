@@ -29,7 +29,7 @@ class DashboardView extends React.Component {
 
     render() {
         let test = () => {
-            let cards = []
+            let cards = [];
             for (let i = 0; i < 100; i++) {
                 cards.push(
                     <Card style={{maxWidth: "273px"}}>
