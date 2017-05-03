@@ -1,8 +1,6 @@
 import React from 'react'
 import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
 
-import './Header.scss'
-
 class Header extends React.Component {
     constructor() {
         super();
@@ -20,7 +18,7 @@ class Header extends React.Component {
                 disabled: true,
             },
             { key: 'profile', text: 'Your Profile' },
-            { key: 'activities', text: 'Your Activities' },
+            { key: 'activities', text: 'Your ' },
             { key: 'survey', text: 'Your Survey Forms' },
             { key: 'help', text: 'Help' },
             { key: 'settings', text: 'Settings' },

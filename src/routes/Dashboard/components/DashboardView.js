@@ -2,7 +2,7 @@ import React from 'react'
 import DashboardCard from './DashboardCard';
 import {Grid, Card} from 'semantic-ui-react'
 
-class View extends React.Component {
+class DashboardView extends React.Component {
     constructor() {
         super();
         this.state = {}
@@ -42,4 +42,4 @@ class View extends React.Component {
     }
 }
 
-export default View;
+export default DashboardView;

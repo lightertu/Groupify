@@ -1,27 +1,21 @@
 import React from 'react'
-import MenuSideBar from './MenuSideBar';
-import View from './View';
-import UploadStudents from './UploadStudents';
+import MenuSideBar from './DashboardSideMenu';
+import View from './DashboardView';
 
 class Dashboard extends React.Component {
     constructor() {
         super();
         this.state = {view: 'groups'};
         this.toggleView = this.toggleView.bind(this);
-        this.UploadStudents = this.UploadStudents.bind(this);
     }
 
     componentWillMount() {
         this.props.fetchGroups();
     }
 
-    UploadStudents(students) {
-        this.props.uploadStudents(students)
-    }
-
-    toggleView(view) {
+    toggleView = (view) => {
         this.setState({view: view});
-    }
+    };
 
     render() {
         let data = [];
@@ -55,7 +49,6 @@ class Dashboard extends React.Component {
                 display = <View data={data}/>
             }
         } else {
-            display = <UploadStudents UploadStudents={this.UploadStudents.bind(this)}/>
         }
 
         return (
