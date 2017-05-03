@@ -6,7 +6,7 @@ import UploadStudents from './UploadStudents';
 class Dashboard extends React.Component {
     constructor() {
         super();
-        this.state = {view: 'groups'}
+        this.state = {view: 'groups'};
         this.toggleView = this.toggleView.bind(this);
         this.UploadStudents = this.UploadStudents.bind(this);
     }
@@ -25,8 +25,8 @@ class Dashboard extends React.Component {
 
     render() {
         let data = [];
-        let display = ''
-        if(this.state.view == 'groups'){
+        let display = '';
+        if(this.state.view === 'groups'){
             if(this.props.counter.results !== undefined) {
                 data = this.props.counter.results.map(function(item, i){
                     item.title = "Group: "+i;
@@ -40,10 +40,10 @@ class Dashboard extends React.Component {
             }
             display = <View data={data}/>
 
-        } else if(this.state.view == 'surveys') {
+        } else if(this.state.view === 'surveys') {
             if(this.props.counter.results !== undefined) {
                  data = this.props.counter.results.map(function(item, i){
-                        item.color = item.color;
+                        //item.color = item.color;
                         item.title = "Surveys";
                         item.link = "http://localhost:3000/survey/"+item.form;
                         item.date = "12/31/2017";
