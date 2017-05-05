@@ -1,21 +1,21 @@
 let mongoose = require('mongoose');
-let Activity = require('./Activity');
-let Survey = require('./Survey');
 
-let UserSchema = new mongoose.Schema({
-    firstName: {
-        type: String,
-        default: null
+const Schema = mongoose.Schema;
+
+let UserSchema = Schema({
+    image: {
+        data: Buffer,
+        contentType: String
     },
 
-    lastName: {
+    name: {
         type: String,
-        default: null
+        default: ""
     },
 
     email: {
         type: String,
-        default: null
+        default: ""
     },
 
     password: {
@@ -23,15 +23,22 @@ let UserSchema = new mongoose.Schema({
         default: null
     },
 
-    activities: {
-        type: [ Activity ],
-        default: []
+    // every model has this
+    isDeleted: {
+        type: Boolean,
+        default: false
     },
 
-    surveys: {
-        type: [ Survey ],
-        default: [  ]
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        isRequired: true,
     },
+
+    lastModifiedTime: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
-module.exports = mongoose.model('UserSchema', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
