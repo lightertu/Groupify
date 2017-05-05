@@ -1,40 +1,60 @@
 /**
  * Created by rui on 4/24/17.
  */
-let mongoose = require('mongoose');
-let Participant = require('./Activity');
 
-let ActivitySchema = new mongoose.Schema({
-    // copied this from yours, not sure what it is, Id maybe?
-    form: {
-        type:String,
-        default: null
+let mongoose = require('mongoose');
+
+const Schema = mongoose.Schema;
+
+let ActivitySchema = Schema({
+    _activityOrganizer: {
+        type: Schema.ObjectId,
+        ref: "User",
+        isRequired: true,
+    },
+
+    participants: {
+        type: [{ type: Schema.ObjectId, ref: "Participant"}]
     },
 
     groupCapacity: {
-        type: number,
-        default: 3
+        type: Number,
+        isRequired: true,
     },
 
     totalCapacity: {
         type: Number,
-        default: 0
-    },
-
-    participants: {
-        type: [Participant],
-        default: []
+        isRequired: true,
     },
 
     name: {
         type: String,
-        default: ""
+        default: "",
+        isRequired: true,
     },
 
-    timeCreated: {
+    endDate: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        isRequired: true,
     },
+
+    // every model has this
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        isRequired: true,
+    },
+
+    lastModifiedTime: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
-module.exports = mongoose.model('ActivitySchema', ActivitySchema);
+module.exports = mongoose.model('Activity', ActivitySchema);

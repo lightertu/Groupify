@@ -1,12 +1,12 @@
 'use strict';
-var Student = require('../models/Student.js')
+let Student = require('../models/Participant.js');
 const nodemailer = require('nodemailer');
 
 module.exports = {
 	find: function(params, callback){
 			Student.find(params, function(err, group){
 			if(err){
-				callback(err, null)
+				callback(err, null);
 					return
 			}
 
@@ -27,7 +27,7 @@ module.exports = {
 		// 	}
 
 			// create reusable transporter object using the default SMTP transport
-			console.log("students", params)
+			console.log("students", params);
 			let transporter = nodemailer.createTransport({
 				service: 'gmail',
 				auth: {
@@ -45,10 +45,10 @@ module.exports = {
 
 			transporter.sendMail(mailOptions, (err, info) => {
 				if(err) {
-					callback(err, null)
+					callback(err, null);
 					return
 				}
-				console.log("email succesfully sent")
+				console.log("email succesfully sent");
 				callback(null, info)
 			})
 		//})
@@ -64,4 +64,4 @@ module.exports = {
 		callback("email API does not have this functionality", null);
 		return
 	}
-}
+};

@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const RECEIVE_LOGIN = 'RECEIVE_LOGIN'
+export const RECEIVE_LOGIN = 'RECEIVE_LOGIN';
 // ------------------------------------
 // Actions
 // ------------------------------------
@@ -18,7 +18,7 @@ function receiveLogin(url, json) {
 
 export function checkAuthorization(data) { // fetch survey
   let url = 'http://localhost:3000/api/login';
-  console.log("Fetching...")
+  console.log("Fetching...");
   return dispatch => {
     return fetch(url, {body: "test"})
       .then(response => response.json())

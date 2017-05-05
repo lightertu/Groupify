@@ -1,8 +1,6 @@
 import React from 'react'
 import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
 
-import './Header.scss'
-
 class Header extends React.Component {
     constructor() {
         super();
@@ -20,7 +18,7 @@ class Header extends React.Component {
                 disabled: true,
             },
             { key: 'profile', text: 'Your Profile' },
-            { key: 'activities', text: 'Your Activities' },
+            { key: 'activities', text: 'Your ' },
             { key: 'survey', text: 'Your Survey Forms' },
             { key: 'help', text: 'Help' },
             { key: 'settings', text: 'Settings' },
@@ -28,9 +26,9 @@ class Header extends React.Component {
         ];
 
         return (
-                <Menu size='small' attached="top" borderless style={ { height: "55px", zIndex: 1500, position:"relative" }} >
-                     <Menu.Item name='Groupify'
-                                active={activeItem === 'Groupify'}
+                <Menu size='small' attached="top" fixed="top" borderless style={ { height: "55px", zIndex: 1500 }} >
+                     <Menu.Item name='Team Divider'
+                                active={activeItem === 'Team Divider'}
                                 onClick={this.handleItemClick}
                      />
                      <Menu.Menu position='right'>

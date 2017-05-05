@@ -6,7 +6,7 @@ import { fetchGroups, uploadStudents } from '../modules/dashboard'
  wiring in the actions and state necessary to render a presentational
  component - in this case, the counter:   */
 
-import Dashboard from '../components/Dashboard'
+import Dashboard from '../components/DashboardView'
 
 /*  Object of action creators (can also be function that returns object).
  Keys will be passed as props to presentational components. Here we are
@@ -15,11 +15,11 @@ import Dashboard from '../components/Dashboard'
 const mapDispatchToProps = {
     fetchGroups, 
     uploadStudents
-}
+};
 
 const mapStateToProps = (state) => ({
     counter: state.counter
-})
+});
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
 

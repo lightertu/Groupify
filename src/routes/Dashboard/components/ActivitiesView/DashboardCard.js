@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Label, Segment, Image, Button, Icon } from 'semantic-ui-react'
+import { Card, Icon } from 'semantic-ui-react'
 
 class DashboardCard extends React.Component {
     constructor() {
@@ -8,7 +8,7 @@ class DashboardCard extends React.Component {
     }
 
     render() {
-        var style = {
+        let style = {
           color: "black"
         };
 
