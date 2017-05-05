@@ -9,11 +9,11 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Dashboard = require('./containers/DashboardContainer').default
-            const reducer = require('./modules/dashboard').default
+            const Dashboard = require('./containers/DashboardContainer').default;
+            const reducer = require('./modules/dashboard').default;
 
             /*  Add the reducer to the store on key 'counter'  */
-            injectReducer(store, {key: 'counter', reducer})
+            injectReducer(store, {key: 'counter', reducer});
 
             /*  Return getComponent   */
             cb(null, Dashboard)

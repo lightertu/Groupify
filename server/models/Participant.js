@@ -3,20 +3,30 @@
  */
 let mongoose = require('mongoose');
 
-let Participant = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const Participant = new Schema({
     name: {
         type: String,
         default: "",
         required: true,
     },
 
-    // https://medium.com/@alvenw/how-to-store-images-to-mongodb-with-node-js-fb3905c37e6d
+    _activity :{
+        type: Schema.ObjectId,
+        ref: 'Activity'
+    },
+
+    _activityOrganizer: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
+
     image: {
         data: Buffer,
         contentType: String
     },
 
-    // using an object is because we might add other properties to skill say, level of skill
     skills: {
         type: [{name: String}],
         default: [],
@@ -27,12 +37,29 @@ let Participant = new mongoose.Schema({
         default: -1,
     },
 
-    //http://stackoverflow.com/questions/28514790/how-to-set-limit-for-array-size-in-mongoose-schema
     availability: {
-        type: [Boolean],
-        default: [false, false, false, false, false, false, false],
-        validate: [(week) => ( week.length === 7 ), '{PATH} a week has 7 days']
+        type: [Number],
+        default: [],
+        validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
+    },
+
+
+    /* every model has this */
+    isDeleted: {
+        type: Boolean,
+        default: false
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        isRequired: true,
+    },
+
+    lastModifiedAt: {
+        type: Date,
+        default: Date.now,
     }
 });
 
-module.exports = mongoose.model('StudentSchema', Participant);
+module.exports = mongoose.model('Participant', Participant);
