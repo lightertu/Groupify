@@ -1,16 +1,16 @@
-const argv = require('yargs').argv
-const webpack = require('webpack')
-const cssnano = require('cssnano')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const project = require('./project.config')
-const debug = require('debug')('app:config:webpack')
+const argv = require('yargs').argv;
+const webpack = require('webpack');
+const cssnano = require('cssnano');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const project = require('./project.config');
+const debug = require('debug')('app:config:webpack');
 
-const __DEV__ = project.globals.__DEV__
-const __PROD__ = project.globals.__PROD__
-const __TEST__ = project.globals.__TEST__
+const __DEV__ = project.globals.__DEV__;
+const __PROD__ = project.globals.__PROD__;
+const __TEST__ = project.globals.__TEST__;
 
-debug('Creating configuration.')
+debug('Creating configuration.');
 const webpackConfig = {
     name: 'client',
     target: 'web',
@@ -20,7 +20,7 @@ const webpackConfig = {
         extensions: ['', '.js', '.jsx', '.json']
     },
     module: {}
-}
+};
 // ------------------------------------
 // Entry Points
 // ------------------------------------
@@ -31,7 +31,7 @@ webpackConfig.entry = {
         ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${project.compiler_public_path}__webpack_hmr`)
         : [APP_ENTRY],
     vendor: project.compiler_vendors
-}
+};
 
 // ------------------------------------
 // Bundle Output
@@ -40,15 +40,15 @@ webpackConfig.output = {
     filename: `[name].[${project.compiler_hash_type}].js`,
     path: project.paths.dist(),
     publicPath: project.compiler_public_path
-}
+};
 
 // ------------------------------------
 // Externals
 // ------------------------------------
-webpackConfig.externals = {}
-webpackConfig.externals['react/lib/ExecutionEnvironment'] = true
-webpackConfig.externals['react/lib/ReactContext'] = true
-webpackConfig.externals['react/addons'] = true
+webpackConfig.externals = {};
+webpackConfig.externals['react/lib/ExecutionEnvironment'] = true;
+webpackConfig.externals['react/lib/ReactContext'] = true;
+webpackConfig.externals['react/addons'] = true;
 
 // ------------------------------------
 // Plugins
@@ -65,7 +65,7 @@ webpackConfig.plugins = [
             collapseWhitespace: true
         }
     })
-]
+];
 
 // Ensure that the compiler exits on errors during testing so that
 // they do not get skipped and misreported.
@@ -84,13 +84,13 @@ if (__TEST__ && !argv.watch) {
 }
 
 if (__DEV__) {
-    debug('Enabling plugins for live development (HMR, NoErrors).')
+    debug('Enabling plugins for live development (HMR, NoErrors).');
     webpackConfig.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin()
     )
 } else if (__PROD__) {
-    debug('Enabling plugins for production (OccurrenceOrder, Dedupe & UglifyJS).')
+    debug('Enabling plugins for production (OccurrenceOrder, Dedupe & UglifyJS).');
     webpackConfig.plugins.push(
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
@@ -126,14 +126,14 @@ webpackConfig.module.loaders = [{
 }, {
     test: /\.json$/,
     loader: 'json'
-}]
+}];
 
 // ------------------------------------
 // Style Loaders
 // ------------------------------------
 // We use cssnano with the postcss loader, so we tell
 // css-loader not to duplicate minimization.
-const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
+const BASE_CSS_LOADER = 'css?sourceMap&-minimize';
 
 webpackConfig.module.loaders.push({
     test: /\.scss$/,
@@ -144,7 +144,7 @@ webpackConfig.module.loaders.push({
         'postcss',
         'sass?sourceMap'
     ]
-})
+});
 webpackConfig.module.loaders.push({
     test: /\.css$/,
     exclude: null,
@@ -153,11 +153,11 @@ webpackConfig.module.loaders.push({
         BASE_CSS_LOADER,
         'postcss'
     ]
-})
+});
 
 webpackConfig.sassLoader = {
     includePaths: project.paths.client('styles')
-}
+};
 
 webpackConfig.postcss = [
     cssnano({
@@ -175,7 +175,7 @@ webpackConfig.postcss = [
         safe: true,
         sourcemap: true
     })
-]
+];
 
 // File loaders
 /* eslint-disable */
@@ -196,7 +196,7 @@ webpackConfig.module.loaders.push(
     {test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]'},
     {test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'},
     {test: /\.(png|jpg)$/, loader: 'url?limit=8192'}
-)
+);
 /* eslint-enable */
 
 // ------------------------------------
@@ -206,15 +206,15 @@ webpackConfig.module.loaders.push(
 // need to use the extractTextPlugin to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 if (!__DEV__) {
-    debug('Applying ExtractTextPlugin to CSS loaders.')
+    debug('Applying ExtractTextPlugin to CSS loaders.');
     webpackConfig.module.loaders.filter((loader) =>
         loader.loaders && loader.loaders.find((name) => /css/.test(name.split('?')[0]))
     ).forEach((loader) => {
-        const first = loader.loaders[0]
-        const rest = loader.loaders.slice(1)
-        loader.loader = ExtractTextPlugin.extract(first, rest.join('!'))
+        const first = loader.loaders[0];
+        const rest = loader.loaders.slice(1);
+        loader.loader = ExtractTextPlugin.extract(first, rest.join('!'));
         delete loader.loaders
-    })
+    });
 
     webpackConfig.plugins.push(
         new ExtractTextPlugin('[name].[contenthash].css', {
@@ -223,4 +223,4 @@ if (!__DEV__) {
     )
 }
 
-module.exports = webpackConfig
+module.exports = webpackConfig;
