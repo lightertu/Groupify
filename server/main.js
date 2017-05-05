@@ -10,28 +10,30 @@ let bodyParser = require('body-parser');
 let session = require('express-session');
 
 let dbUrl = 'mongodb://localhost/team-divider';
+
 mongoose.connect(dbUrl, function(err, res){
-  if(err){
+  if(err) {
     console.log("DB CONNECTION FAILED: "+err)
   } else {
     console.log("DB CONNECTION SUCCES")
   }
 });
 
-let api = require('./routes/api');
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser({limit: '50mb'}));
 
+/*
 app.use(session({
     secret: 'secret_key',
     resave: true,
     saveUnitialized: true
 }));
+*/
 
 // Login endpoint
 // Authentication and Authorization Middleware
+/*
 let auth = function(req, res, next) {
   if (req.session && req.session.user === "amy" && req.session.admin)
     return next();
@@ -59,8 +61,10 @@ app.get('/logout', auth, function (req, res) {
 });
  
 // Apply gzip compression
+*/
+
 app.use(compress());
-app.use('/api', api);
+//app.use('/api', api);
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
@@ -90,6 +94,8 @@ if (project.env === 'development') {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
+
+    /*
     app.use('/login' , function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html');
         compiler.outputFileSystem.readFile(filename, (err, result) => {
@@ -101,9 +107,9 @@ if (project.env === 'development') {
             res.end()
         })
     });
+    */
 
-
-    app.use('*', auth, function (req, res, next) {
+    app.use('*', function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html');
         compiler.outputFileSystem.readFile(filename, (err, result) => {
             if (err) {
