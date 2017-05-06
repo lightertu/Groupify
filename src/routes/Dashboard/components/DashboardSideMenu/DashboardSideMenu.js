@@ -59,13 +59,13 @@ class _MenuOptions extends React.Component {
                     <Icon name='users'/>
                     Activities
                 </Menu.Item>
-                <Menu.Item name='Surveys' active={activeItem === 'Surveys'} onClick={this.handleItemClick}>
+                <Menu.Item disabled name='Surveys'>
                     <Icon name='file text outline'/>
                     Surveys
                 </Menu.Item>
                 <Menu.Item name='Account Settings' active={activeItem === 'Account Settings'}
                            onClick={this.handleItemClick}>
-                    <Icon name='setting'/>
+                    <Icon name='settings'/>
                     Account Settings
                 </Menu.Item>
             </div>
