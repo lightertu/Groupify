@@ -1,7 +1,8 @@
 import React from 'react'
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 
-import ActivitiesView from "./ActivitiesView/ActivitiesView";
+import ActivitiesView from "./ActivitiesView";
+import AccountSettingView from "./AccountSettingView";
 import {Modal} from "semantic-ui-react";
 
 class _DashboardContentWrapper extends React.Component {
@@ -32,7 +33,7 @@ class DashboardView extends React.Component {
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
-                    <ActivitiesView />
+                    <AccountSettingView />
                 </_DashboardContentWrapper>
             </div>
         )

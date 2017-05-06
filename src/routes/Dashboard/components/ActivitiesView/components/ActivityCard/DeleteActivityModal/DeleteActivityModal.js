@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Button, Card, Dropdown, Header, Icon, Modal, Segment} from "semantic-ui-react";
+import {Button, Modal} from "semantic-ui-react";
 
 export default class DeleteActivityModal extends React.Component {
     constructor(props) {
