@@ -170,7 +170,7 @@ class ParticipantListSidebar extends React.Component {
 
         return connectDropTarget(
             <div>
-                <SidebarMenu size="large">
+                <SidebarMenu size="large" style={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }>
                     <div style={ participantsListStyle }>
                         <Segment basic>
                             {
