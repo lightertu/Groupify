@@ -10,15 +10,35 @@ export default class EditActivityInfoModal extends React.Component {
         super(props);
     }
 
+    static propTypes = {
+        name: PropTypes.string.isRequired,
+        activityId: PropTypes.string.isRequired,
+        onClose: PropTypes.func.isRequired
+    };
+
+    makeActivityInfoUpdateHandler (activityId)  {
+        let close = this.props.onClose;
+        return function() {
+            close();
+            //TODO: fire an action to delete an activity
+        }
+    };
+
     render() {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose }>
-                <Modal.Header> Activity Info Editing </Modal.Header>
-                <Modal.Content >
-                    <Modal.Description>
-                        <Header>Delete</Header>
-                    </Modal.Description>
+            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={"blurring"}>
+                <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
+                <Modal.Content>
+                    <p>Needs to be Implemented {this.props.name} </p>
                 </Modal.Content>
+                <Modal.Actions>
+                    <Button negative onClick={ this.props.onClose }>
+                        Cancel
+                    </Button>
+                    <Button positive
+                            content='Submit'
+                            onClick={ this.makeActivityInfoUpdateHandler(this.props.activityId) }/>
+                </Modal.Actions>
             </Modal>
         );
     }
