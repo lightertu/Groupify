@@ -3,7 +3,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Button, Card, Dropdown, Header, Icon, Modal, Segment} from "semantic-ui-react";
+import { Card, Dropdown, Icon } from "semantic-ui-react";
 
 import randomColor from "randomcolor";
 import EditActivityInfoModal from "./EditActivityInfoModal"
