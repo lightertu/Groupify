@@ -9,7 +9,7 @@ export default class WelcomeView extends Component {
     render() {
 
         return (
-            <div style={{textAlign:'center', marginTop:'50%'}}>
+            <div style={{textAlign:'center', marginTop:'200px'}}>
                     <Header size='huge'>
                         Welcome to Groupify
                     </Header>
