@@ -2,6 +2,7 @@ import React from 'react'
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 
 import ActivitiesView from "./ActivitiesView/ActivitiesView";
+import {Modal} from "semantic-ui-react";
 
 class _DashboardContentWrapper extends React.Component {
     constructor() {
