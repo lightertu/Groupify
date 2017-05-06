@@ -33,7 +33,7 @@ class DashboardView extends React.Component {
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
-                    <AccountSettingView />
+                    <ActivitiesView />
                 </_DashboardContentWrapper>
             </div>
         )
