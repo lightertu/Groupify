@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Header } from 'semantic-ui-react'
+import AuthenticationModal from '../../../components/AuthenticationModal'
 
 export default class WelcomeView extends Component {
     constructor(props) {
@@ -21,10 +22,12 @@ export default class WelcomeView extends Component {
                     
                     <a href="/dashboard">
                         <Button style={{marginTop:20}} className="massive ui right labeled icon blue button">
-                            <i className="arrow right icon"></i>
+                            <i className="arrow small right icon"></i>
                             Get Started
                         </Button>
+
                    </a>
+                   <AuthenticationModal />
            </div>
         )
     }
