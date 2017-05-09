@@ -4,13 +4,12 @@
 
 import React from 'react'
 import {Segment, Image, List, Button, Header, Icon} from 'semantic-ui-react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import {Drawer} from "material-ui"
 import PropTypes from "prop-types"
 import {DragSource, DropTarget} from 'react-dnd';
 
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
+import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
 
 const participantSidebarItemSource = {
     beginDrag(props) {
@@ -36,7 +35,7 @@ class DraggableParticipantListItem extends React.Component {
         const {image, name, participantId, connectDragSource, isDragging} = this.props;
         return connectDragSource(
             <div className="item" {...this.props }
-                 style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move"} }>
+                 style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move", padding:"7px" } }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
@@ -83,7 +82,6 @@ class Participant extends React.Component {
 }
 
 const participantsListStyle = {
-    paddingTop: "20%"
 };
 
 const participantSidebarTarget = {
@@ -123,7 +121,7 @@ class ParticipantListSidebar extends React.Component {
         );
 
         let generateSidebarList = (participants) => (
-            <List verticalAlign='middle' size="small" selection>
+            <List verticalAlign='middle' size="large" selection>
                 {
                     participants.filter((participantObj) => (
                         participantObj.groupNumber < 0
@@ -172,27 +170,19 @@ class ParticipantListSidebar extends React.Component {
 
         return connectDropTarget(
             <div>
-                <MuiThemeProvider>
-                    <Drawer
-                        docked={ true }
-                        open={ true }
-                        zDepth={ 1 }
-                        containerStyle={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }
-                        style={ {zIndex: '1000 !important'} }
-                    >
-                        <div style={ participantsListStyle }>
-                            <Segment basic>
-                                {
-                                    (this.props.participants.length <= 0) ?
-                                        generateEmptyMessage() :
-                                        ((getUngroupedNumber(this.props.participants)) ?
-                                            generateSidebarList(this.props.participants) :
-                                            generateEmailButton())
-                                }
-                            </Segment>
-                        </div>
-                    </Drawer>
-                </MuiThemeProvider>
+                <SidebarMenu size="large" style={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }>
+                    <div style={ participantsListStyle }>
+                        <Segment basic>
+                            {
+                                (this.props.participants.length <= 0) ?
+                                    generateEmptyMessage() :
+                                    ((getUngroupedNumber(this.props.participants)) ?
+                                        generateSidebarList(this.props.participants) :
+                                        generateEmailButton())
+                            }
+                        </Segment>
+                    </div>
+                </SidebarMenu>
             </div>
         )
     }
