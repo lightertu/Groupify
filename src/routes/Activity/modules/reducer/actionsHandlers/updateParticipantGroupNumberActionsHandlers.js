@@ -2,6 +2,8 @@
  * Created by rui on 5/9/17.
  */
 
+// TODO: needs to be implemented
+
 let arrayObjectIndexOf = (myArray, searchTerm, property) => {
     for(let i = 0, len = myArray.length; i < len; i++) {
         if (myArray[i][property] === searchTerm) {

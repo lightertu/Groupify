@@ -2,6 +2,8 @@
  * Created by rui on 5/9/17.
  */
 
+//TODO: needs to be implemented
+
 let handleGenerateGroupAssignment = (state, payload) => {
     return state;
 };
