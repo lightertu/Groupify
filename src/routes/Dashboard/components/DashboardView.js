@@ -1,13 +1,12 @@
 import React from 'react'
-import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 
+import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import ActivitiesView from "./ActivitiesView";
 import AccountSettingView from "./AccountSettingView";
-import {Modal} from "semantic-ui-react";
 
 class _DashboardContentWrapper extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -24,16 +23,17 @@ class _DashboardContentWrapper extends React.Component {
 }
 
 class DashboardView extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() {
+        console.log(this.props.view);
         return (
             <div>
                 <DashboardSideMenu/>
                 <_DashboardContentWrapper>
-                    <ActivitiesView />
+                    { this.props.view }
                 </_DashboardContentWrapper>
             </div>
         )

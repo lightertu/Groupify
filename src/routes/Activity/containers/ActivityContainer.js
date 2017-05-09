@@ -16,12 +16,12 @@ const mapDispatchToProps = (dispatch) => ({
     generateGroupAssignment: Actions.generateGroupAssignment(dispatch),
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     return {
-        activityId: state.activity.activityId,
+        activityId: ownProps.location.query.id,
         participants: state.activity.participants,
         groupCapacity: state.activity.groupCapacity,
-        totalCapacity: state.activity.totalCapacity
+        totalCapacity: state.activity.totalCapacity,
     }
 };
 
