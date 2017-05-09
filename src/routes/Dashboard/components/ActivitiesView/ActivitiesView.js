@@ -16,7 +16,7 @@ export default class ActivitiesView extends React.Component {
     render() {
         let test = () => {
             let cards = [];
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 1; i++) {
                 cards.push(
                     <ActivityCard />
                 )
