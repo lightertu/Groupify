@@ -1,0 +1,23 @@
+/**
+ * Created by rui on 5/9/17.
+ */
+
+let handleFetchParticipantList = (state, payload) => {
+    return state;
+};
+let handleFetchParticipantListSuccess = (state, payload) => {
+    return {
+        participants: payload.participants,
+        groupCapacity: payload.groupCapacity,
+        totalCapacity: payload.totalCapacity
+    };
+};
+let handleFetchParticipantListFailure = (state, payload) => {
+    return state;
+};
+
+export {
+    handleFetchParticipantList,
+    handleFetchParticipantListSuccess,
+    handleFetchParticipantListFailure
+}

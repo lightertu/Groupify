@@ -10,10 +10,11 @@ import {connect} from 'react-redux'
 import ActivityView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
 
+
 const mapDispatchToProps = (dispatch) => ({
-    fetchParticipantList: Actions.fetchParticipantList(dispatch),
-    updateParticipantGroupNumber: Actions.updateParticipantGroupNumber(dispatch),
-    generateGroupAssignment: Actions.generateGroupAssignment(dispatch),
+    fetchParticipantList: Actions.fetchParticipantListActions.fetchParticipantList(dispatch),
+    updateParticipantGroupNumber: Actions.updateParticipantGroupNumberActions.updateParticipantGroupNumber(dispatch),
+    generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
 });
 
 const mapStateToProps = (state, ownProps) => {
