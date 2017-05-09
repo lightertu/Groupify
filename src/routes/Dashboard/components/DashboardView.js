@@ -4,40 +4,39 @@ import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import ActivitiesView from "./ActivitiesView";
 import AccountSettingView from "./AccountSettingView";
 
-class _DashboardContentWrapper extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+const _DashboardContentWrapper = (props) => (
+    <div style={ {
+        marginTop: "3%",
+        width: '100%',
+        paddingLeft: "290px",
+    } }>
+        { props.children }
+    </div>
+);
 
-    render() {
-        return (
-            <div style={ {
-                marginTop: "3%",
-                width: '100%',
-                paddingLeft: "290px",
-            } }>
-                { this.props.children }
-            </div>
-        )
-    }
-}
+const DashboardView = (props) => {
+    let renderDashboardView = () => {
+        switch (props.view) {
+            case("activities"):
+                return <ActivitiesView />;
+            case("accountSettings"):
+                return <AccountSettingView />;
+            case("surveys"):
+                return <AccountSettingView />;
+            default:
+                return <ActivitiesView />;
+        }
+    };
 
-class DashboardView extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        console.log(this.props.view);
-        return (
+    console.log(props.view);
+    return (
             <div>
-                <DashboardSideMenu/>
+                <DashboardSideMenu view={ props.view }/>
                 <_DashboardContentWrapper>
-                    { this.props.view }
+                    { renderDashboardView() }
                 </_DashboardContentWrapper>
             </div>
         )
-    }
-}
+    };
 
 export default DashboardView;
