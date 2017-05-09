@@ -12,13 +12,13 @@ export default class AccountSettingView extends React.Component {
 
     render() {
         return(
-            <Segment style={{height: "100%", padding: "2rem" }}>
+            <Segment style={{height: "89vh", padding: "2rem" }}>
                 <div style={{ textAlign: "center" }}>
-                    <Header as='h2' icon>
-                        <Icon name='settings' />
+                    <Header as='h2' >
+                        Account Settings
                     </Header>
                 </div>
-                <Form>
+                <Form style= {{paddingTop: "2rem"}}>
                     <Form.Input label='Email' placeholder='example@email.com' />
                     <Form.Input label='Name' placeholder='Name' />
                     <Form.Input label='Current Password' placeholder='current password' />
