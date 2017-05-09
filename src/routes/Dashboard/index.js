@@ -10,7 +10,7 @@ export default (store) => ({
             /*  Webpack - use require callback to define
              dependencies for bundling   */
             const Dashboard = require('./containers/DashboardContainer').default;
-            const reducer = require('./modules/reducer').default;
+            const reducer = require('./modules/reducer/reducer').default;
 
             /*  Add the reducer to the store on key 'counter'  */
             injectReducer(store, {key: 'dashboard', reducer});

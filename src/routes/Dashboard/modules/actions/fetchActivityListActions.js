@@ -16,7 +16,7 @@ let fetchActivityList = (dispatch) => {
         let url = SERVER_URL + "/api/activities";
         axios.get(url)
             .then((response) => {
-                //console.log(JSON.stringify(response, null, 2));
+                console.log(JSON.stringify(response, null, 2));
                 dispatch(fetchActivityListSuccess(response.data));
             })
             .catch((error) => {

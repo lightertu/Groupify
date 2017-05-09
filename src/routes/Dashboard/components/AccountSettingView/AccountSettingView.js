@@ -12,7 +12,7 @@ export default class AccountSettingView extends React.Component {
 
     render() {
         return(
-            <Segment style={{height: "89vh", padding: "2rem" }}>
+            <Segment style={{padding: "2rem" }}>
                 <div style={{ textAlign: "center" }}>
                     <Header as='h2' >
                         Account Settings

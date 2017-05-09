@@ -18,7 +18,7 @@ let arrayObjectIndexOf = (myArray, searchTerm, property) => {
     return -1;
 };
 
-let handleFetchParticipantListSuccess = (payload) => {
+let handleFetchParticipantListSuccess = (state, payload) => {
     return {
         participants: payload.participants,
         groupCapacity: payload.groupCapacity,
@@ -26,7 +26,7 @@ let handleFetchParticipantListSuccess = (payload) => {
     };
 };
 
-function handleUpdateParticipantGroupsNumber (state, payload) {
+let handleUpdateParticipantGroupsNumber = (state, payload) => {
     let newState = (JSON.parse(JSON.stringify(state))),
 
         participantId = payload.participantId,
@@ -41,7 +41,7 @@ function handleUpdateParticipantGroupsNumber (state, payload) {
     newState.participants.push(temp);
 
     return newState;
-}
+};
 
 export default function activityReducer (state = initialState, action) {
     switch(action.type) {
