@@ -5,9 +5,9 @@ const webpack = require('webpack');
 const webpackConfig = require('../config/webpack.config');
 const project = require('../config/project.config');
 const compress = require('compression');
-let mongoose = require('mongoose');
-let bodyParser = require('body-parser');
-let session = require('express-session');
+
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 let dbUrl = 'mongodb://localhost/team-divider';
 
@@ -23,46 +23,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser({limit: '50mb'}));
 
-/*
-app.use(session({
-    secret: 'secret_key',
-    resave: true,
-    saveUnitialized: true
-}));
-*/
-
-// Login endpoint
-// Authentication and Authorization Middleware
-/*
-let auth = function(req, res, next) {
-  if (req.session && req.session.user === "amy" && req.session.admin)
-    return next();
-  else
-    return res.sendStatus(401);
-};
-
-// Login endpoint
-app.post('/api/login', function (req, res) {
-    console.log(req.body)
-  if (!req.body.username || !req.body.password) {
-    res.send('login failed');    
-  } else if(req.body.username === "amy" || req.body.password === "amyspassword") {
-    req.session.user = "amy";
-    req.session.admin = true;
-    res.send("login success!");
-  }
-  res.send('what is happening')
-});
- 
-// Logout endpoint
-app.get('/logout', auth, function (req, res) {
-  req.session.destroy();
-  res.send("logout success!");
-});
- 
 // Apply gzip compression
-*/
-
 app.use(compress());
 //app.use('/api', api);
 // ------------------------------------
@@ -94,21 +55,6 @@ if (project.env === 'development') {
     // This rewrites all routes requests to the root /index.html file
     // (ignoring file requests). If you want to implement universal
     // rendering, you'll want to remove this middleware.
-
-    /*
-    app.use('/login' , function (req, res, next) {
-        const filename = path.join(compiler.outputPath, 'index.html');
-        compiler.outputFileSystem.readFile(filename, (err, result) => {
-            if (err) {
-                return next(err)
-            }
-            res.set('content-type', 'text/html');
-            res.send(result);
-            res.end()
-        })
-    });
-    */
-
     app.use('*', function (req, res, next) {
         const filename = path.join(compiler.outputPath, 'index.html');
         compiler.outputFileSystem.readFile(filename, (err, result) => {

@@ -2,6 +2,7 @@ import React from 'react'
 import {Image, Button, Icon, Menu, Header, Dimmer} from 'semantic-ui-react'
 
 import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
+import {Link} from "react-router";
 
 class _UserProfileSnippet extends React.Component {
     constructor() {
@@ -46,28 +47,29 @@ class _UserProfileSnippet extends React.Component {
 class _MenuOptions extends React.Component {
     constructor() {
         super();
-        this.state = {};
     }
 
-    handleItemClick = (e, {name}) => this.setState({activeItem: name});
-
     render() {
-        const {activeItem} = this.state;
+        console.log(this.props.view);
         return (
             <div>
-                <Menu.Item name='Activities' active={activeItem === 'Activities'} onClick={this.handleItemClick}>
-                    <Icon name='users'/>
-                    Activities
-                </Menu.Item>
-                <Menu.Item name='Surveys' active={activeItem === 'Surveys'} onClick={this.handleItemClick}>
+                <Link to={ `/dashboard?view=activities`}>
+                    <Menu.Item name='activities' active={ this.props.view === "activities" || this.props.view === undefined }>
+                        <Icon name='users'/>
+                        Activities
+                    </Menu.Item>
+                </Link>
+                {/* this one is disabled for now
+                <Menu.Item disabled name='Surveys'>
                     <Icon name='file text outline'/>
                     Surveys
-                </Menu.Item>
-                <Menu.Item name='Account Settings' active={activeItem === 'Account Settings'}
-                           onClick={this.handleItemClick}>
-                    <Icon name='setting'/>
-                    Account Settings
-                </Menu.Item>
+                </Menu.Item>*/}
+                <Link to={ `/dashboard?view=accountSettings`}>
+                    <Menu.Item name='accountSettings' active={ this.props.view === "accountSettings"}>
+                        <Icon name='settings'/>
+                        Account Settings
+                    </Menu.Item>
+                </Link>
             </div>
         );
     }
@@ -76,14 +78,13 @@ class _MenuOptions extends React.Component {
 class DashboardSideMenu extends React.Component {
     constructor() {
         super();
-        this.state = {};
     }
 
     render() {
         return (
             <SidebarMenu size="massive">
                 <_UserProfileSnippet/>
-                <_MenuOptions/>
+                <_MenuOptions view={ this.props.view }/>
             </SidebarMenu>
         )
     }

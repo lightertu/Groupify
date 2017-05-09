@@ -5,7 +5,7 @@
 import {injectReducer} from '../../store/reducers'
 
 export default (store) => ({
-    path: 'activity/:activityId',
+    path: 'activity',
 
     /*  Async getComponent is only invoked when route matches   */
     getComponent (nextState, cb) {
@@ -17,7 +17,7 @@ export default (store) => ({
             const Groups = require('./containers/ActivityContainer').default;
             /*  Add the reducer to the store on key 'counter'  */
             // injectReducer(store, {key: 'counter', reducer})
-            const reducer = require('./modules/reducer').default;
+            const reducer = require('./modules/reducer/reducer').default;
 
             injectReducer(store, {key: 'activity', reducer});
 

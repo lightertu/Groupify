@@ -3,4 +3,4 @@
  */
 import ActivitiesView from './ActivitiesView'
 
-export default Activities
+export default ActivitiesView
