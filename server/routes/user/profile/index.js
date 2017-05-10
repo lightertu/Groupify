@@ -4,9 +4,10 @@
 
 const express = require('express')
     , userRouter = express.Router()
-    , userControllers = require('./controllers');
+    , userControllers = require('./controllers')
+    , authenticationMiddleware = require("../../../config/main").authenticationMiddleware;
 
-userRouter.get('/', userControllers.getUserProfileController);
-userRouter.put('/', userControllers.updateUserProfileController);
+userRouter.get('/', authenticationMiddleware, userControllers.getUserProfileController);
+userRouter.put('/', authenticationMiddleware, userControllers.updateUserProfileController);
 
 module.exports = userRouter;
