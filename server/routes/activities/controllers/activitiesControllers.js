@@ -3,11 +3,27 @@
  */
 
 module.exports = {
-    getActivitiesController: function(req, res, next) {
+    // get a the list of activity of a user
+    getActivitiesController: function (req, res, next) {
         res.send("get activities");
     },
 
-    createActivityController: function(req, res, next) {
+    // create an activity
+    createActivityController: function (req, res, next) {
         res.send("created new activity");
+    },
+
+    // get one activity
+    getActivityController: function (req, res, next) {
+        res.send("get one activity");
+    },
+
+    // delete one activity
+    deleteActivityController: function (req, res, next) {
+        res.send("delete an activity");
+    },
+
+    updateActivityController: function (req, res, next) {
+        res.send("update an activity");
     },
 };

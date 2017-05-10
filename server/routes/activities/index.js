@@ -11,4 +11,11 @@ const express = require('express')
 activitiesRouter.get('/', authenticationMiddleware, activitiesControllers.getActivitiesController);
 activitiesRouter.post('/', authenticationMiddleware, activitiesControllers.createActivityController);
 
+// operations regarding to a specific activity
+activitiesRouter.get('/:activityId', authenticationMiddleware, activitiesControllers.getActivityController);
+activitiesRouter.put('/:activityId', authenticationMiddleware, activitiesControllers.updateActivityController);
+activitiesRouter.delete('/:activityId', authenticationMiddleware, activitiesControllers.deleteActivityController);
+
+activitiesRouter.use('/:activityId/participants', require('./participants'));
+
 module.exports = activitiesRouter;
