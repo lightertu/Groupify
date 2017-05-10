@@ -7,7 +7,12 @@ const express = require('express')
     , userControllers = require('./controllers')
     , authenticationMiddleware = require("../../../config/main").authenticationMiddleware;
 
-userRouter.get('/', authenticationMiddleware, userControllers.getUserProfileController);
-userRouter.put('/', authenticationMiddleware, userControllers.updateUserProfileController);
+userRouter.get('/'
+             , authenticationMiddleware
+             , userControllers.getUserProfileController);
+
+userRouter.put('/'
+             , authenticationMiddleware
+             , userControllers.updateUserProfileController);
 
 module.exports = userRouter;

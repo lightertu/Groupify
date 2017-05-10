@@ -7,6 +7,10 @@ module.exports = {
         res.send("get participants ");
     },
 
+    regroupParticipantsController: function(req, res, next) {
+        res.send("regroup participants ");
+    },
+
     createParticipantController: function(req, res, next) {
         res.send("created new participant");
     },
