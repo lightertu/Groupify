@@ -1,20 +1,20 @@
 import React from 'react'
 import Header from '../../components/Header'
-import { StickyContainer, Sticky } from 'react-sticky';
+import {StickyContainer, Sticky} from 'react-sticky';
 import './CoreLayout.scss'
 import '../../styles/core.scss'
-
+import {Container, Modal} from "semantic-ui-react";
 
 export const CoreLayout = ({children}) => (
     <div>
         <Header />
-        <div className="container">
+        <Container>
             <div className='core-layout__viewport'>
                 <StickyContainer>
-                {children}
+                    {children}
                 </StickyContainer>
             </div>
-        </div>
+        </Container>
     </div>
 );
 
