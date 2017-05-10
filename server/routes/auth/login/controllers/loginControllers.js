@@ -23,6 +23,7 @@ module.exports = {
                     if (isMatch && !err) {
                         // create the token
                         let token = jwt.sign(user, config.secret, {
+                            //userId: user._id,   // save the id in the JWT
                             expiresIn: 10080 // in second, this is a week
                         });
 
