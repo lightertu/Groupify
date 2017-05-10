@@ -4,9 +4,11 @@
 
 const express = require('express')
     , activitiesRouter = express.Router()
-    , activitiesControllers = require('./controllers');
+    , activitiesControllers = require('./controllers')
+    , authenticationMiddleware = require("../../config/main").authenticationMiddleware;
 
-activitiesRouter.get('/', activitiesControllers.getActivitiesController);
-activitiesRouter.post('/', activitiesControllers.createActivityController);
+// the second argument is the authentication middleware, has to be passed
+activitiesRouter.get('/', authenticationMiddleware, activitiesControllers.getActivitiesController);
+activitiesRouter.post('/', authenticationMiddleware, activitiesControllers.createActivityController);
 
 module.exports = activitiesRouter;
