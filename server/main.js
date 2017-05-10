@@ -8,24 +8,43 @@ const compress = require('compression');
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const morgan = require('morgan');
+const passport = require('passport');
 
-let dbUrl = 'mongodb://localhost/team-divider';
+// our api routes
+const routes = require("./routes");
 
-mongoose.connect(dbUrl, function(err, res){
-  if(err) {
-    console.log("DB CONNECTION FAILED: "+err)
-  } else {
-    console.log("DB CONNECTION SUCCES")
-  }
+let databaseUrl = require('./config/main').databaseUrl;
+
+mongoose.connect(databaseUrl, function (err, res) {
+    if (err) {
+        console.log("DB CONNECTION FAILED: " + err)
+    } else {
+        console.log("DB CONNECTION SUCCES")
+    }
 });
 
 const app = express();
+
+// request parsing middleware
 app.use(bodyParser.json());
 app.use(bodyParser({limit: '50mb'}));
+app.use(bodyParser.urlencoded({extended: false}));
+
+// log requests to console
+app.use(morgan('dev'));
 
 // Apply gzip compression
 app.use(compress());
-//app.use('/api', api);
+
+
+// Bring in passport strategy we just defined
+require('./config/passport')(passport);
+
+// use api as the prefix of all routes
+app.use('/api', routes);
+
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
