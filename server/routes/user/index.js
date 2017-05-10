@@ -3,10 +3,8 @@
  */
 
 const express = require('express')
-    , userRouter = express.Router()
-    , userControllers = require('./controllers');
+    , userRouter = express.Router();
 
-userRouter.get('/profile', userControllers.getUserProfileController);
-userRouter.put('/profile', userControllers.updateUserProfileController);
+userRouter.use('/profile', require('./profile'));
 
 module.exports = userRouter;
