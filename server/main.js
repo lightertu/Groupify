@@ -17,6 +17,7 @@ const routes = require("./routes");
 
 let databaseUrl = require('./config/main').databaseUrl;
 
+mongoose.Promise = global.Promise;
 mongoose.connect(databaseUrl, function (err, res) {
     if (err) {
         console.log("DB CONNECTION FAILED: " + err)
@@ -35,9 +36,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 // log requests to console
 app.use(morgan('dev'));
 
+// init passport for use
+app.use(passport.initialize());
+
 // Apply gzip compression
 app.use(compress());
-
 
 // Bring in passport strategy we just defined
 require('./config/passport')(passport);
