@@ -35,8 +35,8 @@ export class ActivityCardViewWrapper extends React.Component {
 export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
-        //console.log(this.props.params.activityId);
-        this.props.fetchParticipantList(this.props.params.activityId);
+        console.log(this.props.activityId);
+        this.props.fetchParticipantList(this.props.activityId);
     }
 
     render() {
@@ -73,7 +73,7 @@ export class ActivityView extends React.Component {
                                        groupNumber={ group.groupNumber }
                                        itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                       activityId={ this.props.params.activityId }/>
+                                       activityId={ this.props.activityId }/>
                         </Grid.Column>
                     )
                 )
@@ -84,11 +84,11 @@ export class ActivityView extends React.Component {
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                        activityId={ this.props.params.activityId }/>
+                                        activityId={ this.props.activityId }/>
                 <ActivityCardViewWrapper>
                     {
                         (this.props.participants.length > 0) &&
-                        <FilterMenu activityId={ this.props.params.activityId }
+                        <FilterMenu activityId={ this.props.activityId }
                                     generateGroupAssignment={ this.props.generateGroupAssignment }/>
                     }
                     <Grid columns={ cardsPerRow }>
