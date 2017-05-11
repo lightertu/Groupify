@@ -8,7 +8,6 @@ const compress = require('compression');
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const jwt = require('jsonwebtoken');
 const morgan = require('morgan');
 const passport = require('passport');
 
