@@ -3,7 +3,7 @@
  */
 
 const express = require('express')
-    , userRouter = express.Router()
+    , userRouter = express.Router({ mergeParams: true })
     , userControllers = require('./controllers')
     , authenticationMiddleware = require("../../../config/main").authenticationMiddleware;
 
