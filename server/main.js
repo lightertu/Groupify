@@ -12,16 +12,16 @@ const morgan = require('morgan');
 const passport = require('passport');
 
 // our api routes
-const routes = require("./routes");
+const routes = require('./routes');
 
 let databaseUrl = require('./config/main').databaseUrl;
 
 mongoose.Promise = global.Promise;
 mongoose.connect(databaseUrl, function (err, res) {
     if (err) {
-        console.log("DB CONNECTION FAILED: " + err)
+        console.log("DB CONNECTION FAILED: " + err);
     } else {
-        console.log("DB CONNECTION SUCCES")
+        console.log("DB CONNECTION SUCCESS");
     }
 });
 
@@ -80,13 +80,13 @@ if (project.env === 'development') {
         const filename = path.join(compiler.outputPath, 'index.html');
         compiler.outputFileSystem.readFile(filename, (err, result) => {
             if (err) {
-                return next(err)
+                return next(err);
             }
             res.set('content-type', 'text/html');
             res.send(result);
-            res.end()
-        })
-    })
+            res.end();
+        });
+    });
 } else {
     debug(
         'Server is being run outside of live development mode, meaning it will ' +
@@ -99,7 +99,7 @@ if (project.env === 'development') {
     // Serving ~/dist by default. Ideally these files should be served by
     // the web server and not the app server, but this helps to demo the
     // server in production.
-    app.use(express.static(project.paths.dist()))
+    app.use(express.static(project.paths.dist()));
 }
 
 module.exports = app;
