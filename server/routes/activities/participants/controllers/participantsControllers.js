@@ -16,9 +16,10 @@ module.exports = {
     },
 
     getParticipantController: function(req, res, next) {
-        console.log("activityId: " + req.params.activityId);
-        console.log("participantId: " + req.params.participantId);
-        res.send("get one participant");
+        console.log("userId is: " + req.user._id);
+        console.log("activityId is: ", req.params.activityId);
+        console.log("participantId is: ", req.params.participantId);
+        res.send("get a participant");
     },
 
     updateParticipantController: function(req, res, next) {
