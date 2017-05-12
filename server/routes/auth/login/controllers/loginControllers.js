@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../../../config/main");
 const User = require("../../../../models/").User;
 
-let expireTime = 300; // token expire time
+let expireTime = 300; // token expire time; unit: second
 
 module.exports = {
     loginController: function(req, res) {
@@ -26,13 +26,15 @@ module.exports = {
                 user.comparePassword(req.body.password, function(err, isMatch) {
                     if (isMatch && !err) {
                         // create the token
-                        let token = jwt.sign(user, config.secret, {
-                            //userId: user._id,   // save the id in the JWT
-                            expiresIn: expireTime // in second, this is a day
-                        });
-
+                        let token = jwt.sign(
+                            {   _id  : user._id,
+                                email: user.email,
+                            },
+                            config.secret, { expiresIn: expireTime}
+                        );
                         res.json({success: true, token: 'JWT ' + token})
-                    } else {
+                    }
+                    else {
                         res.json({
                             success: false,
                             message: 'Authentication failed, password did not match. '
