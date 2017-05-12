@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../../../config/main");
 const User = require("../../../../models/").User;
 
-let expireTime = 300; // token expire time; unit: second
+let expireTime = 1200; // token expire time; unit: second
 
 module.exports = {
     loginController: function(req, res) {
