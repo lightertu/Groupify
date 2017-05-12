@@ -5,7 +5,7 @@ import axios from 'axios';
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', login: true, activeItem: 'Login'};
+        this.state = {email: '', password: '', password2: '', login: true, activeItem: 'Login'};
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleItemClick= this.handleItemClick.bind(this);
@@ -20,21 +20,14 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-        axios.post('/api/login', {
-            email: this.state.email,
-            password: this.state.password
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
+        this.props.generateUser(this.state.email, this.state.password);
+        this.setState({email: '', password: '', password2: ''});
     }
 
     render() {
-
+        console.log(this.props)
+        const {token} = this.props
+        console.log(token)
         const cardStyle = {
             marginTop:'200px',
             padding: 0,
@@ -84,7 +77,7 @@ class Login extends Component {
                                 </Form.Field>
                                 <Form.Field>
                                     <label>Confirm Password</label>
-                                    <input type="password" value={this.state.email} onChange={this.handleInputChange.bind(this, 'email')}/>
+                                    <input type="password" value={this.state.password2} onChange={this.handleInputChange.bind(this, 'password2')}/>
                                 </Form.Field>
                                 <a href="/"><Button color={'green'}>Login</Button></a>
                             </Form>
