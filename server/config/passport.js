@@ -15,7 +15,7 @@ module.exports = function (passport) {
 
     passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
         // TODO: need to know how does findone behaves it seems to be really buggy
-        User.findOne({_id: jwt_payload._doc._id}).exec()
+        User.findOne({_id: jwt_payload._id}).exec()
             .then(function (user) {
                 if (user) {
                     done(null, user);
