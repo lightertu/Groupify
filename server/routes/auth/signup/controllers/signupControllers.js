@@ -11,7 +11,8 @@ module.exports = {
                 success: false,
                 message: 'please enter an email and password to register'
             })
-        } else {
+        }
+        else {
             let newUser = new User({
                 email: req.body.email,
                 password: req.body.password,
@@ -19,7 +20,7 @@ module.exports = {
 
             // try to save the new user
             newUser.save(function(err) {
-                if (err) {
+                if (err) {                    //since users' email addresses are unique
                     return res.json({
                         success: false,
                         message: 'that email address already exists'
@@ -30,7 +31,7 @@ module.exports = {
                     success: true,
                     message: 'successful created new user.'
                 })
-            })
+            });
         }
     },
 };
