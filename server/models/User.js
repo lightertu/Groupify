@@ -52,6 +52,14 @@ let UserSchema = Schema({
 /* hash password before user saves the password */
 UserSchema.pre('save', function(next) {
     let user = this;
+    // console.log("@@@@@@@@@@@@@@ "+ Date.now);
+
+    // update time
+    if (!this.isNew){
+        user.lastModifiedTime = Date.now();
+    }
+
+    // update hashed password if needed
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function(err, salt) {
             if (err) {
@@ -64,17 +72,13 @@ UserSchema.pre('save', function(next) {
                 }
 
                 user.password = hash;
+                next();
             });
         });
     }
-
-    // update time
-    if (this.isNew){
-        user.createdAt = Date.now;
+    else{
+        return next();
     }
-    user.lastModifiedTime = Date.now;
-
-    return next();
 });
 
 // /* change "lastModifiedTime" before user updates the password
