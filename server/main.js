@@ -2,18 +2,19 @@ const express = require('express');
 const debug = require('debug')('app:server');
 const path = require('path');
 const webpack = require('webpack');
-const webpackConfig = require('../config/webpack.config');
-const project = require('../config/project.config');
 const compress = require('compression');
-
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
 
+const webpackConfig = require('../config/webpack.config');
+const project = require('../config/project.config');
+
 // our api routes
 const routes = require('./routes');
 
+// connecting to our Database
 let databaseUrl = require('./config/main').databaseUrl;
 
 mongoose.Promise = global.Promise;
