@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-    	token: state
+    	login: state
     }
 };
 
