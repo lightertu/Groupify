@@ -3,7 +3,7 @@
 import axios from "axios";
 const SERVER_URL = "http://localhost:3000";
 
-export const GENERATE_USER = "GENERATE_GROUP_USER";
+export const GENERATE_USER = "GENERATE_USER";
 let generateUser = (dispatch) => {
     return (email, password) => {
 
@@ -18,29 +18,31 @@ let generateUser = (dispatch) => {
         });
 
         let url = SERVER_URL + "/api/auth/signup";
-        axios.put(url, {
-        	username: email,
+        axios.post(url, {
+        	email: email,
         	password: password
         })
             .then((response) => {
                 dispatch(generateUserSuccess(response));
+                console.log(response)
             })
             .catch((error) => {
                 dispatch(generateUserFailure(error, payload));
+                console.log(error)
             });
     }
 };
 
 /* user success */
 export const GENERATE_USER_SUCCESS = "GENERATE_USER_SUCCESS";
-let generateUserSuccess = () => {
-    return { type: GENERATE_USER_SUCCESS };
+let generateUserSuccess = (response) => {
+    return { type: GENERATE_USER_SUCCESS, payload: response };
 };
 
 /* user failure */
 export const GENERATE_USER_FAILURE = "GENERATE_USER_FAILURE";
-let generateUserFailure = (error) => {
-    return { type: GENERATE_USER_FAILURE, error: error };
+let generateUserFailure = (error, payload) => {
+    return { type: GENERATE_USER_FAILURE, error: error, payload: payload };
 };
 
 export {

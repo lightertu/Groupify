@@ -1,8 +1,8 @@
 let handleGenerateUser = (state, payload) => {
-    return state;
+    return "generating user";
 };
 let handleGenerateUserSuccess = (state, payload) => {
-    return state;
+    return payload;
 };
 let handleGenerateUserFailure = (state, payload) => {
     return state;

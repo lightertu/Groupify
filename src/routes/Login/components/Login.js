@@ -20,14 +20,15 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
+        e.preventDefault();
         this.props.generateUser(this.state.email, this.state.password);
         this.setState({email: '', password: '', password2: ''});
     }
 
     render() {
-        console.log(this.props)
-        const {token} = this.props
-        console.log(token)
+        const { login } = this.props
+        console.log(login.login)
+
         const cardStyle = {
             marginTop:'200px',
             padding: 0,
@@ -42,18 +43,25 @@ class Login extends Component {
         }
 
         const { activeItem } = this.state
+        
+        let loading = (<Button color={'green'}>Sign Up</Button>);
+        if(login.login == "generating user") {
+            console.log("loading")
+            loading = (<Button loading color={'green'}>Sign Up</Button>);
+        }
     
         return (
             <div style={{textAlign:'center'}}>
-                <Card color={'white'} centered style={cardStyle}>
+                <Card centered style={cardStyle}>
                         <Menu tabular attached='top' widths={2}>
                             <Menu.Item name='Login' active={activeItem === 'Login'}  style={{borderBottom:0}} onClick={this.handleItemClick} />
                             <Menu.Item name='Sign Up' active={activeItem === 'Sign Up'} style={{borderBottom:0}} onClick={this.handleItemClick} />
                         </Menu>
                     {(activeItem === 'Login') ? (
                         <Card.Content  style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
-                            <Form onSubmit={this.handleSubmit} action='/'>
+                            <Form onSubmit={this.handleSubmit}>
                                 <Form.Field>
+
                                     <label>Email</label>
                                     <input type="text" value={this.state.email} onChange={this.handleInputChange.bind(this, 'email')}/>
                                 </Form.Field>
@@ -61,12 +69,12 @@ class Login extends Component {
                                     <label>Passoword</label>
                                     <input type="password" value={this.state.password} onChange={this.handleInputChange.bind(this, 'password')}/>
                                 </Form.Field>
-                                <a href="/"><Button color={'green'}>Login</Button></a>
+                                <Button color={'green'}>Login</Button>
                             </Form>
                         </Card.Content>
                     ) : (
                         <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderLeft:'1px solid #fff', borderRight:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}}>
-                            <Form onSubmit={this.handleSubmit} action='/'>
+                            <Form onSubmit={this.handleSubmit}>
                                 <Form.Field>
                                     <label>Email</label>
                                     <input type="text" value={this.state.email} onChange={this.handleInputChange.bind(this, 'email')}/>
@@ -79,7 +87,7 @@ class Login extends Component {
                                     <label>Confirm Password</label>
                                     <input type="password" value={this.state.password2} onChange={this.handleInputChange.bind(this, 'password2')}/>
                                 </Form.Field>
-                                <a href="/"><Button color={'green'}>Login</Button></a>
+                                {loading}
                             </Form>
                         </Card.Content>
                     )}
