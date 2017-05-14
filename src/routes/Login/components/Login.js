@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Input,  Button, Form, Header, Card , Menu, Segment} from 'semantic-ui-react'
 import axios from 'axios';
+import AuthAlert from './AuthAlert';
 
 class Login extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ class Login extends Component {
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleItemClick= this.handleItemClick.bind(this);
+        this.login = this.login.bind(this);
     }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
@@ -19,6 +21,12 @@ class Login extends Component {
         this.setState(object);
     }
 
+    login(e) {
+        e.preventDefault();
+        this.props.fetchUser(this.state.email, this.state.password);
+        this.setState({email: '', password: ''});
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         this.props.generateUser(this.state.email, this.state.password);
@@ -26,8 +34,9 @@ class Login extends Component {
     }
 
     render() {
-        const { login } = this.props
-        console.log(login.login)
+        // response is the response from the server,
+        // state is the state of user generation
+        const { response, state, loginState, login } = this.props 
 
         const cardStyle = {
             marginTop:'200px',
@@ -43,13 +52,12 @@ class Login extends Component {
         }
 
         const { activeItem } = this.state
-        
+
         let loading = (<Button color={'green'}>Sign Up</Button>);
-        if(login.login == "generating user") {
-            console.log("loading")
+        if(state == "generating user") {
             loading = (<Button loading color={'green'}>Sign Up</Button>);
         }
-    
+        console.log(response, state, loginState, login)
         return (
             <div style={{textAlign:'center'}}>
                 <Card centered style={cardStyle}>
@@ -59,9 +67,8 @@ class Login extends Component {
                         </Menu>
                     {(activeItem === 'Login') ? (
                         <Card.Content  style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
-                            <Form onSubmit={this.handleSubmit}>
+                            <Form onSubmit={this.login}>
                                 <Form.Field>
-
                                     <label>Email</label>
                                     <input type="text" value={this.state.email} onChange={this.handleInputChange.bind(this, 'email')}/>
                                 </Form.Field>
@@ -69,6 +76,7 @@ class Login extends Component {
                                     <label>Passoword</label>
                                     <input type="password" value={this.state.password} onChange={this.handleInputChange.bind(this, 'password')}/>
                                 </Form.Field>
+                                <AuthAlert failure={login.success} message={login.message}/>
                                 <Button color={'green'}>Login</Button>
                             </Form>
                         </Card.Content>
@@ -87,6 +95,7 @@ class Login extends Component {
                                     <label>Confirm Password</label>
                                     <input type="password" value={this.state.password2} onChange={this.handleInputChange.bind(this, 'password2')}/>
                                 </Form.Field>
+                                <AuthAlert failure={response.success} message={response.message}/>
                                 {loading}
                             </Form>
                         </Card.Content>
