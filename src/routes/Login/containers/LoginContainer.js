@@ -10,12 +10,16 @@ import * as Actions from '../modules/actions'
 
 
 const mapDispatchToProps = (dispatch) => ({
-	generateUser: Actions.generateUserActions.generateUser(dispatch)
+	generateUser: Actions.generateUserActions.generateUser(dispatch),
+	fetchUser: Actions.fetchUserActions.fetchUser(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
     return {
-    	login: state
+    	state: state.login.state,
+    	response: state.login.response,
+    	loginState: state.login.loginState,
+    	login: state.login.login
     }
 };
 

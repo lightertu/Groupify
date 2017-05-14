@@ -161,6 +161,7 @@
     "file-system": "^2.2.2",
     "filereader": "^0.10.3",
     "fs": "0.0.1-security",
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "karma": "^1.0.0",
     "karma-coverage": "^1.0.0",
