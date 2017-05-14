@@ -1,7 +1,9 @@
 import * as generateUserActions from "./generateUserActions"
-import * as fetchUserActions from "./fetchUserAction"
+import * as fetchUserActions from "./fetchUserActions"
+import * as authActions from "./authActions"
 
 export {
     generateUserActions,
-    fetchUserActions
+    fetchUserActions,
+    authActions
 }

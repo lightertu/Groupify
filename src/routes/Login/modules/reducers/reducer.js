@@ -8,12 +8,18 @@ const initialState = {
     response: { success: "", message: ""},
     state: "waiting",
     login: { success: "", message: ""},
-    loginState: "waiting"
+    loginState: "waiting",
+    isAuthenticated: false,
+    user: {}
 };
 
 export default function activityReducer (state = initialState, action) {
     switch(action.type) {
+        // set current user
+        case Actions.authActions.SET_CURRENT_USER:
+            return ActionsHandlers.authActionsHandlers.handleSetCurrentUser(state, action.user);
 
+        // reduce login actions
         case Actions.fetchUserActions.GENERATE_USER:
             return ActionsHandlers.fetchUserActionsHandlers.handleFetchUser(state, action.payload);
         case Actions.fetchUserActions.FETCH_USER_SUCCESS:

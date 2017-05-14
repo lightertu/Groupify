@@ -25,7 +25,7 @@ module.exports = {
                                 expiresIn: 10080 // in second, this is a week
                             });
 
-                            res.json({success: true, token: 'JWT ' + token})
+                            res.json({success: true, token: token})
                         } else {
                             res.send({
                                 success: false,

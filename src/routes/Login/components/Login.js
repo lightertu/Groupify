@@ -36,7 +36,7 @@ class Login extends Component {
     render() {
         // response is the response from the server,
         // state is the state of user generation
-        const { response, state, loginState, login } = this.props 
+        const { response, state, loginState, login, auth, user } = this.props 
 
         const cardStyle = {
             marginTop:'200px',
@@ -57,7 +57,7 @@ class Login extends Component {
         if(state == "generating user") {
             loading = (<Button loading color={'green'}>Sign Up</Button>);
         }
-        console.log(response, state, loginState, login)
+        console.log(auth, user)
         return (
             <div style={{textAlign:'center'}}>
                 <Card centered style={cardStyle}>

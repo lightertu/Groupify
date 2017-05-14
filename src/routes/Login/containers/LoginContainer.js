@@ -11,7 +11,8 @@ import * as Actions from '../modules/actions'
 
 const mapDispatchToProps = (dispatch) => ({
 	generateUser: Actions.generateUserActions.generateUser(dispatch),
-	fetchUser: Actions.fetchUserActions.fetchUser(dispatch)
+	fetchUser: Actions.fetchUserActions.fetchUser(dispatch),
+    logout: Actions.fetchUserActions.logout(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -19,7 +20,9 @@ const mapStateToProps = (state, ownProps) => {
     	state: state.login.state,
     	response: state.login.response,
     	loginState: state.login.loginState,
-    	login: state.login.login
+    	login: state.login.login,
+    	user: state.login.user,
+    	auth: state.login.isAuthenticated
     }
 };
 
