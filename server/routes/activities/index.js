@@ -8,6 +8,7 @@ const express = require('express')
     , authenticationMiddleware = require("../../config/main").authenticationMiddleware;
 
 // the second argument is the authentication middleware, has to be passed
+console.log(activitiesControllers.getAllActivitiesController);
 activitiesRouter.get('/', authenticationMiddleware, activitiesControllers.getAllActivitiesController);
 activitiesRouter.post('/', authenticationMiddleware, activitiesControllers.createActivityController);
 
