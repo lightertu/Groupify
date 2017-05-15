@@ -2,28 +2,26 @@
  * Created by rui on 5/9/17.
  */
 
+const getAllActivitiesController = require("./getAllActivitiesController");
+const createActivityController   = require("./createActivityController");
+const getOneActivityController   = require("./getOneActivityController ");
+const deleteActivityController   = require("./deleteActivityController");
+const updateActivityController   = require("./updateActivityController");
+
 module.exports = {
-    // get a the list of activity of a user
-    getActivitiesController: function (req, res, next) {
-        res.send("get activities");
-    },
+    // get a list of activity of a user
+    getAllActivitiesController,
 
     // create an activity
-    createActivityController: function (req, res, next) {
-        res.send("created new activity");
-    },
+    createActivityController,
 
     // get one activity
-    getActivityController: function (req, res, next) {
-        res.send("get one activity");
-    },
+    getOneActivityController,
 
     // delete one activity
-    deleteActivityController: function (req, res, next) {
-        res.send("delete an activity");
-    },
+    deleteActivityController,
 
-    updateActivityController: function (req, res, next) {
-        res.send("update an activity");
-    },
+
+    //update one activity
+    updateActivityController,
 };

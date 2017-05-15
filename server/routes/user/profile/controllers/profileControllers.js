@@ -4,10 +4,13 @@
 module.exports = {
     getUserProfileController: function(req, res, next) {
         res.json({
-            name : req.user.name,
-            email: req.user.email,
-            createAt: req.user.createdAt,
-            lastModified: req.user.lastModifiedTime,
+            success: true,
+            userProfile:  {
+                name : req.user.name,
+                email: req.user.email,
+                createAt: req.user.createdAt,
+                lastModified: req.user.lastModifiedTime,
+            },
         });
     },
 
