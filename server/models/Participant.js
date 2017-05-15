@@ -5,7 +5,7 @@ let mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Participant = new Schema({
+const ParticipantSchema = new Schema({
     name: {
         type: String,
         default: "",
@@ -53,7 +53,7 @@ const Participant = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        isRequired: true,
+        required: true,
     },
 
     lastModifiedAt: {
@@ -62,4 +62,13 @@ const Participant = new Schema({
     }
 });
 
-module.exports = mongoose.model('Participant', Participant);
+ParticipantSchema.pre('save', function(next){
+    let participant = this;
+
+    if (!this.isNew){
+        participant.lastModifiedTime = Date.now();
+    }
+    next();
+});
+
+module.exports = mongoose.model('Participant', ParticipantSchema);

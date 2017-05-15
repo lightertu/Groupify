@@ -31,8 +31,8 @@ let UserSchema = Schema({
     // every model has this
     isDeleted: {
         type: Boolean,
+        default: false,
         required: true,
-        default: false
     },
 
     createdAt: {

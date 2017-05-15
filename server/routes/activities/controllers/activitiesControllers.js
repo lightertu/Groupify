@@ -5,7 +5,6 @@
 module.exports = {
     // get a the list of activity of a user
     getActivitiesController: function (req, res, next) {
-        //console.log(req);
         res.send("get activities");
     },
 
