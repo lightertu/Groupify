@@ -28,6 +28,10 @@ let UserSchema = Schema({
         required: true,
     },
 
+    activities: {
+        type: [{ type: Schema.ObjectId, ref: "Activity"}],
+    },
+
     // every model has this
     isDeleted: {
         type: Boolean,
