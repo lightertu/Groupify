@@ -10,7 +10,7 @@ let ActivitySchema = Schema({
     _activityOrganizer: {
         type: Schema.ObjectId,
         ref: "User",
-        isRequired: true,
+        required: true,
     },
 
     participants: {
@@ -19,42 +19,53 @@ let ActivitySchema = Schema({
 
     groupCapacity: {
         type: Number,
-        isRequired: true,
+        required: true,
     },
 
     totalCapacity: {
         type: Number,
-        isRequired: true,
+        required: true,
     },
 
     name: {
         type: String,
         default: "",
-        isRequired: true,
+        required: true,
     },
 
     endDate: {
         type: Date,
         default: Date.now,
-        isRequired: true,
+        required: true,
     },
 
     // every model has this
     isDeleted: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true,
     },
 
     createdAt: {
         type: Date,
         default: Date.now,
-        isRequired: true,
+        required: true,
     },
 
     lastModifiedTime: {
         type: Date,
         default: Date.now,
+        required: true,
     }
+});
+
+ActivitySchema.pre('save', function(next){
+    let activity = this;
+
+    if (!this.isNew){
+        activity.lastModifiedTime = Date.now();
+    }
+    next();
 });
 
 module.exports = mongoose.model('Activity', ActivitySchema);
