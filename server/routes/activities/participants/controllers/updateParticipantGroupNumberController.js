@@ -1,6 +1,8 @@
 /**
  * Created by rui on 5/16/17.
  */
+const HttpStatus = require("http-status-codes");
+const createErrorHandler = require("../../../utils.js").createErrorHandler;
 const Activity = require("../../../../models/").Activity;
 const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
@@ -19,12 +21,10 @@ module.exports = function (req, res, next) {
     )
         .exec()
         .then(function (participant) {
+
             if (participant === null) {
-                // TODO: set http status code, resource not found
-                return res.json({
-                    success: false,
-                    message: "Cannot find participant: " + req.params.participantId,
-                })
+                const errorMessage = "Cannot find participant: " + req.params.participantId;
+                return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
 
             return res.json({
@@ -32,12 +32,6 @@ module.exports = function (req, res, next) {
                 participant: participant
             })
         })
-        .catch(function (err) {
-            // TODO: set http status code system error
-            console.log(err);
-            return res.json({
-                success: false,
-                error: err,
-            })
-        })
+
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

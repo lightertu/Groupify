@@ -8,6 +8,7 @@ const Participant = require("../../../../models/").Participant;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
+//TODO: check payload for create
 function checkPayloadForCreate(payload) {
     return true
 }
@@ -18,10 +19,8 @@ module.exports = function (req, res, next) {
     const activityId = req.params.activityId;
 
     if (checkPayloadForCreate(payload)) {
-        return res.json({
-            success: false,
-            message: 'please give the correct payload',
-        });
+        const errorMessage = 'please give the correct payload to create participant';
+        return createErrorHandler(res, HttpStatus.UNPROCESSABLE_ENTITY)(errorMessage);
     }
 
     // save a new activity to the database
@@ -34,51 +33,33 @@ module.exports = function (req, res, next) {
         availability: payload.availability,
     });
 
-    // TODO: a very big bug here, what is user and activity has been delete should
+    // TODO: a very big bug here, what if user and activity has been delete should
     newParticipant.save()
-        .then(function (newParticipant) {
+        .then(function (participant) {
             Activity.findOneAndUpdate(
                 {_id: activityId, _creator: userId, isDeleted: false},
                 {
                     $push: {
-                        "participants": {_id: newParticipant._id}
+                        "participants": {_id: participant._id}
                     },
                     $set: {
                         "lastModifiedTime": Date.now()
                     }
-                })
-                //.select("name endDate totalCapacity groupCapacity participants")
+                },
+                {new: true}
+            )
                 .exec()
                 .then(function (activity) {
                     if (activity === null) {
-                        return res.json({
-                            newParticipant: newParticipant
-                        })
+                        const errorMessage = "Cannot find activity has id: " + activityId + " in which to create new participant";
+                        return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
                     }
 
                     return res.json({
-                        success: true,
-                        message: 'add participant success'
+                        newParticipant: participant.getPublicFields()
                     })
                 })
-
-                .catch(function (err) {
-                    // TODO: set http status
-                    console.log(err);
-                    return res.json({
-                        success: false,
-                        message: err
-                    })
-                })
-
+                .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
         })
-
-        // add the new activityId to user
-        .catch(function (err) {
-            // TODO: choose a status code
-            return res.json({
-                success: false,
-                message: err
-            })
-        })
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

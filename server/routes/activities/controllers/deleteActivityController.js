@@ -12,7 +12,8 @@ module.exports = function (req, res, next) {
             $set: {
                 "isDeleted": true,
             }
-        }
+        },
+        {new: true}
     ).exec()
         .then(function (activity) {
             /* if this activity is not found */
@@ -24,7 +25,8 @@ module.exports = function (req, res, next) {
             /* remove this item from User.activities array */
             User.findOneAndUpdate(
                 {_id: userId},
-                {$pull: {'activities': activityId}}
+                {$pull: {'activities': activityId}},
+                {new: true}
             ).exec().then(function (user) {
                 return res.json({
                     deletedActivity: activity

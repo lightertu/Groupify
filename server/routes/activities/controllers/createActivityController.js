@@ -6,17 +6,18 @@ const HttpStatus = require("http-status-codes");
 
 // create an activity
 
-// TODO: check if the payload is valid
-function checkPayload(payload) {
-    return payload !== null
-}
+
 
 module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
+    // TODO: check if the payload is valid
+    function validateInput() {
+        return payload !== null
+    }
     // save a new activity to to the database
-    if (!checkPayload(payload)) {
+    if (!validateInput()) {
         res.status(HttpStatus.BAD_REQUEST);
         return res.json({
             error: 'please give the correct payload',

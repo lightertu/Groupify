@@ -68,4 +68,14 @@ ActivitySchema.pre('save', function(next){
     next();
 });
 
+ActivitySchema.methods.getPublicFields = function () {
+    return {
+        name: this.name,
+        totalCapacity: this.totalCapacity,
+        groupCapacity: this.groupCapacity,
+        endDate: this.endDate,
+        participants: this.participants,
+        lastModifiedTime: this.lastModifiedTime,
+    };
+};
 module.exports = mongoose.model('Activity', ActivitySchema);
