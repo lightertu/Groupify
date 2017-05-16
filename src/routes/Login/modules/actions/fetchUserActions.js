@@ -30,7 +30,7 @@ let fetchUser = (dispatch) => {
                 const token = response.data.token;
                 localStorage.setItem('jwtToken', token);
                 setAuthorizationToken(token);
-                dispatch(setCurrentUser(jwt.decode(token)));
+                dispatch(setCurrentUser(token));
             })
             .catch((error) => {
                 dispatch(fetchUserFailure(error, payload));
