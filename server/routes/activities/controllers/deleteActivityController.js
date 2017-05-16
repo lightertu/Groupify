@@ -1,9 +1,12 @@
 const Activity = require("../../../models/").Activity;
+const User = require("../../../models/").User;
 
-// create an activity
 module.exports = function (req, res, next) {
+    const activityId = req.params.activityId,
+          userId     = req.user._id;
+
     Activity.findOneAndUpdate(
-        { _id: req.params.activityId, _creator: req.user._id },
+        { _id: activityId, _creator: userId },
         {
             $set: {
                "isDeleted" : true,
@@ -14,9 +17,24 @@ module.exports = function (req, res, next) {
 
     .then(function (activity) {
         if (activity !== null) {
-            return res.json({
-                success: true,
+
+            /* remove this item from User.activities array */
+            User.findOneAndUpdate(
+                { _id: userId },
+                { $pull: { 'activities': { _id: activityId } } }
+            ).exec().then(function(user){
+                return res.json({
+                    success: true,
+                });
+            }).catch(function(err) {
+                // TODO: set http header to resource not found
+                return res.json({
+                    success: false,
+                    message: error,
+                });
             });
+
+
         } else {
             // TODO: set http header to resource not found
             return res.json({
