@@ -1,32 +1,19 @@
-const Activity = require("../../../models/").Activity;
+const User = require("../../../models/").User;
 
 module.exports = function (req, res, next) {
-        let user = req.user;
-        let activities = user.activities;
-
-        let resultLst = [];
-        for (let i = 0; i < activities.length; i++) {
-            Activity.findOne({
-                _id: activities[0]
-            }, function (err, activity) {
-                if (err) throw err;
-
-                if (!activity) {
-                    res.json({
-                        success: false,
-                        message: "Activity ID: "
-                        + activities[0].toString
-                        + "; doesn't find matched activity",
-                    });
-                }
-                else {
-                    resultLst.push(activity.name);
-                }
+    User.findOne({_id: req.user._id})
+        .populate({
+            path: 'activities',
+            select: 'name groupCapacity totalCapacity endDate lastModified participants'
+        })
+        .exec()
+        .then(function (user) {
+            return res.json({
+                success: true,
+                userActivities: user.activities,
             });
-        }
-
-        res.json({
-            success: true,
-            userActivities: resultLst,
+        })
+        .catch(function (err) {
+            console.log(err);
         });
-}
+};
