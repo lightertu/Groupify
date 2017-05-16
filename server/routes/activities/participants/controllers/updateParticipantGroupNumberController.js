@@ -13,7 +13,6 @@ module.exports = function (req, res, next) {
             $set: {
                 "lastModifiedAt": Date.now(),
                 "groupNumber": req.body.groupNumber,
-
             }
         },
         {new: true}

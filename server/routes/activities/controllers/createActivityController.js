@@ -1,10 +1,13 @@
-const Activity = require("../../../models/").Activity
-const User = require("../../../models/").User
+const Activity = require("../../../models/").Activity;
+const User = require("../../../models/").User;
+const createErrorHandler = require("../../utils").createErrorHandler;
+
+const HttpStatus = require("http-status-codes");
 
 // create an activity
 
 // TODO: check if the payload is valid
-function checkPayload (payload) {
+function checkPayload(payload) {
     return payload !== null
 }
 
@@ -13,59 +16,44 @@ module.exports = function (req, res, next) {
     const payload = req.body;
 
     // save a new activity to to the database
-    if (checkPayload(payload)) {
-        const newActivity = new Activity({
-            _creator: userId,
-            name: payload.name,
-            groupCapacity: payload.groupCapacity,
-            totalCapacity: payload.totalCapacity,
-            //endDate: payload.endDate,
-        });
-
-        newActivity.save()
-            .then(function (newActivity) {
-                let query = User.findOneAndUpdate(
-                    {_id: userId},
-                    {
-                        $push: {
-                            "activities": {_id: newActivity._id}
-                        },
-                        $set: {
-                            "lastModifiedTime": Date.now()
-                        }
-                    });
-
-                query.exec()
-                    .then(function (user) {
-                        console.log("update successful");
-                        return res.json({
-                            success: true,
-                            message: 'activity ' + newActivity.name + ' is saved to the database'
-                        })
-                    })
-                    .catch(function (err) {
-                        // TODO: choose a status code
-                        console.log(err);
-                        return res.json({
-                            success: true,
-                            message: err
-                        })
-                    })
-            })
-
-            // add the new activityId to user
-            .catch(function (err) {
-                // TODO: choose a status code
-                return res.json({
-                    success: false,
-                    message: err
-                })
-            })
-    } else {
-        // TODO: choose a status code
-        res.json({
-            success: false,
-            message: 'please give the correct payload',
+    if (!checkPayload(payload)) {
+        res.status(HttpStatus.BAD_REQUEST);
+        return res.json({
+            error: 'please give the correct payload',
         })
     }
+
+    const newActivity = new Activity({
+        _creator: userId,
+        name: payload.name,
+        groupCapacity: payload.groupCapacity,
+        totalCapacity: payload.totalCapacity,
+        endDate: payload.endDate,
+    });
+
+    newActivity.save()
+        .then(function (newActivity) {
+            const newActivityId = newActivity._id;
+            User.findOneAndUpdate(
+                {_id: userId},
+                {
+                    // add activity id to user.activities
+                    $push: {
+                        "activities": {_id: newActivityId}
+                    },
+
+                    // set the last modfied date
+                    $set: {
+                        "lastModifiedTime": Date.now()
+                    }
+                })
+                .exec()
+                .then(function (user) {
+                    return res.json({
+                        newActivity: newActivity
+                    })
+                })
+                .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+        })
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

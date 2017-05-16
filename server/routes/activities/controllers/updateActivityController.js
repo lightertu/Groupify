@@ -1,6 +1,7 @@
 const Activity = require("../../../models/").Activity;
 
-// update an activity
+const createErrorHandler = require("../../utils").createErrorHandler;
+const HttpStatus = require("http-status-codes");
 
 // TODO: check if the payload is formatted the way we want
 function checkPayload(payload) {
@@ -9,16 +10,19 @@ function checkPayload(payload) {
 
 // TODO: put request should return a new COPY of the object needs to be saved
 module.exports = function (req, res, next) {
+
+    const activityId = req.params.activityId,
+          userId     = req.user._id;
+
     if (!checkPayload(req.body)) {
-        // TODO: set http status code
+        res.status(HttpStatus.BAD_REQUEST);
         return res.json({
-            success: false,
-            message: "activity info is not formatted correctly"
+            error: "activity object is not formatted correctly"
         });
     }
 
     Activity.findOneAndUpdate(
-        { _id: req.params.activityId, _creator: req.user._id, isDeleted: false },
+        { _id: activityId, _creator: userId, isDeleted: false },
         {
             $set: {
                 "name": req.body.name,
@@ -32,21 +36,12 @@ module.exports = function (req, res, next) {
         .then(function (activity) {
             if (activity !== null) {
                 return res.json({
-                    success: true,
+                    activity: activity
                 });
             } else {
-                // TODO: set http header to resource not found
-                return res.json({
-                    success: false,
-                    message: "you don't have an activity has id " + req.params.activityId,
-                });
+                const errorMessage = "Cannot find activity has id: " + activityId;
+                return createErrorHandler(res, HttpStatus.EXPECTATION_FAILED)(errorMessage);
             }
         })
-        .catch(function (err) {
-            // TODO: set http header to system error
-            return res.json({
-                success: false,
-                message: err
-            });
-        })
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };
