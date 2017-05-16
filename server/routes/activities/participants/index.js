@@ -10,7 +10,7 @@ const express = require('express')
 // the second argument is the authentication middleware, has to be passed
 participantsRouter.get('/'
                      , authenticationMiddleware
-                     , participantsControllers.getParticipantsController);
+                     , participantsControllers.getAllParticipantsController);
 
 participantsRouter.post('/'
                       , authenticationMiddleware
@@ -24,7 +24,7 @@ participantsRouter.post('/regroup/:algorithmName'
 // operations regarding to a specific activity
 participantsRouter.get('/:participantId'
                      , authenticationMiddleware
-                     , participantsControllers.getParticipantController);
+                     , participantsControllers.getOneParticipantController);
 
 participantsRouter.put('/:participantId'
                      , authenticationMiddleware
