@@ -24,6 +24,6 @@ let activitiesControllers = {
 
     //update one activity
     updateActivityController: updateActivityController,
-}
+};
 
 module.exports = activitiesControllers;

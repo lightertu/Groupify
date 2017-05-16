@@ -8,17 +8,14 @@ function checkPayload(payload) {
     return payload !== null;
 }
 
-
-
 module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
     // save a new activity to to the database
-
     if (checkPayload(payload)) {
         const newActivity = new Activity({
-            _activityOrganizer: userId,
+            _creator: userId,
             name: payload.name,
             groupCapacity: payload.groupCapacity,
             totalCapacity: payload.totalCapacity,

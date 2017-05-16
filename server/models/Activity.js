@@ -7,7 +7,7 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let ActivitySchema = Schema({
-    _activityOrganizer: {
+    _creator: {
         type: Schema.ObjectId,
         ref: "User",
         required: true,
