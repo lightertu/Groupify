@@ -12,6 +12,12 @@ const ParticipantSchema = new Schema({
         required: true,
     },
 
+    _creator: {
+        type: Schema.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+
     _activity :{
         type: Schema.ObjectId,
         ref: 'Activity',
@@ -36,7 +42,9 @@ const ParticipantSchema = new Schema({
     availability: {
         type: [Number],
         default: [],
-        validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
+
+        //TODO: validate data
+        //validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
     },
 
 
