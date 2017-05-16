@@ -10,11 +10,11 @@ const deleteActivityController   = require("./deleteActivityController");
 const updateActivityController   = require("./updateActivityController");
 
 let activitiesControllers = {
-    // get a list of activity of a user
-    getAllActivitiesController: getAllActivitiesController,
-
     // create an activity
     createActivityController: createActivityController,
+
+    // get a list of activity of a user
+    getAllActivitiesController: getAllActivitiesController,
 
     // get one activity
     getOneActivityController: getOneActivityController,

@@ -14,7 +14,8 @@ let ActivitySchema = Schema({
     },
 
     participants: {
-        type: [{ type: Schema.ObjectId, ref: "Participant"}]
+        type: [{ type: Schema.ObjectId, ref: "Participant"}],
+        default: [],
     },
 
     groupCapacity: {
@@ -35,8 +36,7 @@ let ActivitySchema = Schema({
 
     endDate: {
         type: Date,
-        default: Date.now,
-        required: true,
+        // default end date is 2 months from the activity is created
     },
 
     // every model has this
