@@ -2,13 +2,9 @@ const ObjectID = require('mongodb').ObjectID;
 const Activity = require("../../../models/").Activity;
 
 module.exports = function (req, res, next) {
-    Activity.findOne({_id: req.params.activityId}).exec()
+    Activity.findOne({_id: req.params.activityId, _creator: req.user._id}).exec()
         .then(function (activity) {
-            console.log("in the then ");
-            const activityCreatorId = new ObjectID(activity._creator),
-                  userId            = new ObjectID(req.user._id);
-
-            if (activityCreatorId.equals(userId)) {
+            if (activity !== null) {
                 return res.json({
                     success: true,
                     payload: activity
@@ -21,6 +17,7 @@ module.exports = function (req, res, next) {
                 });
             }
         })
+
         .catch(function (err) {
             console.log(err);
             return res.json({
