@@ -17,7 +17,7 @@ module.exports = function (req, res, next) {
     }
 
     Activity.findOneAndUpdate(
-        { _id: req.params.activityId, _creator: req.user._id },
+        { _id: req.params.activityId, _creator: req.user._id, isDeleted: false },
         {
             $set: {
                 "name": req.body.name,

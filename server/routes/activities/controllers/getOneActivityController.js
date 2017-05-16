@@ -2,7 +2,7 @@ const ObjectID = require('mongodb').ObjectID;
 const Activity = require("../../../models/").Activity;
 
 module.exports = function (req, res, next) {
-    Activity.findOne({_id: req.params.activityId, _creator: req.user._id}).exec()
+    Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false}).exec()
         .then(function (activity) {
             if (activity !== null) {
                 return res.json({
