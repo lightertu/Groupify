@@ -34,4 +34,8 @@ participantsRouter.delete('/:participantId'
                      , authenticationMiddleware
                      , participantsControllers.deleteParticipantController);
 
+participantsRouter.put('/:participantId/groupNumber'
+                     , authenticationMiddleware
+                     , participantsControllers.updateParticipantGroupNumberController);
+
 module.exports = participantsRouter;

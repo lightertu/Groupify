@@ -7,6 +7,7 @@ function checkPayload(payload) {
     return payload !== null;
 }
 
+// TODO: put request should return a new COPY of the object needs to be saved
 module.exports = function (req, res, next) {
     if (!checkPayload(req.body)) {
         // TODO: set http status code
