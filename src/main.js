@@ -8,7 +8,7 @@ import setAuthorizationToken from './components/utils/setAuthorizationToken';
 
 // imports for web auth
 import jwt from "jsonwebtoken";
-import { setCurrentUser } from './routes/Login/modules/actions/setCurrentUserAction'
+import { setCurrentUser } from './routes/Login/modules/actions/authActions'
 
 injectTapEventPlugin();
 

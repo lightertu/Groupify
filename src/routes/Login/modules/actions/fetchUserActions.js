@@ -4,7 +4,7 @@ import axios from "axios";
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../../../components/utils/setAuthorizationToken';
 const SERVER_URL = "http://localhost:3000";
-import { setCurrentUser } from "./setCurrentUserAction"
+import { setCurrentUser } from "./authActions"
 //import setCurrentUser from './setCurrentUserAction'
 
 export const FETCH_USER = "FETCH_USER";
@@ -57,6 +57,7 @@ let logout = (dispatch) => {
         localStorage.removeItem('jwtToken');
         setAuthorizationToken(false);
         dispatch(setCurrentUser({}));
+    }
 };
 
 export {

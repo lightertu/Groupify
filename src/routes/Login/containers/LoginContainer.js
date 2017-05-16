@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
  wiring in the actions and state necessary to render a presentational
  component - in this case, the counter:   */
 
-import Login from '../components/Login'
+import Login from '../../../components/Login'
 import * as Actions from '../modules/actions'
 
 
