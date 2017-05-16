@@ -9,8 +9,8 @@ function checkPayload (payload) {
 }
 
 module.exports = function (req, res, next) {
-    const userId = req.user._id
-    const payload = req.body
+    const userId = req.user._id;
+    const payload = req.body;
 
     // save a new activity to to the database
     if (checkPayload(payload)) {
@@ -20,7 +20,7 @@ module.exports = function (req, res, next) {
             groupCapacity: payload.groupCapacity,
             totalCapacity: payload.totalCapacity,
             //endDate: payload.endDate,
-        })
+        });
 
         newActivity.save()
             .then(function (newActivity) {
@@ -33,11 +33,11 @@ module.exports = function (req, res, next) {
                         $set: {
                             "lastModifiedTime": Date.now()
                         }
-                    })
+                    });
 
                 query.exec()
                     .then(function (user) {
-                        console.log("update successful")
+                        console.log("update successful");
                         return res.json({
                             success: true,
                             message: 'activity ' + newActivity.name + ' is saved to the database'
@@ -45,7 +45,7 @@ module.exports = function (req, res, next) {
                     })
                     .catch(function (err) {
                         // TODO: choose a status code
-                        console.log(err)
+                        console.log(err);
                         return res.json({
                             success: true,
                             message: err
@@ -68,4 +68,4 @@ module.exports = function (req, res, next) {
             message: 'please give the correct payload',
         })
     }
-}
+};

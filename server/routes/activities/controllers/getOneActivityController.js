@@ -1,4 +1,3 @@
-const ObjectID = require('mongodb').ObjectID;
 const Activity = require("../../../models/").Activity;
 
 module.exports = function (req, res, next) {

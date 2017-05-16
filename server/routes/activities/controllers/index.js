@@ -11,19 +11,19 @@ const updateActivityController   = require("./updateActivityController");
 
 let activitiesControllers = {
     // create an activity
-    createActivityController: createActivityController,
+    createActivityController,
 
     // get a list of activity of a user
-    getAllActivitiesController: getAllActivitiesController,
+    getAllActivitiesController,
 
     // get one activity
-    getOneActivityController: getOneActivityController,
+    getOneActivityController,
 
     // delete one activity
-    deleteActivityController: deleteActivityController,
+    deleteActivityController,
 
     //update one activity
-    updateActivityController: updateActivityController,
+    updateActivityController
 };
 
 module.exports = activitiesControllers;
