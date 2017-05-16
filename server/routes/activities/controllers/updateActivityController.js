@@ -10,9 +10,8 @@ function checkPayload(payload) {
 
 // TODO: put request should return a new COPY of the object needs to be saved
 module.exports = function (req, res, next) {
-
     const activityId = req.params.activityId,
-          userId     = req.user._id;
+        userId = req.user._id;
 
     if (!checkPayload(req.body)) {
         res.status(HttpStatus.BAD_REQUEST);
@@ -22,7 +21,7 @@ module.exports = function (req, res, next) {
     }
 
     Activity.findOneAndUpdate(
-        { _id: activityId, _creator: userId, isDeleted: false },
+        {_id: activityId, _creator: userId, isDeleted: false},
         {
             $set: {
                 "name": req.body.name,
@@ -30,18 +29,28 @@ module.exports = function (req, res, next) {
                 "totalCapacity": req.body.totalCapacity,
                 "groupCapacity": req.body.groupCapacity,
             }
+        },
+        // this select the properties to show
+        {
+            projection: {
+                "name": 1,
+                "endDate": 1,
+                "totalCapacity": 1,
+                "groupCapacity": 1,
+                "participants": 1,
+            },
+            returnNewDocument: true
         }
-
-        ).exec()
+    )
+        .exec()
         .then(function (activity) {
-            if (activity !== null) {
-                return res.json({
-                    activity: activity
-                });
-            } else {
+            if (activity === null) {
                 const errorMessage = "Cannot find activity has id: " + activityId;
-                return createErrorHandler(res, HttpStatus.EXPECTATION_FAILED)(errorMessage);
+                return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
+            return res.json({
+                updatedActivity: activity
+            });
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

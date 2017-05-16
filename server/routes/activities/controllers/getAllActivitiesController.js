@@ -7,7 +7,7 @@ module.exports = function (req, res, next) {
         .populate({
             path: 'activities',
             select: 'name groupCapacity totalCapacity endDate lastModified participants',
-            match:  { isDeleted: false }
+            match: {isDeleted: false}
         })
         .exec()
         .then(function (user) {
