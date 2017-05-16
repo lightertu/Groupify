@@ -1,6 +1,8 @@
 /**
  * Created by rui on 5/16/17.
  */
+const HttpStatus = require("http-status-codes");
+const createErrorHandler = require("../../../utils.js").createErrorHandler;
 const Activity = require("../../../../models/").Activity;
 const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
@@ -18,45 +20,30 @@ module.exports = function (req, res, next) {
                 "lastModifiedTime": Date.now(),
                 "isDeleted": true,
             }
-        }
+        },
+        {new: true}
     )
 
-    .exec()
+        .exec()
 
-    .then(function (participant) {
-        if (participant === null) {
-            // TODO: set http status code, resource not found
-            return res.json({
-                success: false,
-                message: "Cannot find participant: " + req.params.participantId,
-            })
-        }
+        .then(function (participant) {
+            if (participant === null) {
+                const errorMessage = "Cannot find participant: " + req.params.participantId;
+                return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
+            }
 
-        /* remove this item from User.activities array */
-        Activity.findOneAndUpdate(
-            { _id: participant._activity },
-            { $pull: { 'participants': participant._id } }
-        ).exec().then(function(activity){
-            return res.json({
-                success: true,
-                activity: activity
-            });
-        }).catch(function(err) {
-            // TODO: set http header to resource not found
-            console.log(err);
-            return res.json({
-                success: false,
-                message: err,
-            });
-        });
-    })
-
-    .catch(function (err) {
-        // TODO: set http status code system error
-        console.log(err);
-        return res.json({
-            success: false,
-            error: err,
+            /* remove this item from User.activities array */
+            Activity.findOneAndUpdate(
+                {_id: participant._activity},
+                {$pull: {'participants': participant._id}}
+            )
+                .exec()
+                .then(function (activity) {
+                    return res.json({
+                        deletedParticipant: participant.getPublicFields()
+                    });
+                })
+                .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
         })
-    })
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

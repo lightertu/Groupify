@@ -6,7 +6,7 @@ const Activity = require("../../../../models/").Activity;
 const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
 
-function checkPayloadForCreate (payload) {
+function checkPayloadForCreate(payload) {
     return true
 }
 
@@ -19,7 +19,7 @@ module.exports = {
                 //select: 'name groupCapacity totalCapacity endDate lastModified participants isDeleted',
                 match: {isDeleted: false},
                 options: {
-                    sort:  { lastModifiedAt: 1 }
+                    sort: {lastModifiedAt: 1}
                 }
             })
             .exec()
@@ -75,7 +75,9 @@ module.exports = {
                             $set: {
                                 "lastModifiedTime": Date.now()
                             }
-                        })
+                        },
+                        {new: true}
+                    )
                         .exec()
 
                         .then(function (activity) {
@@ -166,29 +168,29 @@ module.exports = {
             },
             {new: true}
         )
-        .exec()
-        .then(function (participant) {
-            if (participant === null) {
-                // TODO: set http status code, resource not found
+            .exec()
+            .then(function (participant) {
+                if (participant === null) {
+                    // TODO: set http status code, resource not found
+                    return res.json({
+                        success: false,
+                        message: "Cannot find participant: " + req.params.participantId,
+                    })
+                }
+
+                return res.json({
+                    success: true,
+                    participant: participant
+                })
+            })
+            .catch(function (err) {
+                // TODO: set http status code system error
+                console.log(err);
                 return res.json({
                     success: false,
-                    message: "Cannot find participant: " + req.params.participantId,
+                    error: err,
                 })
-            }
-
-            return res.json({
-                success: true,
-                participant: participant
             })
-        })
-        .catch(function (err) {
-            // TODO: set http status code system error
-            console.log(err);
-            return res.json({
-                success: false,
-                error: err,
-            })
-        })
     },
 
     deleteParticipantController: function (req, res, next) {
@@ -203,29 +205,29 @@ module.exports = {
                 }
             }
         )
-        .exec()
-        .then(function (participant) {
-            if (participant === null) {
-                // TODO: set http status code, resource not found
+            .exec()
+            .then(function (participant) {
+                if (participant === null) {
+                    // TODO: set http status code, resource not found
+                    return res.json({
+                        success: false,
+                        message: "Cannot find participant: " + req.params.participantId,
+                    })
+                }
+
+                return res.json({
+                    success: true,
+                    message: "successfully deleted: " + participant.name
+                })
+            })
+            .catch(function (err) {
+                // TODO: set http status code system error
+                console.log(err)
                 return res.json({
                     success: false,
-                    message: "Cannot find participant: " + req.params.participantId,
+                    error: err,
                 })
-            }
-
-            return res.json({
-                success: true,
-                message: "successfully deleted: " + participant.name
             })
-        })
-        .catch(function (err) {
-            // TODO: set http status code system error
-            console.log(err)
-            return res.json({
-                success: false,
-                error: err,
-            })
-        })
     },
 
     regroupParticipantsController: function (req, res, next) {

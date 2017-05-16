@@ -3,17 +3,16 @@ const Activity = require("../../../models/").Activity;
 const createErrorHandler = require("../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
-// TODO: check if the payload is formatted the way we want
-function checkPayload(payload) {
-    return payload !== null;
-}
-
-// TODO: put request should return a new COPY of the object needs to be saved
 module.exports = function (req, res, next) {
     const activityId = req.params.activityId,
         userId = req.user._id;
 
-    if (!checkPayload(req.body)) {
+    // TODO: check if the payload is formatted the way we want
+    function validateInput() {
+        return payload !== null;
+    }
+
+    if (!validateInput()) {
         res.status(HttpStatus.BAD_REQUEST);
         return res.json({
             error: "activity object is not formatted correctly"
@@ -39,7 +38,7 @@ module.exports = function (req, res, next) {
                 "groupCapacity": 1,
                 "participants": 1,
             },
-            returnNewDocument: true
+            new: true,
         }
     )
         .exec()

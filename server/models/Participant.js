@@ -60,7 +60,7 @@ const ParticipantSchema = new Schema({
         required: true,
     },
 
-    lastModifiedAt: {
+    lastModifiedTime: {
         type: Date,
         default: Date.now,
     }
@@ -74,5 +74,16 @@ ParticipantSchema.pre('save', function(next){
     }
     next();
 });
+
+ParticipantSchema.methods.getPublicFields = function () {
+    return {
+        name: this.name,
+        image: this.totalCapacity,
+        groupNumber: this.groupCapacity,
+        availability: this.endDate,
+        skills: this.skills,
+        lastModifiedTime: this.lastModifiedTime,
+    };
+};
 
 module.exports = mongoose.model('Participant', ParticipantSchema);
