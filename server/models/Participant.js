@@ -14,12 +14,8 @@ const ParticipantSchema = new Schema({
 
     _activity :{
         type: Schema.ObjectId,
-        ref: 'Activity'
-    },
-
-    _activityOrganizer: {
-        type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'Activity',
+        required: true
     },
 
     image: {
