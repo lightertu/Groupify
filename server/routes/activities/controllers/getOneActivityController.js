@@ -1,28 +1,22 @@
 const Activity = require("../../../models/").Activity;
+const createErrorHandler = require("../../utils").createErrorHandler;
+const HttpStatus = require("http-status-codes");
 
 module.exports = function (req, res, next) {
     Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false}).exec()
         .then(function (activity) {
             if (activity !== null) {
                 return res.json({
-                    success: true,
-                    payload: activity
+                    activity: activity
                 });
             } else {
                 // TODO: set http header to resource not found
                 return res.json({
-                    success: false,
-                    message: "you don't have an activity has id " + req.params.activityId,
+                    error: "Cannot find an activity has id " + req.params.activityId,
                 });
             }
         })
 
-        .catch(function (err) {
-            console.log(err);
-            return res.json({
-                success: false,
-                message: err
-            });
-        })
+        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };
 
