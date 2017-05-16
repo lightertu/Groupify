@@ -2,9 +2,9 @@
  * Created by rui on 5/9/17.
  */
 
-const Activity = require("../../../../models/").Activity
-const User = require("../../../../models/").User
-const Participant = require("../../../../models/").Participant
+const Activity = require("../../../../models/").Activity;
+const User = require("../../../../models/").User;
+const Participant = require("../../../../models/").Participant;
 
 function checkPayloadForCreate (payload) {
     return true
@@ -39,7 +39,7 @@ module.exports = {
             })
             .catch(function (err) {
                 // TODO: set http status code system error
-                console.log(err)
+                console.log(err);
                 return res.json({
                     success: false,
                     error: err,
@@ -48,9 +48,9 @@ module.exports = {
     },
 
     createParticipantController: function (req, res, next) {
-        const userId = req.user._id
-        const payload = req.body
-        const activityId = req.params.activityId
+        const userId = req.user._id;
+        const payload = req.body;
+        const activityId = req.params.activityId;
 
         // save a new activity to to the database
         if (checkPayloadForCreate(payload)) {
@@ -61,7 +61,7 @@ module.exports = {
                 image: payload.image,
                 skills: payload.skills,
                 availability: payload.availability,
-            })
+            });
 
             // TODO: a very big bug here, what is user and activity has been delete should
             newParticipant.save()
@@ -79,7 +79,7 @@ module.exports = {
                         .exec()
 
                         .then(function (activity) {
-                            console.log("successfully added a new participant to activity")
+                            console.log("successfully added a new participant to activity");
 
                             if (activity === null) {
 
@@ -93,7 +93,7 @@ module.exports = {
 
                         .catch(function (err) {
                             // TODO: set http status
-                            console.log(err)
+                            console.log(err);
                             return res.json({
                                 success: false,
                                 message: err
@@ -144,7 +144,7 @@ module.exports = {
             })
             .catch(function (err) {
                 // TODO: set http status code system error
-                console.log(err)
+                console.log(err);
                 return res.json({
                     success: false,
                     error: err,
@@ -183,7 +183,7 @@ module.exports = {
         })
         .catch(function (err) {
             // TODO: set http status code system error
-            console.log(err)
+            console.log(err);
             return res.json({
                 success: false,
                 error: err,
@@ -231,4 +231,4 @@ module.exports = {
     regroupParticipantsController: function (req, res, next) {
         res.send("regroup participants ")
     },
-}
+};
