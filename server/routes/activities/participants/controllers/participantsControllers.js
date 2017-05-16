@@ -10,6 +10,7 @@ function checkPayloadForCreate (payload) {
     return true
 }
 
+
 module.exports = {
     getAllParticipantsController: function (req, res, next) {
         Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
