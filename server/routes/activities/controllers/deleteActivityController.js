@@ -16,32 +16,30 @@ module.exports = function (req, res, next) {
     ).exec()
 
     .then(function (activity) {
-        if (activity !== null) {
-
-            /* remove this item from User.activities array */
-            User.findOneAndUpdate(
-                { _id: userId },
-                { $pull: { 'activities': { _id: activityId } } }
-            ).exec().then(function(user){
-                return res.json({
-                    success: true,
-                });
-            }).catch(function(err) {
-                // TODO: set http header to resource not found
-                return res.json({
-                    success: false,
-                    message: error,
-                });
-            });
-
-
-        } else {
+        if (activity === null) {
             // TODO: set http header to resource not found
             return res.json({
                 success: false,
                 message: "you don't have an activity has id " + req.params.activityId,
             });
         }
+
+        /* remove this item from User.activities array */
+        User.findOneAndUpdate(
+            { _id: userId },
+            { $pull: { 'activities': activityId } }
+        ).exec().then(function(user){
+            return res.json({
+                success: true,
+            });
+        }).catch(function(err) {
+            // TODO: set http header to resource not found
+            return res.json({
+                success: false,
+                message: error,
+            });
+        });
+
     })
     .catch(function (err) {
         // TODO: set http header to system error
