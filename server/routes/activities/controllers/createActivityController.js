@@ -12,16 +12,14 @@ module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
-    // TODO: check if the payload is valid
+    // TODO: check if the all the inputs including url parameters and payload is valid
     function validateInput() {
-        return payload !== null
+        return true;
     }
     // save a new activity to to the database
     if (!validateInput()) {
-        res.status(HttpStatus.BAD_REQUEST);
-        return res.json({
-            error: 'please give the correct payload',
-        })
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
     }
 
     const newActivity = new Activity({

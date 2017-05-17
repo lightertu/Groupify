@@ -6,6 +6,18 @@ const createErrorHandler = require("../../utils").createErrorHandler;
 module.exports = function (req, res, next) {
     const activityId = req.params.activityId,
         userId = req.user._id;
+
+
+
+    // TODO: check if the all the inputs including url parameters and payload is valid
+    function validateInput() {
+        return true;
+    }
+
+    if (!validateInput()){
+
+    }
+
     Activity.findOneAndUpdate(
         {_id: activityId, _creator: userId},
         {
