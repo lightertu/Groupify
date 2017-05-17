@@ -5,8 +5,6 @@ import createStore from './store/createStore'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppContainer from './containers/AppContainer'
 
-injectTapEventPlugin();
-
 // ========================================================
 // Store Instantiation
 // ========================================================
