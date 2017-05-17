@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../../../components/utils/setAuthorizationToken';
 const SERVER_URL = "http://localhost:3000";
 import { setCurrentUser } from "./authActions"
+import { SET_ERROR_MESSAGE } from "./errorActions"
 
 export const FETCH_USER = "FETCH_USER";
 let fetchUser = (dispatch) => {
@@ -26,10 +27,17 @@ let fetchUser = (dispatch) => {
         })
             .then((response) => {
                 dispatch(fetchUserSuccess(response));
-                const token = response.data.token;
+
+                let data = response.data
+                const token = data.token;
                 localStorage.setItem('jwtToken', token);
                 setAuthorizationToken(token);
                 dispatch(setCurrentUser(token));
+
+                dispatch({
+                    type: SET_ERROR_MESSAGE,
+                    message: data.message
+                });
             })
             .catch((error) => {
                 dispatch(fetchUserFailure(error, payload));

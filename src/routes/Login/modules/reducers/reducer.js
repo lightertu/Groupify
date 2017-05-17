@@ -17,6 +17,17 @@ const initialState = {
 
 export default function activityReducer (state = initialState, action) {
     switch(action.type) {
+
+        // reduce error messages
+        case Actions.errorActions.SET_ERROR_MESSAGE:
+            return ActionsHandlers.errorActionsHandlers.handleErrorMessage(state, action.message);
+        case Actions.errorActions.SET_ERROR_DISPLAY:
+            return ActionsHandlers.errorActionsHandlers.handleErrorDisplay(state, action.bool);
+        case Actions.errorActions.SET_ERROR_TRUE:
+            return ActionsHandlers.errorActionsHandlers.handleErrorTrue(state);
+        case Actions.errorActions.SET_ERROR_FALSE:
+            return ActionsHandlers.errorActionsHandlers.handleErrorFalse(state);
+
         // set current user
         case Actions.authActions.SET_CURRENT_USER:
             return ActionsHandlers.authActionsHandlers.handleSetCurrentUser(state, action.user);

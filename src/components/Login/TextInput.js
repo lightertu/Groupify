@@ -7,7 +7,6 @@ class TextInput extends Component {
 		super(props);
 		this.state = {
 			isEmpty: true,
-			value: "",
 			valid: false,
 			errorMessage: "Input is invalid",
 			errorVisible: false
@@ -20,7 +19,6 @@ class TextInput extends Component {
 
 	handleChange(e) {
 		this.validation(e.target.value);
-		this.setState({value: e.target.value});
 
 		if(this.props.onChange) {
 			this.props.onChange(e);
@@ -34,39 +32,44 @@ class TextInput extends Component {
 
 		let message = "";
 		let errorVisible = false;
+		this.props.releaseLock(this.props.lid);
 
 		if(!valid) {
 			message = this.props.errorMessage;
 			valid = false;
 			errorVisible = true;
+			this.props.setLock(this.props.lid);
 		} else if(this.props.required && JQuery.isEmptyObject(value)) {
 			message = this.props.emptyMessage;
 			valid = false;
 			errorVisible = true;
+			this.props.setLock(this.props.lid);
 		} else if(value.length < this.props.minCharacters) {
 			message = this.props.tooShortMessage;
 			valid = false;
 			errorVisible = true;
+			this.props.setLock(this.props.lid);
 		} else {
 
 		}
 
-		console.log(valid, message, errorVisible)
 		this.setState({
-			value: value,
 		    isEmpty: JQuery.isEmptyObject(value),
 		    valid: valid,
 		    errorMessage: message,
 		    errorVisible: errorVisible
+		}, () => {
+			this.props.visible(this.state.errorVisible); // place functions in setState callback to make sure updates parent correctly
+			this.props.setErrorMessage(this.state.errorMessage);
 		});
 	}
 
 	handleBlur(e) {
 		let valid = this.props.validate(e.target.value);
-		console.log("Is it valid - ", valid)
 		this.validation(e.target.value, valid);
-		this.props.setErrorMessage(this.state.errorMessage);
-		this.props.visible(this.state.errorVisible);
+		if(this.props.onChange) {
+			this.props.onChange(e);
+		}
 	}
 
 	render() {
@@ -82,7 +85,8 @@ class TextInput extends Component {
 					placeholder={this.props.text}
 					onChange={this.handleChange}
 					onBlur={this.handleBlur}
-					value={this.state.value} />
+					value={this.props.value}
+					type={this.props.type} />
 				</Form.Field>
 			</div>
 		)
