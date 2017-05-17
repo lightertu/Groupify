@@ -13,8 +13,8 @@ const mapDispatchToProps = (dispatch) => ({
 	generateUser: Actions.generateUserActions.generateUser(dispatch),
 	fetchUser: Actions.fetchUserActions.fetchUser(dispatch),
     logout: Actions.fetchUserActions.logout(dispatch),
-    errorDispay: Actions.errorActions.errorDispay(dispatch),
-    errorMessage: Actions.errorActions.setErrorMessage(dispatch)
+    setErrorDisplay: Actions.errorActions.setErrorDisplay(dispatch),
+    setErrorMessage: Actions.errorActions.setErrorMessage(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
     	login: state.login.login,
     	user: state.login.user,
     	auth: state.login.isAuthenticated,
-        errorDispay: state.login.errorDispay,
+        errorDisplay: state.login.errorDisplay,
         errorMessage: state.login.errorMessage
     }
 };

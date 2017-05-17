@@ -1,3 +1,7 @@
+let handleErrorDisplay = (state, bool) => {
+    return state;
+};
+
 let handleErrorTrue = (state) => {
     return  Object.assign({}, state, {
       	errorDisplay: true
@@ -19,5 +23,6 @@ let handleErrorMessage = (state, payload) => {
 export {
     handleErrorTrue,
     handleErrorFalse,
-    handleErrorMessage
+    handleErrorMessage,
+    handleErrorDisplay
 }

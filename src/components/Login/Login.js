@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {Input,  Button, Form, Header, Card , Menu, Segment} from 'semantic-ui-react'
 import axios from 'axios';
-import AuthAlert from './AuthAlert';
 import TextInput from './TextInput';
 
 function ErrorMessage(props) {
@@ -40,8 +39,7 @@ class Login extends Component {
             passwordConfirm: '', 
             login: true, 
             activeItem: 'Login', 
-            error: false, 
-            errorMessage: "test"
+            locks: [true, true, true, true, true]
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,61 +50,88 @@ class Login extends Component {
         this._changePasswordConfirm = this._changePasswordConfirm.bind(this);
         this._errorMessage = this._errorMessage.bind(this);
         this._errorVisible = this._errorVisible.bind(this);
+        this.passwordConfirmValidate = this.passwordConfirmValidate.bind(this)
+        this._releaseLock = this._releaseLock.bind(this);
+        this._setLock = this._setLock.bind(this);
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name, error: false, email: '', passowrd: '', passwordConfirm: ''}) // add set error to false here
+    handleItemClick(e, { name }) {
+        this.setState({ activeItem: name, error: false, email: '', password: '', passwordConfirm: '', locks: [true, true, true , true, true]});
+        this.props.setErrorMessage("");
+        this.props.setErrorDisplay(false);
+    }
 
      _changeEmail(event) {
-      this.setState({email: event});
+      this.setState({email: event.target.value});
     }
 
       _errorMessage(error){
-        this.setState({errorMessage: error});
+        this.props.setErrorMessage(error);
       }
 
       _errorVisible(boolean){
-        this.setState({error: boolean});
+        this.props.setErrorDisplay(boolean);
+      }
+
+      _releaseLock(value) {
+        let locks = this.state.locks;
+        locks[value] = false;
+        this.setState({locks: locks});
+      }
+
+      _setLock(value) {
+        let locks = this.state.locks;
+        locks[value] = true;
+        this.setState({locks: locks});
       }
 
       _changePassword(event) {
-        this.setState({password: event});
+        this.setState({password: event.target.value});
       }
 
     _changePasswordConfirm(event) {
-        this.setState({passwordConfirm: event});
+        this.setState({passwordConfirm: event.target.value});
       }
 
     login(e) { // handles login
         e.preventDefault();
-        if(!this.state.error) {
+        if(!this.state.locks[0] && !this.state.locks[1]) {
             this.props.fetchUser(this.state.email, this.state.password);
         }
         this.setState({email: '', password: ''});
+        this.props.setErrorMessage("Both entries must be valid");
+        this.props.setErrorDisplay(true);
     }
 
     handleSubmit(e) { // handles create user
         e.preventDefault();
-        if(!this.state.error) {
+        if(!this.state.locks[2] && !this.state.locks[3] && !this.state.locks[4]) {
             this.props.generateUser(this.state.email, this.state.password);
-        }
-        this.setState({email: '', password: '', passwordConfirm: ''});
+        } else {
+            this.setState({email: '', password: '', passwordConfirm: ''});
+            this.props.setErrorMessage("All entries must be valid");
+            this.props.setErrorDisplay(true);
+        }   
     }
 
     validateEmail(value) {
-        console.log('validate email')
         // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(value);
     }
 
     commonValidate(value) {
-        return false;
+        return true;
+    }
+
+    passwordConfirmValidate(value) {
+        return value === this.state.password;
     }
 
     render() {
         // response is the response from the server,
         // state is the state of user generation
-        const { response, state, loginState, login, auth, user } = this.props 
+        const { response, state, loginState, login, auth, user, errorMessage, errorDisplay } = this.props 
 
         const cardStyle = {
             marginTop:'200px',
@@ -126,11 +151,7 @@ class Login extends Component {
         if(state == "generating user") {
             loading = (<Button loading color={'green'}>Sign Up</Button>);
         }
-        if(login.message && this.state.error == false) {
-            this.state.errorMessage = login.message;
-            this.state.error = true;
-        }
-        console.log(this.state.error, this.state.errorMessage)
+        console.log(errorMessage, errorDisplay)
         return (
             <div style={{textAlign:'center'}}>
                 <Card centered style={cardStyle}>
@@ -141,7 +162,7 @@ class Login extends Component {
                     {(activeItem === 'Login') ? (
                         <Card.Content  style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
                             <Form onSubmit={this.login}>
-                                {this.state.error ? <ErrorMessage error={this.state.errorMessage} /> : null}
+                                {errorDisplay ? <ErrorMessage error={errorMessage} /> : null}
                                 <TextInput
                                     label="Email"
                                     uniqueName="email"
@@ -153,10 +174,13 @@ class Login extends Component {
                                     minCharacters={3}
                                     validate={this.validateEmail.bind(this)}
                                     id="username"
-                                    value="placeholder"
+                                    value={this.state.email}
                                     errorMessage="Name is invalid"
                                     emptyMessage="Name is required"
                                     tooShortMessage="That email is too short"
+                                    releaseLock={this._releaseLock.bind(this)}
+                                    setLock={this._setLock.bind(this)}
+                                    lid={0}
                                     onChange={this._changeEmail}/>
                                 <TextInput
                                     label="Password"
@@ -169,9 +193,13 @@ class Login extends Component {
                                     minCharacters={3}
                                     validate={this.commonValidate.bind(this)}
                                     id="password"
+                                    value={this.state.password}
                                     errorMessage="Password is invalid"
                                     emptyMessage="Password is required"
                                     tooShortMessage="That password is too short"
+                                    releaseLock={this._releaseLock.bind(this)}
+                                    setLock={this._setLock.bind(this)}
+                                    lid={1}
                                     onChange={this._changePassword}/>
                                 <Button color={'green'}>Login</Button>
                             </Form>
@@ -179,7 +207,7 @@ class Login extends Component {
                     ) : (
                         <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderLeft:'1px solid #fff', borderRight:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}}>
                             <Form onSubmit={this.handleSubmit}>
-                                {this.state.error ? <ErrorMessage error={this.state.errorMessage} /> : null}
+                                {errorDisplay ? <ErrorMessage error={errorMessage} /> : null}
                                 <TextInput
                                     label="Email"
                                     uniqueName="email"
@@ -191,10 +219,13 @@ class Login extends Component {
                                     minCharacters={3}
                                     validate={this.validateEmail.bind(this)}
                                     id="username"
-                                    value="placeholder"
+                                    value={this.state.email}
                                     errorMessage="Name is invalid"
                                     emptyMessage="Name is required"
                                     tooShortMessage="That email is too short"
+                                    releaseLock={this._releaseLock.bind(this)}
+                                    setLock={this._setLock.bind(this)}
+                                    lid={2}
                                     onChange={this._changeEmail}/>
                                 <TextInput
                                     label="Password"
@@ -207,9 +238,13 @@ class Login extends Component {
                                     minCharacters={3}
                                     validate={this.commonValidate.bind(this)}
                                     id="password"
+                                    value={this.state.password}
                                     errorMessage="Password is invalid"
                                     emptyMessage="Password is required"
                                     tooShortMessage="That password is too short"
+                                    releaseLock={this._releaseLock.bind(this)}
+                                    setLock={this._setLock.bind(this)}
+                                    lid={3}
                                     onChange={this._changePassword}/>
                                <TextInput
                                     label="Confirm Password"
@@ -220,11 +255,15 @@ class Login extends Component {
                                     setErrorMessage={this._errorMessage.bind(this)}
                                     required={true}
                                     minCharacters={3}
-                                    validate={this.commonValidate.bind(this)}
+                                    validate={this.passwordConfirmValidate.bind(this)}
                                     id="password"
-                                    errorMessage="Password is invalid"
+                                    value={this.state.passwordConfirm}
+                                    errorMessage="Password does not match"
                                     emptyMessage="Password is required"
                                     tooShortMessage="That password is too short"
+                                    releaseLock={this._releaseLock.bind(this)}
+                                    setLock={this._setLock.bind(this)}
+                                    lid={4}
                                     onChange={this._changePasswordConfirm}/>
                                 {loading}
                             </Form>

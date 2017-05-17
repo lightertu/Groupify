@@ -1,6 +1,7 @@
 // created by Joseph 5/11/17
 
 import axios from "axios";
+import { SET_ERROR_MESSAGE, SET_ERROR_TRUE } from "./errorActions"
 const SERVER_URL = "http://localhost:3000";
 
 export const GENERATE_USER = "GENERATE_USER";
@@ -24,7 +25,18 @@ let generateUser = (dispatch) => {
         })
             .then((response) => {
                 dispatch(generateUserSuccess(response));
-                console.log(response)
+                let data = response.data
+                console.log(data.message)
+
+                dispatch({
+                    type: SET_ERROR_TRUE,
+                });
+
+                dispatch({
+                    type: SET_ERROR_MESSAGE,
+                    message: data.message
+                });
+
             })
             .catch((error) => {
                 dispatch(generateUserFailure(error, payload));
