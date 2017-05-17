@@ -3,36 +3,41 @@ const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
 function updateUserProfileController (req, res, next){
-    let user    = req.user;
-    let success = true;
-    let message = 'User profile is successfully updated';
+    let payload = req.body;
 
-    if (req.body.name !== null){
-        user.name = req.body.name;
-        user.save(function(err){
-            let errMessage = 'User name is unable to update';
-            if (err) {
-                success = false;
-                message = errMessage;
-            }
-        });
+    // TODO: check if the all the inputs including url parameters and payload is valid
+    function validateInput(payload) {
+        return true;
+    }
+    // save a new activity to to the database
+    if (!validateInput()) {
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
     }
 
-    if (req.body.image !== null){
-        user.image = req.body.image;
-        user.save(function(err){
-            let errMessage = 'User image is unable to update';
-            if (err){
-                message = (success === false) ? (message + " and " + errMessage) : (errMessage);
-                success = false;
+    User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+           $set: {
+               "name"               : payload.name,
+               // "image"              : payload.image,
+               "lastModifiedTime"   : Date.now(),
+           }
+        },
+        { new: true }
+    ).exec()
+        .then(
+            function(user){
+                if (user === null){
+                    const errorMessage = "Token passed, but cannot find user in DB when updating User"
+                                            + req.user._id;
+                    return createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) (errorMessage);
+                }
+                return res.json( user.getPublicFields() );
             }
-        });
-    }
-
-    res.json({
-        success: success,
-        message: message,
-    });
+        )
+        .catch( createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) );
 }
 
 module.exports = updateUserProfileController;

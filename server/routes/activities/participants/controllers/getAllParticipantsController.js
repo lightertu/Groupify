@@ -16,6 +16,7 @@ module.exports = function (req, res, next) {
     if (!validateInput()) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
     }
 
     Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
