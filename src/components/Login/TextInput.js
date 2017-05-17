@@ -47,8 +47,11 @@ class TextInput extends Component {
 			message = this.props.tooShortMessage;
 			valid = false;
 			errorVisible = true;
+		} else {
+
 		}
 
+		console.log(valid, message, errorVisible)
 		this.setState({
 			value: value,
 		    isEmpty: JQuery.isEmptyObject(value),
@@ -60,15 +63,20 @@ class TextInput extends Component {
 
 	handleBlur(e) {
 		let valid = this.props.validate(e.target.value);
+		console.log("Is it valid - ", valid)
 		this.validation(e.target.value, valid);
 		this.props.setErrorMessage(this.state.errorMessage);
 		this.props.visible(this.state.errorVisible);
 	}
 
 	render() {
+		let styles = {
+			marginBottom: 15
+		}
+
 		return (
 			<div>
-				<Form.Field>
+				<Form.Field style={styles}>
 				<label>{this.props.label}</label>
 				<Input
 					placeholder={this.props.text}

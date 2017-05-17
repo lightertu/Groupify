@@ -34,14 +34,27 @@ function ErrorMessage(props) {
 class Login extends Component {
     constructor(props) {
         super(props);
-        this.state = {email: '', password: '', passwordConfirm: '', login: true, activeItem: 'Login', error: false, erroMessage: "test"};
+        this.state = {
+            email: '', 
+            password: '', 
+            passwordConfirm: '', 
+            login: true, 
+            activeItem: 'Login', 
+            error: false, 
+            errorMessage: "test"
+        };
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleItemClick= this.handleItemClick.bind(this);
         this.login = this.login.bind(this);
         this._changeEmail = this._changeEmail.bind(this);
+        this._changePassword = this._changePassword.bind(this);
+        this._changePasswordConfirm = this._changePasswordConfirm.bind(this);
+        this._errorMessage = this._errorMessage.bind(this);
+        this._errorVisible = this._errorVisible.bind(this);
     }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name, error: false}) // add set error to false here
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name, error: false, email: '', passowrd: '', passwordConfirm: ''}) // add set error to false here
 
      _changeEmail(event) {
       this.setState({email: event});
@@ -80,18 +93,14 @@ class Login extends Component {
     }
 
     validateEmail(value) {
-        return false;
+        console.log('validate email')
         // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
         let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(value);
     }
 
     commonValidate(value) {
-        return true;
-    }
-
-    handleInputChange(){
-
+        return false;
     }
 
     render() {
@@ -117,7 +126,11 @@ class Login extends Component {
         if(state == "generating user") {
             loading = (<Button loading color={'green'}>Sign Up</Button>);
         }
-        console.log(this.state.error)
+        if(login.message && this.state.error == false) {
+            this.state.errorMessage = login.message;
+            this.state.error = true;
+        }
+        console.log(this.state.error, this.state.errorMessage)
         return (
             <div style={{textAlign:'center'}}>
                 <Card centered style={cardStyle}>
@@ -145,11 +158,21 @@ class Login extends Component {
                                     emptyMessage="Name is required"
                                     tooShortMessage="That email is too short"
                                     onChange={this._changeEmail}/>
-                                <Form.Field>
-                                    <label>Passoword</label>
-                                    <input type="password" value={this.state.password} onChange={this.handleInputChange.bind(this, 'password')}/>
-                                </Form.Field>
-                                <AuthAlert failure={login.success} message={login.message}/>
+                                <TextInput
+                                    label="Password"
+                                    uniqueName="password"
+                                    text="Password"
+                                    type="password"
+                                    visible={this._errorVisible.bind(this)}
+                                    setErrorMessage={this._errorMessage.bind(this)}
+                                    required={true}
+                                    minCharacters={3}
+                                    validate={this.commonValidate.bind(this)}
+                                    id="password"
+                                    errorMessage="Password is invalid"
+                                    emptyMessage="Password is required"
+                                    tooShortMessage="That password is too short"
+                                    onChange={this._changePassword}/>
                                 <Button color={'green'}>Login</Button>
                             </Form>
                         </Card.Content>
@@ -157,19 +180,52 @@ class Login extends Component {
                         <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderLeft:'1px solid #fff', borderRight:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}}>
                             <Form onSubmit={this.handleSubmit}>
                                 {this.state.error ? <ErrorMessage error={this.state.errorMessage} /> : null}
-                                <Form.Field>
-                                    <label>Email</label>
-                                    <input type="text" value={this.state.email} onChange={this.handleInputChange.bind(this, 'email')}/>
-                                </Form.Field>
-                                <Form.Field>
-                                    <label>Passoword</label>
-                                    <input type="password" value={this.state.password} onChange={this.handleInputChange.bind(this, 'password')}/>
-                                </Form.Field>
-                                <Form.Field>
-                                    <label>Confirm Password</label>
-                                    <input type="password" value={this.state.password2} onChange={this.handleInputChange.bind(this, 'password2')}/>
-                                </Form.Field>
-                                <AuthAlert failure={response.success} message={response.message}/>
+                                <TextInput
+                                    label="Email"
+                                    uniqueName="email"
+                                    text="Email Address"
+                                    type="text"
+                                    visible={this._errorVisible.bind(this)}
+                                    setErrorMessage={this._errorMessage.bind(this)}
+                                    required={true}
+                                    minCharacters={3}
+                                    validate={this.validateEmail.bind(this)}
+                                    id="username"
+                                    value="placeholder"
+                                    errorMessage="Name is invalid"
+                                    emptyMessage="Name is required"
+                                    tooShortMessage="That email is too short"
+                                    onChange={this._changeEmail}/>
+                                <TextInput
+                                    label="Password"
+                                    uniqueName="password"
+                                    text="Password"
+                                    type="password"
+                                    visible={this._errorVisible.bind(this)}
+                                    setErrorMessage={this._errorMessage.bind(this)}
+                                    required={true}
+                                    minCharacters={3}
+                                    validate={this.commonValidate.bind(this)}
+                                    id="password"
+                                    errorMessage="Password is invalid"
+                                    emptyMessage="Password is required"
+                                    tooShortMessage="That password is too short"
+                                    onChange={this._changePassword}/>
+                               <TextInput
+                                    label="Confirm Password"
+                                    uniqueName="confirm_password"
+                                    text="Confirm Password"
+                                    type="password"
+                                    visible={this._errorVisible.bind(this)}
+                                    setErrorMessage={this._errorMessage.bind(this)}
+                                    required={true}
+                                    minCharacters={3}
+                                    validate={this.commonValidate.bind(this)}
+                                    id="password"
+                                    errorMessage="Password is invalid"
+                                    emptyMessage="Password is required"
+                                    tooShortMessage="That password is too short"
+                                    onChange={this._changePasswordConfirm}/>
                                 {loading}
                             </Form>
                         </Card.Content>

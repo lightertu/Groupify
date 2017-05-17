@@ -10,7 +10,9 @@ const initialState = {
     login: { success: "", message: ""},
     loginState: "waiting",
     isAuthenticated: false,
-    user: {}
+    user: {},
+    errorDisplay: false,
+    errorMessage: ""
 };
 
 export default function activityReducer (state = initialState, action) {

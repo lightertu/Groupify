@@ -12,7 +12,9 @@ import * as Actions from '../modules/actions'
 const mapDispatchToProps = (dispatch) => ({
 	generateUser: Actions.generateUserActions.generateUser(dispatch),
 	fetchUser: Actions.fetchUserActions.fetchUser(dispatch),
-    logout: Actions.fetchUserActions.logout(dispatch)
+    logout: Actions.fetchUserActions.logout(dispatch),
+    errorDispay: Actions.errorActions.errorDispay(dispatch),
+    errorMessage: Actions.errorActions.setErrorMessage(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -22,7 +24,9 @@ const mapStateToProps = (state, ownProps) => {
     	loginState: state.login.loginState,
     	login: state.login.login,
     	user: state.login.user,
-    	auth: state.login.isAuthenticated
+    	auth: state.login.isAuthenticated,
+        errorDispay: state.login.errorDispay,
+        errorMessage: state.login.errorMessage
     }
 };
 
