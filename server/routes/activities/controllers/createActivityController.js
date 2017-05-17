@@ -4,10 +4,6 @@ const createErrorHandler = require("../../utils").createErrorHandler;
 
 const HttpStatus = require("http-status-codes");
 
-// create an activity
-
-
-
 module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
@@ -49,7 +45,7 @@ module.exports = function (req, res, next) {
                 .exec()
                 .then(function (user) {
                     return res.json({
-                        newActivity: newActivity
+                        activity: newActivity
                     })
                 })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
