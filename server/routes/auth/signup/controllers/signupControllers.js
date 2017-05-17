@@ -7,18 +7,17 @@ const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
 function signupController (req, res){
-    const payload = req.body
+    const payload = req.body;
 
     // TODO: check if the all the inputs including url parameters and payload is valid
     function validateInput(payload) {
-        if (!req.body.email || !req.body.password) {
+        if (!payload.email || !payload.password) {
             return false;
         }
         return true;
     }
 
-    // save a new activity to to the database
-    if (!validateInput()) {
+    if (!validateInput(payload)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
@@ -26,8 +25,8 @@ function signupController (req, res){
 
 
     const newUser = new User({
-        email: req.body.email,
-        password: req.body.password,
+        email: payload.email,
+        password: payload.password,
     });
 
     newUser.save()
@@ -37,7 +36,7 @@ function signupController (req, res){
                     const errorMessage = "After save the new user, user === null";
                     return createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) (errorMessage);
                 }
-                res.json(user.getPublicFields());
+                res.status(HttpStatus.CREATED).json(user.getPublicFields());
             }
         )
         .catch(

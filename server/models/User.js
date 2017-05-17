@@ -24,7 +24,7 @@ let UserSchema = Schema({
 
     password: {
         type: String,
-        default: null,
+        // default: null,
         required: true,
     },
 
