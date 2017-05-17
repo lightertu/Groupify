@@ -7,16 +7,14 @@ module.exports = function (req, res, next) {
     const activityId = req.params.activityId,
         userId = req.user._id;
 
-    // TODO: check if the payload is formatted the way we want
+    // TODO: check if the all the inputs including url parameters and payload is valid
     function validateInput() {
-        return payload !== null;
+        return true;
     }
-
+    // save a new activity to to the database
     if (!validateInput()) {
-        res.status(HttpStatus.BAD_REQUEST);
-        return res.json({
-            error: "activity object is not formatted correctly"
-        });
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
     }
 
     Activity.findOneAndUpdate(
