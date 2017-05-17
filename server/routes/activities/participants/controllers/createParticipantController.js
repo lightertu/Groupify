@@ -17,6 +17,7 @@ module.exports = function (req, res, next) {
     function validateInput() {
         return true;
     }
+
     // save a new activity to to the database
     if (!validateInput()) {
         const errorMessage = 'please give the correct payload';
