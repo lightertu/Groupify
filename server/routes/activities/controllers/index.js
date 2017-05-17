@@ -9,7 +9,7 @@ const getOneActivityController   = require("./getOneActivityController");
 const deleteActivityController   = require("./deleteActivityController");
 const updateActivityController   = require("./updateActivityController");
 
-let activitiesControllers = {
+const activitiesControllers = {
     // create an activity
     createActivityController,
 
