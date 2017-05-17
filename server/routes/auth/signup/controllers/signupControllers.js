@@ -3,35 +3,49 @@
  */
 
 const User = require("../../../../models/").User;
+const createErrorHandler = require("../../../utils").createErrorHandler;
+const HttpStatus = require("http-status-codes");
 
-module.exports = {
-    signupController: function(req, res) {
-        if (!req.body.email || !req.body.password) {
-            res.json({
-                success: false,
-                message: 'please enter an email and password to register'
-            })
+function signupController (req, res){
+    const payload = req.body;
+
+    // TODO: check if the all the inputs including url parameters and payload is valid
+    function validateInput(payload) {
+        if (!payload.email || !payload.password) {
+            return false;
         }
-        else {
-            let newUser = new User({
-                email: req.body.email,
-                password: req.body.password,
-            });
+        return true;
+    }
 
-            // try to save the new user
-            newUser.save(function(err) {
-                if (err) {                    //since users' email addresses are unique
-                    return res.json({
-                        success: false,
-                        message: 'that email address already exists'
-                    })
+    if (!validateInput(payload)) {
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
+    }
+
+
+    const newUser = new User({
+        email: payload.email,
+        password: payload.password,
+    });
+
+    newUser.save()
+        .then(
+            function (user){
+                if (user === null){
+                    const errorMessage = "After save the new user, user === null";
+                    return createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) (errorMessage);
                 }
+                res.status(HttpStatus.CREATED).json(user.getPublicFields());
+            }
+        )
+        .catch(
+            function (err) {
+                const errorMessage = "Not Accept duplicate email";
+                createErrorHandler(res, HttpStatus.NOT_ACCEPTABLE) (errorMessage);
+            }
+        );
 
-                res.json({
-                    success: true,
-                    message: 'successful created new user.'
-                })
-            });
-        }
-    },
-};
+}
+
+module.exports = signupController;

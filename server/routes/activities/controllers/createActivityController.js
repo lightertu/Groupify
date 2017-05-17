@@ -13,10 +13,10 @@ module.exports = function (req, res, next) {
         return true;
     }
 
-    // save a new activity to to the database
     if (!validateInput()) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
     }
 
     const newActivity = new Activity({

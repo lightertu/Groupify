@@ -16,6 +16,7 @@ module.exports = function (req, res, next) {
     if (!validateInput()) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
     }
 
     Participant.findOne({
