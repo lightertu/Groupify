@@ -24,7 +24,7 @@ let UserSchema = Schema({
 
     password: {
         type: String,
-        default: null,
+        // default: null,
         required: true,
     },
 
@@ -93,6 +93,16 @@ UserSchema.methods.comparePassword = function (password, callback) {
         }
         callback(null, isMatch);
     });
+};
+
+UserSchema.methods.getPublicFields = function () {
+    return {
+        name: this.name,
+        image: this.image,
+        email: this.email,
+        activities: this.activities,
+        lastModifiedTime: this.lastModifiedTime,
+    }
 };
 
 module.exports = mongoose.model('User', UserSchema);

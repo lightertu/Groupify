@@ -14,7 +14,7 @@ module.exports = function (req, res, next) {
     }
 
     if (!validateInput()) {
-
+        return;
     }
 
     Activity.findOneAndUpdate(

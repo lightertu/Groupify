@@ -16,10 +16,12 @@ module.exports = function (req, res, next) {
     if (!validateInput()) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
     }
 
     Activity.findOneAndUpdate(
-        {_id: activityId, _creator: userId, isDeleted: false},
+        {
+            _id: activityId, _creator: userId, isDeleted: false},
         {
             $set: {
                 "name": req.body.name,
