@@ -33,7 +33,6 @@ module.exports = function (req, res, next) {
         availability: payload.availability,
     });
 
-    // TODO: a very big bug here, what if user and activity has been delete should
     newParticipant.save()
         .then(function (participant) {
             Activity.findOneAndUpdate(
@@ -51,12 +50,14 @@ module.exports = function (req, res, next) {
                 .exec()
                 .then(function (activity) {
                     if (activity === null) {
+                        // synchronous
+                        Participant.remove({_id: newParticipant._id}).exec();
                         const errorMessage = "Cannot find activity has id: " + activityId + " in which to create new participant";
                         return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
                     }
 
                     return res.json({
-                        newParticipant: participant.getPublicFields()
+                        participant: participant.getPublicFields()
                     })
                 })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

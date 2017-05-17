@@ -39,8 +39,7 @@ module.exports = function (req, res, next) {
             }
 
             return res.json({
-                success: true,
-                participant: participant
+                groupNumber: participant.groupNumber
             })
         })
 

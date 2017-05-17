@@ -46,7 +46,7 @@ module.exports = function (req, res, next) {
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
             return res.json({
-                updatedActivity: activity
+                activity: activity
             });
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

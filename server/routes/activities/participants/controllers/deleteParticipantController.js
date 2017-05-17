@@ -50,7 +50,7 @@ module.exports = function (req, res, next) {
                 .exec()
                 .then(function (activity) {
                     return res.json({
-                        deletedParticipant: participant.getPublicFields()
+                        participant: participant.getPublicFields()
                     });
                 })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

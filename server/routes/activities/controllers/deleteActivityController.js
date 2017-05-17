@@ -41,7 +41,7 @@ module.exports = function (req, res, next) {
                 {new: true}
             ).exec().then(function (user) {
                 return res.json({
-                    deletedActivity: activity
+                    activity: activity
                 });
             })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

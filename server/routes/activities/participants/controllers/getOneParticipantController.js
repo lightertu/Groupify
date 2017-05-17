@@ -32,7 +32,7 @@ module.exports = function (req, res, next) {
             }
 
             return res.json({
-                updatedGroupNumber: participant.groupNumber
+                participant: participant.getPublicFields()
             })
         })
 
