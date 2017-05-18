@@ -1,23 +1,19 @@
 /**
  * Created by rui on 5/9/17.
  */
+const HttpStatus = require("http-status-codes");
+const validator = require('validator');
 
 const User = require("../../../../models/").User;
 const createErrorHandler = require("../../../utils").createErrorHandler;
-const HttpStatus = require("http-status-codes");
+
 
 function signupController (req, res){
     const payload = req.body;
+    const properties = ['email', 'password'];
 
-    // TODO: check if the all the inputs including url parameters and payload is valid
-    function validateInput(payload) {
-        if (!payload.email || !payload.password) {
-            return false;
-        }
-        return true;
-    }
-
-    if (!validateInput(payload)) {
+    // check if payload is validate
+    if (!validateInput(payload, properties)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
@@ -46,6 +42,29 @@ function signupController (req, res){
             }
         );
 
+}
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && validateEmail(payload.email)
+        && validatePassword(payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+    });
+    return res;
+}
+
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
+
+function validatePassword(password){
+    return typeof password === 'string';
 }
 
 module.exports = signupController;

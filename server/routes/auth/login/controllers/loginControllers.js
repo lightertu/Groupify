@@ -1,28 +1,25 @@
 /**
  * Created by rui on 5/9/17.
  */
-// change res.send to res.json
+
 
 const jwt = require("jsonwebtoken");
+const HttpStatus = require("http-status-codes");
+const validator = require('validator');
+
 const config = require("../../../../config/main");
 const User = require("../../../../models/").User;
 const createErrorHandler = require("../../../utils").createErrorHandler;
-const HttpStatus = require("http-status-codes");
 
 let expireTime = 12000000000000; // token expire time; unit: second
 
+
 function loginController (req, res) {
     const payload = req.body;
+    const properties = ['email', 'password'];
 
-    // TODO: check if the "email" and "password" exits in payload and the format is valid
-    function validateInput(payload) {
-        if (!payload.email || !payload.password) {
-            return false;
-        }
-        return true;
-    }
-
-    if (!validateInput(payload)) {
+    // check if payload is validate
+    if (!validateInput(payload, properties)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
@@ -31,8 +28,8 @@ function loginController (req, res) {
     User.findOne({ email: payload.email })
         .exec()
         .then(
-            function(user) {
-                // if user not found by the email
+            function (user) {
+                // check if the user email has been found
                 if (user === null){
                     const errorMessage = "Cannot find user by its email in the database";
                     createErrorHandler(res, HttpStatus.NOT_FOUND) (errorMessage);
@@ -48,7 +45,7 @@ function loginController (req, res) {
                         res.status(HttpStatus.ACCEPTED).json({token: 'JWT ' + token})
                     }
                     else {
-                        const errorMessage = "Password doesn't match"
+                        const errorMessage = "Password doesn't match";
                         createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
                     }
                 });
@@ -56,5 +53,30 @@ function loginController (req, res) {
         )
         .catch( createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) );
 }
+
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && validateEmail(payload.email)
+        && validatePassword(payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+    });
+    return res;
+}
+
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
+
+function validatePassword(password){
+    return typeof password === 'string';
+}
+
 
 module.exports = loginController;

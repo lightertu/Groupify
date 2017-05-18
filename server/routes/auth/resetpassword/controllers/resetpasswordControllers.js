@@ -1,46 +1,30 @@
 /**
  * Created by rui on 5/9/17.
  */
-const User = require("../../../../models/").User;
-const createErrorHandler = require("../../../utils").createErrorHandler;
-const HttpStatus = require("http-status-codes");
 
+
+const HttpStatus = require("http-status-codes");
+const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-
-function hashPassword(password){
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
-
-}
+const User = require("../../../../models/").User;
+const createErrorHandler = require("../../../utils").createErrorHandler;
 
 
 function resetpasswordController (req, res) {
-    let user    = req.user;
-    let payload = req.body;
+    const user    = req.user;
+    const payload = req.body;
+    const properties = ['email', 'password'];
 
-    // TODO: check if the all the inputs including url parameters and payload is valid
-    function validateInput(payload) {
-        if (!payload.email || !payload.password) {
-            return false;
-        }
-        return true;
-    }
-    // save a new activity to to the database
-    if (!validateInput(payload)) {
+    // check if payload is validate
+    if (!validateInput(payload, properties)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
 
-    console.log(payload.password);
-
     // create hashed password
     const hashedPassword = hashPassword(payload.password);
-
-    console.log(hashedPassword);
-    console.log(typeof hashedPassword);
-    console.log("abcasfdsfdsafasdfdasfsfasdfsafasdf");
 
     User.findOneAndUpdate(
         {
@@ -63,12 +47,44 @@ function resetpasswordController (req, res) {
                 return createErrorHandler(res, HttpStatus.FORBIDDEN)(errorMessage);
             }
             return res.status(HttpStatus.ACCEPTED).json({
-                // user: user.getPublicFields()
-                user: user
+                user: user.getPublicFields()
+                // user: user
             });
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 
 }
+
+
+function hashPassword(password){
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+
+}
+
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && validateEmail(payload.email)
+        && validatePassword(payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+    });
+    return res;
+}
+
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
+
+function validatePassword(password){
+    return typeof password === 'string';
+}
+
 
 module.exports = resetpasswordController;
