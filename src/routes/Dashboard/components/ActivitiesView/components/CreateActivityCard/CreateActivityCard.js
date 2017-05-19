@@ -33,14 +33,14 @@ export default class CreateActivityCard extends React.Component {
 
     render () {
         return (
-            <Card style={{maxWidth: '269.5px', backgroundColor: "#eaecef"}} onClick={this.openCreateActivityModalHandler}>
+            <Card style={{maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
                 <CreateActivityModal onClose={this.closeCreateActivityModalHandler }
                                      open={ this.state.createActivityModalOpen }/>
 
                 <div style={{ textAlign: "center",
-                    position: "relative",
-                    top: "45%",
-                    opacity: 0.2, }}>
+                              position: "relative",
+                              top: "47%",
+                              opacity: 0.2, }}>
                     <Header>
                         <Icon name='plus' />
                         New Activity
