@@ -110,10 +110,8 @@ export default class ActivityCard extends React.Component {
                     </Card.Meta>
                 </Card.Content>
                 <Card.Content extra>
-                    <a>
                         <Icon name='user'/>
                         {this.props.numberOfCurrentParticipants} / {this.props.totalCapacity}
-                    </a>
                 </Card.Content>
             </Card>
         )
