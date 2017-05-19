@@ -13,16 +13,16 @@ export default class DeleteActivityModal extends React.Component {
 
     render() {
         return (
-            <Form>
-                <Form.Group widths='equal'>
-                    <Form.Input label='Activity Name' placeholder='eg. CIS 422' />
-                    <Form.Input label='Activity End Date' placeholder='Pick a Date' />
-                </Form.Group>
-                <Form.Group widths='equal'>
-                    <Form.Input label='Total Capacity' placeholder='eg. 30' />
-                    <Form.Input label='Team Capacity' placeholder='eg. 3' />
-                </Form.Group>
-            </Form>
+    <Form>
+        <Form.Group widths='equal'>
+            <Form.Input label='Activity Name' placeholder='eg. CIS 422' />
+            <Form.Input label='Activity End Date' placeholder='Pick a Date' />
+        </Form.Group>
+        <Form.Group widths='equal'>
+            <Form.Input label='Total Capacity' placeholder='eg. 30' />
+            <Form.Input label='Team Capacity' placeholder='eg. 3' />
+        </Form.Group>
+    </Form>
         )
     }
 }

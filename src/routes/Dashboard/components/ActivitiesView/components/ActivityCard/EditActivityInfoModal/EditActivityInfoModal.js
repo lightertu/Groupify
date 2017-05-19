@@ -27,21 +27,21 @@ export default class EditActivityInfoModal extends React.Component {
 
     render() {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={"blurring"}>
-                <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
-                <Modal.Content>
-                    <ActivityInfoForm/>
+    <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={"blurring"}>
+        <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
+        <Modal.Content>
+            <ActivityInfoForm/>
 
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button negative onClick={ this.props.onClose }>
-                        Cancel
-                    </Button>
-                    <Button positive
-                            content='Submit'
-                            onClick={ this.makeActivityInfoUpdateHandler(this.props.activityId) }/>
-                </Modal.Actions>
-            </Modal>
+        </Modal.Content>
+        <Modal.Actions>
+            <Button negative onClick={ this.props.onClose }>
+                Cancel
+            </Button>
+            <Button positive
+                    content='Submit'
+                    onClick={ this.makeActivityInfoUpdateHandler(this.props.activityId) }/>
+        </Modal.Actions>
+    </Modal>
         );
     }
 }
