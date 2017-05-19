@@ -2,19 +2,42 @@
  * Created by rui on 5/16/17.
  */
 const HttpStatus = require("http-status-codes");
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
+
 const createErrorHandler = require("../../../utils.js").createErrorHandler;
-const Activity = require("../../../../models/").Activity;
-const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
 
-module.exports = function (req, res, next) {
-    // TODO: check if the all the inputs including url parameters and payload is valid
-    function validateInput() {
-        return true;
-    }
 
-    // save a new activity to to the database
-    if (!validateInput()) {
+const properties = ['groupNumber'];
+
+
+function validateInput(req) {
+    let payload = req.body;
+    return validateParameters(req.params) && validateFormat(payload, properties)
+        && validateGroupNumber(payload.groupNumber);
+}
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+    });
+    return res;
+}
+
+function validateParameters(prm) {
+    return prm.hasOwnProperty('activityId') && prm.hasOwnProperty('participantId')
+        && typeof prm.activityId === 'string' && typeof prm.participantId === 'string'
+        && ObjectIdIsValid(prm.activityId) && ObjectIdIsValid(prm.participantId);
+}
+
+function validateGroupNumber(g) {
+    return Number.isInteger(g) && g>0;
+}
+
+module.exports = function (req, res, next) {
+
+    if (!validateInput(req)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
@@ -40,7 +63,7 @@ module.exports = function (req, res, next) {
             }
 
             return res.json({
-                groupNumber: participant.groupNumber
+                groupNumber: participant.getPublicFields()
             })
         })
 

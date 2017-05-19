@@ -3,10 +3,13 @@
  */
 const Activity = require("./Activity");
 const User = require("./User");
-const Participant = require("./Participant");
+const Participant = require("./Participant").Participant;
+const ParticipantValidator = require("./Participant").ParticipantValidator;
 
 module.exports = {
     User: User,
     Activity: Activity,
-    Participant: Participant
+    Participant: Participant,
+    ParticipantValidator: ParticipantValidator,
+
 };
