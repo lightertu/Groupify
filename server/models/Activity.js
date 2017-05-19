@@ -7,54 +7,75 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let ActivitySchema = Schema({
-    _activityOrganizer: {
+    _creator: {
         type: Schema.ObjectId,
         ref: "User",
-        isRequired: true,
+        required: true,
     },
 
     participants: {
-        type: [{ type: Schema.ObjectId, ref: "Participant"}]
+        type: [{ type: Schema.ObjectId, ref: "Participant"}],
+        default: [],
     },
 
     groupCapacity: {
         type: Number,
-        isRequired: true,
+        required: true,
     },
 
     totalCapacity: {
         type: Number,
-        isRequired: true,
+        required: true,
     },
 
     name: {
         type: String,
         default: "",
-        isRequired: true,
+        required: true,
     },
 
     endDate: {
         type: Date,
-        default: Date.now,
-        isRequired: true,
+        // default end date is 2 months from the activity is created
     },
 
     // every model has this
     isDeleted: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true,
     },
 
     createdAt: {
         type: Date,
         default: Date.now,
-        isRequired: true,
+        required: true,
     },
 
     lastModifiedTime: {
         type: Date,
         default: Date.now,
+        required: true,
     }
 });
 
+ActivitySchema.pre('save', function(next){
+    let activity = this;
+
+    if (!this.isNew){
+        activity.lastModifiedTime = Date.now();
+    }
+    next();
+});
+
+ActivitySchema.methods.getPublicFields = function () {
+    return {
+        name: this.name,
+        totalCapacity: this.totalCapacity,
+        groupCapacity: this.groupCapacity,
+        endDate: this.endDate,
+        participants: this.participants,
+        lastModifiedTime: this.lastModifiedTime,
+    };
+};
 module.exports = mongoose.model('Activity', ActivitySchema);
