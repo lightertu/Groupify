@@ -3,26 +3,32 @@
  */
 
 import React from 'react'
-import PropTypes from 'prop-types';
-import {Button, Card, Dropdown, Form, Header, Icon, Modal, Segment} from "semantic-ui-react";
+import PropTypes from 'prop-types'
+import { Button, Card, Dropdown, Form, Header, Icon, Modal, Segment } from 'semantic-ui-react'
 
 export default class DeleteActivityModal extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props)
     }
 
-    render() {
+    handleSubmit(event) {
+        alert('form is submitted');
+        event.preventDefault();
+    }
+
+    render () {
         return (
-    <Form>
-        <Form.Group widths='equal'>
-            <Form.Input label='Activity Name' placeholder='eg. CIS 422' />
-            <Form.Input label='Activity End Date' placeholder='Pick a Date' />
-        </Form.Group>
-        <Form.Group widths='equal'>
-            <Form.Input label='Total Capacity' placeholder='eg. 30' />
-            <Form.Input label='Team Capacity' placeholder='eg. 3' />
-        </Form.Group>
-    </Form>
+            <Form onSubmit={ this.handleSubmit} >
+                <Form.Group widths='equal'>
+                    <Form.Input label='Activity Name' placeholder='eg. CIS 422'/>
+                    <Form.Input label='Activity End Date' placeholder='Pick a Date'/>
+                </Form.Group>
+                <Form.Group widths='equal'>
+                    <Form.Input label='Total Capacity' placeholder='eg. 30'/>
+                    <Form.Input label='Team Capacity' placeholder='eg. 3'/>
+                </Form.Group>
+                <Button type='submit'>Submit</Button>
+            </Form>
         )
     }
 }

@@ -20,7 +20,7 @@ export default class ActivitiesView extends React.Component {
 
     render () {
         const renderActivityCards = () => {
-            this.props.activitiesViewData.activities.map((activityObj) => (
+            return this.props.activitiesViewData.activities.map((activityObj) => (
                 <ActivityCard color={activityObj.color}
                               name={activityObj.name}
                               endDate={activityObj.endDate}
