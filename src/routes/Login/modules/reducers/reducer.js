@@ -12,7 +12,8 @@ const initialState = {
     isAuthenticated: false,
     user: {},
     errorDisplay: false,
-    errorMessage: ""
+    errorMessage: "",
+    errorColor: ""
 };
 
 export default function activityReducer (state = initialState, action) {
@@ -27,6 +28,8 @@ export default function activityReducer (state = initialState, action) {
             return ActionsHandlers.errorActionsHandlers.handleErrorTrue(state);
         case Actions.errorActions.SET_ERROR_FALSE:
             return ActionsHandlers.errorActionsHandlers.handleErrorFalse(state);
+        case Actions.errorActions.SET_ERROR_COLOR:
+            return ActionHandlers.errorActionsHandlers.handleErrorColor(state, action.payload)
 
         // set current user
         case Actions.authActions.SET_CURRENT_USER:

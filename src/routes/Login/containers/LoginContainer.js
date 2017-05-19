@@ -14,7 +14,8 @@ const mapDispatchToProps = (dispatch) => ({
 	fetchUser: Actions.fetchUserActions.fetchUser(dispatch),
     logout: Actions.fetchUserActions.logout(dispatch),
     setErrorDisplay: Actions.errorActions.setErrorDisplay(dispatch),
-    setErrorMessage: Actions.errorActions.setErrorMessage(dispatch)
+    setErrorMessage: Actions.errorActions.setErrorMessage(dispatch),
+    setErrorColor: Actions.errorActions.setErrorColor(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
     	user: state.login.user,
     	auth: state.login.isAuthenticated,
         errorDisplay: state.login.errorDisplay,
-        errorMessage: state.login.errorMessage
+        errorMessage: state.login.errorMessage,
+        errorColor: state.login.errorColor
     }
 };
 
