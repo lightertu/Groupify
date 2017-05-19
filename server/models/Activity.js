@@ -78,4 +78,29 @@ ActivitySchema.methods.getPublicFields = function () {
         lastModifiedTime: this.lastModifiedTime,
     };
 };
-module.exports = mongoose.model('Activity', ActivitySchema);
+
+
+function validateName(name){
+    return typeof name === 'string';
+}
+
+
+function validateCapacities(g, t){
+    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
+}
+
+
+function validateDate(date) {
+    return typeof date === 'string' && validator.toDate(date) !== null;
+}
+
+function ActivityValidator(name, groupCap, totalCap, endD){
+    return validateName(name)
+        && validateCapacities(groupCap, totalCap)
+        && validateDate(endD);
+}
+
+module.exports = {
+    Activity: mongoose.model('Activity', ActivitySchema),
+    ActivityValidator: ActivityValidator,
+};

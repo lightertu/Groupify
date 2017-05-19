@@ -1,8 +1,9 @@
 const validator = require('validator');
 const HttpStatus = require("http-status-codes");
 
-const Activity = require("../../../models/").Activity;
 const User = require("../../../models/").User;
+const Activity = require("../../../models/").Activity;
+const ActivityValidator = require("../../../models/").ActivityValidator;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
@@ -11,9 +12,8 @@ const properties = ['name', 'groupCapacity', 'totalCapacity', 'endDate'];
 
 function validateInput(payload) {
     return validateFormat(payload, properties)
-        && validateName(payload.name)
-        && validateCapacities(payload.groupCapacity, payload.totalCapacity)
-        && validateDate(payload.endDate);
+        && ActivityValidator(payload.name, payload.groupCapacity,
+            payload.totalCapacity, payload.endDate);
 }
 
 
@@ -23,21 +23,6 @@ function validateFormat(payload, properties){
         res = res && payload.hasOwnProperty(property);
     });
     return res;
-}
-
-
-function validateName(name){
-    return typeof name === 'string';
-}
-
-
-function validateCapacities(g, t){
-    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
-}
-
-
-function validateDate(date) {
-    return typeof date === 'string' && validator.toDate(date) !== null;
 }
 
 

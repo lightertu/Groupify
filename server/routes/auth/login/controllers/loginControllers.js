@@ -5,18 +5,34 @@
 
 const jwt = require("jsonwebtoken");
 const HttpStatus = require("http-status-codes");
-const validator = require('validator');
 
 const config = require("../../../../config/main");
 const User = require("../../../../models/").User;
+const UserLoginInfoValidator = require("../../../../models/").UserLoginInfoValidator;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 
-let expireTime = 12000000000000; // token expire time; unit: second
+
+const expireTime = 12000000000000; // token expire time; unit: second
+const properties = ['email', 'password'];
+
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && UserLoginInfoValidator(payload.email, payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let result = true;
+    properties.forEach(function (property) {
+        result = result && payload.hasOwnProperty(property);
+    });
+    return result;
+}
 
 
 function loginController (req, res) {
     const payload = req.body;
-    const properties = ['email', 'password'];
 
     // check if payload is validate
     if (!validateInput(payload, properties)) {
@@ -52,30 +68,6 @@ function loginController (req, res) {
             }
         )
         .catch( createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) );
-}
-
-
-function validateInput(payload, properties) {
-    return validateFormat(payload, properties)
-        && validateEmail(payload.email)
-        && validatePassword(payload.password);
-}
-
-
-function validateFormat(payload, properties){
-    let res = true;
-    properties.forEach(function (property) {
-        res = res && payload.hasOwnProperty(property);
-    });
-    return res;
-}
-
-function validateEmail(email){
-    return typeof email === 'string' && validator.isEmail(email);
-}
-
-function validatePassword(password){
-    return typeof password === 'string';
 }
 
 

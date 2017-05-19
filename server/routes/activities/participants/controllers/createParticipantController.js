@@ -2,7 +2,6 @@
  * Created by rui on 5/16/17.
  */
 const Activity = require("../../../../models/").Activity;
-const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
 const ParticipantValidator = require("../../../../models").ParticipantValidator;
 const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;

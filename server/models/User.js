@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 const Schema = mongoose.Schema;
 
@@ -105,4 +106,37 @@ UserSchema.methods.getPublicFields = function () {
     }
 };
 
-module.exports = mongoose.model('User', UserSchema);
+
+
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
+
+function validatePassword(password){
+    return typeof password === 'string';
+}
+
+function validateName(name){
+    return typeof name === 'string';
+}
+
+function validateImage(image) {
+    return true;
+}
+
+
+function UserLoginInfoValidator(email, password) {
+    return validateEmail(email) && validatePassword(password);
+}
+
+function UserProfileValidator(name, image) {
+    return validateName(name) && validateImage(image);
+}
+
+
+
+module.exports = {
+    User                   :   mongoose.model('User', UserSchema),
+    UserProfileValidator   :   UserProfileValidator,
+    UserLoginInfoValidator :   UserLoginInfoValidator,
+};

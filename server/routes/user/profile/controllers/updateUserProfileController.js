@@ -1,38 +1,30 @@
-const User = require("../../../../models/").User;
-const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
+
+const User = require("../../../../models/").User;
+const UserProfileValidator = require("../../../../models/").UserProfileValidator;
+const createErrorHandler = require("../../../utils").createErrorHandler;
+
+
+const properties = ['name', 'image'];
 
 
 function validateInput(payload, properties) {
     return validateFormat(payload, properties)
-        && validateName(payload.name)
-        && validateImage(payload.image);
+        && UserProfileValidator(payload.name, payload.image);
 }
 
 
 function validateFormat(payload, properties){
-    let res = true;
+    let result = true;
     properties.forEach(function (property) {
-        res = res && payload.hasOwnProperty(property);
+        result = result && payload.hasOwnProperty(property);
     });
-    return res;
-}
-
-
-function validateName(name){
-    return typeof name === 'string';
-}
-
-
-// TODO: we need to some work to check the image data in "validateImage"
-function validateImage(password){
-    return true;
+    return result;
 }
 
 
 module.exports = function (req, res, next){
     const payload = req.body;
-    const properties = ['name', 'image'];
 
     // save a new activity to to the database
     if (!validateInput(payload, properties)) {
