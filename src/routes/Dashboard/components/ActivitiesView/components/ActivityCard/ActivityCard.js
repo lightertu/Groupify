@@ -91,8 +91,8 @@ export default class ActivityCard extends React.Component {
                          alpha: 0.7,
                      })
                      }}>
-                    <Dropdown icon={ <Icon name="edit" size="large" inverted/>} style={{left: '5px'}}>
-                        <Dropdown.Menu style={{left: '-56px'}}>
+                    <Dropdown icon={ <Icon name="edit" size="big" inverted/>} style={{left: '2px', top: "5px"}}>
+                        <Dropdown.Menu style={{left: '-48px'}}>
 
                             <Dropdown.Item text='Edit'
                                            onClick={ this.openActivityInfoHandler }/>
