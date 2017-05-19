@@ -5,6 +5,8 @@ let mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const numOfTimeSlot = 7;
+
 const ParticipantSchema = new Schema({
     name: {
         type: String,
@@ -32,16 +34,18 @@ const ParticipantSchema = new Schema({
     skills: {
         type: [{name: String}],
         default: [],
+        required: true
     },
 
     groupNumber: {
         type: Number,
         default: -1,
+        required: true
     },
 
     availability: {
-        type: [Number],
-        default: [],
+        type: [Boolean],
+        required: true
 
         //TODO: validate data
         //validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
@@ -78,12 +82,55 @@ ParticipantSchema.pre('save', function(next){
 ParticipantSchema.methods.getPublicFields = function () {
     return {
         name: this.name,
-        image: this.totalCapacity,
-        groupNumber: this.groupCapacity,
-        availability: this.endDate,
+        image: this.image,
+        groupNumber: this.groupNumber,
+        availability: this.availability,
         skills: this.skills,
         lastModifiedTime: this.lastModifiedTime,
     };
 };
 
-module.exports = mongoose.model('Participant', ParticipantSchema);
+
+function validateName(name){
+    return typeof name === 'string';
+}
+
+
+// TODO: implement image function
+function validateImage(image){
+    return true;
+}
+
+
+function validateSkills(skills) {
+    let result = Array.isArray(skills);
+    if (result === true){
+        skills.forEach(function (s) {
+            result = result && (s.hasOwnProperty('name') ? typeof s.name === 'string' : false);
+        });
+    }
+    return result;
+}
+
+function validateAvailability(avail) {
+    let result = Array.isArray(avail);
+    if (result === true){
+        avail.forEach(function (a) {
+            result = result && typeof a === 'boolean';
+        });
+    }
+    result = result && avail.length === numOfTimeSlot;
+    return result;
+}
+
+function ParticipantValidator(name, image, skills, avail) {
+    return validateName(name)
+        && validateImage(image)
+        && validateSkills(skills)
+        && validateAvailability(avail);
+}
+
+module.exports = {
+    Participant             : mongoose.model('Participant', ParticipantSchema),
+    ParticipantValidator    : ParticipantValidator,
+};

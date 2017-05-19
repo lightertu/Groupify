@@ -3,18 +3,24 @@
  */
 const HttpStatus = require("http-status-codes");
 const createErrorHandler = require("../../../utils.js").createErrorHandler;
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
+
 const Activity = require("../../../../models/").Activity;
-const User = require("../../../../models/").User;
-const Participant = require("../../../../models/").Participant;
+
+
+function validateInput(req) {
+    return validateParameters(req.params) ;
+}
+
+function validateParameters(prm) {
+    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string'
+        && ObjectIdIsValid(prm.activityId);
+}
+
 
 module.exports = function (req, res, next) {
-    // TODO: check if the all the inputs including url parameters and payload is valid
-    function validateInput() {
-        return true;
-    }
-    // save a new activity to to the database
-    if (!validateInput()) {
-        const errorMessage = 'please give the correct payload';
+    if (!validateInput(req)) {
+        const errorMessage = 'please give the correct activityID in URL';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
