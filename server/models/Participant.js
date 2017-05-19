@@ -5,21 +5,25 @@ let mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const Participant = new Schema({
+const numOfTimeSlot = 7;
+
+const ParticipantSchema = new Schema({
     name: {
         type: String,
         default: "",
         required: true,
     },
 
-    _activity :{
+    _creator: {
         type: Schema.ObjectId,
-        ref: 'Activity'
+        ref: 'User',
+        required: true,
     },
 
-    _activityOrganizer: {
+    _activity :{
         type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'Activity',
+        required: true
     },
 
     image: {
@@ -30,17 +34,21 @@ const Participant = new Schema({
     skills: {
         type: [{name: String}],
         default: [],
+        required: true
     },
 
     groupNumber: {
         type: Number,
         default: -1,
+        required: true
     },
 
     availability: {
-        type: [Number],
-        default: [],
-        validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
+        type: [Boolean],
+        required: true
+
+        //TODO: validate data
+        //validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
     },
 
 
@@ -53,13 +61,76 @@ const Participant = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
-        isRequired: true,
+        required: true,
     },
 
-    lastModifiedAt: {
+    lastModifiedTime: {
         type: Date,
         default: Date.now,
     }
 });
 
-module.exports = mongoose.model('Participant', Participant);
+ParticipantSchema.pre('save', function(next){
+    let participant = this;
+
+    if (!this.isNew){
+        participant.lastModifiedTime = Date.now();
+    }
+    next();
+});
+
+ParticipantSchema.methods.getPublicFields = function () {
+    return {
+        name: this.name,
+        image: this.image,
+        groupNumber: this.groupNumber,
+        availability: this.availability,
+        skills: this.skills,
+        lastModifiedTime: this.lastModifiedTime,
+    };
+};
+
+
+function validateName(name){
+    return typeof name === 'string';
+}
+
+
+// TODO: implement image function
+function validateImage(image){
+    return true;
+}
+
+
+function validateSkills(skills) {
+    let result = Array.isArray(skills);
+    if (result === true){
+        skills.forEach(function (s) {
+            result = result && (s.hasOwnProperty('name') ? typeof s.name === 'string' : false);
+        });
+    }
+    return result;
+}
+
+function validateAvailability(avail) {
+    let result = Array.isArray(avail);
+    if (result === true){
+        avail.forEach(function (a) {
+            result = result && typeof a === 'boolean';
+        });
+    }
+    result = result && avail.length === numOfTimeSlot;
+    return result;
+}
+
+function ParticipantValidator(name, image, skills, avail) {
+    return validateName(name)
+        && validateImage(image)
+        && validateSkills(skills)
+        && validateAvailability(avail);
+}
+
+module.exports = {
+    Participant             : mongoose.model('Participant', ParticipantSchema),
+    ParticipantValidator    : ParticipantValidator,
+};
