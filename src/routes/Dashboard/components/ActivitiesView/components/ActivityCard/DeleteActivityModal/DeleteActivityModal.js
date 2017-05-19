@@ -32,12 +32,12 @@ export default class DeleteActivityModal extends React.Component {
                     <p>Are you sure you want to activity {this.props.name} </p>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button negative onClick={ this.props.onClose }>
-                        No
+                    <Button positive onClick={ this.props.onClose }>
+                        Cancel
                     </Button>
-                    <Button positive icon='checkmark'
+                    <Button negative icon='checkmark'
                             labelPosition='right'
-                            content='Yes'
+                            content='Delete'
                             onClick={ this.makeDeleteHandler(this.props.activityId) }/>
                 </Modal.Actions>
             </Modal>
