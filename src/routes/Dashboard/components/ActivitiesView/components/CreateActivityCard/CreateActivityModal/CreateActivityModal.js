@@ -23,6 +23,11 @@ export default class Create extends React.Component {
         close();
     };
 
+    createActivity = (payload) => {
+        //TODO: implement this and update store
+        console.log(payload);
+    }
+
     render() {
         return (
             <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
@@ -35,7 +40,8 @@ export default class Create extends React.Component {
                                       name={this.props.name}
                                       endDate={this.props.endDate}
                                       groupCapacity={this.props.groupCapacity}
-                                      totalCapacity={this.props.totalCapacity} />
+                                      totalCapacity={this.props.totalCapacity}
+                                      submitForm={ this.createActivity }/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }

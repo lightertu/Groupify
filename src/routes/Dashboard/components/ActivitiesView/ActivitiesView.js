@@ -40,7 +40,6 @@ export default class ActivitiesView extends React.Component {
                 <hr style={{borderTop: '2px solid #8c8b8b', marginBottom: '15px'}}/>
                 <Card.Group>
                     { renderActivityCards() }
-
                     <CreateActivityCard/>
                 </Card.Group>
             </div>

@@ -13,7 +13,6 @@ export default class EditActivityInfoModal extends React.Component {
 
     static propTypes = {
         onClose: PropTypes.func.isRequired,
-
         activityId: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         endDate: PropTypes.string.isRequired,
@@ -22,11 +21,16 @@ export default class EditActivityInfoModal extends React.Component {
     }
 
     /* using error function to bind this */
-    activityInfoUpdateHandler = (e) => {
+    saveChangeButtonHandler = (e) => {
         /* the only thing this handler does it that it trigger the form to submit */
         this.activityFormButton.click()
         const close = this.props.onClose;
         close();
+    };
+
+    updateActivity = (payload) => {
+        //TODO: implement submit form
+        console.log(payload);
     };
 
     render () {
@@ -41,7 +45,8 @@ export default class EditActivityInfoModal extends React.Component {
                                       name={this.props.name}
                                       endDate={this.props.endDate}
                                       groupCapacity={this.props.groupCapacity}
-                                      totalCapacity={this.props.totalCapacity} />
+                                      totalCapacity={this.props.totalCapacity}
+                                      submitForm={this.updateActivity}/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }
@@ -50,7 +55,7 @@ export default class EditActivityInfoModal extends React.Component {
                     </Button>
                     <Button positive
                             content='Save Changes'
-                            onClick={ this.activityInfoUpdateHandler }
+                            onClick={ this.saveChangeButtonHandler }
                     />
                 </Modal.Actions>
             </Modal>
