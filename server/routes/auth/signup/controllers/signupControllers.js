@@ -6,6 +6,7 @@ const User = require("../../../../models/").User;
 
 module.exports = {
     signupController: function(req, res) {
+        
         if (!req.body.email || !req.body.password) {
             res.json({
                 success: false,
