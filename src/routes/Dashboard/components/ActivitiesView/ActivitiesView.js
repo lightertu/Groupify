@@ -7,6 +7,7 @@ import { Button, Card, Dropdown, Header, Icon, Modal, Segment } from 'semantic-u
 import randomColor from 'randomcolor'
 
 import ActivityCard from './components/ActivityCard'
+import CreateActivityCard from './components/CreateActivityCard/CreateActivityCard'
 
 export default class ActivitiesView extends React.Component {
     constructor (props) {
@@ -40,17 +41,7 @@ export default class ActivitiesView extends React.Component {
                 <Card.Group>
                     { renderActivityCards() }
 
-                    <Card style={{maxWidth: '269.5px', backgroundColor: "#eaecef"}} link>
-                        <div style={{ textAlign: "center",
-                                      position: "relative",
-                                      top: "45%",
-                                      opacity: 0.2, }}>
-                            <Header>
-                                <Icon name='plus' />
-                                New Activity
-                            </Header>
-                        </div>
-                    </Card>
+                    <CreateActivityCard/>
                 </Card.Group>
             </div>
         )
