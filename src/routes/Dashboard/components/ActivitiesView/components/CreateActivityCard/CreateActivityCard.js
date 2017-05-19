@@ -5,7 +5,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Dropdown, Header, Icon, Modal, Segment } from 'semantic-ui-react'
 import { browserHistory } from 'react-router';
-import DeleteActivityModal from './CreateActivityModal/CreateActivityModal'
+import CreateActivityModal from './CreateActivityModal'
+import ActivityInfoForm from '../ActivityInfoForm/ActivityInfoForm'
 
 export default class CreateActivityCard extends React.Component {
     constructor (props) {
@@ -33,11 +34,8 @@ export default class CreateActivityCard extends React.Component {
     render () {
         return (
             <Card style={{maxWidth: '269.5px', backgroundColor: "#eaecef"}} onClick={this.openCreateActivityModalHandler}>
-
-                <DeleteActivityModal open={ this.state.createActivityModalOpen }
-                                     onClose={this.closeCreateActivityModalHandler }
-                                     name={this.props.name}
-                                     activityId={this.props.activityId}/>
+                <CreateActivityModal onClose={this.closeCreateActivityModalHandler }
+                                     open={ this.state.createActivityModalOpen }/>
 
                 <div style={{ textAlign: "center",
                     position: "relative",

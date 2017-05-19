@@ -4,7 +4,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Form, Modal } from 'semantic-ui-react'
-import ActivityInfoForm from "./ActivityInfoForm"
+import ActivityInfoForm from "../../ActivityInfoForm"
 
 export default class EditActivityInfoModal extends React.Component {
     constructor (props) {

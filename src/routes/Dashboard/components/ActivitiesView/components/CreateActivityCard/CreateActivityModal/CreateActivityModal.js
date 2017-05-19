@@ -4,6 +4,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {Button, Modal} from "semantic-ui-react";
+import ActivityInfoForm from '../../ActivityInfoForm'
 
 export default class Create extends React.Component {
     constructor(props) {
@@ -11,32 +12,40 @@ export default class Create extends React.Component {
     }
 
     static propTypes = {
+        open: PropTypes.bool.isRequired,
         onClose: PropTypes.func.isRequired
     };
 
-    makeDeleteHandler (activityId)  {
-        let close = this.props.onClose;
-        return function() {
-            close();
-            //TODO: fire an action to delete an activity
-        }
+    createActivityHandler = (e) => {
+        /* the only thing this handler does it that it trigger the form to submit */
+        this.activityFormButton.click()
+        const close = this.props.onClose;
+        close();
     };
 
     render() {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={"blurring"}>
-                <Modal.Header> Delete Activity {this.props.name } </Modal.Header>
+            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
+                <Modal.Header> Create Activity </Modal.Header>
                 <Modal.Content>
-                    <p>Are you sure you want to activity {this.props.name} </p>
+
+                    {/* this trigger the button inside the form however the button is hidden in css */}
+                    <ActivityInfoForm submitButtonRef = { (button) => { this.activityFormButton = button } }
+                                      activityId={this.props.activityId}
+                                      name={this.props.name}
+                                      endDate={this.props.endDate}
+                                      groupCapacity={this.props.groupCapacity}
+                                      totalCapacity={this.props.totalCapacity} />
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button positive onClick={ this.props.onClose }>
+                    <Button negative onClick={ this.props.onClose }
+                    >
                         Cancel
                     </Button>
-                    <Button negative icon='checkmark'
-                            labelPosition='right'
-                            content='Delete'
-                            onClick={ this.makeDeleteHandler(this.props.activityId) }/>
+                    <Button positive
+                            content='Create'
+                            onClick={ this.createActivityHandler }
+                    />
                 </Modal.Actions>
             </Modal>
         );
