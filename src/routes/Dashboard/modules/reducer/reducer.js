@@ -6,10 +6,14 @@ import * as Actions from "../actions"
 import * as ActionHandlers from "./actionHandlers"
 
 const initialState = {
-    activities: {},
-    accountSettings: {}
+    activitiesViewData: {
+        activities: []
+    },
+    accountSettingsViewData: {
+        email: "",
+        name: ""
+    }
 };
-
 
 let dashboardReducer = (state = initialState, action) => {
     switch(action.type) {
