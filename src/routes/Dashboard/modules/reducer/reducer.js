@@ -10,10 +10,11 @@ const initialState = {
         activities: [
             {
                 color: "white",
-                name: "cis422",
+                activityId: "thisdawyghujiklasdawasda",
+                name: "CIS 422",
                 endDate: "1911",
-                numberOfCurrentParticipants: 20,
                 groupCapacity: 10,
+                totalCapacity: 40,
                 participants: [1,2,3,4]
             }
         ]

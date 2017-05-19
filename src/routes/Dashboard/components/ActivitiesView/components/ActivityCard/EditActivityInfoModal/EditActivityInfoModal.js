@@ -2,31 +2,32 @@
  * Created by rui on 5/5/17.
  */
 import React from 'react'
-
 import PropTypes from 'prop-types'
 import { Button, Form, Modal } from 'semantic-ui-react'
+import ActivityInfoForm from "./ActivityInfoForm"
 
 export default class EditActivityInfoModal extends React.Component {
     constructor (props) {
         super(props)
-        this.makeActivityInfoUpdateHandler = this.makeActivityInfoUpdateHandler.bind(this);
     }
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
+        onClose: PropTypes.func.isRequired,
+
         activityId: PropTypes.string.isRequired,
-        onClose: PropTypes.func.isRequired
+        name: PropTypes.string.isRequired,
+        endDate: PropTypes.string.isRequired,
+        totalCapacity: PropTypes.number.isRequired,
+        groupCapacity: PropTypes.number.isRequired,
     }
 
-    activityInfoUpdateHandler () {
-        // the only thing this handler does it that it trigger the form to submit
+    /* using error function to bind this */
+    activityInfoUpdateHandler = (e) => {
+        /* the only thing this handler does it that it trigger the form to submit */
         this.activityFormButton.click()
+        const close = this.props.onClose;
+        close();
     };
-
-    handleSubmit (event) {
-        console.log('form is submitted')
-        event.preventDefault()
-    }
 
     render () {
         return (
@@ -34,19 +35,13 @@ export default class EditActivityInfoModal extends React.Component {
                 <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
                 <Modal.Content>
 
-                    {/* this form has to stay here for a while, it cannot be separated out from this file yet */}
-                    <Form onSubmit={ this.handleSubmit} >
-                        <Form.Group widths='equal'>
-                            <Form.Input label='Activity Name' placeholder='eg. CIS 422'/>
-                            <Form.Input label='Activity End Date' placeholder='Pick a Date'/>
-                        </Form.Group>
-                        <Form.Group widths='equal'>
-                            <Form.Input label='Total Capacity' placeholder='eg. 30'/>
-                            <Form.Input label='Team Capacity' placeholder='eg. 3'/>
-                        </Form.Group>
-                        <button style={{display: "none"}} type='submit' ref={ (button) => { this.activityFormButton = button } } >Submit</button>
-                    </Form>
-
+                    {/* this trigger the button inside the form however the button is hidden in css */}
+                    <ActivityInfoForm submitButtonRef = { (button) => { this.activityFormButton = button } }
+                                      activityId={this.props.activityId}
+                                      name={this.props.name}
+                                      endDate={this.props.endDate}
+                                      groupCapacity={this.props.groupCapacity}
+                                      totalCapacity={this.props.totalCapacity} />
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }
@@ -54,7 +49,7 @@ export default class EditActivityInfoModal extends React.Component {
                             Cancel
                     </Button>
                     <Button positive
-                            content='Submit'
+                            content='Save Changes'
                             onClick={ this.activityInfoUpdateHandler }
                     />
                 </Modal.Actions>
