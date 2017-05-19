@@ -36,7 +36,7 @@ function validateFormat(payload, properties){
 
 module.exports = function (req, res, next) {
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give valid activityID in URL and correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

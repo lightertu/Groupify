@@ -63,7 +63,7 @@ module.exports = function (req, res, next) {
                 .exec()
                 .then(function (user) {
                     return res.json({
-                        activity: newActivity
+                        activity: newActivity.getPublicFields()
                     })
                 })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

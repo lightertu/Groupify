@@ -21,7 +21,7 @@ function validateParameters(prm) {
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the correct activityID in URL';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

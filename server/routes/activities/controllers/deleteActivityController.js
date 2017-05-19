@@ -20,7 +20,7 @@ function validateParameters(prm) {
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the valid activityID in url';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

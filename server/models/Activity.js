@@ -2,7 +2,8 @@
  * Created by rui on 4/24/17.
  */
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const Schema = mongoose.Schema;
 

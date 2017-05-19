@@ -19,7 +19,6 @@ function validateInput(req) {
 }
 
 
-// TODO: MAY THINK FURTHER HERE
 function validateParameters(prm) {
     return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string'
         && ObjectIdIsValid(prm.activityId);
@@ -35,26 +34,11 @@ function validateFormat(payload, properties){
 }
 
 
-function validateName(name){
-    return typeof name === 'string';
-}
-
-
-function validateCapacities(g, t){
-    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
-}
-
-
-function validateDate(date) {
-    return typeof date === 'string' && validator.toDate(date) !== null;
-}
-
-
 
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the valid activityID in url and correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

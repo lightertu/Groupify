@@ -4,6 +4,7 @@
 
 
 const HttpStatus = require("http-status-codes");
+const bcrypt = require('bcryptjs');
 
 const User = require("../../../../models/").User;
 const UserLoginInfoValidator = require("../../../../models/").UserLoginInfoValidator;
@@ -23,6 +24,12 @@ function validateFormat(payload, properties){
         result = result && payload.hasOwnProperty(property);
     });
     return result;
+}
+
+function hashPassword(password){
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+
 }
 
 
