@@ -1,36 +1,70 @@
 /**
  * Created by rui on 5/9/17.
  */
+const HttpStatus = require("http-status-codes");
+const validator = require('validator');
 
 const User = require("../../../../models/").User;
+const createErrorHandler = require("../../../utils").createErrorHandler;
 
-module.exports = {
-    signupController: function(req, res) {
-        if (!req.body.email || !req.body.password) {
-            res.json({
-                success: false,
-                message: 'please enter an email and password to register'
-            })
-        } else {
-            let newUser = new User({
-                email: req.body.email,
-                password: req.body.password,
-            });
 
-            // try to save the new user
-            newUser.save(function(err) {
-                if (err) {
-                    return res.json({
-                        success: false,
-                        message: 'that email address already exists'
-                    })
+function signupController (req, res){
+    const payload = req.body;
+    const properties = ['email', 'password'];
+
+    // check if payload is validate
+    if (!validateInput(payload, properties)) {
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
+    }
+
+
+    const newUser = new User({
+        email: payload.email,
+        password: payload.password,
+    });
+
+    newUser.save()
+        .then(
+            function (user){
+                if (user === null){
+                    const errorMessage = "After save the new user, user === null";
+                    return createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR) (errorMessage);
                 }
+                res.status(HttpStatus.CREATED).json(user.getPublicFields());
+            }
+        )
+        .catch(
+            function (err) {
+                const errorMessage = "Not Accept duplicate email";
+                createErrorHandler(res, HttpStatus.NOT_ACCEPTABLE) (errorMessage);
+            }
+        );
 
-                res.json({
-                    success: true,
-                    message: 'successful created new user.'
-                })
-            })
-        }
-    },
-};
+}
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && validateEmail(payload.email)
+        && validatePassword(payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+    });
+    return res;
+}
+
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
+
+function validatePassword(password){
+    return typeof password === 'string';
+}
+
+module.exports = signupController;

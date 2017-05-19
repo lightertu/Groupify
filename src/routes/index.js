@@ -6,6 +6,7 @@ import CounterRoute from './Counter'
 import WelcomeRoute from './Welcome'
 import Dashboard from './Dashboard'
 import Survey from './Survey'
+import PageNotFound from './PageNotFound'
 
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -21,7 +22,8 @@ export const createRoutes = (store) => ({
         ActivityRoute(store),
         LoginRoute(store),
         Dashboard(store),
-        Survey(store)
+        Survey(store),
+        PageNotFound(store),
     ]
 });
 

@@ -10,8 +10,6 @@ import setAuthorizationToken from './components/utils/setAuthorizationToken';
 import jwt from "jsonwebtoken";
 import { setCurrentUser } from './routes/Login/modules/actions/authActions'
 
-injectTapEventPlugin();
-
 // ========================================================
 // Store Instantiation
 // ========================================================
