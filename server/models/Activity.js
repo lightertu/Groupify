@@ -4,8 +4,10 @@
 
 const mongoose = require('mongoose');
 const validator = require('validator');
+const randomColor = require('randomcolor');
 
 const Schema = mongoose.Schema;
+
 
 let ActivitySchema = Schema({
     _creator: {
@@ -33,6 +35,11 @@ let ActivitySchema = Schema({
         type: String,
         default: "",
         required: true,
+    },
+
+    color: {
+        type: String,
+        default: activityRandomColorGenerator,
     },
 
     endDate: {
@@ -81,6 +88,23 @@ ActivitySchema.methods.getPublicFields = function () {
 };
 
 
+
+
+// generate Color
+const randomColorType = {
+    luminosity: 'dark',
+    format: 'hsla',
+    alpha: 0.7,
+};
+
+
+function activityRandomColorGenerator(){
+    return randomColor(randomColorType);
+}
+
+
+
+// validate input
 function validateName(name){
     return typeof name === 'string';
 }
@@ -101,6 +125,9 @@ function ActivityValidator(name, groupCap, totalCap, endD){
         && validateDate(endD);
 }
 
+
+
+// export to other file
 module.exports = {
     Activity: mongoose.model('Activity', ActivitySchema),
     ActivityValidator: ActivityValidator,
