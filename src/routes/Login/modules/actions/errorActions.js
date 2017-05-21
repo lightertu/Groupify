@@ -32,9 +32,15 @@ let setErrorMessage = (dispatch) => {
     }
 };
 
+export const SET_ERROR_COLOR = "SET_ERROR_COLOR";
+let setErrorColor = (color) => {
+    return { type: SET_ERROR_COLOR, payload: color};
+};
+
 export {
     setErrorFalse,
     setErrorTrue,
     setErrorMessage,
-    setErrorDisplay
+    setErrorDisplay,
+    setErrorColor
 }

@@ -7,7 +7,6 @@ const validator = require('validator');
 const User = require("../../../../models/").User;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 
-
 function signupController (req, res){
     const payload = req.body;
     const properties = ['email', 'password'];

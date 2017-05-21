@@ -79,7 +79,7 @@ export class ActivityView extends React.Component {
                 )
             )
         };
-
+        console.log(this.props.participants)
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
