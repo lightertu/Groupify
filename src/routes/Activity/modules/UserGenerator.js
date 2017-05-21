@@ -68,7 +68,8 @@ let generateUsers = (groupCapacity, numOfPeople) => {
             randImage = pickImage(),
             randSkills = pickSkills(),
             randGroupNumber = pickGroup( numOfPeople / groupCapacity ),
-            randAvailability = pickAvailability();
+            randAvailability = pickAvailability(),
+            id = Math.floor(Math.random()*500)
 
         return ({
             participantId: randId,
@@ -76,7 +77,8 @@ let generateUsers = (groupCapacity, numOfPeople) => {
             image: randImage,
             skills: randSkills,
             groupNumber: randGroupNumber,
-            availability: randAvailability
+            availability: randAvailability,
+            id: id
         });
     };
 
