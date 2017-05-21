@@ -99,7 +99,7 @@ class Login extends Component {
             this.props.fetchUser(this.state.email, this.state.password);
         }
         this.setState({email: '', password: ''});
-        this.props.setErrorMessage("Both entries must be valid");
+       //this.props.setErrorMessage("Both entries must be valid");
         this.props.setErrorDisplay(true);
     }
 
@@ -154,15 +154,15 @@ class Login extends Component {
         console.log(errorMessage, errorDisplay)
         return (
             <div style={{textAlign:'center'}}>
-                <Card centered style={cardStyle}>
+                <Card centered style={cardStyle} >
                         <Menu tabular attached='top' widths={2}>
                             <Menu.Item name='Login' active={activeItem === 'Login'}  style={{borderBottom:0}} onClick={this.handleItemClick} />
                             <Menu.Item name='Sign Up' active={activeItem === 'Sign Up'} style={{borderBottom:0}} onClick={this.handleItemClick} />
                         </Menu>
                     {(activeItem === 'Login') ? (
-                        <Card.Content  style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
+                        <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
                             <Form onSubmit={this.login}>
-                                {errorDisplay ? <ErrorMessage error={errorMessage} /> : null}
+                                {errorDisplay ? <ErrorMessage error={errorMessage} color={this.props.errorColor}/> : null}
                                 <TextInput
                                     label="Email"
                                     uniqueName="email"

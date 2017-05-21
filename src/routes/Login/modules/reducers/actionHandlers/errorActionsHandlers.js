@@ -20,9 +20,16 @@ let handleErrorMessage = (state, payload) => {
       });
 };
 
+let handleErrorColor = (state, payload) => {
+    return  Object.assign({}, state, {
+        color: payload
+      });
+};
+
 export {
     handleErrorTrue,
     handleErrorFalse,
     handleErrorMessage,
-    handleErrorDisplay
+    handleErrorDisplay,
+    handleErrorColor
 }
