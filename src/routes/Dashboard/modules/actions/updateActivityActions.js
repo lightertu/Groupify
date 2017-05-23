@@ -10,10 +10,10 @@ const SERVER_URL = "http://localhost:3000";
 /* fetching, get requests */
 export const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
 let updateActivity = (dispatch) => {
-    return (payload) => {
-        dispatch({type: UPDATE_ACTIVITY, payload: payload});
-        let url = SERVER_URL + "/api/activities";
-        axios.put(url)
+    return (payload, activityId) => {
+        dispatch({type: UPDATE_ACTIVITY, activityId: activityId, payload: payload});
+        let url = SERVER_URL + "/api/activities" + activityId;
+        axios.put(url, payload)
             .then((response) => {
                 dispatch(updateActivitySuccess(response.data));
             })
