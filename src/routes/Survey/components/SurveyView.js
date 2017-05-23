@@ -51,6 +51,7 @@ class Survey extends React.Component {
                         clearSurveyQuestionAnswersFilters={this.props.clearSurveyQuestionAnswersFilters} 
 
 
+                        survey={this.props.survey} 
                        />
                 )} 
             </div>

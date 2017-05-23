@@ -17,6 +17,13 @@ class testQuestionView extends React.Component {
         return (
             <div>
                 <div style={{textAlign: 'center', paddingTop:30}} >
+                    <Button className={"ui test purple huge label"} 
+                            onClick={() => console.log(this.props.survey)}>
+                    Log Survey 
+                    </Button>
+                </div>
+
+                <div style={{textAlign: 'center', paddingTop:30}} >
                     <Input style={{paddingRight:10}}
                     label={{color:'purple', content:'Type'}} labelPosition="left" 
                     onChange={(event) => {input_1_test = event.target.value;}} />
