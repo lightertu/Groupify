@@ -18,12 +18,12 @@ export default class ActivityInfoForm extends React.Component {
     }
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        totalCapacity: PropTypes.number.isRequired,
-        groupCapacity: PropTypes.number.isRequired,
-        submitButtonRef: PropTypes.func.isRequired,
-        submitForm: PropTypes.func.isRequired
+        name: PropTypes.string,
+        endDate: PropTypes.string,
+        totalCapacity: PropTypes.number,
+        groupCapacity: PropTypes.number,
+        submitButtonRef: PropTypes.func,
+        submitForm: PropTypes.func
     }
 
     handleChange = (e, {name, value}) => this.setState({[name]: value});
@@ -35,6 +35,9 @@ export default class ActivityInfoForm extends React.Component {
     }
 
     render () {
+
+        const ifNullThenEmpty = (input) => ( (input === null) ? input : "");
+
         return (
             <Form onSubmit={ this.handleSubmit}>
                 <Form.Group widths='equal'>
@@ -42,14 +45,14 @@ export default class ActivityInfoForm extends React.Component {
                     <Form.Input label='Activity Name'
                                 name="name"
                                 placeholder='eg. CIS 422'
-                                value={this.state.name}
+                                value={ifNullThenEmpty(this.state.name)}
                                 onChange={this.handleChange}
                     />
 
                     <Form.Input label='Activity End Date'
                                 name="endDate"
                                 placeholder='Pick a Date'
-                                value={this.state.endDate}
+                                value={ifNullThenEmpty(this.state.endDate)}
                                 onChange={this.handleChange}
                     />
                 </Form.Group>
@@ -59,14 +62,14 @@ export default class ActivityInfoForm extends React.Component {
                     <Form.Input label='Group Capacity'
                                 name="groupCapacity"
                                 placeholder='eg. 3'
-                                value={this.state.groupCapacity}
+                                value={ifNullThenEmpty(this.state.groupCapacity)}
                                 onChange={this.handleChange}
                     />
 
                     <Form.Input label='Total Capacity'
                                 name="totalCapacity"
                                 placeholder='eg. 30'
-                                value={this.state.totalCapacity}
+                                value={ifNullThenEmpty(this.state.totalCapacity)}
                                 onChange={this.handleChange}
                     />
                 </Form.Group>

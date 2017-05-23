@@ -9,7 +9,7 @@ const initialState = {
     activitiesViewData: {
         activities: [
             {
-                color: "white",
+                color: "black",
                 activityId: "thisdawyghujiklasdawasda",
                 name: "CIS 422",
                 endDate: "1911",

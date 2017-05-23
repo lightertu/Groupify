@@ -16,15 +16,16 @@ export default class Create extends React.Component {
         onClose: PropTypes.func.isRequired
     };
 
-    createActivityHandler = (e) => {
+    createActivityButtonHandler = (e) => {
         /* the only thing this handler does it that it trigger the form to submit */
         this.activityFormButton.click()
         const close = this.props.onClose;
         close();
     };
 
-    createActivity = (payload) => {
+    createActivityHandler = (payload) => {
         //TODO: implement this and update store
+        // right now payload store all the information in the form
         console.log(payload);
     }
 
@@ -36,12 +37,12 @@ export default class Create extends React.Component {
 
                     {/* this trigger the button inside the form however the button is hidden in css */}
                     <ActivityInfoForm submitButtonRef = { (button) => { this.activityFormButton = button } }
-                                      activityId={this.props.activityId}
-                                      name={this.props.name}
-                                      endDate={this.props.endDate}
-                                      groupCapacity={this.props.groupCapacity}
-                                      totalCapacity={this.props.totalCapacity}
-                                      submitForm={ this.createActivity }/>
+                                      activityId={null}
+                                      name={null}
+                                      endDate={null}
+                                      groupCapacity={null}
+                                      totalCapacity={null}
+                                      submitForm={ this.createActivityHandler }/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }
@@ -50,7 +51,7 @@ export default class Create extends React.Component {
                     </Button>
                     <Button positive
                             content='Create'
-                            onClick={ this.createActivityHandler }
+                            onClick={ this.createActivityButtonHandler }
                     />
                 </Modal.Actions>
             </Modal>

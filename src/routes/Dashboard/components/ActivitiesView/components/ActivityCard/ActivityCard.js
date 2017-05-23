@@ -85,13 +85,9 @@ export default class ActivityCard extends React.Component {
                          height: '130px',
                          textAlign: 'right',
                          cursor: 'pointer',
-                         background: randomColor({
-                         luminosity: 'dark',
-                         format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
-                         alpha: 0.7,
-                     })
+                         background: this.props.color
                      }}>
-                    <Dropdown icon={ <Icon name="edit" size="big" inverted/>} style={{left: '2px', top: "5px"}}>
+                    <Dropdown icon={ <Icon name="edit" size="big" inverted/>} style={{left: '2px', top: '5px'}}>
                         <Dropdown.Menu style={{left: '-48px'}}>
 
                             <Dropdown.Item text='Edit'
@@ -108,7 +104,7 @@ export default class ActivityCard extends React.Component {
                     <Card.Header>
                         {this.props.name}
                         <Popup
-                            trigger={ <Icon style={{float: 'right', cursor: "zoom-in", marginTop: "7px"}}
+                            trigger={ <Icon style={{float: 'right', cursor: 'zoom-in', marginTop: '7px'}}
                                             size="large"
                                             color="grey"
                                             onClick={ this.surveyIconOnClick }
@@ -116,7 +112,8 @@ export default class ActivityCard extends React.Component {
                             position='top right'
                             hoverable
                             wide
-                        >   <div><code>http://address/survey?id=...</code></div>
+                        >
+                            <div><code>http://address/survey?id=...</code></div>
                             <Button fluid size="small"><Icon name="copy"/>Copy Survey Url</Button>
                         </Popup>
                     </Card.Header>

@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state);
     return {
         view: ownProps.location.query.view,
         activitiesViewData: state.dashboard.activitiesViewData,

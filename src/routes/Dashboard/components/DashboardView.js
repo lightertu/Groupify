@@ -1,39 +1,39 @@
 import React from 'react'
 
-import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
-import ActivitiesView from "./ActivitiesView";
-import AccountSettingView from "./AccountSettingView";
+import DashboardSideMenu from './DashboardSideMenu/DashboardSideMenu'
+import ActivitiesView from './ActivitiesView'
+import AccountSettingView from './AccountSettingView'
 
 const _DashboardContentWrapper = (props) => (
     <div style={ {
-        marginTop: "3%",
+        marginTop: '3%',
         width: '100%',
-        paddingLeft: "290px",
+        paddingLeft: '290px',
     } }>
         { props.children }
     </div>
-);
+)
 
 const DashboardView = (props) => {
-    let renderDashboardView = () => {
+    const renderDashboardView = () => {
         switch (props.view) {
-            case("activities"):
-                return <ActivitiesView activitiesViewData={ props.activitiesViewData } />;
-            case("accountSettings"):
-                return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>;
+            case('activities'):
+                return <ActivitiesView activitiesViewData={ props.activitiesViewData }/>
+            case('accountSettings'):
+                return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>
             default:
-                return <ActivitiesView activitiesViewData={ props.activitiesViewData }/>;
+                return <ActivitiesView activitiesViewData={ props.activitiesViewData }/>
         }
-    };
+    }
 
     return (
-            <div>
-                <DashboardSideMenu view={ props.view }/>
-                <_DashboardContentWrapper>
-                    { renderDashboardView() }
-                </_DashboardContentWrapper>
-            </div>
-        )
-    };
+        <div>
+            <DashboardSideMenu view={ props.view }/>
+            <_DashboardContentWrapper>
+                { renderDashboardView() }
+            </_DashboardContentWrapper>
+        </div>
+    )
+}
 
-export default DashboardView;
+export default DashboardView

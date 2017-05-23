@@ -16,8 +16,6 @@ export default class CreateActivityCard extends React.Component {
         }
     }
 
-    static propTypes = {
-    }
 
     /* handlers for opening and closing the modals */
     openCreateActivityModalHandler = () => {
@@ -33,15 +31,17 @@ export default class CreateActivityCard extends React.Component {
 
     render () {
         return (
-            <Card style={{maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
+            <Card style={{maxWidth: '269.5px', backgroundColor: "#e5e7e8"}}
+                  onClick={this.openCreateActivityModalHandler}>
+
                 <CreateActivityModal onClose={this.closeCreateActivityModalHandler }
                                      open={ this.state.createActivityModalOpen }/>
 
                 <div style={{ textAlign: "center",
                               position: "relative",
-                              top: "47%",
+                              top: "43%",
                               opacity: 0.2, }}>
-                    <Header>
+                    <Header as="h2">
                         <Icon name='plus' />
                         New Activity
                     </Header>
