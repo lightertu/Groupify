@@ -2,7 +2,6 @@
  * Created by rui on 5/16/17.
  */
 const Activity = require("../../../../models/").Activity;
-const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
 const ParticipantValidator = require("../../../../models").ParticipantValidator;
 const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
@@ -37,7 +36,7 @@ function validateFormat(payload, properties){
 
 module.exports = function (req, res, next) {
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give valid activityID in URL and correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

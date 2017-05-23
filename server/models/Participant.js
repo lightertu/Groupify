@@ -46,9 +46,6 @@ const ParticipantSchema = new Schema({
     availability: {
         type: [Boolean],
         required: true
-
-        //TODO: validate data
-        //validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
     },
 
 

@@ -1,15 +1,40 @@
 /**
  * Created by rui on 5/9/17.
  */
+
+
 const HttpStatus = require("http-status-codes");
 const validator = require('validator');
 
 const User = require("../../../../models/").User;
+const UserLoginInfoValidator = require("../../../../models/").UserLoginInfoValidator;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 
+<<<<<<< HEAD
+
+const properties = ['email', 'password'];
+
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && UserLoginInfoValidator(payload.email, payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let result = true;
+    properties.forEach(function (property) {
+        result = result && payload.hasOwnProperty(property);
+    });
+    return result;
+}
+
+
+=======
+>>>>>>> 888810319e21c064d2037920acd65b8a03b51e17
 function signupController (req, res){
     const payload = req.body;
-    const properties = ['email', 'password'];
+
 
     // check if payload is validate
     if (!validateInput(payload, properties)) {
@@ -43,27 +68,5 @@ function signupController (req, res){
 
 }
 
-function validateInput(payload, properties) {
-    return validateFormat(payload, properties)
-        && validateEmail(payload.email)
-        && validatePassword(payload.password);
-}
-
-
-function validateFormat(payload, properties){
-    let res = true;
-    properties.forEach(function (property) {
-        res = res && payload.hasOwnProperty(property);
-    });
-    return res;
-}
-
-function validateEmail(email){
-    return typeof email === 'string' && validator.isEmail(email);
-}
-
-function validatePassword(password){
-    return typeof password === 'string';
-}
 
 module.exports = signupController;

@@ -39,7 +39,7 @@ function Std(index, num, ord, potn){
 	this.index 	= index;
 	this.num   	= num;  // number of potential partners
 	this.ord    = ord;  // the order of the students, sort by their match posibility
-	this.potn 	= potn; //potential partners
+	this.potn 	= potn; // potential partners
 }
 
 function clCompare(st_a, st_b){
@@ -293,7 +293,7 @@ function successRate(teams, stds){
 
 function greedy_algorithm_based_on_Time(stds, size){
 	// let table   = createTable(stds);
-	let list    = createList(stds)
+	let list    = createList(stds);
 	let sortL  	= mergeSort(list);
 	list = order(sortL, list);
 	let teams = match(list, sortL, size);
