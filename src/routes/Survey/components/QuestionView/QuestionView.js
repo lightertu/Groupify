@@ -32,6 +32,9 @@ class QuestionView extends React.Component {
                         addSurveyQuestionAnswer={this.props.addSurveyQuestionAnswer} 
                         removeSurveyQuestionAnswer={this.props.removeSurveyQuestionAnswer} 
                         clearSurveyQuestionAnswers={this.props.clearSurveyQuestionAnswers} 
+                        
+                        createSurveyQuestion={this.props.createSurveyQuestion} 
+                        deleteSurveyQuestion={this.props.deleteSurveyQuestion} 
                     />
                 } 
             </div>
