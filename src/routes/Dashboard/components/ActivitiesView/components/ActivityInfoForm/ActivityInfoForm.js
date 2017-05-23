@@ -36,7 +36,7 @@ export default class ActivityInfoForm extends React.Component {
 
     render () {
 
-        const ifNullThenEmpty = (input) => ( (input === null) ? input : "");
+        const ifNullThenEmpty = (input) => (input !== null) ? input : "";
 
         return (
             <Form onSubmit={ this.handleSubmit}>
@@ -46,15 +46,13 @@ export default class ActivityInfoForm extends React.Component {
                                 name="name"
                                 placeholder='eg. CIS 422'
                                 value={ifNullThenEmpty(this.state.name)}
-                                onChange={this.handleChange}
-                    />
+                                onChange={this.handleChange} />
 
                     <Form.Input label='Activity End Date'
                                 name="endDate"
                                 placeholder='Pick a Date'
                                 value={ifNullThenEmpty(this.state.endDate)}
-                                onChange={this.handleChange}
-                    />
+                                onChange={this.handleChange} />
                 </Form.Group>
 
                 <Form.Group widths='equal'>
@@ -63,15 +61,14 @@ export default class ActivityInfoForm extends React.Component {
                                 name="groupCapacity"
                                 placeholder='eg. 3'
                                 value={ifNullThenEmpty(this.state.groupCapacity)}
-                                onChange={this.handleChange}
-                    />
+                                onChange={this.handleChange} />
 
                     <Form.Input label='Total Capacity'
                                 name="totalCapacity"
                                 placeholder='eg. 30'
                                 value={ifNullThenEmpty(this.state.totalCapacity)}
-                                onChange={this.handleChange}
-                    />
+                                onChange={this.handleChange} />
+
                 </Form.Group>
                 <button style={{display: 'none'}} type='submit' ref={this.props.submitButtonRef}>Submit</button>
             </Form>
