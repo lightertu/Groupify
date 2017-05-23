@@ -35,6 +35,29 @@ class QuestionView extends React.Component {
                         
                         createSurveyQuestion={this.props.createSurveyQuestion} 
                         deleteSurveyQuestion={this.props.deleteSurveyQuestion} 
+
+                        enableSurveyQuestionAnswersMaximum={this.props.enableSurveyQuestionAnswersMaximum} 
+                        disableSurveyQuestionAnswersMaximum={this.props.disableSurveyQuestionAnswersMaximum} 
+ 
+                        enableSurveyQuestionAnswersMinimum={this.props.enableSurveyQuestionAnswersMinimum} 
+                        disableSurveyQuestionAnswersMinimum={this.props.disableSurveyQuestionAnswersMinimum} 
+                        
+                        setSurveyQuestionAnswersMaximum={this.props.setSurveyQuestionAnswersMaximum} 
+                             
+                        setSurveyQuestionAnswersMinimum={this.props.setSurveyQuestionAnswersMinimum}
+
+                        enableSurveyQuestionAnswersFilter={this.props.enableSurveyQuestionAnswersFilter} 
+
+                        disableSurveyQuestionAnswersFilter={this.props.disableSurveyQuestionAnswersFilter} 
+                             
+                        enableSurveyQuestionAnswersFilterBlacklistMode={this.props.enableSurveyQuestionAnswersFilterBlacklistMode} 
+
+                        disableSurveyQuestionAnswersFilterBlacklistMode={this.props.disableSurveyQuestionAnswersFilterBlacklistMode} 
+                        
+                        addSurveyQuestionAnswersFilter={this.props.addSurveyQuestionAnswersFilter} 
+                        removeSurveyQuestionAnswersFilter={this.props.removeSurveyQuestionAnswersFilter} 
+                        clearSurveyQuestionAnswersFilters={this.props.clearSurveyQuestionAnswersFilters} 
+
                     />
                 } 
             </div>

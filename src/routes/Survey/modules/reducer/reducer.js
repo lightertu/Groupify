@@ -43,8 +43,8 @@ const initialState = Map({
         }),
         Map({
             'type':'test', 
-            'title':'Email Address', 
-            'tooltip':'What is your email', 
+            'title':'test', 
+            'tooltip':'test', 
 
             'answers':Set([]),
 
@@ -71,6 +71,39 @@ export default function surveyReducer (state = initialState, action) {
             return ActionsHandlers.createSurveyQuestionActionsHandlers.createSurveyQuestion(state, action.payload);
         case Actions.deleteSurveyQuestionActions.DELETE_SURVEY_QUESTION:
             return ActionsHandlers.deleteSurveyQuestionActionsHandlers.deleteSurveyQuestion(state, action.payload);
+
+        case Actions.enableSurveyQuestionAnswersMaximumActions.ENABLE_SURVEY_QUESTION_ANSWERS_MAXIMUM:
+            return ActionsHandlers.enableSurveyQuestionAnswersMaximumActionsHandlers.enableSurveyQuestionAnswersMaximum(state, action.payload);
+        case Actions.enableSurveyQuestionAnswersMinimumActions.ENABLE_SURVEY_QUESTION_ANSWERS_MINIMUM:
+            return ActionsHandlers.enableSurveyQuestionAnswersMinimumActionsHandlers.enableSurveyQuestionAnswersMinimum(state, action.payload);
+
+        case Actions.disableSurveyQuestionAnswersMaximumActions.DISABLE_SURVEY_QUESTION_ANSWERS_MAXIMUM:
+            return ActionsHandlers.disableSurveyQuestionAnswersMaximumActionsHandlers.disableSurveyQuestionAnswersMaximum(state, action.payload);
+        case Actions.disableSurveyQuestionAnswersMinimumActions.DISABLE_SURVEY_QUESTION_ANSWERS_MINIMUM:
+            return ActionsHandlers.disableSurveyQuestionAnswersMinimumActionsHandlers.disableSurveyQuestionAnswersMinimum(state, action.payload);
+
+        case Actions.setSurveyQuestionAnswersMaximumActions.SET_SURVEY_QUESTION_ANSWERS_MAXIMUM:
+            return ActionsHandlers.setSurveyQuestionAnswersMaximumActionsHandlers.setSurveyQuestionAnswersMaximum(state, action.payload);
+        case Actions.setSurveyQuestionAnswersMinimumActions.SET_SURVEY_QUESTION_ANSWERS_MINIMUM:
+            return ActionsHandlers.setSurveyQuestionAnswersMinimumActionsHandlers.setSurveyQuestionAnswersMinimum(state, action.payload);
+        
+        case Actions.enableSurveyQuestionAnswersFilterActions.ENABLE_SURVEY_QUESTION_ANSWERS_FILTER:
+            return ActionsHandlers.enableSurveyQuestionAnswersFilterActionsHandlers.enableSurveyQuestionAnswersFilter(state, action.payload);
+        case Actions.enableSurveyQuestionAnswersFilterBlacklistModeActions.ENABLE_SURVEY_QUESTION_ANSWERS_FILTER_BLACKLIST_MODE:
+            return ActionsHandlers.enableSurveyQuestionAnswersFilterBlacklistModeActionsHandlers.enableSurveyQuestionAnswersFilterBlacklistMode(state, action.payload);
+
+        case Actions.disableSurveyQuestionAnswersFilterActions.DISABLE_SURVEY_QUESTION_ANSWERS_FILTER:
+            return ActionsHandlers.disableSurveyQuestionAnswersFilterActionsHandlers.disableSurveyQuestionAnswersFilter(state, action.payload);
+        case Actions.disableSurveyQuestionAnswersFilterBlacklistModeActions.DISABLE_SURVEY_QUESTION_ANSWERS_FILTER_BLACKLIST_MODE:
+            return ActionsHandlers.disableSurveyQuestionAnswersFilterBlacklistModeActionsHandlers.disableSurveyQuestionAnswersFilterBlacklistMode(state, action.payload);
+
+        case Actions.addSurveyQuestionAnswersFilterActions.ADD_SURVEY_QUESTION_ANSWERS_FILTER:
+            return ActionsHandlers.addSurveyQuestionAnswersFilterActionsHandlers.addSurveyQuestionAnswersFilter(state, action.payload);
+        case Actions.removeSurveyQuestionAnswersFilterActions.REMOVE_SURVEY_QUESTION_ANSWERS_FILTER:
+            return ActionsHandlers.removeSurveyQuestionAnswersFilterActionsHandlers.removeSurveyQuestionAnswersFilter(state, action.payload);
+        case Actions.clearSurveyQuestionAnswersFiltersActions.CLEAR_SURVEY_QUESTION_ANSWERS_FILTERS:
+            return ActionsHandlers.clearSurveyQuestionAnswersFiltersActionsHandlers.clearSurveyQuestionAnswersFilters(state, action.payload);
+
 
         default:
             return state;
