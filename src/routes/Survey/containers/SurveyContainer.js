@@ -19,6 +19,28 @@ const mapDispatchToProps = (dispatch) => ({
     addSurveyQuestionAnswer: Actions.addSurveyQuestionAnswerActions.addSurveyQuestionAnswer(dispatch),
     removeSurveyQuestionAnswer: Actions.removeSurveyQuestionAnswerActions.removeSurveyQuestionAnswer(dispatch),
     clearSurveyQuestionAnswers: Actions.clearSurveyQuestionAnswersActions.clearSurveyQuestionAnswers(dispatch),
+
+    enableSurveyQuestionAnswersMaximum: Actions.enableSurveyQuestionAnswersMaximumActions.enableSurveyQuestionAnswersMaximum(dispatch),
+    disableSurveyQuestionAnswersMaximum: Actions.disableSurveyQuestionAnswersMaximumActions.disableSurveyQuestionAnswersMaximum(dispatch),
+
+    enableSurveyQuestionAnswersMinimum: Actions.enableSurveyQuestionAnswersMinimumActions.enableSurveyQuestionAnswersMinimum(dispatch),
+    disableSurveyQuestionAnswersMinimum: Actions.disableSurveyQuestionAnswersMinimumActions.disableSurveyQuestionAnswersMinimum(dispatch),
+
+    setSurveyQuestionAnswersMaximum: Actions.setSurveyQuestionAnswersMaximumActions.setSurveyQuestionAnswersMaximum(dispatch),
+
+    setSurveyQuestionAnswersMinimum: Actions.setSurveyQuestionAnswersMinimumActions.setSurveyQuestionAnswersMinimum(dispatch),
+
+    enableSurveyQuestionAnswersFilter: Actions.enableSurveyQuestionAnswersFilterActions.enableSurveyQuestionAnswersFilter(dispatch),
+    disableSurveyQuestionAnswersFilter: Actions.disableSurveyQuestionAnswersFilterActions.disableSurveyQuestionAnswersFilter(dispatch),
+
+    enableSurveyQuestionAnswersFilterBlacklistMode: Actions.enableSurveyQuestionAnswersFilterBlacklistModeActions.enableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
+    disableSurveyQuestionAnswersFilterBlacklistMode: Actions.disableSurveyQuestionAnswersFilterBlacklistModeActions.disableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
+
+    addSurveyQuestionAnswersFilter: Actions.addSurveyQuestionAnswersFilterActions.addSurveyQuestionAnswersFilter(dispatch),
+    removeSurveyQuestionAnswersFilter: Actions.removeSurveyQuestionAnswersFilterActions.removeSurveyQuestionAnswersFilter(dispatch),
+    clearSurveyQuestionAnswersFilters: Actions.clearSurveyQuestionAnswersFiltersActions.clearSurveyQuestionAnswersFilters(dispatch),
+
+
 });
 
 const mapStateToProps = (state, ownProps) => {
