@@ -57,6 +57,8 @@ class QuestionView extends React.Component {
                         addSurveyQuestionAnswersFilter={this.props.addSurveyQuestionAnswersFilter} 
                         removeSurveyQuestionAnswersFilter={this.props.removeSurveyQuestionAnswersFilter} 
                         clearSurveyQuestionAnswersFilters={this.props.clearSurveyQuestionAnswersFilters} 
+                        
+                        survey={this.props.survey.toJSON()} 
 
                     />
                 } 

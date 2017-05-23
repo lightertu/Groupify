@@ -9,6 +9,7 @@ const express = require('express')
 router.use('/auth', require('./auth'));
 router.use('/activities', require('./activities'));
 router.use('/user', require('./user'));
+router.use('/surveys', require('./surveys'));
 
 router.use(function(req, res, next) {
     if (!req.route)

@@ -33,6 +33,11 @@ let UserSchema = Schema({
         type: [{type: Schema.ObjectId, ref: "Activity"}],
     },
 
+    surveys: {
+        type: [{type: Schema.ObjectId, ref: "Survey"}],
+    },
+
+
     // every model has this
     isDeleted: {
         type: Boolean,

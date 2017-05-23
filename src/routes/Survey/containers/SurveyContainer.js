@@ -45,7 +45,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        questions : state.survey.get('questions')
+        questions : state.survey.get('questions'),
+        survey: state.survey
     }
 };
 
