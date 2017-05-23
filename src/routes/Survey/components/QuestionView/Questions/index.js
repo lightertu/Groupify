@@ -5,8 +5,12 @@ import CircleSelectionQuestionView from "./CircleSelectionQuestionView"
 import MultiInputTextFieldQuestionView from "./MultiInputTextFieldQuestionView"
 import SingleInputTextFieldQuestionView from "./SingleInputTextFieldQuestionView"
 
+import testQuestionView from "./testQuestionView"
+
 export {
     CircleSelectionQuestionView,
     MultiInputTextFieldQuestionView,
     SingleInputTextFieldQuestionView,
+    
+    testQuestionView,
 }

@@ -13,6 +13,9 @@ import * as Actions from "../modules/actions"
 
 
 const mapDispatchToProps = (dispatch) => ({
+    createSurveyQuestion: Actions.createSurveyQuestionActions.createSurveyQuestion(dispatch),
+    deleteSurveyQuestion: Actions.deleteSurveyQuestionActions.deleteSurveyQuestion(dispatch),
+    
     addSurveyQuestionAnswer: Actions.addSurveyQuestionAnswerActions.addSurveyQuestionAnswer(dispatch),
     removeSurveyQuestionAnswer: Actions.removeSurveyQuestionAnswerActions.removeSurveyQuestionAnswer(dispatch),
     clearSurveyQuestionAnswers: Actions.clearSurveyQuestionAnswersActions.clearSurveyQuestionAnswers(dispatch),

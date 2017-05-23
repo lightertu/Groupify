@@ -41,6 +41,17 @@ const initialState = Map({
             'answersEnableMinimum':false, 'answersMinimum':0,
             'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 'answersFilter':OrderedSet([]),
         }),
+        Map({
+            'type':'test', 
+            'title':'Email Address', 
+            'tooltip':'What is your email', 
+
+            'answers':Set([]),
+
+            'answersEnableMaximum':false, 'answersMaximum':0,
+            'answersEnableMinimum':false, 'answersMinimum':0,
+            'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 'answersFilter':OrderedSet([]),
+        })
 
     ]),
 });
@@ -55,6 +66,11 @@ export default function surveyReducer (state = initialState, action) {
             return ActionsHandlers.removeSurveyQuestionAnswerActionsHandlers.removeSurveyQuestionAnswer(state, action.payload);
         case Actions.clearSurveyQuestionAnswersActions.CLEAR_SURVEY_QUESTION_ANSWERS:
             return ActionsHandlers.clearSurveyQuestionAnswersActionsHandlers.clearSurveyQuestionAnswers(state, action.payload);
+
+        case Actions.createSurveyQuestionActions.CREATE_SURVEY_QUESTION:
+            return ActionsHandlers.createSurveyQuestionActionsHandlers.createSurveyQuestion(state, action.payload);
+        case Actions.deleteSurveyQuestionActions.DELETE_SURVEY_QUESTION:
+            return ActionsHandlers.deleteSurveyQuestionActionsHandlers.deleteSurveyQuestion(state, action.payload);
 
         default:
             return state;
