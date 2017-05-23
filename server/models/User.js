@@ -107,6 +107,7 @@ UserSchema.methods.getPublicFields = function () {
         image: this.image,
         email: this.email,
         activities: this.activities,
+        surveys: this.surveys,
         lastModifiedTime: this.lastModifiedTime,
     }
 };

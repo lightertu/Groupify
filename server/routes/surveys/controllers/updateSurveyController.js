@@ -1,21 +1,48 @@
 const HttpStatus = require("http-status-codes");
 const validator = require('validator');
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
-const User = require("../../../models/").User;
 const Survey = require("../../../models").Survey;
+const SurveyValidator = require("../../../models/").SurveyValidator;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
 
+const SurveyProperties = ['title', 'questions'];
+
+function validateInput(req) {
+    let payload = req.body;
+    return validateParameters(req.params)
+        && validateFormat(payload, SurveyProperties)
+        && SurveyValidator(payload.title, payload.questions);
+}
+
+
+function validateParameters(prm) {
+    return prm.hasOwnProperty('surveyId') && typeof prm.surveyId === 'string'
+        && ObjectIdIsValid(prm.surveyId);
+}
+
+
+function validateFormat(payload, properties){
+    let res = true;
+    properties.forEach(function (property) {
+        res = res && payload.hasOwnProperty(property);
+        console.log(res, property);
+    });
+    return res;
+}
+
 
 module.exports = function (req, res, next) {
-    //
-    // if (!validateInput(req)) {
-    //     const errorMessage = 'please give the correct payload';
-    //     createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
-    //     return;
-    // }
 
+    console.log(req.body);
+
+    if (!validateInput(req)) {
+        const errorMessage = 'please give the correct payload and URL';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
+    }
 
     const surveyId = req.params.surveyId,
         userId = req.user._id;
@@ -26,20 +53,12 @@ module.exports = function (req, res, next) {
         {
             $set: {
                 "title": req.body.title,
-            }
+                "questions" : req.body.questions,
+            },
+        },
+        {
+            new: true,
         }
-        // ,
-        // this select the properties to show
-        // {
-        //     projection: {
-        //         "name": 1,
-        //         "endDate": 1,
-        //         "totalCapacity": 1,
-        //         "groupCapacity": 1,
-        //         "participants": 1,
-        //     },
-        //     new: true,
-        // }
     )
         .exec()
         .then(function (survey) {
@@ -47,7 +66,7 @@ module.exports = function (req, res, next) {
                 const errorMessage = "Cannot find survey has id: " + surveyId;
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
-            return res.json({
+            return res.status(HttpStatus.ACCEPTED).json({
                 survey: survey
             });
         })

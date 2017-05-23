@@ -1,8 +1,9 @@
 const HttpStatus = require("http-status-codes");
 
-const Activity = require("../../../models/").Activity;
+const Survey = require("../../../models/").Survey;
 const User = require("../../../models/").User;
 const createErrorHandler = require("../../utils").createErrorHandler;
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 
 function validateInput(req) {
@@ -11,48 +12,45 @@ function validateInput(req) {
 
 // TODO: MAY THINK FURTHOR HERE
 function validateParameters(prm) {
-    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string';
+    return prm.hasOwnProperty('surveyId') && typeof prm.surveyId === 'string'
+        && ObjectIdIsValid(prm.surveyId);
 }
 
 
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the correct surveyId';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
 
-    const activityId = req.params.activityId,
+    const surveyId = req.params.surveyId,
         userId = req.user._id;
 
-    Activity.findOneAndUpdate(
-        {_id: activityId, _creator: userId},
-        {
-            $set: {
-                "isDeleted": true,
-            }
-        },
-        {new: true}
+    Survey.findOneAndRemove(
+        {_id: surveyId, _creator: userId}
     ).exec()
-        .then(function (activity) {
-            /* if this activity is not found */
-            if (activity === null) {
-                const errorMessage = "Cannot find activity has id " + req.params.activityId + " to delete";
+        .then(function (survey) {
+            /* if this survey is not found */
+            if (survey === null) {
+                const errorMessage = "Cannot find survey has id " + req.params.surveyId + " to delete";
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
 
-            /* remove this item from User.activities array */
+            /* remove this item from User.surveys array */
             User.findOneAndUpdate(
                 {_id: userId},
-                {$pull: {'activities': activityId}},
+                {$pull: {'surveys': surveyId}},
                 {new: true}
             ).exec().then(function (user) {
-                return res.json({
-                    activity: activity
+                return res.status(HttpStatus.OK).json({
+                    survey: survey,
                 });
             })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
+
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };

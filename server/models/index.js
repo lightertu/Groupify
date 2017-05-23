@@ -16,6 +16,7 @@ const Participant = require("./Participant").Participant;
 const ParticipantValidator = require("./Participant").ParticipantValidator;
 
 const Survey = require("./Survey").Survey;
+const SurveyValidator = require("./Survey").SurveyValidator;
 
 
 module.exports = {
@@ -31,4 +32,5 @@ module.exports = {
     ParticipantValidator: ParticipantValidator,
 
     Survey: Survey,
+    SurveyValidator: SurveyValidator,
 };
