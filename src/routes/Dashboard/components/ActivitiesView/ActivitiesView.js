@@ -31,6 +31,13 @@ export default class ActivitiesView extends React.Component {
                 <Card.Group>
                     { test() }
                 </Card.Group>
+                <br />
+                <br />
+                <Header as='h2'> Past Activities: 10 </Header>
+                <hr style={{borderTop: "2px solid #8c8b8b", marginBottom: "15px"}}/>
+                <Card.Group>
+                    { test() }
+                </Card.Group>
             </div>
         );
     }

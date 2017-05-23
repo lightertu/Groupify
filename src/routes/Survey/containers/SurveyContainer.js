@@ -1,38 +1,53 @@
+/**
+ * Created by Matt on 05/16/17.
+ */
 import {connect} from 'react-redux'
-import { fetchSurvey, generateSurvey } from '../modules/survey'
+import {Map, List, Set} from 'immutable';
 
 /*  This is a container component. Notice it does not contain any JSX,
  nor does it import React. This component is **only** responsible for
  wiring in the actions and state necessary to render a presentational
- component - in this case, the counter:   */
+ component - in this case */
+import SurveyView from '../components/SurveyView'
+import * as Actions from "../modules/actions"
 
-import Survey from '../components/Survey'
 
-/*  Object of action creators (can also be function that returns object).
- Keys will be passed as props to presentational components. Here we are
- implementing our wrapper around increment; the component doesn't care   */
+const mapDispatchToProps = (dispatch) => ({
+    createSurveyQuestion: Actions.createSurveyQuestionActions.createSurveyQuestion(dispatch),
+    deleteSurveyQuestion: Actions.deleteSurveyQuestionActions.deleteSurveyQuestion(dispatch),
+    
+    addSurveyQuestionAnswer: Actions.addSurveyQuestionAnswerActions.addSurveyQuestionAnswer(dispatch),
+    removeSurveyQuestionAnswer: Actions.removeSurveyQuestionAnswerActions.removeSurveyQuestionAnswer(dispatch),
+    clearSurveyQuestionAnswers: Actions.clearSurveyQuestionAnswersActions.clearSurveyQuestionAnswers(dispatch),
 
-const mapDispatchToProps = {
-    fetchSurvey,
-    generateSurvey
-}
+    enableSurveyQuestionAnswersMaximum: Actions.enableSurveyQuestionAnswersMaximumActions.enableSurveyQuestionAnswersMaximum(dispatch),
+    disableSurveyQuestionAnswersMaximum: Actions.disableSurveyQuestionAnswersMaximumActions.disableSurveyQuestionAnswersMaximum(dispatch),
 
-const mapStateToProps = (state) => ({
-    counter: state.counter
-})
+    enableSurveyQuestionAnswersMinimum: Actions.enableSurveyQuestionAnswersMinimumActions.enableSurveyQuestionAnswersMinimum(dispatch),
+    disableSurveyQuestionAnswersMinimum: Actions.disableSurveyQuestionAnswersMinimumActions.disableSurveyQuestionAnswersMinimum(dispatch),
 
-/*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
+    setSurveyQuestionAnswersMaximum: Actions.setSurveyQuestionAnswersMaximumActions.setSurveyQuestionAnswersMaximum(dispatch),
 
- import { createSelector } from 'reselect'
- const counter = (state) => state.counter
- const tripleCount = createSelector(counter, (count) => count * 3)
- const mapStateToProps = (state) => ({
- counter: tripleCount(state)
- })
+    setSurveyQuestionAnswersMinimum: Actions.setSurveyQuestionAnswersMinimumActions.setSurveyQuestionAnswersMinimum(dispatch),
 
- Selectors can compute derived data, allowing Redux to store the minimal possible state.
- Selectors are efficient. A selector is not recomputed unless one of its arguments change.
- Selectors are composable. They can be used as input to other selectors.
- https://github.com/reactjs/reselect    */
+    enableSurveyQuestionAnswersFilter: Actions.enableSurveyQuestionAnswersFilterActions.enableSurveyQuestionAnswersFilter(dispatch),
+    disableSurveyQuestionAnswersFilter: Actions.disableSurveyQuestionAnswersFilterActions.disableSurveyQuestionAnswersFilter(dispatch),
 
-export default connect(mapStateToProps, mapDispatchToProps)(Survey)
+    enableSurveyQuestionAnswersFilterBlacklistMode: Actions.enableSurveyQuestionAnswersFilterBlacklistModeActions.enableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
+    disableSurveyQuestionAnswersFilterBlacklistMode: Actions.disableSurveyQuestionAnswersFilterBlacklistModeActions.disableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
+
+    addSurveyQuestionAnswersFilter: Actions.addSurveyQuestionAnswersFilterActions.addSurveyQuestionAnswersFilter(dispatch),
+    removeSurveyQuestionAnswersFilter: Actions.removeSurveyQuestionAnswersFilterActions.removeSurveyQuestionAnswersFilter(dispatch),
+    clearSurveyQuestionAnswersFilters: Actions.clearSurveyQuestionAnswersFiltersActions.clearSurveyQuestionAnswersFilters(dispatch),
+
+
+});
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        questions : state.survey.get('questions'),
+        survey: state.survey
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SurveyView);

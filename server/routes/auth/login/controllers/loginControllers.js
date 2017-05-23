@@ -30,7 +30,6 @@ function validateFormat(payload, properties){
     return result;
 }
 
-
 function loginController (req, res) {
     const payload = req.body;
 

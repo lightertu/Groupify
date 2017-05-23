@@ -132,8 +132,9 @@
     "semantic-ui-react": "^0.68",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.6",
+    "webpack": "^1.15.0",
+    "webpack-hot-middleware": "^2.18.0",
     "validator": "^7.0.0",
-    "webpack": "^1.12.14",
     "yargs": "^6.3.0"
   },
   "devDependencies": {
@@ -163,6 +164,7 @@
     "file-system": "^2.2.2",
     "filereader": "^0.10.3",
     "fs": "0.0.1-security",
+    "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "karma": "^1.0.0",
     "karma-coverage": "^1.0.0",
@@ -179,8 +181,11 @@
     "react-dnd-html5-backend": "^2.3.0",
     "react-sticky": "^5.0.8",
     "redbox-react": "^1.2.10",
+    "scandir": "^0.1.2",
+    "semantic-ui-react": "^0.68.3",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
+    "style": "0.0.3",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },

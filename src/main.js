@@ -4,6 +4,11 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import AppContainer from './containers/AppContainer'
+import setAuthorizationToken from './components/utils/setAuthorizationToken';
+
+// imports for web auth
+import jwt from "jsonwebtoken";
+import { setCurrentUser } from './routes/Login/modules/actions/authActions'
 
 // ========================================================
 // Store Instantiation
@@ -11,6 +16,11 @@ import AppContainer from './containers/AppContainer'
 const initialState = window.__INITIAL_STATE__;
 const store = createStore(initialState);
 
+// set auth token
+if(localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
+    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+}
 // ========================================================
 // Render Setup
 // ========================================================

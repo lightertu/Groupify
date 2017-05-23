@@ -1,37 +1,36 @@
 import {connect} from 'react-redux'
-import { checkAuthorization } from '../modules/login'
 
 /*  This is a container component. Notice it does not contain any JSX,
  nor does it import React. This component is **only** responsible for
  wiring in the actions and state necessary to render a presentational
  component - in this case, the counter:   */
 
-import Login from '../components/Login'
+import Login from '../../../components/Login'
+import * as Actions from '../modules/actions'
 
-/*  Object of action creators (can also be function that returns object).
- Keys will be passed as props to presentational components. Here we are
- implementing our wrapper around increment; the component doesn't care   */
 
-const mapDispatchToProps = {
-    checkAuthorization
-}
+const mapDispatchToProps = (dispatch) => ({
+	generateUser: Actions.generateUserActions.generateUser(dispatch),
+	fetchUser: Actions.fetchUserActions.fetchUser(dispatch),
+    logout: Actions.fetchUserActions.logout(dispatch),
+    setErrorDisplay: Actions.errorActions.setErrorDisplay(dispatch),
+    setErrorMessage: Actions.errorActions.setErrorMessage(dispatch),
+    setErrorColor: Actions.errorActions.setErrorColor(dispatch)
+});
 
-const mapStateToProps = (state) => ({
-    counter: state.counter
-})
+const mapStateToProps = (state, ownProps) => {
+    return {
+    	state: state.login.state,
+    	response: state.login.response,
+    	loginState: state.login.loginState,
+    	login: state.login.login,
+    	user: state.login.user,
+    	auth: state.login.isAuthenticated,
+        errorDisplay: state.login.errorDisplay,
+        errorMessage: state.login.errorMessage,
+        errorColor: state.login.errorColor
+    }
+};
 
-/*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
-
- import { createSelector } from 'reselect'
- const counter = (state) => state.counter
- const tripleCount = createSelector(counter, (count) => count * 3)
- const mapStateToProps = (state) => ({
- counter: tripleCount(state)
- })
-
- Selectors can compute derived data, allowing Redux to store the minimal possible state.
- Selectors are efficient. A selector is not recomputed unless one of its arguments change.
- Selectors are composable. They can be used as input to other selectors.
- https://github.com/reactjs/reselect    */
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
