@@ -10,7 +10,6 @@ const User = require("../../../../models/").User;
 const UserLoginInfoValidator = require("../../../../models/").UserLoginInfoValidator;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 
-<<<<<<< HEAD
 
 const properties = ['email', 'password'];
 
@@ -30,8 +29,7 @@ function validateFormat(payload, properties){
 }
 
 
-=======
->>>>>>> 888810319e21c064d2037920acd65b8a03b51e17
+
 function signupController (req, res){
     const payload = req.body;
 

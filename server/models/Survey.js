@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 
 let QuestionSchema = Schema({
-    anwsers: {
+    answers: {
         type: [String],
         required: true,
     },
@@ -25,7 +25,7 @@ let QuestionSchema = Schema({
     title: {type: String, required: true},
     tooltip: {type: String, required: true},
     type: {type: String, required: true},
-}); 
+});
 
 
 let SurveySchema = Schema({
@@ -39,7 +39,7 @@ let SurveySchema = Schema({
         type: String,
         default: "",
         required: true,
-        unqiue: true
+        unique: true
     },
 
     questions:  [QuestionSchema],
@@ -78,15 +78,14 @@ SurveySchema.pre('save', function(next){
     next();
 });
 
-/*SurveySchema.methods.getPublicFields = function () {
+SurveySchema.methods.getPublicFields = function () {
     return {
-        name: this.name,
-        totalCapacity: this.totalCapacity,
-        groupCapacity: this.groupCapacity,
-        endDate: this.endDate,
-        participants: this.participants,
+        title: this.title,
         lastModifiedTime: this.lastModifiedTime,
     };
-};*/
-module.exports = mongoose.model('Survey', SurveySchema);
-//db.users.createIndex({email:1},{unique:true, sparse:true});
+};
+
+
+module.exports = {
+    Survey: mongoose.model('Survey', SurveySchema),
+};
