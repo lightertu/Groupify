@@ -6,9 +6,11 @@ let sortParticipants = (dispatch) => {
 };
 
 export const FILTER_PARTICIPANTS = "FILTER_PARTICIPANTS"
-let filterParticipants = (userID) => {
-	return { type: FILTER_PARTICIPANTS, payload: userID };
-}
+let filterParticipants = (dispatch) => {
+	return (userId) => { 
+		dispatch({ type: FILTER_PARTICIPANTS, payload: userId });
+	 };
+};
 
 export const RESET_PARTICIPANTS = "RESET_PARTICIPANTS"
 let resetParticipants = () => {
