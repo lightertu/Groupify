@@ -2,6 +2,7 @@ import React from 'react'
 
 import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import ActivitiesView from "./ActivitiesView";
+import SurveysView from "./SurveysView";
 import AccountSettingView from "./AccountSettingView";
 
 const _DashboardContentWrapper = (props) => (
@@ -19,6 +20,8 @@ const DashboardView = (props) => {
         switch (props.view) {
             case("activities"):
                 return <ActivitiesView activitiesViewData={ props.activitiesViewData } />;
+            case("surveys"):
+                return <SurveysView surveysViewData={ props.surveysViewData }/>;
             case("accountSettings"):
                 return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>;
             default:

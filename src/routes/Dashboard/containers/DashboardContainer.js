@@ -20,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         view: ownProps.location.query.view,
         activitiesViewData: state.dashboard.activitiesViewData,
+        surveysViewData: state.dashboard.surveysViewData,
         accountSettingsViewData: state.dashboard.accountSettingsViewData,
     }
 };

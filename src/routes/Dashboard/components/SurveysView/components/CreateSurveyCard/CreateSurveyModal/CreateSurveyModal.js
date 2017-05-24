@@ -4,7 +4,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {Button, Modal} from "semantic-ui-react";
-import ActivityInfoForm from '../../ActivityInfoForm'
+import SurveyInfoForm from '../../SurveyInfoForm'
 
 export default class Create extends React.Component {
     constructor(props) {
@@ -16,14 +16,14 @@ export default class Create extends React.Component {
         onClose: PropTypes.func.isRequired
     };
 
-    createActivityHandler = (e) => {
+    createSurveyHandler = (e) => {
         /* the only thing this handler does it that it trigger the form to submit */
-        this.activityFormButton.click()
+        this.surveyFormButton.click()
         const close = this.props.onClose;
         close();
     };
 
-    createActivity = (payload) => {
+    createSurvey = (payload) => {
         //TODO: implement this and update store
         console.log(payload);
     }
@@ -31,17 +31,14 @@ export default class Create extends React.Component {
     render() {
         return (
             <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
-                <Modal.Header> Create Activity </Modal.Header>
+                <Modal.Header> Create Survey </Modal.Header>
                 <Modal.Content>
 
                     {/* this trigger the button inside the form however the button is hidden in css */}
-                    <ActivityInfoForm submitButtonRef = { (button) => { this.activityFormButton = button } }
-                                      activityId={''}
+                    <SurveyInfoForm submitButtonRef = { (button) => { this.surveyFormButton = button } }
+                                      surveyId={this.props.surveyId}
                                       name={''}
-                                      endDate={''}
-                                      groupCapacity={0}
-                                      totalCapacity={0}
-                                      submitForm={() => (console.log("CreateActivityModal.js - PlaceHolder"))}/>
+                                      submitForm={ this.createSurvey }/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }
@@ -50,7 +47,7 @@ export default class Create extends React.Component {
                     </Button>
                     <Button positive
                             content='Create'
-                            onClick={ this.createActivityHandler }
+                            onClick={ this.createSurveyHandler }
                     />
                 </Modal.Actions>
             </Modal>
