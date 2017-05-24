@@ -1,15 +1,22 @@
 export const SORT_PARTICIPANTS = "SORT_PARTICIPANTS"
-let sortParticiapnts = (participants) => {
-	return { type: SORT_PARTICIPANTS, payload: participants };
-}
+let sortParticipants = (dispatch) => {
+	return (participants) => { 
+		dispatch({type: SORT_PARTICIPANTS, payload: participants });
+	}
+};
 
 export const FILTER_PARTICIPANTS = "FILTER_PARTICIPANTS"
-let filterParticiapnts = (userID) => {
+let filterParticipants = (userID) => {
 	return { type: FILTER_PARTICIPANTS, payload: userID };
 }
 
 export const RESET_PARTICIPANTS = "RESET_PARTICIPANTS"
-let resetParticiapnts = () => {
+let resetParticipants = () => {
 	return { type: RESET_PARTICIPANTS };
 }
 
+export {
+	sortParticipants,
+	filterParticipants,
+	resetParticipants,
+}

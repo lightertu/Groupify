@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchParticipantList: Actions.fetchParticipantListActions.fetchParticipantList(dispatch),
     updateParticipantGroupNumber: Actions.updateParticipantGroupNumberActions.updateParticipantGroupNumber(dispatch),
     generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
+    sortParticipants: Actions.userMatchingActions.sortParticipants(dispatch), 
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -23,6 +24,7 @@ const mapStateToProps = (state, ownProps) => {
         participants: state.activity.participants,
         groupCapacity: state.activity.groupCapacity,
         totalCapacity: state.activity.totalCapacity,
+        matching: state.activity.matching,
     }
 };
 

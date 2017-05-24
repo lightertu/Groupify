@@ -1,4 +1,5 @@
-let handlerSortParticipants = (start, participants) => {
+let handleSortParticipants = (state, participants) => {
+	let idToIndex = {}
 	let days = {0: "monday", 1: "tuseday", 2: "wednesday", 3: "thursday", 4: "friday", 5: "saturday", 6: "sunday"};
 	let attributes = {
 				monday: new Set(),
@@ -11,31 +12,39 @@ let handlerSortParticipants = (start, participants) => {
             };
 
 	for(let i = 0; i < participants.length; i++) {
-		let availability = participants.availability;
-		let skills = participants.skills;
+		idToIndex[participants[i].id] = i;
+		let availability = participants[i].availability;
+		let skills = participants[i].skills;
+
 
 		for(let j = 0; j < availability.length; j++) {
 			if(availability[j]) {
-				attributes[days[j]].add(i); // if participant can schedule this day add their index
+				attributes[days[j]].add(participants[i].id); // if participant can schedule this day add their id which is mapped to index
 			}
 		}
 
 		for(let k = 0; k < skills.length; k++) {
-			if(skills[k] in attributes) {
-				attributes[skills[k]].add(i);
+			if(skills[k].name in attributes) {
+				attributes[skills[k].name].add(participants[i].id);
+				console.log("adding...")
 			} else {
-				attributes[skills[k]] = new Set();
-				attributes[skills[k]].add(i);
+				attributes[skills[k].name] = new Set();
+				attributes[skills[k].name].add(participants[i].id);
+
 			}
 		}
 	}
+	console.log(attributes)
+	let matching = state.matching;
+	matching.attributes = attributes;
+	matching.idToIndex = idToIndex;
 
 	return Object.assign({}, state, {
-		attributes: attributes
+		matching: matching
 	});
 };
 
-let handlerFilterParticipants = (start, userId) => {
+let handleFilterParticipants = (state, userId) => {
 	let matchingParticipants = new Set();
 	for(let key in state.attributes) {
 		if(state.attributes.hasOwnProperty(key)) {
@@ -46,16 +55,17 @@ let handlerFilterParticipants = (start, userId) => {
 	}
 
 	return Object.assign({}, state, {
-		matchingParticipants: matchingParticipants
+		matchingParticipants: matchingParticipants,
+		current: userId
 	})
 };
 
-let handlerResetParticipants = (start, payload) => {
-	
+let handleResetParticipants = (state, payload) => {
+	// TODO
 };
 
 export {
-	handlerSortParticipants,
-	handlerFilterParticipants,
-	handlerResetParticipants
+	handleSortParticipants,
+	handleFilterParticipants,
+	handleResetParticipants
 }
