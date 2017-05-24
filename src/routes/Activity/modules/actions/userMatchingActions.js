@@ -1,8 +1,6 @@
 export const SORT_PARTICIPANTS = "SORT_PARTICIPANTS"
-let sortParticipants = (dispatch) => {
-	return (participants) => { 
-		dispatch({type: SORT_PARTICIPANTS, payload: participants });
-	}
+let sortParticipants = (participants) => { 
+	return {type: SORT_PARTICIPANTS, payload: participants };
 };
 
 export const FILTER_PARTICIPANTS = "FILTER_PARTICIPANTS"

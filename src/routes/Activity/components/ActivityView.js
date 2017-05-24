@@ -86,13 +86,13 @@ export class ActivityView extends React.Component {
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
-                                       matching={ this.props.matching.matchingParticipants }/>
+                                       matching={ this.props.matching.get("matchingParticipants") }/>
                         </Grid.Column>
                     )
                 )
             )
         };
-        // console.log(this.props.participants)
+        
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
@@ -105,7 +105,7 @@ export class ActivityView extends React.Component {
                         <FilterMenu activityId={ this.props.activityId }
                                     generateGroupAssignment={ this.props.generateGroupAssignment }/>
                     }
-                    { this.props.matching.get("current") }
+                    
                     <Grid columns={ cardsPerRow }>
                         { getGroupCards(separateIntoGroups(this.props.participants)) }
                     </Grid>
