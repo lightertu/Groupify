@@ -101,7 +101,8 @@ export class ActivityView extends React.Component {
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                        activityId={ this.props.activityId }/>
+                                        activityId={ this.props.activityId }
+                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}/>
                 <ActivityCardViewWrapper>
                     {
                         (this.props.participants.length > 0) &&

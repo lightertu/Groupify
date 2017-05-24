@@ -13,6 +13,7 @@ import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
 
 const participantSidebarItemSource = {
     beginDrag(props) {
+        props.setCurrentlySelected(props.participantId);
         return {
             participantId: props.participantId,
             oldGroupNumber: -1
@@ -60,7 +61,8 @@ class Participant extends React.Component {
             <DraggableParticipantListItem
                 name={ this.props.name }
                 image={ this.props.image }
-                participantId={ this.props.participantId }/>
+                participantId={ this.props.participantId }
+                setCurrentlySelected={this.props.setCurrentlySelected}/>
         );
         return (
             <ParticipantProfilePopup
@@ -87,6 +89,7 @@ const participantsListStyle = {
 const participantSidebarTarget = {
     drop(props, monitor) {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
+        props.setCurrentlySelected(""); // resets curretly selected user
         let droppedItem = monitor.getItem();
         props.updateParticipantGroupNumber(
             props.activityId,
@@ -136,6 +139,7 @@ class ParticipantListSidebar extends React.Component {
                                 groupNumber={ participantObj.groupNumber }
                                 skills={ participantObj.skills }
                                 availability={ participantObj.availability }
+                                setCurrentlySelected={ this.props.setCurrentlySelected }
                             />
                         ))
                 }
