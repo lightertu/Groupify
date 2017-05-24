@@ -18,7 +18,6 @@ let handleSortParticipants = (state, participants) => {
 		let availability = participants[i].availability;
 		let skills = participants[i].skills;
 
-
 		for(let j = 0; j < availability.length; j++) {
 			if(availability[j]) {
 				attributes[days[j]].add(participants[i].participantId); // if participant can schedule this day add their id which is mapped to index
@@ -38,7 +37,6 @@ let handleSortParticipants = (state, participants) => {
 
 	let update = state.setIn(["matching", "attributes", attributes]);
 	update = update.setIn(["matching", "idToIndex", idToIndex]);
-
 	return update;
 };
 
@@ -47,13 +45,13 @@ let handleFilterParticipants = (state, userId) => {
 	let attributes = state.getIn(["matching", "attributes"]);
 	const [...keys] = attributes.keys();
 
-	keys.forEach(key =>  {
-		if(attributes.hasOwnProperty(key)) {
-			if(attributes.get(key).has(userId)) {
-				matchingParticipants = new Set([...matchingParticipants, ...attributes.get(key)]); // merges sets
+	for(var key in keys[0])  {
+		// if(attributes.hasOwnProperty(key)) {
+			if(attributes.keySeq().first()[key].has(userId)) { // take out the python part
+				matchingParticipants = new Set([...matchingParticipants, ...attributes.keySeq().first()[key]]); // merges sets
 			}
-		}
-	});
+		// }
+	};
 
 	let update = state.setIn(["matching", "current"], userId);
 	update = update.setIn(["matching", "matchingParticipants"], matchingParticipants);

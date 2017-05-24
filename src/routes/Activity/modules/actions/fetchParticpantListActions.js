@@ -3,6 +3,7 @@
  */
 import axios from "axios";
 import generateUsers from "../UserGenerator"
+import { sortParticipants } from "./userMatchingActions"
 const SERVER_URL = "http://localhost:3000";
 const numOfPeople = 50,
     groupCapacity = 3,
@@ -13,13 +14,16 @@ export const FETCH_PARTICIPANT_LIST = "FETCH_PARTICIPANT_LIST";
 let fetchParticipantList = (dispatch) => {
     return (activityId) => {
         dispatch({ type: FETCH_PARTICIPANT_LIST });
+        let participants = generateUsers(groupCapacity, numOfPeople)
         dispatch(fetchParticipantListSuccess(
             {
-                participants: generateUsers(groupCapacity, numOfPeople),
+                participants: participants,
                 groupCapacity: groupCapacity,
                 totalCapacity: totalCapacity
             }
         ));
+
+        dispatch(sortParticipants(participants));
 
         /*
          let url = SERVER_URL + "/api/activities/" + activityId + "/participants/";

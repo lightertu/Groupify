@@ -18,7 +18,6 @@ const initialState = Map({
 });
 
 export default function activityReducer (state = initialState, action) {
-    console.log(state)
     console.log(action)
     switch(action.type) {
 
