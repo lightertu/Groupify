@@ -7,7 +7,12 @@ import * as ActionsHandlers from "./actionsHandlers"
 const initialState = {
     participants: [],
     groupCapacity: 0,
-    totalCapacity: 0
+    totalCapacity: 0,
+    matching: {
+        current: "",
+        matchingParticipants: new Set(),
+        attributes: {}
+    }
 };
 
 export default function activityReducer (state = initialState, action) {
