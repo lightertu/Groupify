@@ -48,6 +48,10 @@ export class ActivityView extends React.Component {
 
     }
 
+    componentWillReceiveProps(nextProps) { // this will be replaced when hooked up to backend
+       this.props.sortParticipants(nextProps.participants);
+    }
+
     setCurrentlySelected(id) {
         console.log(id, " is selected")
         let similar = this.state.similar;
@@ -56,6 +60,7 @@ export class ActivityView extends React.Component {
     }
 
     render() {
+        console.log(this.props.matching)
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -96,7 +101,7 @@ export class ActivityView extends React.Component {
                 )
             )
         };
-        console.log(this.props.participants)
+        // console.log(this.props.participants)
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
