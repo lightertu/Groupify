@@ -164,6 +164,8 @@
     "file-system": "^2.2.2",
     "filereader": "^0.10.3",
     "fs": "0.0.1-security",
+    "http-status-code": "^2.1.0",
+    "http-status-codes": "^1.1.6",
     "immutable": "^3.8.1",
     "isomorphic-fetch": "^2.2.1",
     "karma": "^1.0.0",
@@ -186,6 +188,7 @@
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
     "style": "0.0.3",
+    "validator": "^7.0.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.12.2"
   },

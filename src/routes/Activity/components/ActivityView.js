@@ -37,6 +37,22 @@ export class ActivityView extends React.Component {
         super(props);
         console.log(this.props.activityId);
         this.props.fetchParticipantList(this.props.activityId);
+
+        this.state = ({similar: {
+                            current: "",
+                            participants: new Set(),
+                            similarParticipants: new Set(),
+                            buckets: {} 
+                        }
+                    });
+
+    }
+
+    setCurrentlySelected(id) {
+        console.log(id, " is selected")
+        let similar = this.state.similar;
+        similar.current = id;
+        this.setState({similar: similar});
     }
 
     render() {
@@ -73,7 +89,8 @@ export class ActivityView extends React.Component {
                                        groupNumber={ group.groupNumber }
                                        itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                       activityId={ this.props.activityId }/>
+                                       activityId={ this.props.activityId }
+                                       setCurrentlySelected={this.setCurrentlySelected.bind(this)}/>
                         </Grid.Column>
                     )
                 )
