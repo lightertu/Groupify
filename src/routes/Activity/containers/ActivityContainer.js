@@ -15,7 +15,8 @@ const mapDispatchToProps = (dispatch) => ({
     fetchParticipantList: Actions.fetchParticipantListActions.fetchParticipantList(dispatch),
     updateParticipantGroupNumber: Actions.updateParticipantGroupNumberActions.updateParticipantGroupNumber(dispatch),
     generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
-    sortParticipants: Actions.userMatchingActions.sortParticipants(dispatch), 
+    sortParticipantsMatch: Actions.userMatchingActions.sortParticipants(dispatch), 
+    filterParticipantsMatch: Actions.userMatchingActions.filterParticipants(dispatch),
 });
 
 const mapStateToProps = (state, ownProps) => {

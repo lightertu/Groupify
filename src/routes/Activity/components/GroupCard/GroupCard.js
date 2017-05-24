@@ -32,10 +32,16 @@ class DraggableCard extends React.Component {
     };
 
     render() {
-        const {connectDragSource, isDragging, participant, setCurrentlySelected} = this.props;
+        const {connectDragSource, isDragging, participant, setCurrentlySelected, matched, key} = this.props;
+        console.log(matched)
+
+        let cardStyles = "" 
+        if(matched.length > 0) {
+            cardStyles = ((matched.has(key)) ? "green" : "blue");
+        }
 
         return connectDragSource(
-            <div className="card" style={ {cursor: "move"} }>
+            <div className="card" style={ {cursor: "move", color: cardStyles} }>
                 <ParticipantProfilePopup
                     trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
                     position="top right"
@@ -125,7 +131,11 @@ class GroupCard extends React.Component {
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {
                                 this.props.participants.map((participant) =>
-                                    <DraggableCard participant={ participant } key={ participant.participantId } setCurrentlySelected={this.props.setCurrentlySelected}/>
+                                    <DraggableCard 
+                                        participant={ participant } 
+                                        key={ participant.participantId } 
+                                        setCurrentlySelected={this.props.setCurrentlySelected}
+                                        matched={this.props.matching}/>
                                 )
                             }
                             { generateEmptySpots() }
