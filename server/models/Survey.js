@@ -6,27 +6,23 @@ let mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-
 let QuestionSchema = Schema({
-    anwsers: {
-        type: [String],
-        required: true,
-    },
-    answersEnableFilter: { type: Boolean, default: false},
-    answersEnableMaximum:{ type: Boolean, default: false},
-    answersEnableMinimum:{ type: Boolean, default: false},
-    answersFilter: {
-        type: [String],
-        required: true,
-    },
+    answers: { type: [String], default: ""},
+
+    answersEnableFilter: { type: Boolean, default: false },
+    answersEnableMaximum:{ type: Boolean, default: false },
+    answersEnableMinimum:{ type: Boolean, default: false },
+
+    answersFilter: { type: [String], default: ""},
     answersFilterEnableBlacklistMode:{ type: Boolean, default: false},
+
     answersMaximum: { type: Number, default: 0},
     answersMinimum: { type: Number, default: 0},
-    title: {type: String, required: true},
-    tooltip: {type: String, required: true},
-    type: {type: String, required: true},
-}); 
 
+    title: {type: String, required: true},
+    tooltip: {type: String, default: ""},
+    type: {type: String, required: true},
+});
 
 let SurveySchema = Schema({
     _creator: {
@@ -39,7 +35,6 @@ let SurveySchema = Schema({
         type: String,
         default: "",
         required: true,
-        unqiue: true
     },
 
     questions:  [QuestionSchema],
@@ -66,7 +61,7 @@ let SurveySchema = Schema({
     }
 });
 
-QuestionSchema.index({title: 1, type: 1}, {unique: true});
+//QuestionSchema.index({title: 1, type: 1}, {unique: true});
 
 
 SurveySchema.pre('save', function(next){
