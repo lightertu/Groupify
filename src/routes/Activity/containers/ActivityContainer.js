@@ -22,10 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state, ownProps) => {
     return {
         activityId: ownProps.location.query.id,
-        participants: state.activity.participants,
-        groupCapacity: state.activity.groupCapacity,
-        totalCapacity: state.activity.totalCapacity,
-        matching: state.activity.matching,
+        participants: state.activity.get("participants"),
+        groupCapacity: state.activity.get("groupCapacity"),
+        totalCapacity: state.activity.get("totalCapacity"),
+        matching: state.activity.get("matching"),
     }
 };
 

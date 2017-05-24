@@ -1,3 +1,5 @@
+import { Map } from "immutable"
+
 let handleSortParticipants = (state, participants) => {
 	let idToIndex = {}
 	let days = {0: "monday", 1: "tuseday", 2: "wednesday", 3: "thursday", 4: "friday", 5: "saturday", 6: "sunday"};
@@ -34,30 +36,28 @@ let handleSortParticipants = (state, participants) => {
 		}
 	}
 
-	let matching = state.matching;
-	matching.attributes = attributes;
-	matching.idToIndex = idToIndex;
+	let update = state.setIn(["matching", "attributes", attributes]);
+	update = update.setIn(["matching", "idToIndex", idToIndex]);
 
-	return Object.assign({}, state, {
-		matching: matching
-	});
+	return update;
 };
 
 let handleFilterParticipants = (state, userId) => {
 	let matchingParticipants = new Set();
-	let attributes = state.matching.attributes;
-	for(let key in attributes) {
+	let attributes = state.getIn(["matching", "attributes"]);
+	const [...keys] = attributes.keys();
+
+	keys.forEach(key =>  {
 		if(attributes.hasOwnProperty(key)) {
-			if(attributes[key].has(userId)) {
-				matchingParticipants = new Set([...matchingParticipants, ...attributes[key]]); // merges sets
+			if(attributes.get(key).has(userId)) {
+				matchingParticipants = new Set([...matchingParticipants, ...attributes.get(key)]); // merges sets
 			}
 		}
-	}
-	
-	return Object.assign({}, state, {
-		matchingParticipants: matchingParticipants,
-		current: userId
-	})
+	});
+
+	let update = state.setIn(["matching", "current"], userId);
+	update = update.setIn(["matching", "matchingParticipants"], matchingParticipants);
+	return update;
 };
 
 let handleResetParticipants = (state, payload) => {
