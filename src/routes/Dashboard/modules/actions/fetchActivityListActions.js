@@ -11,12 +11,10 @@ const SERVER_URL = "http://localhost:3000";
 export const FETCH_ACTIVITY_LIST = "FETCH_ACTIVITY_LIST";
 let fetchActivityList = (dispatch) => {
     return () => {
-        dispatch({type: FETCH_ACTIVITY_LIST});
-
+        dispatch( {type: FETCH_ACTIVITY_LIST} );
         let url = SERVER_URL + "/api/activities";
         axios.get(url)
             .then((response) => {
-                console.log(JSON.stringify(response, null, 2));
                 dispatch(fetchActivityListSuccess(response.data));
             })
             .catch((error) => {

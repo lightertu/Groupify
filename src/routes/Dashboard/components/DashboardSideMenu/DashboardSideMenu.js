@@ -64,6 +64,12 @@ class _MenuOptions extends React.Component {
                     <Icon name='file text outline'/>
                     Surveys
                 </Menu.Item>*/}
+                <Link to={ `/dashboard?view=surveys`}>
+                    <Menu.Item name='surveys' active={ this.props.view === "surveys"}>
+                        <Icon name='bar chart'/>
+                        Surveys
+                    </Menu.Item>
+                </Link>
                 <Link to={ `/dashboard?view=accountSettings`}>
                     <Menu.Item name='accountSettings' active={ this.props.view === "accountSettings"}>
                         <Icon name='settings'/>

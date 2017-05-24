@@ -24,6 +24,7 @@ export default class ActivitiesView extends React.Component {
             return this.props.activitiesViewData.activities.map((activityObj) => (
                 <ActivityCard color={activityObj.color}
                               activityId={activityObj.activityId}
+                              key={activityObj.activityId}
                               name={activityObj.name}
                               endDate={activityObj.endDate}
                               numberOfCurrentParticipants={ activityObj.participants.length }

@@ -16,7 +16,7 @@ let createActivity = (dispatch) => {
     return (payload) => {
         dispatch({type: CREATE_ACTIVITY, payload: payload});
         let url = SERVER_URL + "/api/activities";
-        axios.post(url)
+        axios.post(url, payload)
             .then((response) => {
                 dispatch(createActivitySuccess(response.data));
             })

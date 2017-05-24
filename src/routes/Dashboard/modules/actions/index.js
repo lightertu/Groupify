@@ -3,9 +3,25 @@
  */
 
 // add more actions
+import * as fetchSurveyListActions from "./fetchSurveyListActions"
+import * as createSurveyActions from "./createSurveyActions"
+import * as updateSurveyActions from "./updateSurveyActions"
+import * as deleteSurveyActions from "./deleteSurveyActions"
 import * as fetchActivityListActions from "./fetchActivityListActions"
+import * as createActivityActions from "./createActivityActions"
+import * as updateActivityActions from "./updateActivityActions"
+import * as deleteActivityActions from "./deleteActivityActions"
+import * as updateUserProfileActions from "./updateUserProfileActions"
 
 export {
     // export more actions from here
-    fetchActivityListActions
+    updateSurveyActions,
+    createSurveyActions,
+    fetchSurveyListActions,
+    deleteSurveyActions,
+    updateActivityActions,
+    createActivityActions,
+    fetchActivityListActions,
+    deleteActivityActions,
+    updateUserProfileActions,
 }

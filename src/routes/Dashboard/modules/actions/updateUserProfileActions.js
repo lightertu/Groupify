@@ -19,7 +19,7 @@ let updateUserProfile = (dispatch) => {
     return (payload) => {
         dispatch({type: UPDATE_USER_PROFILE, payload: payload});
         let url = SERVER_URL + "/api/user/profile";
-        axios.put(url)
+        axios.put(url, payload)
             .then((response) => {
                 dispatch(updateUserProfileSuccess(response.data));
             })
