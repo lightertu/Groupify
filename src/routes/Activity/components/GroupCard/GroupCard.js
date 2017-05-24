@@ -34,17 +34,15 @@ class DraggableCard extends React.Component {
     render() {
         const {connectDragSource, isDragging, participant, setCurrentlySelected, matched} = this.props;
 
-        // if(matched.length > 0) {
-        //     cardStyles = ((matched.has(key)) ? "green" : "blue");
-        // }
         let cardStyles = "";
         if(matched.has(participant.participantId)) {
-            console.log("matched")
-            cardStyles = "blue"
+            cardStyles = {
+
+            }
         }
 
         return connectDragSource(
-            <div className="card" style={ {cursor: "move", color: cardStyles} }>
+            <div className="card" style={ {cursor: "move"} }>
                 <ParticipantProfilePopup
                     trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
                     position="top right"

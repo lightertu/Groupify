@@ -67,16 +67,11 @@ class FilterMenu extends React.Component {
         const buttonStyle = {
             width: "120px"
         };
-        const options = [
-            { key: 1, text: 'Choice 1', value: 1 },
-            { key: 2, text: 'Choice 2', value: 2 },
-            { key: 3, text: 'Choice 3', value: 3 },
-        ];
 
-        let stateOptions = [ {key: "one", value: "one", text: "one"},
-        { key: 1, text: 'Choice 1', value: 1 },
-            { key: 2, text: 'Choice 2', value: 2 },
-            { key: 3, text: 'Choice 3', value: 3 }]
+        const [...keys] = this.props.filterValues.keys();
+        const options = Object.keys(keys[0]).map(function(key, i) {
+            return {key: i, text: key, value: i};
+        })       
 
         return (
             <div>
@@ -96,7 +91,7 @@ class FilterMenu extends React.Component {
                                     size="large"
                                     style={inputStyle}
                                     search={true}
-                                    options={stateOptions}
+                                    options={options}
                                     multiple selection
                                     transparent
                                     inverted={ this.state.inputInverted }

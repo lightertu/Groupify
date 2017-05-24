@@ -38,6 +38,8 @@ export class ActivityView extends React.Component {
         console.log(this.props.activityId);
         this.props.fetchParticipantList(this.props.activityId);
 
+        this.state = ({filters: []});
+
     }
 
     componentDidReceiveProps(nextProps) { // this will be replaced when hooked up to backend
@@ -103,7 +105,8 @@ export class ActivityView extends React.Component {
                     {
                         (this.props.participants.length > 0) &&
                         <FilterMenu activityId={ this.props.activityId }
-                                    generateGroupAssignment={ this.props.generateGroupAssignment }/>
+                                    generateGroupAssignment={ this.props.generateGroupAssignment }
+                                    filterValues={ this.props.matching.get("attributes") }/>
                     }
                     
                     <Grid columns={ cardsPerRow }>
