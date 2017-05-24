@@ -9,6 +9,17 @@ const initialState = Map({
     title: "default",
     questions : List([
         Map({
+            'type':'test', 
+            'title':'test', 
+            'tooltip':'test', 
+
+            'answers':Set([]),
+
+            'answersEnableMaximum':false, 'answersMaximum':0,
+            'answersEnableMinimum':false, 'answersMinimum':0,
+            'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 'answersFilter':OrderedSet([]),
+        }),
+        Map({
             'type':'CircleSelection', 
             'title':'Available Times', 
             'tooltip':'Select the days when you are available to meet with other team members', 
@@ -41,17 +52,6 @@ const initialState = Map({
             'answersEnableMinimum':false, 'answersMinimum':0,
             'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 'answersFilter':OrderedSet([]),
         }),
-        Map({
-            'type':'test', 
-            'title':'test', 
-            'tooltip':'test', 
-
-            'answers':Set([]),
-
-            'answersEnableMaximum':false, 'answersMaximum':0,
-            'answersEnableMinimum':false, 'answersMinimum':0,
-            'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 'answersFilter':OrderedSet([]),
-        })
 
     ]),
 });
