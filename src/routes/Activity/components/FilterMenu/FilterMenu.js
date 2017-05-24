@@ -73,6 +73,11 @@ class FilterMenu extends React.Component {
             { key: 3, text: 'Choice 3', value: 3 },
         ];
 
+        let stateOptions = [ {key: "one", value: "one", text: "one"},
+        { key: 1, text: 'Choice 1', value: 1 },
+            { key: 2, text: 'Choice 2', value: 2 },
+            { key: 3, text: 'Choice 3', value: 3 }]
+
         return (
             <div>
                 <Sticky isActive={true}
@@ -84,12 +89,15 @@ class FilterMenu extends React.Component {
                     <Segment basic>
                         <Menu fluid secondary>
                             <Menu.Item fitted>
-                                { <Input
+                                { <Dropdown
                                     icon='search'
                                     iconPosition='left'
                                     placeholder='Search . . .'
-                                    size="big"
+                                    size="large"
                                     style={inputStyle}
+                                    search={true}
+                                    options={stateOptions}
+                                    multiple selection
                                     transparent
                                     inverted={ this.state.inputInverted }
                                 /> }

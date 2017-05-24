@@ -1,22 +1,25 @@
 /**
  * Created by rui on 4/18/17.
  */
+import { Map } from "immutable"
 import * as Actions from "../actions"
 import * as ActionsHandlers from "./actionsHandlers"
 
-const initialState = {
+const initialState = Map({
     participants: [],
     groupCapacity: 0,
     totalCapacity: 0,
-    matching: {
-        current: "",
+    matching: Map({
+        current: "test",
         matchingParticipants: new Set(),
-        attributes: {},
-        idToIndex: {}
-    }
-};
+        attributes: Map({}),
+        idToIndex: Map({})
+    })
+});
 
 export default function activityReducer (state = initialState, action) {
+    console.log(state)
+    console.log(action)
     switch(action.type) {
 
         /* reduce userMatching */

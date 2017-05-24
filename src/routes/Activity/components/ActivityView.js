@@ -40,8 +40,8 @@ export class ActivityView extends React.Component {
 
     }
 
-    componentWillReceiveProps(nextProps) { // this will be replaced when hooked up to backend
-       this.props.sortParticipantsMatch(nextProps.participants);
+    componentDidReceiveProps(nextProps) { // this will be replaced when hooked up to backend
+       //this.props.sortParticipantsMatch(nextProps.participants);
     }
 
     setCurrentlySelected(id) {
@@ -50,7 +50,7 @@ export class ActivityView extends React.Component {
     }
 
     render() {
-        console.log(this.props.matching)
+        console.log(this.props)
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -105,6 +105,7 @@ export class ActivityView extends React.Component {
                         <FilterMenu activityId={ this.props.activityId }
                                     generateGroupAssignment={ this.props.generateGroupAssignment }/>
                     }
+                    { this.props.matching.get("current") }
                     <Grid columns={ cardsPerRow }>
                         { getGroupCards(separateIntoGroups(this.props.participants)) }
                     </Grid>
