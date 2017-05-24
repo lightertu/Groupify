@@ -2,25 +2,40 @@
  * Created by rui on 5/2/17.
  */
 
-import * as Actions from "../actions"
-import * as ActionHandlers from "./actionHandlers"
+import * as Actions from '../actions'
+import * as ActionHandlers from './actionHandlers'
 
 const initialState = {
-    activities: {},
-    accountSettings: {}
-};
-
+    activitiesViewData: {
+        activities: [
+            {
+                color: "white",
+                activityId: "thisdawyghujiklasdawasda",
+                name: "CIS 422",
+                endDate: "1911",
+                groupCapacity: 10,
+                totalCapacity: 40,
+                participants: [1,2,3,4]
+            }
+        ]
+    },
+    accountSettingsViewData: {
+        email: '',
+        name: ''
+    }
+}
 
 let dashboardReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case Actions.fetchActivityListActions.FETCH_ACTIVITY_LIST:
-            return ActionHandlers.fetchActivityListActionHandlers.handleFetchingActivityList(state, action.payload);
+            return ActionHandlers.fetchActivityListActionHandlers.handleFetchingActivityList(state, action.payload)
         case Actions.fetchActivityListActions.FETCH_ACTIVITY_LIST_SUCCESS:
-            return ActionHandlers.fetchActivityListActionHandlers.handleFetchActivityListSuccess(state, action.payload);
+            return ActionHandlers.fetchActivityListActionHandlers.handleFetchActivityListSuccess(state, action.payload)
         case Actions.fetchActivityListActions.FETCH_ACTIVITY_LIST_FAILURE:
-            return ActionHandlers.fetchActivityListActionHandlers.handleFetchActivityListFailure(state, action.payload);
-        default: return state;
+            return ActionHandlers.fetchActivityListActionHandlers.handleFetchActivityListFailure(state, action.payload)
+        default:
+            return state
     }
-};
+}
 
-export default dashboardReducer;
+export default dashboardReducer

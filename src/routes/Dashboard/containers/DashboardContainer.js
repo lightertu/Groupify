@@ -12,14 +12,16 @@ import DashboardView from '../components/DashboardView'
  implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = (dispatch) => ({
-    cool: (x) => x
+    cool: (dispatch) => x
 });
 
 const mapStateToProps = (state, ownProps) => {
-    return ({
-        view: ownProps.location.query.view
-    })
-
+    console.log(state);
+    return {
+        view: ownProps.location.query.view,
+        activitiesViewData: state.dashboard.activitiesViewData,
+        accountSettingsViewData: state.dashboard.accountSettingsViewData,
+    }
 };
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
