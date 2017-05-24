@@ -14,7 +14,7 @@ let disableSurveyQuestionAnswersFilterBlacklistMode= (state, payload) => {
                         &&
                         question.get('type') === payload.type
                     )), 
-                    "answersEnableFilterBlacklistMode"
+                    "answersFilterEnableBlacklistMode"
                 ],
 
                 (option) => {return false}

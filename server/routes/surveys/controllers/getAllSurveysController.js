@@ -7,14 +7,14 @@ module.exports = function (req, res, next) {
 
     User.findOne({_id: req.user._id})
         .populate({
-            path: 'activities',
-            select: 'name groupCapacity totalCapacity endDate lastModified participants',
+            path: 'surveys',
+            select: 'title createdAt',
             match: {isDeleted: false}
         })
         .exec()
         .then(function (user) {
             return res.json({
-                activities: user.activities,
+                surveys: user.surveys,
             });
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

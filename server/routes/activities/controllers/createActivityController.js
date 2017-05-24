@@ -59,6 +59,7 @@ module.exports = function (req, res, next) {
         endDate: payload.endDate,
     });
 
+
     newActivity.save()
         .then(function (newActivity) {
             const newActivityId = newActivity._id;
