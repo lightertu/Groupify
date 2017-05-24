@@ -18,17 +18,14 @@ const DashboardView = (props) => {
     let renderDashboardView = () => {
         switch (props.view) {
             case("activities"):
-                return <ActivitiesView />;
+                return <ActivitiesView activitiesViewData={ props.activitiesViewData } />;
             case("accountSettings"):
-                return <AccountSettingView />;
-            case("surveys"):
-                return <AccountSettingView />;
+                return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>;
             default:
-                return <ActivitiesView />;
+                return <ActivitiesView activitiesViewData={ props.activitiesViewData }/>;
         }
     };
 
-    console.log(props.view);
     return (
             <div>
                 <DashboardSideMenu view={ props.view }/>

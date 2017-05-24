@@ -2,41 +2,36 @@
  * Created by rui on 5/5/17.
  */
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Button, Form, Modal } from 'semantic-ui-react'
-import ActivityInfoForm from "../../ActivityInfoForm"
+import PropTypes from 'prop-types';
+import {Button, Modal} from "semantic-ui-react";
+import ActivityInfoForm from '../../ActivityInfoForm'
 
-export default class EditActivityInfoModal extends React.Component {
-    constructor (props) {
-        super(props)
+export default class Create extends React.Component {
+    constructor(props) {
+        super(props);
     }
 
     static propTypes = {
-        onClose: PropTypes.func.isRequired,
-        activityId: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        totalCapacity: PropTypes.number.isRequired,
-        groupCapacity: PropTypes.number.isRequired,
-    }
+        open: PropTypes.bool.isRequired,
+        onClose: PropTypes.func.isRequired
+    };
 
-    /* using error function to bind this */
-    saveChangeButtonHandler = (e) => {
+    createActivityHandler = (e) => {
         /* the only thing this handler does it that it trigger the form to submit */
         this.activityFormButton.click()
         const close = this.props.onClose;
         close();
     };
 
-    updateActivity = (payload) => {
-        //TODO: implement submit form
+    createActivity = (payload) => {
+        //TODO: implement this and update store
         console.log(payload);
-    };
+    }
 
-    render () {
+    render() {
         return (
             <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
-                <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
+                <Modal.Header> Create Activity </Modal.Header>
                 <Modal.Content>
 
                     {/* this trigger the button inside the form however the button is hidden in css */}
@@ -46,19 +41,19 @@ export default class EditActivityInfoModal extends React.Component {
                                       endDate={this.props.endDate}
                                       groupCapacity={this.props.groupCapacity}
                                       totalCapacity={this.props.totalCapacity}
-                                      submitForm={this.updateActivity}/>
+                                      submitForm={ this.createActivity }/>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative onClick={ this.props.onClose }
-                            >
-                            Cancel
+                    >
+                        Cancel
                     </Button>
                     <Button positive
-                            content='Save Changes'
-                            onClick={ this.saveChangeButtonHandler }
+                            content='Create'
+                            onClick={ this.createActivityHandler }
                     />
                 </Modal.Actions>
             </Modal>
-        )
+        );
     }
 }
