@@ -73,12 +73,10 @@ export default class SurveyCard extends React.Component {
                                        surveyId={this.props.surveyId}
                                        name={this.props.name }
                 />
-                <div onClick={this.surveyCardOnClickHandler}
-                     style={{
+                <div style={{
                          padding: '1rem',
                          height: '130px',
                          textAlign: 'right',
-                         cursor: 'pointer',
                          background: randomColor({
                          luminosity: 'dark',
                          format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
@@ -102,16 +100,16 @@ export default class SurveyCard extends React.Component {
                     <Card.Header>
                         {this.props.name}
                         <Popup
-                            trigger={ <Icon style={{float: 'right', cursor: "zoom-in", marginTop: "7px"}}
+                            trigger={ <Icon style={{float: 'right', cursor: "pointer", marginTop: "7px"}}
                                             size="large"
                                             color="grey"
                                             onClick={ this.surveyIconOnClick }
-                                            name='file text outline'/> }
+                                            name='unhide'/> }
                             position='top right'
                             hoverable
                             wide
-                        >   <div><code>http://address/survey?id=...</code></div>
-                            <Button fluid size="small"><Icon name="copy"/>Copy Survey Url</Button>
+                        >   
+                            Preview
                         </Popup>
                     </Card.Header>
                 </Card.Content>
