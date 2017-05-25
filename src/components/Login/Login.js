@@ -99,7 +99,9 @@ class Login extends Component {
             this.props.fetchUser(this.state.email, this.state.password);
         }
         this.setState({email: '', password: ''});
-       //this.props.setErrorMessage("Both entries must be valid");
+        if(this.props.errorMessage == "") {
+            this.props.setErrorMessage("Both entries must be valid");
+        }
         this.props.setErrorDisplay(true);
     }
 
@@ -109,7 +111,9 @@ class Login extends Component {
             this.props.generateUser(this.state.email, this.state.password);
         } else {
             this.setState({email: '', password: '', passwordConfirm: ''});
+            if(this.props.errorMessage == "") {
             this.props.setErrorMessage("All entries must be valid");
+        }
             this.props.setErrorDisplay(true);
         }   
     }

@@ -4,9 +4,11 @@
 import * as fetchParticipantListActions from "./fetchParticpantListActions"
 import * as updateParticipantGroupNumberActions from "./updateParticipantGroupNumberActions"
 import * as generateGroupAssignmentActions from "./generateGroupAssignmentActions"
+import * as userMatchingActions from "./userMatchingActions"
 
 export {
     fetchParticipantListActions,
     updateParticipantGroupNumberActions,
-    generateGroupAssignmentActions
+    generateGroupAssignmentActions,
+    userMatchingActions
 }

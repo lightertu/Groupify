@@ -14,6 +14,7 @@ const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0
 
 const participantCardItemSource = {
     beginDrag(props) {
+        props.setCurrentlySelected(props.participant.participantId) // set current selected card
         return {
             participantId: props.participant.participantId,
             oldGroupNumber: props.participant.groupNumber
@@ -31,7 +32,15 @@ class DraggableCard extends React.Component {
     };
 
     render() {
-        const {connectDragSource, isDragging, participant} = this.props;
+        const {connectDragSource, isDragging, participant, setCurrentlySelected, matched} = this.props;
+
+        let cardStyles = "";
+        if(matched.has(participant.participantId)) {
+            cardStyles = {
+
+            }
+        }
+
         return connectDragSource(
             <div className="card" style={ {cursor: "move"} }>
                 <ParticipantProfilePopup
@@ -51,6 +60,7 @@ class DraggableCard extends React.Component {
 
 const participantTarget = {
     drop(props, monitor) {
+        props.setCurrentlySelected(""); // resets curretly selected user
         const participantDropped = monitor.getItem();
         if (props.groupNumber !== participantDropped.oldGroupNumber) {
             props.updateParticipantGroupNumber(
@@ -122,7 +132,11 @@ class GroupCard extends React.Component {
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                             {
                                 this.props.participants.map((participant) =>
-                                    <DraggableCard participant={ participant } key={ participant.participantId }/>
+                                    <DraggableCard 
+                                        participant={ participant } 
+                                        key={ participant.participantId } 
+                                        setCurrentlySelected={this.props.setCurrentlySelected}
+                                        matched={this.props.matching}/>
                                 )
                             }
                             { generateEmptySpots() }

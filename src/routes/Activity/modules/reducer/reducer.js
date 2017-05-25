@@ -1,17 +1,33 @@
 /**
  * Created by rui on 4/18/17.
  */
+import { Map } from "immutable"
 import * as Actions from "../actions"
 import * as ActionsHandlers from "./actionsHandlers"
 
-const initialState = {
+const initialState = Map({
     participants: [],
     groupCapacity: 0,
-    totalCapacity: 0
-};
+    totalCapacity: 0,
+    matching: Map({
+        current: "test",
+        matchingParticipants: new Set(),
+        attributes: Map({}),
+        idToIndex: Map({})
+    })
+});
 
 export default function activityReducer (state = initialState, action) {
+    console.log(action)
     switch(action.type) {
+
+        /* reduce userMatching */
+        case Actions.userMatchingActions.SORT_PARTICIPANTS:
+            return ActionsHandlers.userMatchingActionsHandlers.handleSortParticipants(state, action.payload);
+        case Actions.userMatchingActions.FILTER_PARTICIPANTS:
+            return ActionsHandlers.userMatchingActionsHandlers.handleFilterParticipants(state, action.payload);
+        case Actions.userMatchingActions.RESET_PARTICIPANTS:
+            return ActionsHandlers.userMatchingActionsHandlers.handleResetParticipants(state, action.payload);
 
         /* reduce fetch actions */
         case Actions.fetchParticipantListActions.FETCH_PARTICIPANT_LIST:

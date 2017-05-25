@@ -67,11 +67,11 @@ class FilterMenu extends React.Component {
         const buttonStyle = {
             width: "120px"
         };
-        const options = [
-            { key: 1, text: 'Choice 1', value: 1 },
-            { key: 2, text: 'Choice 2', value: 2 },
-            { key: 3, text: 'Choice 3', value: 3 },
-        ];
+
+        const [...keys] = this.props.filterValues.keys();
+        const options = Object.keys(keys[0]).map(function(key, i) {
+            return {key: i, text: key, value: key, name: key};
+        })       
 
         return (
             <div>
@@ -84,14 +84,18 @@ class FilterMenu extends React.Component {
                     <Segment basic>
                         <Menu fluid secondary>
                             <Menu.Item fitted>
-                                { <Input
+                                { <Dropdown
                                     icon='search'
                                     iconPosition='left'
                                     placeholder='Search . . .'
-                                    size="big"
+                                    size="large"
                                     style={inputStyle}
+                                    search={true}
+                                    options={options}
+                                    multiple selection
                                     transparent
                                     inverted={ this.state.inputInverted }
+                                    onChange={ this.props.setFilterValues.bind(this, "filters")}
                                 /> }
                             </Menu.Item>
 
