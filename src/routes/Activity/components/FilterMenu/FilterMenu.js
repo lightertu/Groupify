@@ -70,7 +70,7 @@ class FilterMenu extends React.Component {
 
         const [...keys] = this.props.filterValues.keys();
         const options = Object.keys(keys[0]).map(function(key, i) {
-            return {key: i, text: key, value: i};
+            return {key: i, text: key, value: key, name: key};
         })       
 
         return (
@@ -95,6 +95,7 @@ class FilterMenu extends React.Component {
                                     multiple selection
                                     transparent
                                     inverted={ this.state.inputInverted }
+                                    onChange={ this.props.setFilterValues.bind(this, "filters")}
                                 /> }
                             </Menu.Item>
 
