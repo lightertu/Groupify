@@ -39,11 +39,31 @@ export class ActivityView extends React.Component {
         this.props.fetchParticipantList(this.props.activityId);
 
         this.state = ({filters: []});
+        this.setFilterValues = this.setFilterValues.bind(this);
 
     }
 
-    componentDidReceiveProps(nextProps) { // this will be replaced when hooked up to backend
-       //this.props.sortParticipantsMatch(nextProps.participants);
+    setFilterValues(input, event) {
+        let field = this.state[input];
+        console.log(event.target)
+        console.log(event.target.value)
+        console.log(event.target.parentNode)
+        if(event.target.getAttribute('class') === "delete icon") {
+            let item = event.target.parentNode.getAttribute('value');
+            let index = field.indexOf(item)
+            console.log("index", index)
+            if(index > 0) {
+                field.splice(index, 1); // remove item from filter
+            }
+        } else {
+            if(event.target.getAttribute('name') === null) {
+                field.push(event.target.parentNode.getAttribute('name'));
+            } else {
+                field.push(event.target.getAttribute('name')); // add item to filter
+            }
+        }
+        console.log(field)
+        this.setState({field:field});
     }
 
     setCurrentlySelected(id) {
@@ -52,7 +72,6 @@ export class ActivityView extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -106,7 +125,8 @@ export class ActivityView extends React.Component {
                         (this.props.participants.length > 0) &&
                         <FilterMenu activityId={ this.props.activityId }
                                     generateGroupAssignment={ this.props.generateGroupAssignment }
-                                    filterValues={ this.props.matching.get("attributes") }/>
+                                    filterValues={ this.props.matching.get("attributes") }
+                                    setFilterValues={ this.setFilterValues }/>
                     }
                     
                     <Grid columns={ cardsPerRow }>
