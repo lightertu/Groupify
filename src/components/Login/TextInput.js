@@ -52,7 +52,7 @@ class TextInput extends Component {
 		} else {
 
 		}
-
+		errorVisible = false;
 		this.setState({
 		    isEmpty: JQuery.isEmptyObject(value),
 		    valid: valid,
