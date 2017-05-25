@@ -9,14 +9,15 @@ export const FETCH_SURVEY_LIST = "FETCH_SURVEY_LIST";
 let fetchSurveyList = (dispatch) => {
     return () => {
         dispatch({type: FETCH_SURVEY_LIST});
-
         let url = SERVER_URL + "/api/surveys";
         axios.get(url)
             .then((response) => {
-                console.log(JSON.stringify(response, null, 2));
+                console.log(response.data);
+
                 dispatch(fetchSurveyListSuccess(response.data));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(fetchSurveyListFailure(error));
             });
     }

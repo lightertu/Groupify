@@ -4,17 +4,20 @@
 
 import * as Actions from '../actions'
 import * as ActionHandlers from './actionHandlers'
+import {Map, Set, List, OrderedSet} from 'immutable';
 
-const initialState = {
-    surveysViewData: {
-        surveys: [
-            {
+const initialState = Map({
+    surveysViewData: Map({
+        isLoading:true,
+        failedToGet:false,
+        surveys: List([
+            Map({
                 color: "white",
                 surveyId: "blablableebloo",
                 name: "Hair Color Survey",
-            }
-        ]
-    },
+            }),
+        ])
+    }),
     activitiesViewData: {
         activities: [
             {
@@ -32,7 +35,7 @@ const initialState = {
         email: '',
         name: ''
     }
-}
+});
 
 let dashboardReducer = (state = initialState, action) => {
     switch (action.type) {
