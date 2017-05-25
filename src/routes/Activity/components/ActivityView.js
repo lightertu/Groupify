@@ -45,19 +45,16 @@ export class ActivityView extends React.Component {
 
     setFilterValues(input, event) {
         let field = this.state[input];
-        console.log(event.target)
-        console.log(event.target.value)
-        console.log(event.target.parentNode)
         if(event.target.getAttribute('class') === "delete icon") {
             let item = event.target.parentNode.getAttribute('value');
             let index = field.indexOf(item)
-            console.log("index", index)
+
             if(index > 0) {
                 field.splice(index, 1); // remove item from filter
             }
         } else {
             if(event.target.getAttribute('name') === null) {
-                field.push(event.target.parentNode.getAttribute('name'));
+                field.push(event.target.parentNode.getAttribute('name')); // add item to filter
             } else {
                 field.push(event.target.getAttribute('name')); // add item to filter
             }
@@ -67,7 +64,6 @@ export class ActivityView extends React.Component {
     }
 
     setCurrentlySelected(id) {
-        console.log(id, " is selected")
         this.props.filterParticipantsMatch(id);
     }
 
