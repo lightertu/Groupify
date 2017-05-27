@@ -1,0 +1,27 @@
+{"students": [{
+		"firstName": "Jack",
+		"lastName": "Smith",
+		"email": "422apptest@gmail.com"
+		},
+		{
+		"firstName": "Jack",
+		"lastName": "Smith",
+		"email": "422apptest@gmail.com"
+		},
+		{
+		"firstName": "Jack",
+		"lastName": "Smith",
+		"email": "422apptest@gmail.com"
+		},
+		{
+		"firstName": "Jack",
+		"lastName": "Smith",
+		"email": "422apptest@gmail.com"
+		},
+		{
+		"firstName": "Jack",
+		"lastName": "Smith",
+		"email": "422apptest@gmail.com"
+		}
+	]
+}
