@@ -22,9 +22,10 @@ function validateFormat(payload, properties, questionProperties){
         console.log(property + " is: " + payload.hasOwnProperty(property));
     });
 
-    questionProperties.forEach(function (property) {
-        payload.questions.forEach(function (question) {
+    payload.questions.forEach(function (question) {
+        questionProperties.forEach(function (property) {
             res = res && question.hasOwnProperty(property); 
+            console.log(property + " is: " + question.hasOwnProperty(property));
         })
     });
     return res;
@@ -48,51 +49,123 @@ function vaildateQuestions(questions){
 }
 
 function validateAnswers(answers){
-//    console.log("answers is: " + Array.isArray(answers));
+    (
+        Array.isArray(answers)
+    ) 
+    ? 
+    console.log('answers Validation Was Successful') 
+    : 
+    console.log('answers Validation Failed')
     return Array.isArray(answers);
 }
 
 function validateAnswersFilter(answersFilter){
-//    console.log("answersFilter is: " + Array.isArray(answersFilter));
+    (
+        Array.isArray(answersFilter)
+    ) 
+    ? 
+    console.log('answersFilter Validation Was Successful') 
+    : 
+    console.log('answersFilter Validation Failed')
     return Array.isArray(answersFilter);
 }
 
 function validateAnswersEnableFilterBlacklistMode(answersFilterEnableBlacklistMode){
-//    console.log("answersEnableFilterBlacklistMode is: " + typeof answersFilterEnableBlacklistMode === 'boolean');
+    (
+    typeof answersFilterEnableBlacklistMode === 'boolean'
+    ) 
+    ? 
+    console.log('Validation of answersFilterEnableBlacklistMode Was Successful') 
+    : 
+    console.log('Validation of answersFilterEnableBlacklistMode Failed')
     return typeof answersFilterEnableBlacklistMode === 'boolean';
 }
 
 function validateAnswersEnableFilter(answersEnableFilter){
-//    console.log("answersEnableFilter is: " + typeof answersFilter === 'boolean');
+    (
+    typeof answersEnableFilter === 'boolean'
+    )
+    ? 
+    console.log('Validation of answersEnableFilter Was Successful') 
+    : 
+    console.log('Validation of answersEnableFilter Failed')
     return typeof answersEnableFilter === 'boolean';
 }
 
 function validateAnswersEnableMinimum(answersEnableMinimum){
-//    console.log("answersEnableMinimum is: " + typeof answersEnableMinimum=== 'boolean');
+    (
+    typeof answersEnableMinimum === 'boolean'
+    )
+    ? 
+    console.log('Validation of answersEnableMinimum Was Successful') 
+    : 
+    console.log('Validation of answersEnableMinimum Failed')
     return typeof answersEnableMinimum === 'boolean';
 }
 
 function validateAnswersEnableMaximum(answersEnableMaximum){
+    (
+    typeof answersEnableMaximum === 'boolean'
+    )
+    ? 
+    console.log('Validation of answersEnableMaximum Was Successful') 
+    : 
+    console.log('Validation of answersEnableMaximum Failed')
     return typeof answersEnableMaximum === 'boolean';
 }
 
 function validateTitle(title){
+    (
+    typeof title === 'string' && title.length > 0
+    )
+    ? 
+    console.log('Validation of title Was Successful') 
+    : 
+    console.log('Validation of title Failed')
     return typeof title === 'string' && title.length > 0;
 }
 
 function validateAnswersMaximum(answersMaximum){
+    (
+    typeof answersMaximum === 'number' && answersMaximum >= 0
+    )
+    ? 
+    console.log('Validation of answersMaximum Was Successful') 
+    : 
+    console.log('Validation of answersMaximum Failed')
     return typeof answersMaximum === 'number' && answersMaximum >= 0;
 }
 
 function validateAnswersMinimum(answersMinimum){
+    (
+    typeof answersMinimum === 'number' && answersMinimum >= 0
+    )
+    ? 
+    console.log('Validation of answersMinimum Was Successful') 
+    : 
+    console.log('Validation of answersMinimum Failed')
     return typeof answersMinimum === 'number' && answersMinimum >= 0;
 }
 
 function validateTooltip(tooltip){
+    (
+    typeof tooltip === 'string' && tooltip.length >= 0
+    )
+    ? 
+    console.log('Validation of tooltip Was Successful') 
+    : 
+    console.log('Validation of tooltip Failed')
     return typeof tooltip === 'string' && tooltip.length >= 0;
 }
 
 function validateType(type){
+    (
+    typeof type === 'string' && type.length > 0
+    )
+    ? 
+    console.log('Validation of type Was Successful') 
+    : 
+    console.log('Validation of type Failed')
     return typeof type === 'string' && type.length > 0;
 }
 
@@ -102,11 +175,13 @@ module.exports = function (req, res, next) {
     const payload = req.body;
 
     console.log(payload);
-    
+
     if (!validateInput(payload)) {
         const errorMessage = 'please give the correct payload';
         return createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
     }
+
+    console.log('validation: ' + validateInput(payload));
 
     const newSurvey = new Survey({
         _creator: userId,

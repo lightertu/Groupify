@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     User.findOne({_id: req.user._id})
         .populate({
             path: 'surveys',
-            select: 'title createdAt',
+            select: 'title createdAt questions',
             match: {isDeleted: false}
         })
         .exec()

@@ -6,22 +6,24 @@ import {connect} from 'react-redux'
  component - in this case, the counter:   */
 
 import DashboardView from '../components/DashboardView'
+import * as Actions from "../modules/actions"
+import {Map, List, Set} from 'immutable';
 
 /*  Object of action creators (can also be function that returns object).
  Keys will be passed as props to presentational components. Here we are
  implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchSurveyList: Actions.fetchSurveyListActions.fetchSurveyList(dispatch),
     cool: (dispatch) => x
 });
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state);
     return {
         view: ownProps.location.query.view,
-        activitiesViewData: state.dashboard.activitiesViewData,
-        surveysViewData: state.dashboard.surveysViewData,
-        accountSettingsViewData: state.dashboard.accountSettingsViewData,
+        activitiesViewData: state.dashboard.get('activitiesViewData'),
+        surveysViewData: state.dashboard.get('surveysViewData'),
+        accountSettingsViewData: state.dashboard.get('accountSettingsViewData'),
     }
 };
 
