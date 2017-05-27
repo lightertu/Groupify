@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const randomColor = require('randomcolor');
 
+const SurveySchema = require('./Survey').Survey;
 const Schema = mongoose.Schema;
+
+const Survey = mongoose.model('Survey');
 
 
 let ActivitySchema = Schema({
@@ -36,6 +39,8 @@ let ActivitySchema = Schema({
         default: "",
         required: true,
     },
+
+    survey: [Survey.schema],
 
     color: {
         type: String,
@@ -83,6 +88,7 @@ ActivitySchema.methods.getPublicFields = function () {
         groupCapacity: this.groupCapacity,
         endDate: this.endDate,
         participants: this.participants,
+        survey: this.survey,
         lastModifiedTime: this.lastModifiedTime,
     };
 };

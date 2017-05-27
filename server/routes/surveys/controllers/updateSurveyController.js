@@ -28,15 +28,12 @@ function validateFormat(payload, properties){
     let res = true;
     properties.forEach(function (property) {
         res = res && payload.hasOwnProperty(property);
-        console.log(res, property);
     });
     return res;
 }
 
 
 module.exports = function (req, res, next) {
-
-    console.log(req.body);
 
     if (!validateInput(req)) {
         const errorMessage = 'please give the correct payload and URL';

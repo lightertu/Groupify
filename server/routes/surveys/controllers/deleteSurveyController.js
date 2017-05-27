@@ -10,7 +10,6 @@ function validateInput(req) {
     return validateParameters(req.params);
 }
 
-// TODO: MAY THINK FURTHOR HERE
 function validateParameters(prm) {
     return prm.hasOwnProperty('surveyId') && typeof prm.surveyId === 'string'
         && ObjectIdIsValid(prm.surveyId);
