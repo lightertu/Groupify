@@ -1,0 +1,88 @@
+@import 'base';
+@import '~normalize.css/normalize';
+
+// Some best-practice CSS that's useful for most apps
+// Just remove them if they're not what you want
+
+// font styles
+
+@font-face {
+  font-family: Mosk-Ultra-Boldimport;
+  src: url('./Mosk-Ultra-Bold.ttf')
+}
+
+html {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+  background: linear-gradient(
+                  rgba(233, 235, 238, 0.25),
+                  rgba(233, 235, 238, 0.19)
+  ), url("shattered.png") repeat;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+// start of welcome page styles
+
+/*
+.line {
+	text-decoration: underline;
+}
+
+.line:hover {
+	color: blue;
+}
+
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+.overlay {  
+	position: absolute;  
+	width: 100%;  
+	height: 100%;  
+	top: 0; 
+	left: 0; 
+	bottom: 0; 
+	right: 0;  
+	z-index: 2;  
+	// background-color: rgba(0, 0, 0, 0.4); 
+}
+ 
+
+ .big > .ui.card {
+    position: absolute;
+    width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+
+.field > label {
+	text-align: left;
+}
+*/
