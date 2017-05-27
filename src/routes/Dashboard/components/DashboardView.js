@@ -21,7 +21,7 @@ const DashboardView = (props) => {
             case("activities"):
                 return <ActivitiesView activitiesViewData={ props.activitiesViewData } />;
             case("surveys"):
-                return <SurveysView surveysViewData={ props.surveysViewData }/>;
+                return <SurveysView fetchSurveyList={props.fetchSurveyList} surveysViewData={ props.surveysViewData }/>;
             case("accountSettings"):
                 return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>;
             default:
