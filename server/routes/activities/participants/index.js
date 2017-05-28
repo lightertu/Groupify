@@ -16,7 +16,7 @@ participantsRouter.get('/survey'
                      , participantsControllers.getSurveyForParticipantsController);
 
 participantsRouter.post('/'
-                      , authenticationMiddleware
+                      // , authenticationMiddleware
                       , participantsControllers.createParticipantController);
 
 // route to regroup participants

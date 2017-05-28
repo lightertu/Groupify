@@ -9,13 +9,14 @@ const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
-const properties = ['name', 'image', 'skills', 'availability'];
+// const properties = ['name', 'image', 'skills', 'availability'];
+const properties = ['name', 'image', 'email', 'surveyResponses'];
 
 
 function validateInput(req) {
     let payload = req.body;
     return validateParameters(req.params) && validateFormat(payload, properties)
-        && ParticipantValidator(payload.name, payload.image, payload.skills, payload.availability);
+        && ParticipantValidator(payload.name, payload.email, payload.image, payload.surveyResponses);
 }
 
 
@@ -41,50 +42,47 @@ module.exports = function (req, res, next) {
         return;
     }
 
-    const userId = req.user._id;
     const payload = req.body;
     const activityId = req.params.activityId;
 
 
+    // check if the activity is full. If so, then no other one can participate in
+    Activity.findOne({_id: activityId, isDeleted: false})
+        .exec()
+        .then(function (activity){
+            if (activity === null){
+                const errorMessage = "Cannot find activity has id: " + activityId + " in which to create new participant";
+                return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
+            }
+            if (activity.totalCapacity <= activity.currentCapacity){
+                const errorMessage = "The activity is full, no other one can participate in";
+                return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
+            }
+            // save a new participant
+            const newParticipant = new Participant({
+                _activity: activityId,
+                email: payload.email,
+                name: payload.name,
+                image: payload.image,
+                surveyResponses: payload.surveyResponses,
+            });
+            newParticipant.save()
+                .then(function(participant){
 
-    // save a new activity to the database
-    const newParticipant = new Participant({
-        _creator: userId,
-        _activity: activityId,
-        name: payload.name,
-        image: payload.image,
-        skills: payload.skills,
-        availability: payload.availability,
-    });
+                    // update activity
+                    activity.participants.push({_id: participant.id});
+                    activity.lastModifiedTime = Date.now();
+                    activity.currentCapacity ++;
 
-    newParticipant.save()
-        .then(function (participant) {
-            Activity.findOneAndUpdate(
-                {_id: activityId, _creator: userId, isDeleted: false},
-                {
-                    $push: {
-                        "participants": {_id: participant._id}
-                    },
-                    $set: {
-                        "lastModifiedTime": Date.now()
-                    }
-                },
-                {new: true}
-            )
-                .exec()
-                .then(function (activity) {
-                    if (activity === null) {
-                        // synchronous
-                        Participant.remove({_id: newParticipant._id}).exec();
-                        const errorMessage = "Cannot find activity has id: " + activityId + " in which to create new participant";
-                        return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
-                    }
-
-                    return res.json({
-                        participant: participant.getPublicFields()
-                    })
+                    activity.save().then(function(act){
+                        return res.status(HttpStatus.CREATED).json({
+                            participant: participant.getPublicFields()
+                        })
+                    }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
                 })
                 .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
-        })
-        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
+
+        }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
 };

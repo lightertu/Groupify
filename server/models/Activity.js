@@ -34,6 +34,12 @@ let ActivitySchema = Schema({
         required: true,
     },
 
+    currentCapacity: {
+        type: Number,
+        default: 0,
+        required: true,
+    },
+
     name: {
         type: String,
         default: "",
@@ -89,6 +95,7 @@ ActivitySchema.methods.getPublicFields = function () {
         name: this.name,
         totalCapacity: this.totalCapacity,
         groupCapacity: this.groupCapacity,
+        currentCapacity: this.currentCapacity,
         endDate: this.endDate,
         participants: this.participants,
         survey: this.survey,
@@ -105,7 +112,6 @@ const randomColorType = {
     format: 'hsla',
     alpha: 0.7,
 };
-
 
 function activityRandomColorGenerator(){
     return randomColor(randomColorType);
