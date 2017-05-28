@@ -12,8 +12,11 @@ participantsRouter.get('/'
                      , authenticationMiddleware
                      , participantsControllers.getAllParticipantsController);
 
+participantsRouter.get('/survey'
+                     , participantsControllers.getSurveyForParticipantsController);
+
 participantsRouter.post('/'
-                      , authenticationMiddleware
+                      // , authenticationMiddleware
                       , participantsControllers.createParticipantController);
 
 // route to regroup participants
@@ -37,5 +40,8 @@ participantsRouter.delete('/:participantId'
 participantsRouter.put('/:participantId/groupNumber'
                      , authenticationMiddleware
                      , participantsControllers.updateParticipantGroupNumberController);
+
+
+
 
 module.exports = participantsRouter;

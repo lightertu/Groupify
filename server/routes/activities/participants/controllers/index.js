@@ -8,6 +8,7 @@ const getOneParticipantController = require('./getOneParticipantController');
 const regroupParticipantsController = require('./regroupParticipantsController');
 const updateParticipantController = require('./updateParticipantController');
 const updateParticipantGroupNumberController = require('./updateParticipantGroupNumberController');
+const getSurveyForParticipantsController = require('./getSurveyForParticipantsController');
 
 
 module.exports = {
@@ -18,4 +19,5 @@ module.exports = {
     regroupParticipantsController,
     updateParticipantController,
     updateParticipantGroupNumberController,
+    getSurveyForParticipantsController,
 };

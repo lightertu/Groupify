@@ -1,8 +1,8 @@
 const HttpStatus = require("http-status-codes");
 const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
-const Activity = require("../../../models/").Activity;
-const createErrorHandler = require("../../utils").createErrorHandler;
+const Activity = require("../../../../models/").Activity;
+const createErrorHandler = require("../../../utils").createErrorHandler;
 
 
 
@@ -27,19 +27,17 @@ module.exports = function (req, res, next) {
     }
 
     Activity.findOne(
-        {_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
-        .select("name totalCapacity groupCapacity endDate participants survey")
+        { _id: req.params.activityId, isDeleted: false, survey: {'$ne': []} })
         .exec()
         .then(function (activity) {
-            if (activity !== null) {
+            if (activity !== null && activity.survey.length === 1) {
                 return res.json({
-                    activity: activity
+                    survey: activity.survey[0].getPublicFields()
                 });
             } else {
-                const errorMessage = "Cannot find an activity has id " + req.params.activityId;
+                const errorMessage = "Cannot find an activity has id " + req.params.activityId + ", or it doesn't contain a survey";
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 };
-

@@ -12,8 +12,6 @@ let fetchSurveyList = (dispatch) => {
         let url = SERVER_URL + "/api/surveys";
         axios.get(url)
             .then((response) => {
-                console.log(response.data);
-
                 dispatch(fetchSurveyListSuccess(response.data));
             })
             .catch((error) => {

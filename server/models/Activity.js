@@ -2,9 +2,15 @@
  * Created by rui on 4/24/17.
  */
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const validator = require('validator');
+const randomColor = require('randomcolor');
 
+const SurveySchema = require('./Survey').Survey;
 const Schema = mongoose.Schema;
+
+const Survey = mongoose.model('Survey');
+
 
 let ActivitySchema = Schema({
     _creator: {
@@ -28,10 +34,26 @@ let ActivitySchema = Schema({
         required: true,
     },
 
+    currentCapacity: {
+        type: Number,
+        default: 0,
+        required: true,
+    },
+
     name: {
         type: String,
         default: "",
         required: true,
+    },
+
+    survey: {
+        type: [Survey.schema],
+        default: [],
+    },
+
+    color: {
+        type: String,
+        default: activityRandomColorGenerator,
     },
 
     endDate: {
@@ -73,9 +95,55 @@ ActivitySchema.methods.getPublicFields = function () {
         name: this.name,
         totalCapacity: this.totalCapacity,
         groupCapacity: this.groupCapacity,
+        currentCapacity: this.currentCapacity,
         endDate: this.endDate,
         participants: this.participants,
+        survey: this.survey,
         lastModifiedTime: this.lastModifiedTime,
     };
 };
-module.exports = mongoose.model('Activity', ActivitySchema);
+
+
+
+
+// generate Color
+const randomColorType = {
+    luminosity: 'dark',
+    format: 'hsla',
+    alpha: 0.7,
+};
+
+function activityRandomColorGenerator(){
+    return randomColor(randomColorType);
+}
+
+
+
+// validate input
+function validateName(name){
+    return typeof name === 'string';
+}
+
+
+function validateCapacities(g, t){
+    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
+}
+
+
+function validateDate(date) {
+    return typeof date === 'string' && validator.toDate(date) !== null;
+}
+
+function ActivityValidator(name, groupCap, totalCap, endD){
+    return validateName(name)
+        && validateCapacities(groupCap, totalCap)
+        && validateDate(endD);
+}
+
+
+
+// export to other file
+module.exports = {
+    Activity: mongoose.model('Activity', ActivitySchema),
+    ActivityValidator: ActivityValidator,
+};

@@ -1,7 +1,9 @@
 const HttpStatus = require("http-status-codes");
 const validator = require('validator');
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 const Activity = require("../../../models/").Activity;
+const ActivityValidator = require("../../../models/").ActivityValidator;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
@@ -12,15 +14,14 @@ function validateInput(req) {
     let payload = req.body;
     return validateParameters(req.params)
         && validateFormat(payload, properties)
-        && validateName(payload.name)
-        && validateCapacities(payload.groupCapacity, payload.totalCapacity)
-        && validateDate(payload.endDate);
+        && ActivityValidator(payload.name, payload.groupCapacity,
+            payload.totalCapacity, payload.endDate);
 }
 
 
-// TODO: MAY THINK FURTHER HERE
 function validateParameters(prm) {
-    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string';
+    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string'
+        && ObjectIdIsValid(prm.activityId);
 }
 
 
@@ -33,26 +34,11 @@ function validateFormat(payload, properties){
 }
 
 
-function validateName(name){
-    return typeof name === 'string';
-}
-
-
-function validateCapacities(g, t){
-    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
-}
-
-
-function validateDate(date) {
-    return typeof date === 'string' && validator.toDate(date) !== null;
-}
-
-
 
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the valid activityID in url and correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
