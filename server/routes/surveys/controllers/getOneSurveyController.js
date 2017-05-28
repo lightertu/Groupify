@@ -1,4 +1,4 @@
-const Activity = require("../../../models/").Activity;
+const Survey = require("../../../models/").Survey;
 const createErrorHandler = require("../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
@@ -7,9 +7,8 @@ function validateInput(req) {
     return validateParameters(req.params);
 }
 
-// TODO: MAY THINK FURTHOR HERE
 function validateParameters(prm) {
-    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string';
+    return prm.hasOwnProperty('surveyId') && typeof prm.surveyId === 'string';
 }
 
 
@@ -21,17 +20,17 @@ module.exports = function (req, res, next) {
         return;
     }
 
-    Activity.findOne(
-        {_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
-        .select("name totalCapacity groupCapacity endDate participants")
+    Survey.findOne(
+        {_id: req.params.surveyId, _creator: req.user._id, isDeleted: false})
+        // .select("name totalCapacity groupCapacity endDate participants")
         .exec()
-        .then(function (activity) {
-            if (activity !== null) {
+        .then(function (survey) {
+            if (survey !== null) {
                 return res.json({
-                    activity: activity
+                    survey: survey
                 });
             } else {
-                const errorMessage = "Cannot find an activity has id " + req.params.activityId;
+                const errorMessage = "Cannot find an survey has id " + req.params.surveyId;
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
         })

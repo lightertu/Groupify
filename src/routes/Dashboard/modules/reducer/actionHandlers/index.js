@@ -9,6 +9,8 @@ import * as fetchSurveyListActionHandlers from "./fetchSurveyListActionHandlers"
 import * as createSurveyActionHandlers from "./createSurveyActionHandlers"
 import * as updateSurveyActionHandlers from "./updateSurveyActionHandlers"
 import * as deleteSurveyActionHandlers from "./deleteSurveyActionHandlers"
+import * as updateSurveyViewActionHandlers from "./updateSurveyViewActionHandlers"
+import * as updateSurveyHolderActionHandlers from "./updateSurveyHolderActionHandlers"
 import * as updateUserProfileActionHandlers from "./updateUserProfileActionHandlers"
 
 export {
@@ -20,5 +22,7 @@ export {
     createSurveyActionHandlers,
     updateSurveyActionHandlers,
     deleteSurveyActionHandlers,
+    updateSurveyHolderActionHandlers,
+    updateSurveyViewActionHandlers,
     updateUserProfileActionHandlers,
 }

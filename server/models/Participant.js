@@ -1,11 +1,10 @@
 /**
  * Created by rui on 4/24/17.
  */
-let mongoose = require('mongoose');
-
+const mongoose = require('mongoose');
+const validator = require('validator');
 const Schema = mongoose.Schema;
 
-const numOfTimeSlot = 7;
 
 const ParticipantSchema = new Schema({
     name: {
@@ -14,11 +13,19 @@ const ParticipantSchema = new Schema({
         required: true,
     },
 
-    _creator: {
-        type: Schema.ObjectId,
-        ref: 'User',
+    email: {
+        type: String,
+        lowercase: true,
+        unique: true,
         required: true,
+        default: ""
     },
+
+    // _creator: {
+    //     type: Schema.ObjectId,
+    //     ref: 'User',
+    //     required: true,
+    // },
 
     _activity :{
         type: Schema.ObjectId,
@@ -31,11 +38,6 @@ const ParticipantSchema = new Schema({
         contentType: String
     },
 
-    skills: {
-        type: [{name: String}],
-        default: [],
-        required: true
-    },
 
     groupNumber: {
         type: Number,
@@ -43,14 +45,10 @@ const ParticipantSchema = new Schema({
         required: true
     },
 
-    availability: {
-        type: [Boolean],
-        required: true
-
-        //TODO: validate data
-        //validate: [(availability) => ( Math.min(availability) >= 0 && Math.max(availability) <= 6 ), '{PATH} a week has 7 days']
-    },
-
+    surveyResponses: [{
+        question: String,
+        answer: [String],
+    }],
 
     /* every model has this */
     isDeleted: {
@@ -84,53 +82,78 @@ ParticipantSchema.methods.getPublicFields = function () {
         name: this.name,
         image: this.image,
         groupNumber: this.groupNumber,
-        availability: this.availability,
-        skills: this.skills,
+        surveyResponses: this.surveyResponses,
         lastModifiedTime: this.lastModifiedTime,
     };
 };
 
 
+
+// validate input
 function validateName(name){
     return typeof name === 'string';
 }
 
+function validateEmail(email){
+    return typeof email === 'string' && validator.isEmail(email);
+}
 
 // TODO: implement image function
 function validateImage(image){
     return true;
 }
 
-
-function validateSkills(skills) {
-    let result = Array.isArray(skills);
+function validateSurveyResponses(surveyRp){
+    let result = Array.isArray(surveyRp);
     if (result === true){
-        skills.forEach(function (s) {
-            result = result && (s.hasOwnProperty('name') ? typeof s.name === 'string' : false);
-        });
+       surveyRp.forEach(function (rp){
+           result = result && rp.hasOwnProperty('question') && rp.hasOwnProperty('answer')
+                && typeof rp.question === 'string' && Array.isArray(rp.answer);
+           if (result){
+               rp.answer.forEach(function (a){
+                   result = result && typeof a === 'string';
+               })
+           }
+       });
+
     }
     return result;
+
 }
 
-function validateAvailability(avail) {
-    let result = Array.isArray(avail);
-    if (result === true){
-        avail.forEach(function (a) {
-            result = result && typeof a === 'boolean';
-        });
-    }
-    result = result && avail.length === numOfTimeSlot;
-    return result;
-}
-
-function ParticipantValidator(name, image, skills, avail) {
+function ParticipantValidator(name, email, image, surveyRp) {
     return validateName(name)
+        && validateEmail(email)
         && validateImage(image)
-        && validateSkills(skills)
-        && validateAvailability(avail);
+        && validateSurveyResponses(surveyRp)
 }
+
+
 
 module.exports = {
     Participant             : mongoose.model('Participant', ParticipantSchema),
     ParticipantValidator    : ParticipantValidator,
 };
+
+
+
+// function validateSkills(skills) {
+//     let result = Array.isArray(skills);
+//     if (result === true){
+//         skills.forEach(function (s) {
+//             result = result && (s.hasOwnProperty('name') ? typeof s.name === 'string' : false);
+//         });
+//     }
+//     return result;
+// }
+//
+// function validateAvailability(avail) {
+//     let result = Array.isArray(avail);
+//     if (result === true){
+//         avail.forEach(function (a) {
+//             result = result && typeof a === 'boolean';
+//         });
+//     }
+//     result = result && avail.length === numOfTimeSlot;
+//     return result;
+// }

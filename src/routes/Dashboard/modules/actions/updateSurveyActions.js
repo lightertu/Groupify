@@ -9,12 +9,13 @@ export const UPDATE_SURVEY = "UPDATE_SURVEY";
 let updateSurvey = (dispatch) => {
     return (payload) => {
         dispatch({type: UPDATE_SURVEY, payload: payload});
-        let url = SERVER_URL + "/api/surveys";
-        axios.put(url)
+        let url = SERVER_URL + "/api/surveys/"+ payload.get('surveyId');
+        axios.put(url, payload)
             .then((response) => {
                 dispatch(updateSurveySuccess(response.data));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(updateSurveyFailure(error));
             });
     }
