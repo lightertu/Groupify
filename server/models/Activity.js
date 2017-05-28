@@ -40,7 +40,10 @@ let ActivitySchema = Schema({
         required: true,
     },
 
-    survey: [Survey.schema],
+    survey: {
+        type: [Survey.schema],
+        default: [],
+    },
 
     color: {
         type: String,

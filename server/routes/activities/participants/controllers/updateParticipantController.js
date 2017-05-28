@@ -12,7 +12,7 @@ module.exports = function (req, res, next) {
     function validateInput(req) {
         return true;
     }
-    // save a new activity to to the database
+
     if (!validateInput(req)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);

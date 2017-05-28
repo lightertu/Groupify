@@ -12,6 +12,9 @@ participantsRouter.get('/'
                      , authenticationMiddleware
                      , participantsControllers.getAllParticipantsController);
 
+participantsRouter.get('/survey'
+                     , participantsControllers.getSurveyForParticipantsController);
+
 participantsRouter.post('/'
                       , authenticationMiddleware
                       , participantsControllers.createParticipantController);
@@ -37,5 +40,8 @@ participantsRouter.delete('/:participantId'
 participantsRouter.put('/:participantId/groupNumber'
                      , authenticationMiddleware
                      , participantsControllers.updateParticipantGroupNumberController);
+
+
+
 
 module.exports = participantsRouter;
