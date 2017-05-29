@@ -288,7 +288,7 @@ function successRate(teams, stds){
 }
 
 
-function greedy_algorithm(stds, size){
+function greedyAlgorithm(stds, size){
 	// let table   = createTable(stds);
 	let list    = createList(stds);
 	let sortL  	= mergeSort(list);
@@ -299,4 +299,4 @@ function greedy_algorithm(stds, size){
 	return successRate(teams, stds);
 }
 
-module.exports = greedy_algorithm;
+module.exports = greedyAlgorithm;

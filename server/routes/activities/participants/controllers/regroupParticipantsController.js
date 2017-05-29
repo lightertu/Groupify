@@ -7,18 +7,27 @@ const Activity = require("../../../../models/").Activity;
 const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
 
-// TODO: this route needs to be implemented
-module.exports = function (req, res, next) {
-    function validateInput() {
-        return true;
-    }
+const selectAlgorithmAndReturnFunction = require("../algorithms/").selectAlgorithmAndReturnFunction;
 
-    // save a new activity to to the database
-    if (!validateInput()) {
-        const errorMessage = 'please give the correct payload';
+function validateInput(req) {
+    return validateParameters(req.params) ;
+}
+
+function validateParameters(prm) {
+    return prm.hasOwnProperty('activityId') && prm.hasOwnProperty('algorithmName')
+        && typeof prm.activityId === 'string' && typeof prm.algorithmName === 'string'
+        && ObjectIdIsValid(prm.activityId);
+}
+
+
+
+module.exports = function (req, res, next) {
+    if (!validateInput(req)) {
+        const errorMessage = 'please give the correct URL';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
 
+    selectAlgorithmAndReturnFunction
     createErrorHandler(res, HttpStatus.NOT_IMPLEMENTED)("not implemented");
 };
