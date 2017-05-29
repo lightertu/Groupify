@@ -1,14 +1,12 @@
 export const CREATE_LOCKS = "CREATE_LOCKS"
-let createLocks = (dispatch) => {
-	return (size) => {
-		dispatch({ type: CREATE_LOCKS, payload: size});
-	};
+let createLocks = (size) => {
+		return { type: CREATE_LOCKS, payload: size};
 };
 
-export const TOGGLE_LOCKS = "TOGGLE_LOCKS";
+export const TOGGLE_LOCK = "TOGGLE_LOCK";
 let toggleLock = (dispatch) => {
 	return (group) => {
-		dispatch({ type: TOGGLE_LOCKS, payload: group});
+		dispatch({ type: TOGGLE_LOCK, payload: group});
 	};
 };
 

@@ -4,6 +4,7 @@
 import axios from "axios";
 import generateUsers from "../UserGenerator"
 import { sortParticipants } from "./userMatchingActions"
+import { createLocks } from "./groupLockActions"
 const SERVER_URL = "http://localhost:3000";
 const numOfPeople = 50,
     groupCapacity = 3,
@@ -24,6 +25,8 @@ let fetchParticipantList = (dispatch) => {
         ));
 
         dispatch(sortParticipants(participants));
+
+        dispatch(createLocks((totalCapacity / groupCapacity)));
 
         /*
          let url = SERVER_URL + "/api/activities/" + activityId + "/participants/";

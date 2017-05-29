@@ -38,22 +38,14 @@ export class ActivityView extends React.Component {
         super(props);
         this.props.fetchParticipantList(this.props.activityId);
 
-        let unlocked = [];
-        let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
-        while(numOfGroups--) unlocked.push(true)
-
-        //this.props.createLocks(numOfGroups);
-        this.state = ({filters: [], unlocked: unlocked});
+        this.state = ({filters: []});
         this.setFilterValues = this.setFilterValues.bind(this);
         this.toggleLock = this.toggleLock.bind(this);
 
     }
 
     toggleLock(group) {
-        let unlocked = this.state.unlocked;
-        unlocked[group] = !unlocked[group];
-        //this.props.toggleLock(group);
-        this.setState({unlocked: unlocked});
+        this.props.toggleLock(group);
     }
 
     setFilterValues(input, event) {
@@ -82,8 +74,6 @@ export class ActivityView extends React.Component {
     }
 
     render() {
-        console.log(this.props)
-
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -106,7 +96,7 @@ export class ActivityView extends React.Component {
 
             return groups;
         };
-
+        console.log(this.props.unlocked)
         let getGroupCards = (groups) => {
             return (
                 groups.map(
@@ -122,14 +112,14 @@ export class ActivityView extends React.Component {
                                        toggleLock={ this.toggleLock.bind(this) }
                                        matching={ this.props.matching.get("matchingCriteria") }
                                        group={ i }
-                                       unlocked={ this.state.unlocked[i] }
+                                       unlocked={ this.props.unlocked.get(i) }
                                        filters={ this.state.filters }/>
                         </Grid.Column>
                     )
                 )
             )
         };
-        
+       
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }

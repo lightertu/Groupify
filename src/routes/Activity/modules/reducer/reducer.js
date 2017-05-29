@@ -20,6 +20,8 @@ const initialState = Map({
 });
 
 export default function activityReducer (state = initialState, action) {
+    console.log(action.payload)
+    console.log(action.type)
     switch(action.type) {
 
         /* reduce group locks */

@@ -1,16 +1,16 @@
+import { Map, List } from "immutable"
+
 let handleCreateLocks = (state, payload) => {
-	console.log(payload)
 	let unlocked = [];
-    while(payload--) unlocked.push(true)
+    while(payload--) unlocked.push(false)
     let update = state.get("unlocked");
 	update.concat(unlocked);
-	update = update.set("unlocked", unlocked);
+	update = state.set("unlocked", List(unlocked));
 	return update;
 }
 
 let handleToggleLock = (state, payload) => {
-	console.log(payload)
-	let update = state.setIn(["unlocked", payload, !state.getIn(["unlocked", payload])]);
+	let update = state.setIn(["unlocked", payload], !state.getIn(["unlocked", payload]));
 	return update;
 }
 
