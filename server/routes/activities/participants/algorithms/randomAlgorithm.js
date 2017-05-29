@@ -1,19 +1,21 @@
 /*
 Author: Kai Huang
 Email: huangkai2518@gmail.com
-*/
 
-// //default size of group
-// let defaultSize = 3;
-/*
-Input and output are  array. If input is not array, return [].
-Input example:
-[{id: 1, groupNumber: -1}, {id:2, groupNumber:-1}]
-*/
+Input and output are  array. If input is not array or size is not an positive number, return [].
 
-exports.randomAlgorithm = randomAlgorithm;
-exports.getRandomNum	= getRandomNum;
-exports.getGroupList    = getGroupList;
+Example:
+
+pars = [{_id: 1... , groupNumber: -1},
+                {_id: 2... , groupNumber:-1}],
+                {_id: 3... , groupNumber:-1}],
+                {_id: 4... , groupNumber:-1}],
+                {_id: 5... , groupNumber:-1}]
+                ]
+size  = 2
+ */
+
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 
 //min, max should be integers. Sample input: min=3, max=5
@@ -38,18 +40,40 @@ function getGroupList(groupNum, rest, size){
 	return res;
 }
 
-function randomAlgorithm(input, size)
+
+function validataInput(pars, size){
+    let result = Array.isArray(pars);
+    pars.forEach(function (p) {
+        result = result
+            && p.hasOwnProperty('_id')
+            && p.hasOwnProperty('groupNumber');
+        if (result){
+            result = result && ObjectIdIsValid(p._id)
+                && typeof p.groupNumber === 'number'
+                && p.groupNumber % 1 === 0;
+        }
+    });
+
+    return result
+        && typeof size !== 'number'
+        && size > 0
+        && size % 1 === 0;
+}
+
+
+
+function randomAlgorithm(pars, gpSize)
 {
-	if (!Array.isArray(input)){
+	if (!validataInput(pars, gpSize)){
 		return [];
 	}
-	let sLength = input.length;
-	let groupNum = Math.floor(sLength/size);
+	let sLength = pars.length;
+	let groupNum = Math.floor(sLength/gpSize);
 
 	//there will be r group with size one more than default size.
-	let rest = input.length%size;
+	let rest = pars.length % gpSize;
 
-	let groupList = getGroupList(groupNum, rest, size);
+	let groupList = getGroupList(groupNum, rest, gpSize);
 	let groupIndex =[];
 	for (let i=0; i<groupNum; i++){
 		groupIndex[i] = i;
@@ -57,9 +81,9 @@ function randomAlgorithm(input, size)
 
 	for (let j=0; j<sLength; j++){
 		let num = getRandomNum(0, groupList.length-1);
-		input[j].groupNumber = groupIndex[num];
+        pars[j].groupNumber = groupIndex[num];
 		groupList[num] -= 1;
-		if (groupList[num] == 0){
+		if (groupList[num] === 0){
 			groupList.splice(num, 1);
 			let k = num;
 			while (k < groupIndex.length-1){
@@ -70,5 +94,8 @@ function randomAlgorithm(input, size)
 
 	}
 
-	return input;
+	return pars;
 }
+
+
+module.exports = randomAlgorithm;

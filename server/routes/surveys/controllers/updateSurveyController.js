@@ -1,26 +1,26 @@
 const HttpStatus = require("http-status-codes");
 const validator = require('validator');
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
-const Activity = require("../../../models/").Activity;
+const Survey = require("../../../models").Survey;
+const SurveyValidator = require("../../../models/").SurveyValidator;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
-const properties = ['name', 'groupCapacity', 'totalCapacity', 'endDate'];
 
+const SurveyProperties = ['title', 'questions'];
 
 function validateInput(req) {
     let payload = req.body;
     return validateParameters(req.params)
-        && validateFormat(payload, properties)
-        && validateName(payload.name)
-        && validateCapacities(payload.groupCapacity, payload.totalCapacity)
-        && validateDate(payload.endDate);
+        && validateFormat(payload, SurveyProperties)
+        && SurveyValidator(payload.title, payload.questions);
 }
 
 
-// TODO: MAY THINK FURTHER HERE
 function validateParameters(prm) {
-    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string';
+    return prm.hasOwnProperty('surveyId') && typeof prm.surveyId === 'string'
+        && ObjectIdIsValid(prm.surveyId);
 }
 
 
@@ -33,65 +33,36 @@ function validateFormat(payload, properties){
 }
 
 
-function validateName(name){
-    return typeof name === 'string';
-}
-
-
-function validateCapacities(g, t){
-    return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
-}
-
-
-function validateDate(date) {
-    return typeof date === 'string' && validator.toDate(date) !== null;
-}
-
-
-
 module.exports = function (req, res, next) {
-
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the correct payload and URL';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
-
-
-    const activityId = req.params.activityId,
+    const surveyId = req.params.surveyId,
         userId = req.user._id;
 
-    Activity.findOneAndUpdate(
+    Survey.findOneAndUpdate(
         {
-            _id: activityId, _creator: userId, isDeleted: false},
+            _id: surveyId, _creator: userId, isDeleted: false},
         {
             $set: {
-                "name": req.body.name,
-                "endDate": new Date(req.body.endDate),
-                "totalCapacity": req.body.totalCapacity,
-                "groupCapacity": req.body.groupCapacity,
-            }
-        },
-        // this select the properties to show
-        {
-            projection: {
-                "name": 1,
-                "endDate": 1,
-                "totalCapacity": 1,
-                "groupCapacity": 1,
-                "participants": 1,
+                "title": req.body.title,
+                "questions" : req.body.questions,
             },
+        },
+        {
             new: true,
         }
     )
         .exec()
-        .then(function (activity) {
-            if (activity === null) {
-                const errorMessage = "Cannot find activity has id: " + activityId;
+        .then(function (survey) {
+            if (survey === null) {
+                const errorMessage = "Cannot find survey has id: " + surveyId;
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
-            return res.json({
-                activity: activity
+            return res.status(HttpStatus.ACCEPTED).json({
+                survey: survey
             });
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

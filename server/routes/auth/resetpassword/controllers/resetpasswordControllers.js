@@ -4,17 +4,38 @@
 
 
 const HttpStatus = require("http-status-codes");
-const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
 const User = require("../../../../models/").User;
+const UserLoginInfoValidator = require("../../../../models/").UserLoginInfoValidator;
 const createErrorHandler = require("../../../utils").createErrorHandler;
+
+const properties = ['email', 'password'];
+
+function validateInput(payload, properties) {
+    return validateFormat(payload, properties)
+        && UserLoginInfoValidator(payload.email, payload.password);
+}
+
+
+function validateFormat(payload, properties){
+    let result = true;
+    properties.forEach(function (property) {
+        result = result && payload.hasOwnProperty(property);
+    });
+    return result;
+}
+
+function hashPassword(password){
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
+
+}
 
 
 function resetpasswordController (req, res) {
     const user    = req.user;
     const payload = req.body;
-    const properties = ['email', 'password'];
 
     // check if payload is validate
     if (!validateInput(payload, properties)) {
@@ -53,37 +74,6 @@ function resetpasswordController (req, res) {
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 
-}
-
-
-function hashPassword(password){
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
-
-}
-
-
-function validateInput(payload, properties) {
-    return validateFormat(payload, properties)
-        && validateEmail(payload.email)
-        && validatePassword(payload.password);
-}
-
-
-function validateFormat(payload, properties){
-    let res = true;
-    properties.forEach(function (property) {
-        res = res && payload.hasOwnProperty(property);
-    });
-    return res;
-}
-
-function validateEmail(email){
-    return typeof email === 'string' && validator.isEmail(email);
-}
-
-function validatePassword(password){
-    return typeof password === 'string';
 }
 
 

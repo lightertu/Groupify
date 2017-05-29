@@ -3,12 +3,15 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { Button, Form, Modal, Message } from 'semantic-ui-react'
 import SurveyInfoForm from "../../SurveyInfoForm"
+
+import {Map, List, Set, OrderedSet} from 'immutable';
 
 export default class EditSurveyInfoModal extends React.Component {
     constructor (props) {
         super(props)
+        this.updateSurveyHandler = this.updateSurveyHandler.bind(this);
     }
 
     static propTypes = {
@@ -17,40 +20,89 @@ export default class EditSurveyInfoModal extends React.Component {
         name: PropTypes.string.isRequired,
     }
 
-    /* using error function to bind this */
-    saveChangeButtonHandler = (e) => {
-        /* the only thing this handler does it that it trigger the form to submit */
-        this.surveyFormButton.click()
-        const close = this.props.onClose;
-        close();
-    };
+    updateSurveyHandler = (payload) => {
+        
+        if (this.props.surveyHolder.get('title').trim().length <= 0) {
+            this.props.updateSurveyFailedToEdit(true); 
+            this.props.updateSurveyEditError('THE SURVEY MUST HAVE A TITLE');
+            return;
+        }
 
-    updateSurvey = (payload) => {
-        //TODO: implement submit form
-        console.log(payload);
+        let questionMissingTitle = this.props.surveyHolder.get('questions').findEntry((question) => 
+                (question.get('title').trim().length <= 0)
+        )
+
+        if (questionMissingTitle) {
+            this.props.updateSurveyFailedToEdit(true); 
+            this.props.updateSurveyEditError('EACH QUESTION MUST HAVE A TITLE');
+            return;
+        }
+
+        let questionMissingType = this.props.surveyHolder.get('questions').findEntry((question) => 
+                (question.get('type').trim().length <= 0)
+        )
+
+        if (questionMissingType) {
+            this.props.updateSurveyFailedToEdit(true); 
+            this.props.updateSurveyEditError('EACH QUESTION MUST HAVE A TYPE');
+            return;
+        }
+
+        this.props.updateSurveyFailedToEdit(false); 
+        this.props.updateSurveyEditError('');
+        this.props.updateSurvey(this.props.surveyHolder);
     };
 
     render () {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
+            <Modal open={this.props.openEditModal} onUnmount={this.props.fetchSurveyList} size="small" dimmer={'blurring'}>
 
                 <Modal.Header> Edit Survey {this.props.name } </Modal.Header>
                 <Modal.Content>
+                    <Message negative floating hidden={!this.props.failedToEdit}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
+                    </Message>
 
                     {/* this trigger the button inside the form however the button is hidden in css */}
-                    <SurveyInfoForm submitButtonRef = { (button) => { this.surveyFormButton = button } }
-                                      surveyId={this.props.surveyId}
-                                      name={this.props.name}
-                                      submitForm={this.updateSurvey}/>
+                    <SurveyInfoForm
+                            name={this.props.name}
+                            surveyId={this.props.surveyId}
+                            surveyHolder={this.props.surveyHolder}
+                            surveyHolderQuestionIndex={this.props.surveyHolderQuestionIndex}
+                            updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
+                            updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
+                            updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
+                            updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
+                            updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                            updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
+                            updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
+                            updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
+                            updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
+                            updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
+                            updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
+                            updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                            updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                            updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                            updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                            updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
+
+
+                                      />
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button negative onClick={ this.props.onClose }
-                            >
-                            Cancel
+                    <Button negative 
+                        disabled={this.props.isCreating}
+                        onClick={ this.props.onClose }
+                    >
+                        Cancel
                     </Button>
                     <Button positive
-                            content='Save Changes'
-                            onClick={ this.saveChangeButtonHandler }
+                        disabled={this.props.isCreating}
+                        loading={this.props.isCreating}
+                        content='Save Changes'
+                        onClick={ this.updateSurveyHandler}
                     />
                 </Modal.Actions>
             </Modal>

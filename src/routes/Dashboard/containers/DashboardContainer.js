@@ -15,6 +15,46 @@ import {Map, List, Set} from 'immutable';
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSurveyList: Actions.fetchSurveyListActions.fetchSurveyList(dispatch),
+    createSurvey: Actions.createSurveyActions.createSurvey(dispatch),
+    updateSurvey: Actions.updateSurveyActions.updateSurvey(dispatch),
+    deleteSurvey: Actions.deleteSurveyActions.deleteSurvey(dispatch),
+
+    updateSurveyHolderGetSurvey: Actions.updateSurveyHolderActions.updateSurveyHolderGetSurvey(dispatch),
+    updateSurveyHolderSetId: Actions.updateSurveyHolderActions.updateSurveyHolderSetId(dispatch),
+    updateSurveyHolderSetTitle: Actions.updateSurveyHolderActions.updateSurveyHolderSetTitle(dispatch),
+    updateSurveyHolderQuestionCreate: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionCreate(dispatch),
+    updateSurveyHolderQuestionDelete: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionDelete(dispatch),
+    updateSurveyHolderQuestionSetType: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetType(dispatch),
+    updateSurveyHolderQuestionSetTitle: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetTitle(dispatch),
+    updateSurveyHolderQuestionSetTooltip: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetTooltip(dispatch),
+    updateSurveyHolderQuestionSetFilter: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetFilter(dispatch),
+    updateSurveyHolderQuestionToggleFilter: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleFilter(dispatch),
+    updateSurveyHolderQuestionToggleFilterMode: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleFilterMode(dispatch),
+    updateSurveyHolderQuestionSetAnswersMaximum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetAnswersMaximum(dispatch),
+    updateSurveyHolderQuestionSetAnswersMinimum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionSetAnswersMinimum(dispatch),
+    updateSurveyHolderQuestionToggleAnswersMaximum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleAnswersMaximum(dispatch),
+    updateSurveyHolderQuestionToggleAnswersMinimum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleAnswersMinimum(dispatch),
+
+    updateSurveyViewOpenCreateModal: Actions.updateSurveyViewActions.updateSurveyViewOpenCreateModal(dispatch),
+    updateSurveyViewIsCreating: Actions.updateSurveyViewActions.updateSurveyViewIsCreating(dispatch),
+    updateSurveyFailedToCreate: Actions.updateSurveyViewActions.updateSurveyFailedToCreate(dispatch),
+    updateSurveyCreateError: Actions.updateSurveyViewActions.updateSurveyCreateError(dispatch),
+
+
+    updateSurveyViewOpenEditModal: Actions.updateSurveyViewActions.updateSurveyViewOpenEditModal(dispatch),
+    updateSurveyViewIsEditing: Actions.updateSurveyViewActions.updateSurveyViewIsEditing(dispatch),
+    updateSurveyFailedToEdit: Actions.updateSurveyViewActions.updateSurveyFailedToEdit(dispatch),
+    updateSurveyEditError: Actions.updateSurveyViewActions.updateSurveyEditError(dispatch),
+
+    
+    updateSurveyViewOpenDeleteModal: Actions.updateSurveyViewActions.updateSurveyViewOpenDeleteModal(dispatch),
+    updateSurveyViewIsDeleting: Actions.updateSurveyViewActions.updateSurveyViewIsDeleting(dispatch),
+    updateSurveyFailedToDelete: Actions.updateSurveyViewActions.updateSurveyFailedToDelete(dispatch),
+    updateSurveyDeleteError: Actions.updateSurveyViewActions.updateSurveyDeleteError(dispatch),
+
+    updateSurveyHolderQuestionIndex: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionIndex(dispatch),
+
+
     cool: (dispatch) => x
 });
 

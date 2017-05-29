@@ -39,15 +39,14 @@ function Std(index, num, ord, potn){
 	this.index 	= index;
 	this.num   	= num;  // number of potential partners
 	this.ord    = ord;  // the order of the students, sort by their match posibility
-	this.potn 	= potn; //potential partners
+	this.potn 	= potn; // potential partners
 }
 
 function clCompare(st_a, st_b){
-	console.log(st_a)
 	let l = st_a.meetingTimes.length;
 	let val = 0;
 	for (let i=0; i<l; i++){
-		if (st_a.meetingTimes[i]==true && st_b.meetingTimes[i]==true)
+		if (st_a.meetingTimes[i]===true && st_b.meetingTimes[i]===true)
 			val++;
 	}
 	return val;
@@ -61,10 +60,10 @@ function createList(stds){
 		let num = 0;
 		let potn = [];
 		for (let j=0; j<lgth; j++){
-			if (i!=j){
+			if (i!==j){
 				let val = clCompare(stds[i], stds[j]);
 				potn.push(val);
-				num += (val == 0) ? 0 : 1;
+				num += (val === 0) ? 0 : 1;
 			}
 			else{
 				potn.push(0);
@@ -92,7 +91,7 @@ function msSortTwoList(l1, l2){
 			j++;
 		}
 	}
-	if (i == lgth1){
+	if (i === lgth1){
 		k = j; lgth = lgth2; l = l2;
 	}
 	else{
@@ -107,7 +106,7 @@ function msSortTwoList(l1, l2){
 function msSplit(list){
 	let lgth = list.length;
 	let l1 = [], l2 = [];
-	var i=0;
+	let i=0;
 	for(; i<Math.floor(lgth/2); i++){
 		l1.push(list[i]);
 	}
@@ -128,9 +127,9 @@ function mergeSort(list){
 }
 
 function contain(list, value){
-	var sum = 0;
-	var length = list.length;
-	for (var i=0; i<length; i++){
+	let sum = 0;
+	let length = list.length;
+	for (let i=0; i<length; i++){
 		if (list[i] === value){
             sum++;
 		}
@@ -143,7 +142,7 @@ function min(list, ilist){
 	let min  = Number.MAX_SAFE_INTEGER;
 	let index = 0;
 	for (let i=0; i<lgth; i++){
-		if (list[i] != 0 && contain(ilist,i) == 0){
+		if (list[i] !== 0 && contain(ilist,i) === 0){
 			if (min > list[i]){
 				min = list[i];
 				index = i;
@@ -159,11 +158,10 @@ function minPartners(list, sortL, potn, size){
 	let lgth = potn.length;
 	let l = [], res = [];
 	for (let i=0; i<lgth; i++){
-		if (potn[i] != 0){
+		if (potn[i] !== 0){
 			l.push(list[i]);
 		}
 	}
-// console.log(l);
 	l = mergeSort(l);
 	for (let j=0; j<size-1; j++){
 		res.push(l[j].ord);
@@ -183,7 +181,7 @@ function addRestStd(teams, sortL, unavlStd, size){
 	}
 	let num = Math.floor(unavlStd.length/size);
 	let r   = unavlStd.length%size;
-	for (var i=0; i<num; i++){
+	for (let i=0; i<num; i++){
 		let lst = [];
 		for (let j=0; j<size; j++){
 			lst.push(unavlStd[i*size+j]);
@@ -219,7 +217,7 @@ function removePotential(list, sortL, index){
 
 function removeStd(pos, sortL){
 	for (let i=0; i<sortL.length; i++){
-		if (sortL[i].ord == pos ){
+		if (sortL[i].ord === pos ){
 			sortL.splice(i ,1);
 			return;
 		}
@@ -261,7 +259,6 @@ function match(list, sortL, size){
 
 function grouping(teams, stds, size){
 	let lgth = teams.length;
-// console.log(stds);
 	for (let i=0; i<lgth; i++){
 		for (let j=0; j<teams[i].length; j++){
 			let index = teams[i][j];
@@ -281,7 +278,7 @@ function successRate(teams, stds){
 				let index = teams[i][j];
 				sum += stds[index].meetingTimes[ii];
 			}
-			if (sum == teams[i].length){
+			if (sum === teams[i].length){
 				success++;
 				break;
 			}
@@ -291,9 +288,9 @@ function successRate(teams, stds){
 }
 
 
-function greedy_algorithm_based_on_Time(stds, size){
+function greedy_algorithm(stds, size){
 	// let table   = createTable(stds);
-	let list    = createList(stds)
+	let list    = createList(stds);
 	let sortL  	= mergeSort(list);
 	list = order(sortL, list);
 	let teams = match(list, sortL, size);
@@ -302,19 +299,4 @@ function greedy_algorithm_based_on_Time(stds, size){
 	return successRate(teams, stds);
 }
 
-module.exports = {
-    Std:         						Std,
-    clCompare:             				clCompare,
-    createList:             			createList,
-    msSortTwoList:         				msSortTwoList,
-    msSplit:               				msSplit,
-    mergeSort:      					mergeSort,
-    contain:           					contain,
-    min:          						min,
-    minPartners:  						minPartners,
-    addRestStd:   						addRestStd,
-    order:          					order,
-    removePotential:         			removePotential,
-    match:   							match,
-    greedy_algorithm_based_on_Time:     greedy_algorithm_based_on_Time
-};
+module.exports = greedy_algorithm;

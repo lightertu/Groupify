@@ -5,10 +5,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Dropdown, Icon, Popup } from 'semantic-ui-react'
 
-import randomColor from 'randomcolor'
 import EditSurveyInfoModal from './EditSurveyInfoModal'
 import DeleteSurveyModal from './DeleteSurveyModal'
 import { browserHistory } from 'react-router'
+
+import {Map, Set, List, OrderedSet} from 'immutable';
 
 export default class SurveyCard extends React.Component {
     constructor (props) {
@@ -26,29 +27,20 @@ export default class SurveyCard extends React.Component {
     }
 
     /* handlers for opening and closing the modals */
-    openDeleteConfirmationHandler = () => {
-        this.state = this.setState({
-            deleteConfirmationOpen: true,
-            surveyInfoOpen: false,
-        })
-    }
-    closeDeleteConfirmationHandler = () => {
-        this.state = this.setState({
-            deleteConfirmationOpen: false,
-            surveyInfoOpen: false,
-        })
-    }
+
     openSurveyInfoHandler = () => {
-        this.state = this.setState({
-            surveyInfoOpen: true,
-            deleteConfirmationOpen: false,
-        })
+        this.props.updateSurveyHolderGetSurvey(this.props.surveyId);
+        this.props.updateSurveyViewOpenEditModal(true);
     }
     closeSurveyInfoHandler = () => {
-        this.state = this.setState({
-            surveyInfoOpen: false,
-            deleteConfirmationOpen: false,
-        })
+        this.props.updateSurveyViewOpenEditModal(false);
+    }
+
+    openDeleteSurveyHandler = () => {
+        this.props.updateSurveyViewOpenDeleteModal(true);
+    }
+    closeDeleteSurveyHandler = () => {
+        this.props.updateSurveyViewOpenDeleteModal(false);
     }
 
     surveyCardOnClickHandler = () => {
@@ -63,25 +55,67 @@ export default class SurveyCard extends React.Component {
         return (
             <Card style={{maxWidth: '269.5px'}} link={false}>
                 {/* modal components has to stay inside for style reason */}
-                <DeleteSurveyModal open={ this.state.deleteConfirmationOpen }
-                                     onClose={this.closeDeleteConfirmationHandler }
-                                     name={this.props.name}
-                                     surveyId={this.props.surveyId}/>
+                <DeleteSurveyModal 
+                      onClose={this.closeDeleteSurveyHandler}
+                      name={this.props.name}
+                      surveyId={this.props.surveyId}
+                     
+                      fetchSurveyList={this.props.fetchSurveyList}
 
-                <EditSurveyInfoModal open={ this.state.surveyInfoOpen }
-                                       onClose={this.closeSurveyInfoHandler }
-                                       surveyId={this.props.surveyId}
-                                       name={this.props.name }
+                      updateSurveyViewIsDeleting={this.props.updateSurveyViewIsDeleting}
+                      updateSurveyFailedToDelete={this.props.updateSurveyFailedToDelete}
+                      updateSurveyDeleteError={this.props.updateSurveyDeleteError}
+
+                      openDeleteModal={this.props.openDeleteModal} 
+                      isDeleting={this.props.isDeleting} 
+                      failedToDelete={this.props.failedToDelete} 
+                      deleteError={this.props.deleteError} 
+
+                      deleteSurvey={this.props.deleteSurvey}
                 />
+
+                <EditSurveyInfoModal
+                      fetchSurveyList={this.props.fetchSurveyList}
+                      updateSurveyViewIsEditing={this.props.updateSurveyViewIsEditing}
+                      updateSurveyFailedToEdit={this.props.updateSurveyFailedToEdit}
+                      updateSurveyEditError={this.props.updateSurveyEditError}
+
+                      openEditModal={this.props.openEditModal} 
+                      isEditing={this.props.isEditing} 
+                      failedToEdit={this.props.failedToEdit} 
+                      editError={this.props.editError} 
+
+                      open={ this.state.surveyInfoOpen }
+                      onClose={this.closeSurveyInfoHandler }
+                      surveyId={this.props.surveyId}
+                      name={this.props.name }
+
+                      surveyHolder={this.props.surveyHolder} 
+                      surveyHolderQuestionIndex={this.props.surveyHolderQuestionIndex} 
+                      updateSurvey={this.props.updateSurvey} 
+ 
+                      updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
+                      updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
+                      updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
+                      updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
+                      updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                      updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
+                      updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
+                      updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
+                      updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
+                      updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
+                      updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
+                      updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                      updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                      updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                      updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                      updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex} 
+            />
                 <div style={{
                          padding: '1rem',
                          height: '130px',
                          textAlign: 'right',
-                         background: randomColor({
-                         luminosity: 'dark',
-                         format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
-                         alpha: 0.7,
-                     })
+                         background: this.props.color
                      }}>
                     <Dropdown icon={ <Icon name="edit" size="big" inverted/>} style={{left: '2px', top: "5px"}}>
                         <Dropdown.Menu style={{left: '-48px'}}>
@@ -91,7 +125,7 @@ export default class SurveyCard extends React.Component {
 
                             <Dropdown.Item style={{color: 'red'}}
                                            text='Delete'
-                                           onClick={ this.openDeleteConfirmationHandler }/>
+                                           onClick={this.openDeleteSurveyHandler}/>
 
                         </Dropdown.Menu>
                     </Dropdown>
