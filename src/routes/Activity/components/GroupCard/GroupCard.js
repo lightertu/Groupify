@@ -4,7 +4,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Icon, Card, Label, Segment, Image} from 'semantic-ui-react'
+import {Icon, Card, Label, Segment, Image, Popup} from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {DragSource, DropTarget} from 'react-dnd';
 import {AvailabilitySegment, SkillCountSegment} from "./MatchingStatusSegments"
@@ -34,6 +34,23 @@ class DraggableCard extends React.Component {
 
     render() {
         const {connectDragSource, isDragging, participant} = this.props;
+
+        if(this.props.unlocked) {
+            return (
+                    <div className="card" style={ {cursor: "move"} }>
+                        <ParticipantProfilePopup
+                            trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
+                            position="top right"
+                            offset={ 0 }
+                            name={ participant.name }
+                            image={ participant.image }
+                            groupNumber={participant.groupNumber }
+                            skills={ participant.skills }
+                            availability={ participant.availability }
+                            participantId={ participant.participantId }/>
+                    </div>
+                )
+        }
 
         return connectDragSource(
             <div className="card" style={ {cursor: "move"} }>
@@ -91,7 +108,7 @@ class GroupCard extends React.Component {
     }
 
     toggleMatchingStatus = () => {
-        this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
+        // this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
     };
 
     render() {
@@ -193,6 +210,14 @@ class GroupCard extends React.Component {
                     }
                 }   
             }
+
+        let lockIcon = "lock";
+        let popup = "click to lock in this group"
+        if(this.props.unlocked) {
+            lockIcon = "unlock";
+            popup = "click to unlock in this group"
+            color = "grey"
+        }
       
         let display;
         if(view) {
@@ -200,36 +225,54 @@ class GroupCard extends React.Component {
                         <Segment.Group raised style={ {cursor: "pointer"} }
                                onClick={ this.toggleMatchingStatus }
                                >
-                    <Segment padded={ true } size="large" color={color} inverted={true}
-                             style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
-                    >
-                        <Label attached='top left'> Group { this.props.groupNumber }</Label>
-                        <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                            {
-                                this.props.participants.map((participant) =>
-                                    <DraggableCard 
-                                        participant={ participant } 
-                                        key={ participant.participantId } 
-                                        setCurrentlySelected={this.props.setCurrentlySelected}
-                                        />
-                                )
-                            }
-                            { generateEmptySpots() }
-                        </Card.Group>
-                        <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
-                               attached="top right">
-                            <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
-                        </Label>
-                    </Segment>
+                            <Segment padded={ true } size="large" color={color} inverted={true}
+                                     style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
+                            >
+                                <Label attached='top left'> Group { this.props.groupNumber }</Label>
+                                <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
+                                    {
+                                        this.props.participants.map((participant) =>
+                                            <DraggableCard 
+                                                participant={ participant } 
+                                                key={ participant.participantId } 
+                                                setCurrentlySelected={ this.props.setCurrentlySelected }
+                                                unlocked= { this.props.unlocked }
+                                                />
+                                        )
+                                    }
+                                    { generateEmptySpots() }
+                                </Card.Group>
+                                <Popup
+                                content={popup}
+                                trigger={<Label as='a' attached="bottom right">
+                                    <Icon   name={lockIcon}
+                                            size='large'
+                                            onClick={() => {this.props.toggleLock(this.props.group)}} 
+                                            style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />
+                                  </Label>}
+                                  />
+                                <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
+                                       attached="top right">
+                                    <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
+                                </Label>
+                            </Segment>
 
-                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
-                    <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
+                            { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                            <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
 
-                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
-                    <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
+                            { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                            <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
                 </Segment.Group>
                 );
         }
+
+        if(this.props.unlocked) { // if locked nothing can be dragged into it
+            return (
+                <div>
+                    {display}
+                </div>
+                )
+        } 
 
         return connectDropTarget(
             <div>

@@ -36,12 +36,24 @@ export class ActivityCardViewWrapper extends React.Component {
 export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.activityId);
         this.props.fetchParticipantList(this.props.activityId);
 
-        this.state = ({filters: []});
-        this.setFilterValues = this.setFilterValues.bind(this);
+        let unlocked = [];
+        let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
+        while(numOfGroups--) unlocked.push(true)
 
+        //this.props.createLocks(numOfGroups);
+        this.state = ({filters: [], unlocked: unlocked});
+        this.setFilterValues = this.setFilterValues.bind(this);
+        this.toggleLock = this.toggleLock.bind(this);
+
+    }
+
+    toggleLock(group) {
+        let unlocked = this.state.unlocked;
+        unlocked[group] = !unlocked[group];
+        //this.props.toggleLock(group);
+        this.setState({unlocked: unlocked});
     }
 
     setFilterValues(input, event) {
@@ -70,6 +82,8 @@ export class ActivityView extends React.Component {
     }
 
     render() {
+        console.log(this.props)
+
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
@@ -96,7 +110,7 @@ export class ActivityView extends React.Component {
         let getGroupCards = (groups) => {
             return (
                 groups.map(
-                    (group) => (
+                    (group, i) => (
                         <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
                                        capacity={ this.props.groupCapacity }
@@ -104,8 +118,11 @@ export class ActivityView extends React.Component {
                                        itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
-                                       setCurrentlySelected={this.setCurrentlySelected.bind(this)}
+                                       setCurrentlySelected={ this.setCurrentlySelected.bind(this) }
+                                       toggleLock={ this.toggleLock.bind(this) }
                                        matching={ this.props.matching.get("matchingCriteria") }
+                                       group={ i }
+                                       unlocked={ this.state.unlocked[i] }
                                        filters={ this.state.filters }/>
                         </Grid.Column>
                     )
