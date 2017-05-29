@@ -1,5 +1,6 @@
 /**
  * Created by rui on 4/7/17.
+ * Additions made by Joseph 5/28/17
  */
 import React from 'react'
 import {Grid, Segment} from 'semantic-ui-react'
@@ -53,13 +54,14 @@ export class ActivityView extends React.Component {
                 field.splice(index, 1); // remove item from filter
             }
         } else {
-            if(event.target.getAttribute('name') === null) {
-                field.push(event.target.parentNode.getAttribute('name')); // add item to filter
-            } else {
-                field.push(event.target.getAttribute('name')); // add item to filter
+            if(event.target.getAttribute('name') != "-search") {
+                if(event.target.getAttribute('name') === null) {
+                    field.push(event.target.parentNode.getAttribute('name')); // add item to filter
+                } else {
+                    field.push(event.target.getAttribute('name')); // add item to filter
+                }
             }
         }
-        console.log(field)
         this.setState({field:field});
     }
 
@@ -103,14 +105,14 @@ export class ActivityView extends React.Component {
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
-                                       matching={ this.props.matching.get("matchingCriteria") }/>
+                                       matching={ this.props.matching.get("matchingCriteria") }
+                                       filters={ this.state.filters }/>
                         </Grid.Column>
                     )
                 )
             )
         };
         
-        console.log(this.props)
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }
