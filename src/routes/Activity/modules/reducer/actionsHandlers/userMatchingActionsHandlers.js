@@ -42,12 +42,14 @@ let handleSortParticipants = (state, participants) => {
 
 let handleFilterParticipants = (state, userId) => {
 	let matchingParticipants = new Set();
+	let matchingCriteria = new Set();
 	let attributes = state.getIn(["matching", "attributes"]);
 	const [...keys] = attributes.keys();
 
 	for(var key in keys[0])  {
 		// if(attributes.hasOwnProperty(key)) {
-			if(attributes.keySeq().first()[key].has(userId)) { // take out the python part
+			if(attributes.keySeq().first()[key].has(userId)) { 
+				matchingCriteria.add(key)
 				matchingParticipants = new Set([...matchingParticipants, ...attributes.keySeq().first()[key]]); // merges sets
 			}
 		// }
@@ -55,6 +57,7 @@ let handleFilterParticipants = (state, userId) => {
 
 	let update = state.setIn(["matching", "current"], userId);
 	update = update.setIn(["matching", "matchingParticipants"], matchingParticipants);
+	update = update.setIn(["matching", "matchingCriteria"], matchingCriteria);
 	return update;
 };
 
