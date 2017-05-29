@@ -146,41 +146,62 @@ class GroupCard extends React.Component {
     };
 
         let skills = generateSkillCountMap(this.props.participants);
-
         let days = overAllAvailability(this.props.participants)
-        let numsTodays = {0: "monday", 1: "tuseday", 2: "wednesday", 3: "thursday", 4: "friday", 5: "saturday", 6: "sunday"};
+        let numsTodays = {1: "monday", 2: "tuseday", 3: "wednesday", 4: "thursday", 5: "friday", 6: "saturday", 0: "sunday"};
+        let daysToNums = {"monday": 1, "tuseday": 2, "wednesday": 3, "thursday": 4, "friday": 5, "saturday": 6, "sunday": 0}
         let count = 0;
         let color = "";
         let i;
         let itemCount = this.props.matching.size;
+        let view = true;
+
         if(itemCount > 0) {
             for(i = 0; i < days.length; i++) {
                 if(this.props.matching.has(numsTodays[i]) && days[i]) {
                     count++;
                 }
+
             }
             let keys = Object.keys(skills);
             for(i = 0; i < keys.length; i++) {
                 if(this.props.matching.has(keys[i])) {
-                    console.log(keys[i])
                     count++;
                 }
             }
 
             let result = (count/itemCount);
 
-            if(result < .50) {
+            if(result < .45) {
                 color = "red";
-            } else if(result < .75) {
+            } else if(result < .70) {
                 color = "yellow";
             } else {
                 color = "green";
             }
         }
+        
+         for(i = 0; i < this.props.filters.length; i++) {
+            
+                if(this.props.filters[i] in daysToNums) {
+                    console.log(this.props.filters[i])
+                    if(!days[daysToNums[this.props.filters[i]]]) {
+                        console.log(i)
+                        console.log(days[daysToNums[this.props.filters[i]]])
+                        view = false;
+                        break;
+                    }
+                } else {
+                    if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
+                        view = false;
+                        break;
+                    }
+                }   
+            }
       
-        return connectDropTarget(
-            <div>
-                <Segment.Group raised style={ {cursor: "pointer"} }
+        let display;
+        if(view) {
+            display = (
+                        <Segment.Group raised style={ {cursor: "pointer"} }
                                onClick={ this.toggleMatchingStatus }
                                >
                     <Segment padded={ true } size="large" color={color} inverted={true}
@@ -211,6 +232,12 @@ class GroupCard extends React.Component {
                     { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
                     <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
                 </Segment.Group>
+                );
+        }
+
+        return connectDropTarget(
+            <div>
+                {display}
             </div>
         )
     }
