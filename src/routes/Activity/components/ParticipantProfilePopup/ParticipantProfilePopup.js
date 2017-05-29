@@ -2,7 +2,7 @@
  * Created by rui on 4/8/17.
  */
 import React from 'react'
-import {Card, Popup, Image, Label, Button} from 'semantic-ui-react'
+import {Card, Popup, Image, Label, Button, Icon} from 'semantic-ui-react'
 import PropTypes from "prop-types"
 
 import getColorByLanguage from  "../../modules/LanguageColorMap";

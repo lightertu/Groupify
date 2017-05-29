@@ -5,10 +5,12 @@ import * as fetchParticipantListActions from "./fetchParticpantListActions"
 import * as updateParticipantGroupNumberActions from "./updateParticipantGroupNumberActions"
 import * as generateGroupAssignmentActions from "./generateGroupAssignmentActions"
 import * as userMatchingActions from "./userMatchingActions"
+import * as groupLockActions from "./groupLockActions"
 
 export {
     fetchParticipantListActions,
     updateParticipantGroupNumberActions,
     generateGroupAssignmentActions,
-    userMatchingActions
+    userMatchingActions,
+    groupLockActions
 }
