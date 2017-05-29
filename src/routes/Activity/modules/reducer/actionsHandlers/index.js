@@ -5,10 +5,12 @@ import * as fetchParticipantListActionsHandlers from "./fetchParticipantListActi
 import * as generateGroupAssignmentActionsHandlers from "./generateGroupAssignmentActionsHandlers"
 import * as updateParticipantGroupNumberActionsHandlers from "./updateParticipantGroupNumberActionsHandlers"
 import * as userMatchingActionsHandlers from "./userMatchingActionsHandlers"
+import * as groupLockActionsHandlers from "./groupLockActionsHandlers"
 
 export {
     fetchParticipantListActionsHandlers,
     generateGroupAssignmentActionsHandlers,
     updateParticipantGroupNumberActionsHandlers,
-    userMatchingActionsHandlers
+    userMatchingActionsHandlers,
+    groupLockActionsHandlers
 }

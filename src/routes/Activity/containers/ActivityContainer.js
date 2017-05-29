@@ -17,6 +17,8 @@ const mapDispatchToProps = (dispatch) => ({
     generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
     sortParticipantsMatch: Actions.userMatchingActions.sortParticipants(dispatch), 
     filterParticipantsMatch: Actions.userMatchingActions.filterParticipants(dispatch),
+    createLocks: Actions.groupLockActions.createLocks(dispatch),
+    toggleLock: Actions.groupLockActions.toggleLock(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
@@ -26,6 +28,7 @@ const mapStateToProps = (state, ownProps) => {
         groupCapacity: state.activity.get("groupCapacity"),
         totalCapacity: state.activity.get("totalCapacity"),
         matching: state.activity.get("matching"),
+        unlocked: state.activity.get("unlocked")
     }
 };
 

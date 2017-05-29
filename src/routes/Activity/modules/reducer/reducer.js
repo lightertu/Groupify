@@ -1,7 +1,7 @@
 /**
  * Created by rui on 4/18/17.
  */
-import { Map } from "immutable"
+import { Map, List } from "immutable"
 import * as Actions from "../actions"
 import * as ActionsHandlers from "./actionsHandlers"
 
@@ -9,6 +9,7 @@ const initialState = Map({
     participants: [],
     groupCapacity: 0,
     totalCapacity: 0,
+    unlocked: List([]),
     matching: Map({
         current: "test",
         matchingParticipants: new Set(),
@@ -20,6 +21,12 @@ const initialState = Map({
 
 export default function activityReducer (state = initialState, action) {
     switch(action.type) {
+
+        /* reduce group locks */
+        case Actions.groupLockActions.CREATE_LOCKS:
+            return ActionsHandlers.groupLockActionsHandlers.handleCreateLocks(state, action.payload); // delete this after server hookup
+        case Actions.groupLockActions.TOGGLE_LOCK:
+            return ActionsHandlers.groupLockActionsHandlers.handleToggleLock(state, action.payload);
 
         /* reduce userMatching */
         case Actions.userMatchingActions.SORT_PARTICIPANTS:
