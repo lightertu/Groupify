@@ -19,7 +19,6 @@ const initialState = Map({
 });
 
 export default function activityReducer (state = initialState, action) {
-    console.log(action)
     switch(action.type) {
 
         /* reduce userMatching */
