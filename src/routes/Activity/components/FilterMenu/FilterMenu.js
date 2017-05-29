@@ -67,7 +67,7 @@ class FilterMenu extends React.Component {
         const buttonStyle = {
             width: "120px"
         };
-
+        
         const [...keys] = this.props.filterValues.keys();
         const options = Object.keys(keys[0]).map(function(key, i) {
             return {key: i, text: key, value: key, name: key};
