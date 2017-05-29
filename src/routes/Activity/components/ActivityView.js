@@ -103,13 +103,14 @@ export class ActivityView extends React.Component {
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
-                                       matching={ this.props.matching.get("matchingParticipants") }/>
+                                       matching={ this.props.matching.get("matchingCriteria") }/>
                         </Grid.Column>
                     )
                 )
             )
         };
         
+        console.log(this.props)
         return (
             <div>
                 <ParticipantListSidebar participants={ this.props.participants }

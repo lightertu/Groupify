@@ -1,5 +1,6 @@
 /**
  * Created by rui on 4/8/17.
+ * Additions made by Joseph 5/28/17
  */
 import React from 'react'
 import PropTypes from 'prop-types';
@@ -32,14 +33,7 @@ class DraggableCard extends React.Component {
     };
 
     render() {
-        const {connectDragSource, isDragging, participant, setCurrentlySelected, matched} = this.props;
-
-        let cardStyles = "";
-        if(matched.has(participant.participantId)) {
-            cardStyles = {
-
-            }
-        }
+        const {connectDragSource, isDragging, participant} = this.props;
 
         return connectDragSource(
             <div className="card" style={ {cursor: "move"} }>
@@ -91,8 +85,9 @@ class GroupCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            matchingStatusOpen: true,
+            matchingStatusOpen: true, availability: [], skills: []
         };
+
     }
 
     toggleMatchingStatus = () => {
@@ -121,11 +116,74 @@ class GroupCard extends React.Component {
                 return null;
         };
 
+        let overAllAvailability = (participants) => {
+            if (participants.length <= 0) {
+                return [false, false, false, false, false, false, false];
+            }
+            return participants.reduce((acc, participant) => {
+                for (let i = 0; i <  7; i++) {
+                    acc[i] = acc[i] && participant.availability[i];
+                }
+
+                return acc;
+            }, [true, true, true, true, true, true, true]);
+        };
+
+        let generateSkillCountMap = (participants) => {
+            let skillCountMap = {};
+            for (let i = 0; i < participants.length; i++) {
+                let skills = participants[i].skills;
+                for (let j = 0; j < skills.length; j++) {
+                    let skillName = skills[j].name;
+                    if (!(skillName in skillCountMap)) {
+                        skillCountMap[skillName] = 1;
+                    } else {
+                        skillCountMap[skillName]++;
+                    }
+                }
+            }
+            return skillCountMap;
+    };
+
+        let skills = generateSkillCountMap(this.props.participants);
+
+        let days = overAllAvailability(this.props.participants)
+        let numsTodays = {0: "monday", 1: "tuseday", 2: "wednesday", 3: "thursday", 4: "friday", 5: "saturday", 6: "sunday"};
+        let count = 0;
+        let color = "";
+        let i;
+        let itemCount = this.props.matching.size;
+        if(itemCount > 0) {
+            for(i = 0; i < days.length; i++) {
+                if(this.props.matching.has(numsTodays[i]) && days[i]) {
+                    count++;
+                }
+            }
+            let keys = Object.keys(skills);
+            for(i = 0; i < keys.length; i++) {
+                if(this.props.matching.has(keys[i])) {
+                    console.log(keys[i])
+                    count++;
+                }
+            }
+
+            let result = (count/itemCount);
+
+            if(result < .50) {
+                color = "red";
+            } else if(result < .75) {
+                color = "yellow";
+            } else {
+                color = "green";
+            }
+        }
+      
         return connectDropTarget(
             <div>
                 <Segment.Group raised style={ {cursor: "pointer"} }
-                               onClick={ this.toggleMatchingStatus }>
-                    <Segment padded={ true } size="large"
+                               onClick={ this.toggleMatchingStatus }
+                               >
+                    <Segment padded={ true } size="large" color={color} inverted={true}
                              style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
                     >
                         <Label attached='top left'> Group { this.props.groupNumber }</Label>
@@ -136,7 +194,7 @@ class GroupCard extends React.Component {
                                         participant={ participant } 
                                         key={ participant.participantId } 
                                         setCurrentlySelected={this.props.setCurrentlySelected}
-                                        matched={this.props.matching}/>
+                                        />
                                 )
                             }
                             { generateEmptySpots() }

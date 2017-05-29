@@ -13,7 +13,8 @@ const initialState = Map({
         current: "test",
         matchingParticipants: new Set(),
         attributes: Map({}),
-        idToIndex: Map({})
+        idToIndex: Map({}),
+        matchingCriteria: new Set()
     })
 });
 
