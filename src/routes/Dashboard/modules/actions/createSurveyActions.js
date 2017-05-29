@@ -8,13 +8,13 @@ const SERVER_URL = "http://localhost:3000";
 export const CREATE_SURVEY = "CREATE_SURVEY";
 let createSurvey = (dispatch) => {
     return (payload) => {
-        dispatch({type: CREATE_SURVEY, payload: payload});
         let url = SERVER_URL + "/api/surveys";
-        axios.post(url)
+        axios.post(url, payload)
             .then((response) => {
                 dispatch(createSurveySuccess(response.data));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(createSurveyFailure(error));
             });
     }

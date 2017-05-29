@@ -1,24 +1,26 @@
 const HttpStatus = require("http-status-codes");
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 const Activity = require("../../../models/").Activity;
 const User = require("../../../models/").User;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
+
 function validateInput(req) {
     return validateParameters(req.params);
 }
 
-// TODO: MAY THINK FURTHOR HERE
 function validateParameters(prm) {
-    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string';
+    return prm.hasOwnProperty('activityId') && typeof prm.activityId === 'string'
+        && ObjectIdIsValid(prm.activityId);
 }
 
 
 module.exports = function (req, res, next) {
 
     if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
+        const errorMessage = 'please give the valid activityID in url';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }

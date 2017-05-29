@@ -50,7 +50,6 @@ class _MenuOptions extends React.Component {
     }
 
     render() {
-        console.log(this.props.view);
         return (
             <div>
                 <Link to={ `/dashboard?view=activities`}>
