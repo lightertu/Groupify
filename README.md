@@ -1,4 +1,4 @@
-# Team Divider
+# Team Divider (<a href="http://138.197.196.92:3000/" target="_blank">Demo</a>)
 A web application to help activity organizer divide participants into different teams.
 
 ## ScreenShots
