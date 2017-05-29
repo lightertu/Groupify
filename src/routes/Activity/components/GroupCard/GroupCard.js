@@ -181,12 +181,8 @@ class GroupCard extends React.Component {
         }
         
          for(i = 0; i < this.props.filters.length; i++) {
-            
                 if(this.props.filters[i] in daysToNums) {
-                    console.log(this.props.filters[i])
                     if(!days[daysToNums[this.props.filters[i]]]) {
-                        console.log(i)
-                        console.log(days[daysToNums[this.props.filters[i]]])
                         view = false;
                         break;
                     }
