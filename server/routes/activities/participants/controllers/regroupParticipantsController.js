@@ -7,6 +7,8 @@ const createErrorHandler = require("../../../utils").createErrorHandler;
 const Activity = require("../../../../models/").Activity;
 const User = require("../../../../models/").User;
 const Participant = require("../../../../models/").Participant;
+const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
+
 
 
 const selectAlgorithmAndReturnFunction = require("../algorithms/").selectAlgorithmAndReturnFunction;
@@ -47,7 +49,8 @@ module.exports = function (req, res, next) {
         _id: activityId, _creator: userId, isDeleted: false, survey: {'$ne': []},
     }).populate({
         path: 'participants',
-        match: {isDeleted: false, groupNumber: -1},
+        select: '_id name groupNumber surveyResponses lastModified',
+        match: {isDeleted: false},
         options: {
             sort: {lastModifiedAt: 1}
         }
@@ -60,8 +63,17 @@ module.exports = function (req, res, next) {
                 return;
             }
 
+            console.log(algorithmFcn(activity.participants, activity.groupCapacity));
+
+            activity.participants.forEach(function (par) {
+                par.save().then(function (par) {
+                    // console.log(par);
+                }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+            });
+
+
             return res.status(HttpStatus.OK).json({
-                participants: algorithmFcn(activity.participants, activity.groupCapacity)
+                participants: activity.participants
             });
 
         })

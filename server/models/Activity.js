@@ -47,8 +47,8 @@ let ActivitySchema = Schema({
     },
 
     survey: {
-        type: [Survey.schema],
-        default: [],
+        type: Survey.schema,
+        required: true,
     },
 
     color: {
@@ -95,6 +95,7 @@ ActivitySchema.methods.getPublicFields = function () {
         name: this.name,
         totalCapacity: this.totalCapacity,
         groupCapacity: this.groupCapacity,
+        color: this.color,
         currentCapacity: this.currentCapacity,
         endDate: this.endDate,
         participants: this.participants,
