@@ -47,7 +47,7 @@ module.exports = function (req, res, next) {
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
-
+    
 
     // first find survey by surveyId
     Survey.findOne(
@@ -66,7 +66,7 @@ module.exports = function (req, res, next) {
                 groupCapacity: payload.groupCapacity,
                 totalCapacity: payload.totalCapacity,
                 endDate: payload.endDate,
-                survey: [survey],
+                survey: survey,
             });
 
             newActivity.save().then(function (newActivity) {
