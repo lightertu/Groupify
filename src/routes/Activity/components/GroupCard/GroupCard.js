@@ -188,13 +188,15 @@ class GroupCard extends React.Component {
 
             let result = (count/itemCount);
 
-            if(result < .45) {
-                color = "red";
-            } else if(result < .70) {
+            if(result > .70 || this.props.participants.length == 0) {
+                color = "green";
+            } else if(result > .45) {
                 color = "yellow";
             } else {
-                color = "green";
+                color = "red";
             }
+
+
         }
         
          for(i = 0; i < this.props.filters.length; i++) {

@@ -10,6 +10,7 @@ import {DragSource, DropTarget} from 'react-dnd';
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
 import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
+import ParticipantTrash from "./ParticipantTrash";
 
 const participantSidebarItemSource = {
     beginDrag(props) {
@@ -91,11 +92,13 @@ const participantSidebarTarget = {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
         props.setCurrentlySelected(""); // resets curretly selected user
         let droppedItem = monitor.getItem();
-        props.updateParticipantGroupNumber(
-            props.activityId,
-            droppedItem.participantId,
-            droppedItem.oldGroupNumber,
-            -1)
+        if(monitor.isOver()) {
+            props.updateParticipantGroupNumber(
+                props.activityId,
+                droppedItem.participantId,
+                droppedItem.oldGroupNumber,
+                -1)
+        }
     },
 };
 
@@ -127,7 +130,7 @@ class ParticipantListSidebar extends React.Component {
             <List verticalAlign='middle' size="large" selection>
                 {
                     participants.filter((participantObj) => (
-                        participantObj.groupNumber < 0
+                        participantObj.groupNumber == -1
                     ))
 
                         .map((participantObj) => (
@@ -184,6 +187,14 @@ class ParticipantListSidebar extends React.Component {
                                         generateSidebarList(this.props.participants) :
                                         generateEmailButton())
                             }
+
+                            <ParticipantTrash 
+                                participants={ this.props.participants }
+                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                                        activityId={ this.props.activityId }
+                                        setCurrentlySelected={this.props.setCurrentlySelected}
+                                        dragging={ this.props.dragging }
+                                        />
                         </Segment>
                     </div>
                 </SidebarMenu>

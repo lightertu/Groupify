@@ -96,7 +96,9 @@ export class ActivityView extends React.Component {
 
             return groups;
         };
-        console.log(this.props.unlocked)
+
+        let dragging = (this.props.matching.get("current").length > 0) ? true : false;
+
         let getGroupCards = (groups) => {
             return (
                 groups.map(
@@ -125,7 +127,9 @@ export class ActivityView extends React.Component {
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                         activityId={ this.props.activityId }
-                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}/>
+                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
+                                        dragging = { dragging }
+                                        />
                 <ActivityCardViewWrapper>
                     {
                         (this.props.participants.length > 0) &&
