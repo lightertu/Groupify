@@ -53,8 +53,7 @@ export class ActivityView extends React.Component {
         if(event.target.getAttribute('class') === "delete icon") {
             let item = event.target.parentNode.getAttribute('value');
             let index = field.indexOf(item)
-
-            if(index > 0) {
+            if(index >= 0) {
                 field.splice(index, 1); // remove item from filter
             }
         } else {
