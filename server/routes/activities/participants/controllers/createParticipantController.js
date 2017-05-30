@@ -9,7 +9,6 @@ const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 const createErrorHandler = require("../../../utils").createErrorHandler;
 const HttpStatus = require("http-status-codes");
 
-// const properties = ['name', 'image', 'skills', 'availability'];
 const properties = ['name', 'image', 'email', 'surveyResponses'];
 
 

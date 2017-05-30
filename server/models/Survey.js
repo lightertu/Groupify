@@ -63,8 +63,7 @@ let SurveySchema = Schema({
     }
 });
 
-QuestionSchema.index( {title: 1, type: 1}, {unique: true} );
-
+// QuestionSchema.index( {title: 1, type: 1}, {unique: true
 
 SurveySchema.pre('save', function(next){
     let survey = this;
@@ -165,7 +164,6 @@ function validateFormat(payload, properties){
 
 
 function SurveyValidator(title, question) {
-    console.log("title " + validateTitle(title));
     return validateTitle(title) && validateQuestion(question);
 }
 
