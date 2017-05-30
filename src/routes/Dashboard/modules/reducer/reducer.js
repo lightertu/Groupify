@@ -95,7 +95,6 @@ const initialState = Map({
             endDate: '',
             groupCapacity: 0,
             totalCapacity: 0,
-            participants: Set([]),
         }),
         activityTemplate: Map({
             color: '',
@@ -104,7 +103,6 @@ const initialState = Map({
             endDate: '',
             groupCapacity: 0,
             totalCapacity: 0,
-            participants: Set([]),
         }),
 
     }),
