@@ -65,19 +65,50 @@ const initialState = Map({
         }),
 
     }),
-    activitiesViewData: {
-        activities: [
-            {
-                color: "white",
-                activityId: "thisdawyghujiklasdawasda",
-                name: "CIS 422",
-                endDate: "1911",
-                groupCapacity: 10,
-                totalCapacity: 40,
-                participants: [1,2,3,4]
-            }
-        ]
-    },
+
+
+    activitiesViewData: Map({
+        isLoading:true,
+        failedToGet:false,
+
+        openEditModal:false,
+        isEditing:false,
+        failedToEdit:false,
+        editError:'',
+
+        openCreateModal:false,
+        isCreating:false,
+        failedToCreate:false,
+        createError:'',
+
+        openDeleteModal:false,
+        isDeleting:false,
+        failedToDelete:false,
+        deleteError:'',
+
+        activities: List([]),
+
+        activityHolder: Map({
+            color: '',
+            activityId: '',
+            name: '',
+            endDate: '',
+            groupCapacity: 0,
+            totalCapacity: 0,
+            participants: Set([]),
+        }),
+        activityTemplate: Map({
+            color: '',
+            activityId: '',
+            name: '',
+            endDate: '',
+            groupCapacity: 0,
+            totalCapacity: 0,
+            participants: Set([]),
+        }),
+
+    }),
+
     accountSettingsViewData: {
         email: '',
         name: ''

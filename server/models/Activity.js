@@ -43,12 +43,11 @@ let ActivitySchema = Schema({
     name: {
         type: String,
         default: "",
-        required: true,
     },
 
     survey: {
-        type: [Survey.schema],
-        default: [],
+        type: Survey.schema,
+        required: true,
     },
 
     color: {
@@ -94,6 +93,7 @@ ActivitySchema.methods.getPublicFields = function () {
     return {
         name: this.name,
         totalCapacity: this.totalCapacity,
+        color: this.color,
         groupCapacity: this.groupCapacity,
         currentCapacity: this.currentCapacity,
         endDate: this.endDate,
@@ -126,6 +126,12 @@ function validateName(name){
 
 
 function validateCapacities(g, t){
+    console.log('inside capacity (' +g+ '), (' +t+ ')')
+    console.log( Number.isInteger(3));
+    console.log( Number.isInteger(t));
+    console.log( g>0);
+    console.log( t>0);
+    console.log( g<=t);
     return Number.isInteger(g) && Number.isInteger(t) && g>0 && t>0 && g<=t;
 }
 
@@ -135,6 +141,10 @@ function validateDate(date) {
 }
 
 function ActivityValidator(name, groupCap, totalCap, endD){
+    console.log('name');
+    console.log(validateName(name));
+    console.log('validateCapacities');
+    console.log(validateCapacities(groupCap, totalCap));
     return validateName(name)
         && validateCapacities(groupCap, totalCap)
         && validateDate(endD);
