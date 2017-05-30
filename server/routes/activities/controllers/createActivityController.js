@@ -36,12 +36,6 @@ module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
-    console.log(validateFormat(payload, properties));
-    console.log(ActivityValidator(payload.name, payload.groupCapacity,
-        payload.totalCapacity, payload.endDate));
-    console.log(validateSurveyId(payload.surveyId));
-
-
     if (!validateInput(payload)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
