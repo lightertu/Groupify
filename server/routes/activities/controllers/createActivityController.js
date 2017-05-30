@@ -60,7 +60,7 @@ module.exports = function (req, res, next) {
                 groupCapacity: payload.groupCapacity,
                 totalCapacity: payload.totalCapacity,
                 endDate: payload.endDate,
-                survey: [survey],
+                survey: survey,
             });
 
             newActivity.save().then(function (newActivity) {

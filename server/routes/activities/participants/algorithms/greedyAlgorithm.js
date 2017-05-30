@@ -2,38 +2,8 @@
 Author: Kai Huang
 Email: huangkai2518@gmail.com
 
-let names = ["Rui Tu", "Kai Huang", "Joseph I", "Matt", "He daHe"];
-let skills = ["Java", "C++", "JavaScript", "Lisp", "Python", "Node.js", "React.js"];
-let skillLevel = ["Beginner", "Some Experience", "Expert" ];
 
-		  0		1	  2			  5
-time = [M.t0, M.t1, M.t2, ... , M.t5,   -> 0
-		T.t0, T.t1, T.t2, ... , T.t5,   -> 1
-		W.t0, W.t1, W.t2, ... , W.t5,   -> 2
-		R.t0, R.t1, R.t2, ... , R.t5,   -> 3
-		F.t0, F.t1, F.t2, ... , F.t5]   -> 4
-
-let samplePerson =
-{
-	id: 			1,
-	groupNumber: 		-1,
-	meetingTimes:   	[false, false, false, false ... false],
-						^		^		^	  ^			^
-						M:t1    M:t2    M:t3  M:t4      F:t5
-};
-
-let sampleInput = [
-	samplePerson0,
-	samplePerson1,
-		.
-		.
-		.
-	samplePersonN]
 */
-
-// var randomAlgorithm = require('./randomAlgorithm').randomAlgorithm;
-// var getRandomNum	= require('./randomAlgorithm').getRandomNum;
-// var getGroupList    = require('./randomAlgorithm').getGroupList;
 
 const Set = require("immutable");
 
@@ -66,7 +36,7 @@ function msSortTwoList(l1, l2){
 	return resList;
 }
 
-function msSplit(list){
+function mergeSortSplit(list){
 	let lgth = list.length;
 	let l1 = [], l2 = [];
 	let i=0;
@@ -83,7 +53,7 @@ function mergeSort(list){
 	if (list.length < 2){
 		return list;
 	}
-	list = msSplit(list);
+	list = mergeSortSplit(list);
 	let l1 = mergeSort(list[0]);
 	let l2 = mergeSort(list[1]);
 	return msSortTwoList(l1, l2);
@@ -190,11 +160,11 @@ function removeStd(pos, sortL){
 function match(list, sortL, size){
 	let unavlStd = [];
 	let teams 	 = [];
-	let ptNum    = size - 1;
+
 	while(sortL.length >= size){
 		let partners = [];
 		let team 	 = [];
-		if (sortL[0].num < ptNum){
+		if (sortL[0].num < size - 1){
 			unavlStd.push(sortL[0].index);
 		}
 		else{
@@ -206,8 +176,7 @@ function match(list, sortL, size){
 				removePotential(list, sortL, sortL[pos].index);
 			}
 			for (let j=0; j<partners.length; j++){
-				let pos = partners[j];
-				removeStd(pos, sortL);
+				removeStd(partners[j], sortL);
 			}
 			team.push(sortL[0].index);
 			teams.push(team);
@@ -226,9 +195,6 @@ function grouping(teams, pars, size){
 		for (let j=0; j<teams[i].length; j++){
 			let index = teams[i][j];
 			pars[index].groupNumber = i;
-            pars[index].save().catch(function(err){
-                console.log("Error occur when saving participant in greedyAlgorithm: " + err);
-            });
 		}
 	}
 	return pars;
@@ -281,23 +247,16 @@ function greedyAlgorithm(pars, size){
 
     let workList = createWorkList(nestedBoolArray, booleanArrayCompare);
 
-    let sortL = mergeSort(workList);
+    let sortedWorkList = mergeSort(workList);
 
-    workList = order(sortL, workList);
+    workList = order(sortedWorkList, workList);
 
-    let teams = match(workList, sortL, size);
+    let teams = match(workList, sortedWorkList, size);
 
     grouping(teams, pars, size);
 
     return successRate(teams, pars);
 
-	// let list    = createList(pars);
-	// let sortL  	= mergeSort(list);
-	// list = order(sortL, list);
-	// let teams = match(list, sortL, size);
-	// grouping(teams, pars, size);
-  //
-	// return successRate(teams, pars);
 }
 
 module.exports = greedyAlgorithm;
