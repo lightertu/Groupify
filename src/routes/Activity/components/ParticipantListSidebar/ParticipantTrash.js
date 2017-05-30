@@ -12,6 +12,7 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 const participantSidebarTarget = {
     drop(props, monitor) {
         props.setCurrentlySelected(""); // resets curretly selected user
+        // props.handleTrashed();
         let droppedItem = monitor.getItem();
         props.updateParticipantGroupNumber(
             props.activityId,
@@ -35,10 +36,12 @@ class ParticipantTrash extends React.Component {
     }
 
     render() {
-        const {connectDropTarget, isOver} = this.props;
-
+        const {connectDropTarget, isOver, trashed} = this.props;
+        
         let display;
         let color  = (isOver) ? "blue" : "grey";
+        let response = trashed ? "Thank you!" : "test";
+
         if(this.props.dragging){
             display = ( <div>
                             <Icon   color={color}
@@ -55,7 +58,7 @@ class ParticipantTrash extends React.Component {
                 <CSSTransitionGroup
                     transitionName="example"
                     transitionEnterTimeout={500}
-                    transitionLeaveTimeout={600}>
+                    transitionLeaveTimeout={700}>
                     {display}
                 </CSSTransitionGroup>
             </div>              

@@ -111,11 +111,32 @@ function collectDrop(connect, monitor) {
 
 @DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantSidebarTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = ({trashed: false});
+        this.handleTrashed = this.handleTrashed.bind(this);
+
+    }
+
+
     static propTypes = {
         activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
     };
+
+    handleTrashed() {
+        this.setState({trashed: true});
+        let start = new Date().getTime();
+        let end = start;
+        while(end < start + 3000) {
+            end = new Date().getTime();
+        }
+
+
+        this.setState({trashed: false});
+    }
 
     render() {
         const {connectDropTarget, isOver} = this.props;
@@ -194,6 +215,8 @@ class ParticipantListSidebar extends React.Component {
                                         activityId={ this.props.activityId }
                                         setCurrentlySelected={this.props.setCurrentlySelected}
                                         dragging={ this.props.dragging }
+                                        trashed={ this.state.trashed }
+                                        handleTrashed={ this.handleTrashed.bind(this) }
                                         />
                         </Segment>
                     </div>
