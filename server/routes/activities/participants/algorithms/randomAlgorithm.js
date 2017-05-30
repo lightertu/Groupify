@@ -41,7 +41,7 @@ function getGroupList(groupNum, rest, size){
 }
 
 
-function validataInput(pars, size){
+function validateInput(pars, size){
     let result = Array.isArray(pars);
     pars.forEach(function (p) {
         result = result
@@ -64,7 +64,7 @@ function validataInput(pars, size){
 
 function randomAlgorithm(pars, gpSize)
 {
-	if (!validataInput(pars, gpSize)){
+	if (!validateInput(pars, gpSize)){
 		return [];
 	}
 	let sLength = pars.length;
@@ -82,6 +82,9 @@ function randomAlgorithm(pars, gpSize)
 	for (let j=0; j<sLength; j++){
 		let num = getRandomNum(0, groupList.length-1);
         pars[j].groupNumber = groupIndex[num];
+        pars[j].save().catch(function(err){
+            console.log("Error occur when saving participant in randomAlgorithm: " + err);
+        });
 		groupList[num] -= 1;
 		if (groupList[num] === 0){
 			groupList.splice(num, 1);

@@ -35,45 +35,8 @@ let sampleInput = [
 // var getRandomNum	= require('./randomAlgorithm').getRandomNum;
 // var getGroupList    = require('./randomAlgorithm').getGroupList;
 
-function Std(index, num, ord, potn){
-	this.index 	= index;
-	this.num   	= num;  // number of potential partners
-	this.ord    = ord;  // the order of the students, sort by their match posibility
-	this.potn 	= potn; // potential partners
-}
+const Set = require("immutable");
 
-function clCompare(st_a, st_b){
-	let l = st_a.meetingTimes.length;
-	let val = 0;
-	for (let i=0; i<l; i++){
-		if (st_a.meetingTimes[i]===true && st_b.meetingTimes[i]===true)
-			val++;
-	}
-	return val;
-}
-
-
-function createList(stds){
-	let lgth = stds.length;
-	let list = [];
-	for (let i=0; i<lgth; i++){
-		let num = 0;
-		let potn = [];
-		for (let j=0; j<lgth; j++){
-			if (i!==j){
-				let val = clCompare(stds[i], stds[j]);
-				potn.push(val);
-				num += (val === 0) ? 0 : 1;
-			}
-			else{
-				potn.push(0);
-			}
-		}
-		let newStd = new Std(i, num, -1, potn);
-		list.push(newStd);
-	}
-	return list;
-}
 
 function msSortTwoList(l1, l2){
 	let lgth1 = l1.length;
@@ -257,18 +220,21 @@ function match(list, sortL, size){
 	return teams;
 }
 
-function grouping(teams, stds, size){
+function grouping(teams, pars, size){
 	let lgth = teams.length;
 	for (let i=0; i<lgth; i++){
 		for (let j=0; j<teams[i].length; j++){
 			let index = teams[i][j];
-			stds[index].groupNumber = i;
+			pars[index].groupNumber = i;
+            pars[index].save().catch(function(err){
+                console.log("Error occur when saving participant in greedyAlgorithm: " + err);
+            });
 		}
 	}
-	return stds;
+	return pars;
 }
 
-function successRate(teams, stds){
+function successRate(teams, pars){
 	let total = teams.length;
 	let success = 0;
 	for (let i=0; i<teams.length; i++) {
@@ -276,7 +242,7 @@ function successRate(teams, stds){
 			let sum = 0;
 			for (let j=0; j<teams[i].length; j++){
 				let index = teams[i][j];
-				sum += stds[index].meetingTimes[ii];
+				sum += pars[index].meetingTimes[ii];
 			}
 			if (sum === teams[i].length){
 				success++;
@@ -287,16 +253,122 @@ function successRate(teams, stds){
 	return success/total;
 }
 
+function validateInput(pars, size){
+    let result = Array.isArray(pars);
+    pars.forEach(function (p) {
+        result = result
+            && p.hasOwnProperty('_id')
+            && p.hasOwnProperty('groupNumber');
+        if (result){
+            result = result && ObjectIdIsValid(p._id)
+                && typeof p.groupNumber === 'number'
+                && p.groupNumber % 1 === 0;
+        }
+    });
 
-function greedy_algorithm(stds, size){
-	// let table   = createTable(stds);
-	let list    = createList(stds);
-	let sortL  	= mergeSort(list);
-	list = order(sortL, list);
-	let teams = match(list, sortL, size);
-	grouping(teams, stds, size);
-
-	return successRate(teams, stds);
+    return result
+        && typeof size !== 'number'
+        && size > 0
+        && size % 1 === 0;
 }
 
-module.exports = greedy_algorithm;
+function greedyAlgorithm(pars, size){
+    if (!validateInput(pars, size)){
+        return [];
+    }
+
+    let nestedBoolArray = createNestedBooleanArrayForAllPars(pars);
+
+    let workList = createWorkList(nestedBoolArray, booleanArrayCompare);
+
+    let sortL = mergeSort(workList);
+
+    workList = order(sortL, workList);
+
+    let teams = match(workList, sortL, size);
+
+    grouping(teams, pars, size);
+
+    return successRate(teams, pars);
+
+	// let list    = createList(pars);
+	// let sortL  	= mergeSort(list);
+	// list = order(sortL, list);
+	// let teams = match(list, sortL, size);
+	// grouping(teams, pars, size);
+  //
+	// return successRate(teams, pars);
+}
+
+module.exports = greedyAlgorithm;
+
+
+function WorkObject (index, num, ord, potn) {
+    this.index 	= index;
+    this.num   	= num;  // number of potential partners
+    this.ord    = ord;  // the order of the students, sort by their match posibility
+    this.potn 	= potn; // potential partners
+}
+
+function createNestedBooleanArrayForAllPars(pars){
+
+    let allAnswers = Set([]);
+    let nestedArray = [];
+
+    pars.forEach(function (par){
+        par.surveyResponses.forEach(function (response) {
+            response.answer.forEach(function (ans){
+                allAnswers = allAnswers.add(ans);
+            });
+        });
+    });
+
+
+    pars.forEach(function (par) {
+        let booleanArray = [];
+        allAnswers.forEach(function (test) {
+            let hasIt = false;
+            par.surveyResponses.forEach(function (response) {
+                hasIt = hasIt || Set(response.answer).has(test);
+            })
+            booleanArray.push(hasIt);
+        });
+        nestedArray.push(booleanArray);
+    });
+
+    return nestedArray;
+}
+
+
+// input: [ [T, T], [T, F] ]; output: [ WorkObject1, WorkObject2]
+function createWorkList(nestedArray, compareFcn){
+    let inputLength = nestedArray.length;
+    let workList = [];
+
+    for (let i=0; i<inputLength; i++){
+        let similarCount = 0, similarity = [];
+        for (let j=0; j<inputLength; j++){
+            if (i !== j){
+                let similarValue = compareFcn(nestedArray[i], nestedArray[j]);
+                similarCount += (similarValue === 0) ? 0 : 1;
+                similarity.push(similarValue);
+            }
+            else{
+                similarity.push(0);
+            }
+        }
+        let workObject = new WorkObject(i, similarCount, -1, similarity);
+        workList.push(workObject);
+    }
+    return workList;
+}
+
+
+function booleanArrayCompare(arrayA, arrayB){
+    let res = 0;
+    for (let i=0; i<arrayA.length; i++){
+        if ( arrayA[i] === arrayB[i] === true)
+            res++;
+    }
+    return res;
+}
