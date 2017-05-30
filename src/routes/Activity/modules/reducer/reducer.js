@@ -11,7 +11,7 @@ const initialState = Map({
     totalCapacity: 0,
     unlocked: List([]),
     matching: Map({
-        current: "test",
+        current: "",
         matchingParticipants: new Set(),
         attributes: Map({}),
         idToIndex: Map({}),
@@ -20,8 +20,6 @@ const initialState = Map({
 });
 
 export default function activityReducer (state = initialState, action) {
-    console.log(action.payload)
-    console.log(action.type)
     switch(action.type) {
 
         /* reduce group locks */
