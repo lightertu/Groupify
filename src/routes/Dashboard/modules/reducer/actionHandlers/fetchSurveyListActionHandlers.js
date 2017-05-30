@@ -39,7 +39,7 @@ let handleFetchSurveyListSuccess = (state, payload) => {
             Map({
                 'title':survey.title, 
                 'surveyId': survey._id, 
-                'color':survey.color
+                'color':survey.color,
                 'questions':newQuestions
             })
         ) 

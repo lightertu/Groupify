@@ -11,31 +11,43 @@ import ActivityInfoForm from '../ActivityInfoForm/ActivityInfoForm'
 export default class CreateActivityCard extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {
-            createActivityModalOpen: false
-        }
-    }
-
-    static propTypes = {
     }
 
     /* handlers for opening and closing the modals */
     openCreateActivityModalHandler = () => {
-        this.state = this.setState({
-            createActivityModalOpen: true,
-        })
+        this.props.updateActivityHolderGetActivity(null);
+        this.props.updateActivityViewOpenCreateModal(true);
     }
+
     closeCreateActivityModalHandler = () => {
-        this.state = this.setState({
-            createActivityModalOpen: false,
-        })
+        this.props.updateActivityViewOpenCreateModal(false);
     }
 
     render () {
         return (
-            <Card style={{maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
+            <Card style={{minHeight:'188.72px', maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
                 <CreateActivityModal onClose={this.closeCreateActivityModalHandler }
-                                     open={ this.state.createActivityModalOpen }/>
+                      createActivity={this.props.createActivity} 
+                      activityHolder={this.props.activityHolder} 
+
+                      fetchActivityList={this.props.fetchActivityList}
+                      updateActivityViewIsCreating={this.props.updateActivityViewIsCreating}
+                      updateActivityFailedToCreate={this.props.updateActivityFailedToCreate}
+                      updateActivityCreateError={this.props.updateActivityCreateError}
+
+                      openCreateModal={this.props.openCreateModal} 
+                      isCreating={this.props.isCreating} 
+                      failedToCreate={this.props.failedToCreate} 
+                      createError={this.props.createError} 
+
+                      updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
+                      updateActivityHolderSetId={this.props.updateActivityHolderSetId}
+                      updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
+                      updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
+                      updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
+                      updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                      updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
+                />
 
                 <div style={{ textAlign: "center",
                               position: "relative",
