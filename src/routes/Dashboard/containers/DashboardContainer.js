@@ -14,6 +14,7 @@ import {Map, List, Set} from 'immutable';
  implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = (dispatch) => ({
+    /* Survey Dispatch */
     fetchSurveyList: Actions.fetchSurveyListActions.fetchSurveyList(dispatch),
     createSurvey: Actions.createSurveyActions.createSurvey(dispatch),
     updateSurvey: Actions.updateSurveyActions.updateSurvey(dispatch),
@@ -54,8 +55,37 @@ const mapDispatchToProps = (dispatch) => ({
 
     updateSurveyHolderQuestionIndex: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionIndex(dispatch),
 
+    /* Activity Dispatch */
+    fetchActivityList: Actions.fetchActivityListActions.fetchActivityList(dispatch),
+    createActivity: Actions.createActivityActions.createActivity(dispatch),
+    updateActivity: Actions.updateActivityActions.updateActivity(dispatch),
+    deleteActivity: Actions.deleteActivityActions.deleteActivity(dispatch),
 
-    cool: (dispatch) => x
+    updateActivityHolderGetActivity: Actions.updateActivityHolderActions.updateActivityHolderGetActivity(dispatch),
+    updateActivityHolderSetId: Actions.updateActivityHolderActions.updateActivityHolderSetId(dispatch),
+    updateActivityHolderSetTitle: Actions.updateActivityHolderActions.updateActivityHolderSetTitle(dispatch),
+    updateActivityHolderSetTotalCapacity: Actions.updateActivityHolderActions.updateActivityHolderSetTotalCapacity(dispatch),
+    updateActivityHolderSetGroupCapacity: Actions.updateActivityHolderActions.updateActivityHolderSetGroupCapacity(dispatch),
+    updateActivityHolderSetCurrentCapacity: Actions.updateActivityHolderActions.updateActivityHolderSetCurrentCapacity(dispatch),
+    updateActivityHolderSetEndDate: Actions.updateActivityHolderActions.updateActivityHolderSetEndDate(dispatch),
+
+    updateActivityViewOpenCreateModal: Actions.updateActivityViewActions.updateActivityViewOpenCreateModal(dispatch),
+    updateActivityViewIsCreating: Actions.updateActivityViewActions.updateActivityViewIsCreating(dispatch),
+    updateActivityFailedToCreate: Actions.updateActivityViewActions.updateActivityFailedToCreate(dispatch),
+    updateActivityCreateError: Actions.updateActivityViewActions.updateActivityCreateError(dispatch),
+
+
+    updateActivityViewOpenEditModal: Actions.updateActivityViewActions.updateActivityViewOpenEditModal(dispatch),
+    updateActivityViewIsEditing: Actions.updateActivityViewActions.updateActivityViewIsEditing(dispatch),
+    updateActivityFailedToEdit: Actions.updateActivityViewActions.updateActivityFailedToEdit(dispatch),
+    updateActivityEditError: Actions.updateActivityViewActions.updateActivityEditError(dispatch),
+
+    
+    updateActivityViewOpenDeleteModal: Actions.updateActivityViewActions.updateActivityViewOpenDeleteModal(dispatch),
+    updateActivityViewIsDeleting: Actions.updateActivityViewActions.updateActivityViewIsDeleting(dispatch),
+    updateActivityFailedToDelete: Actions.updateActivityViewActions.updateActivityFailedToDelete(dispatch),
+    updateActivityDeleteError: Actions.updateActivityViewActions.updateActivityDeleteError(dispatch),
+
 });
 
 const mapStateToProps = (state, ownProps) => {

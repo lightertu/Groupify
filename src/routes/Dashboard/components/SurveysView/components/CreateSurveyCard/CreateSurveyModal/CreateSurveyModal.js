@@ -15,7 +15,6 @@ export default class Create extends React.Component {
     }
 
     static propTypes = {
-        open: PropTypes.bool.isRequired,
         onClose: PropTypes.func.isRequired
     };
 

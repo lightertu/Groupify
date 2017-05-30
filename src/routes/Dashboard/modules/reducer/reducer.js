@@ -91,7 +91,8 @@ const initialState = Map({
         activityHolder: Map({
             color: '',
             activityId: '',
-            name: '',
+            surveyId: '592dd395e569b9132a0515a6',
+            title: '',
             endDate: '',
             groupCapacity: 0,
             totalCapacity: 0,
@@ -99,10 +100,11 @@ const initialState = Map({
         activityTemplate: Map({
             color: '',
             activityId: '',
-            name: '',
-            endDate: '',
-            groupCapacity: 0,
-            totalCapacity: 0,
+            surveyId: '592dd395e569b9132a0515a6',
+            title: 'test',
+            endDate: '01/01/2018',
+            groupCapacity: 1,
+            totalCapacity: 1,
         }),
 
     }),
@@ -191,7 +193,7 @@ let dashboardReducer = (state = initialState, action) => {
             return ActionHandlers.updateUserProfileActionHandlers.handleUpdateUserProfileFailure(state, action.payload)
 
 
-        /* server holder profile*/
+        /* survey holder profile*/
         case Actions.updateSurveyHolderActions.UPDATE_SURVEY_HOLDER_GET_SURVEY:
             return ActionHandlers.updateSurveyHolderActionHandlers.handleUpdateSurveyHolderGetSurvey(state, action.payload);
         case Actions.updateSurveyHolderActions.UPDATE_SURVEY_HOLDER_SET_ID:
@@ -227,7 +229,7 @@ let dashboardReducer = (state = initialState, action) => {
             return ActionHandlers.updateSurveyHolderActionHandlers.handleUpdateSurveyHolderQuestionIndex(state, action.payload);
 
 
-        /* server view */
+        /* survey view */
         case Actions.updateSurveyViewActions.UPDATE_SURVEY_VIEW_OPEN_CREATE_MODAL:
             return ActionHandlers.updateSurveyViewActionHandlers.handleUpdateSurveyViewOpenCreateModal(state, action.payload);
         case Actions.updateSurveyViewActions.UPDATE_SURVEY_VIEW_IS_CREATING:
@@ -254,6 +256,52 @@ let dashboardReducer = (state = initialState, action) => {
             return ActionHandlers.updateSurveyViewActionHandlers.handleUpdateSurveyViewFailedToDelete(state, action.payload);
         case Actions.updateSurveyViewActions.UPDATE_SURVEY_VIEW_DELETE_ERROR:
             return ActionHandlers.updateSurveyViewActionHandlers.handleUpdateSurveyViewDeleteError(state, action.payload);
+
+
+        /* activity holder profile*/
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_GET_ACTIVITY:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderGetActivity(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_ID:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetId(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_TITLE:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetTitle(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_TOTAL_CAPACITY:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetTotalCapacity(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_GROUP_CAPACITY:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetGroupCapacity(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_CURRENT_CAPACITY:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetCurrentCapacity(state, action.payload);
+        case Actions.updateActivityHolderActions.UPDATE_ACTIVITY_HOLDER_SET_END_DATE:
+            return ActionHandlers.updateActivityHolderActionHandlers.handleUpdateActivityHolderSetEndDate(state, action.payload);
+
+
+        /* activity view */
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_OPEN_CREATE_MODAL:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewOpenCreateModal(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_IS_CREATING:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewIsCreating(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_FAILED_TO_CREATE:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewFailedToCreate(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_CREATE_ERROR:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewCreateError(state, action.payload);
+
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_OPEN_EDIT_MODAL:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewOpenEditModal(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_IS_EDITING:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewIsEditing(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_FAILED_TO_EDIT:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewFailedToEdit(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_EDIT_ERROR:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewEditError(state, action.payload);
+
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_OPEN_DELETE_MODAL:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewOpenDeleteModal(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_IS_DELETING:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewIsDeleting(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_FAILED_TO_DELETE:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewFailedToDelete(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_DELETE_ERROR:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewDeleteError(state, action.payload);
 
         default:
             return state
