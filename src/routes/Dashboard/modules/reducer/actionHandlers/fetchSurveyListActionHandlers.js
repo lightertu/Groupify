@@ -2,7 +2,6 @@
  * Created by Matt on 5/23/17.
  */
 
-import randomColor from 'randomcolor'
 import {Map, Set, List, OrderedSet} from 'immutable';
 // add more handlers for fetching activity list action
 let handleFetchingSurveyList = (state, payload) => {
@@ -40,11 +39,7 @@ let handleFetchSurveyListSuccess = (state, payload) => {
             Map({
                 'title':survey.title, 
                 'surveyId': survey._id, 
-                'color':randomColor({
-                         luminosity: 'dark',
-                         format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
-                         alpha: 0.7,
-                }),
+                'color':survey.color
                 'questions':newQuestions
             })
         ) 
