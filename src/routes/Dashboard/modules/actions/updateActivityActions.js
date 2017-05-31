@@ -12,7 +12,7 @@ export const UPDATE_ACTIVITY = "UPDATE_ACTIVITY";
 let updateActivity = (dispatch) => {
     return (payload, activityId) => {
         dispatch({type: UPDATE_ACTIVITY, payload: payload});
-        let url = SERVER_URL + "/api/activities" + payload.get('activityId');
+        let url = SERVER_URL + "/api/activities/" + payload.get('activityId');
         axios.put(url, payload)
             .then((response) => {
                 dispatch(updateActivitySuccess(response.data));

@@ -37,6 +37,7 @@ export default class SurveyCard extends React.Component {
     }
 
     openDeleteSurveyHandler = () => {
+        this.props.updateSurveyHolderGetSurvey(this.props.surveyId);
         this.props.updateSurveyViewOpenDeleteModal(true);
     }
     closeDeleteSurveyHandler = () => {
@@ -60,6 +61,7 @@ export default class SurveyCard extends React.Component {
                       name={this.props.name}
                       surveyId={this.props.surveyId}
                      
+                      surveyHolder={this.props.surveyHolder} 
                       fetchSurveyList={this.props.fetchSurveyList}
 
                       updateSurveyViewIsDeleting={this.props.updateSurveyViewIsDeleting}
@@ -85,7 +87,6 @@ export default class SurveyCard extends React.Component {
                       failedToEdit={this.props.failedToEdit} 
                       editError={this.props.editError} 
 
-                      open={ this.state.surveyInfoOpen }
                       onClose={this.closeSurveyInfoHandler }
                       surveyId={this.props.surveyId}
                       name={this.props.name }
