@@ -9,12 +9,19 @@ const Survey = require("../../../models").Survey;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
-const properties = ['name', 'groupCapacity', 'totalCapacity', 'endDate', 'surveyId'];
+const properties = ['title', 'groupCapacity', 'totalCapacity', 'endDate', 'surveyId'];
 
 
 function validateInput(payload) {
+
+    console.log('payload: ');
+    console.log(payload);
+    console.log('Format is valid: ' + validateFormat(payload, properties));
+    console.log('Activity is valid: ' + ActivityValidator(payload.title, payload.groupCapacity,
+                            payload.totalCapacity, payload.endDate));
+    console.log('SurveyId [' + payload.surveyId + '] is valid: ' + (typeof title === 'string'));
     return validateFormat(payload, properties)
-        && ActivityValidator(payload.name, payload.groupCapacity,
+        && ActivityValidator(payload.title, payload.groupCapacity,
             payload.totalCapacity, payload.endDate)
         && validateSurveyId(payload.surveyId);
 }
@@ -26,6 +33,7 @@ function validateSurveyId(surveyId){
 function validateFormat(payload, properties){
     let res = true;
     properties.forEach(function (property) {
+        console.log(property + ' is included: ' + payload.hasOwnProperty(property));
         res = res && payload.hasOwnProperty(property);
     });
     return res;
@@ -36,18 +44,12 @@ module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
-    console.log(validateFormat(payload, properties));
-    console.log(ActivityValidator(payload.name, payload.groupCapacity,
-        payload.totalCapacity, payload.endDate));
-    console.log(validateSurveyId(payload.surveyId));
-
-
     if (!validateInput(payload)) {
         const errorMessage = 'please give the correct payload';
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
-
+    
 
     // first find survey by surveyId
     Survey.findOne(
@@ -62,11 +64,11 @@ module.exports = function (req, res, next) {
             // then save the activity and add the activityId in user
             const newActivity = new Activity({
                 _creator: userId,
-                name: payload.name,
+                title: payload.title,
                 groupCapacity: payload.groupCapacity,
                 totalCapacity: payload.totalCapacity,
                 endDate: payload.endDate,
-                survey: [survey],
+                survey: survey,
             });
 
             newActivity.save().then(function (newActivity) {

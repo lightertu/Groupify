@@ -63,9 +63,6 @@ let SurveySchema = Schema({
     }
 });
 
-QuestionSchema.index( {title: 1, type: 1}, {unique: true} );
-
-
 SurveySchema.pre('save', function(next){
     let survey = this;
 
