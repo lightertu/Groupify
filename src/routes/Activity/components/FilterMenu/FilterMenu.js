@@ -60,12 +60,14 @@ class FilterMenu extends React.Component {
         };
 
         const inputStyle = {
-            marginLeft: "-11%",
+            marginLeft: "-6%",
             border: "0px !important",
+            width: 350
         };
 
         const buttonStyle = {
-            width: "120px"
+            width: "120px",
+            height: 45
         };
         
         const [...keys] = this.props.filterValues.keys();
@@ -95,7 +97,7 @@ class FilterMenu extends React.Component {
                                     multiple selection
                                     transparent
                                     inverted={ this.state.inputInverted }
-                                    onChange={ this.props.setFilterValues.bind(this, "filters")}
+                                    onChange={ this.props.setFilterValues.bind(this, "filters") }
                                 /> }
                             </Menu.Item>
 

@@ -43,7 +43,6 @@ let ActivitySchema = Schema({
     title: {
         type: String,
         default: "",
-        required: true,
     },
 
     survey: {
@@ -94,6 +93,7 @@ ActivitySchema.methods.getPublicFields = function () {
     return {
         title: this.title,
         totalCapacity: this.totalCapacity,
+        color: this.color,
         groupCapacity: this.groupCapacity,
         color: this.color,
         currentCapacity: this.currentCapacity,
@@ -121,7 +121,9 @@ function activityRandomColorGenerator(){
 
 
 // validate input
+
 function validateTitle(title){
+    // console.log('title [' + title + '] is valid: ' + (typeof title === 'string'));
     return typeof title === 'string';
 }
 
@@ -134,6 +136,7 @@ function validateCapacities(g, t){
 function validateDate(date) {
     return typeof date === 'string' && validator.toDate(date) !== null;
 }
+
 
 function ActivityValidator(title, groupCap, totalCap, endD){
     return validateTitle(title)

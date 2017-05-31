@@ -53,8 +53,7 @@ export class ActivityView extends React.Component {
         if(event.target.getAttribute('class') === "delete icon") {
             let item = event.target.parentNode.getAttribute('value');
             let index = field.indexOf(item)
-
-            if(index > 0) {
+            if(index >= 0) {
                 field.splice(index, 1); // remove item from filter
             }
         } else {
@@ -96,7 +95,9 @@ export class ActivityView extends React.Component {
 
             return groups;
         };
-        console.log(this.props.unlocked)
+
+        let dragging = (this.props.matching.get("current").length > 0) ? true : false;
+
         let getGroupCards = (groups) => {
             return (
                 groups.map(
@@ -111,6 +112,7 @@ export class ActivityView extends React.Component {
                                        setCurrentlySelected={ this.setCurrentlySelected.bind(this) }
                                        toggleLock={ this.toggleLock.bind(this) }
                                        matching={ this.props.matching.get("matchingCriteria") }
+                                       draggedUser={ this.props.matching.get("current") }
                                        group={ i }
                                        unlocked={ this.props.unlocked.get(i) }
                                        filters={ this.state.filters }/>
@@ -125,7 +127,9 @@ export class ActivityView extends React.Component {
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                         activityId={ this.props.activityId }
-                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}/>
+                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
+                                        dragging = { dragging }
+                                        />
                 <ActivityCardViewWrapper>
                     {
                         (this.props.participants.length > 0) &&

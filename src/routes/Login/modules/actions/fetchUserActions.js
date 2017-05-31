@@ -41,7 +41,13 @@ let fetchUser = (dispatch) => {
             })
             .catch((error) => {
                 dispatch(fetchUserFailure(error, payload));
-                console.log(error)
+                console.log(error.response.data.error)
+       
+
+                dispatch({
+                    type: SET_ERROR_MESSAGE,
+                    message: error.response.data.error
+                });
             });
     }
 };

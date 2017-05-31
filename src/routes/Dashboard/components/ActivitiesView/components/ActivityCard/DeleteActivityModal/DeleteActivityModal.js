@@ -3,11 +3,12 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types';
-import {Button, Modal} from "semantic-ui-react";
+import {Button, Modal, Message} from "semantic-ui-react";
 
 export default class DeleteActivityModal extends React.Component {
     constructor(props) {
         super(props);
+        this.deleteActivityHandler = this.deleteActivityHandler.bind(this);
     }
 
     static propTypes = {
@@ -16,29 +17,33 @@ export default class DeleteActivityModal extends React.Component {
         onClose: PropTypes.func.isRequired
     };
 
-    makeDeleteHandler (activityId)  {
-        let close = this.props.onClose;
-        return function() {
-            close();
-            //TODO: fire an action to delete an activity
-        }
-    };
+    deleteActivityHandler(payload) {
+        this.props.deleteActivity(this.props.activityHolder.get('activityId'));
+    }
 
     render() {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={"blurring"}>
-                <Modal.Header> Delete Activity {this.props.name } </Modal.Header>
+            <Modal open={this.props.openDeleteModal} onUnmount={this.props.fetchActivityList} size="small" dimmer={"blurring"}>
+                <Modal.Header> Delete Activity </Modal.Header>
                 <Modal.Content>
-                    <p>Are you sure you want to activity {this.props.name} </p>
+                    <Message negative floating hidden={!this.props.failedToDelete}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.deleteError}</Message.Header>
+                    </Message>
+                    <p>Are you sure you want to delete [{this.props.activityHolder.get('title')}] </p>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button positive onClick={ this.props.onClose }>
+                    <Button positive disabled={this.props.isDeleting}
+                    onClick={ this.props.onClose }>
                         Cancel
                     </Button>
-                    <Button negative icon='checkmark'
-                            labelPosition='right'
-                            content='Delete'
-                            onClick={ this.makeDeleteHandler(this.props.activityId) }/>
+                    <Button negative disabled={this.props.isDeleting}
+                        loading={this.props.isDeleting}
+                        icon='checkmark'
+                        labelPosition='right'
+                        content='Delete'
+                        onClick={this.deleteActivityHandler}/>
                 </Modal.Actions>
             </Modal>
         );
