@@ -26,7 +26,7 @@ let generateUser = (dispatch) => {
             .then((response) => {
                 dispatch(generateUserSuccess(response));
                 let data = response.data
-                console.log(data.message)
+                console.log(response.data)
 
                 dispatch({
                     type: SET_ERROR_TRUE,
@@ -34,13 +34,21 @@ let generateUser = (dispatch) => {
 
                 dispatch({
                     type: SET_ERROR_MESSAGE,
-                    message: data.message
+                    message: "successfully created user "+email
                 });
 
             })
             .catch((error) => {
                 dispatch(generateUserFailure(error, payload));
-                console.log(error)
+                console.log(error.response.data.error)
+                dispatch({
+                    type: SET_ERROR_TRUE,
+                });
+
+                dispatch({
+                    type: SET_ERROR_MESSAGE,
+                    message: error.response.data.error
+                });
             });
     }
 };
