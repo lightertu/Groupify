@@ -20,7 +20,7 @@ participantsRouter.post('/'
                       , participantsControllers.createParticipantController);
 
 // route to regroup participants
-participantsRouter.post('/regroup/:algorithmName'
+participantsRouter.get('/regroup/:algorithmName'
                       , authenticationMiddleware
                       , participantsControllers.regroupParticipantsController);
 
