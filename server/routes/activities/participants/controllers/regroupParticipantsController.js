@@ -62,13 +62,11 @@ module.exports = function (req, res, next) {
                 createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
                 return;
             }
-            console.log("here?````````````````````");
 
             console.log(algorithmFcn(activity.participants, activity.groupCapacity));
 
             activity.participants.forEach(function (par) {
                 par.save().then(function (par) {
-                    // console.log(par);
                 }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
             });
 
