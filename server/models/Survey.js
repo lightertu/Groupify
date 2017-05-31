@@ -2,7 +2,8 @@
  * Created by Matt And Kai on 5/23/17.
  */
 
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const randomColor = require('randomcolor');
 
 const Schema = mongoose.Schema;
 
@@ -39,6 +40,12 @@ let SurveySchema = Schema({
         required: true,
     },
 
+
+    color: {
+        type: String,
+        default: activityRandomColorGenerator,
+    },
+
     questions:  [QuestionSchema],
 
 
@@ -63,7 +70,6 @@ let SurveySchema = Schema({
     }
 });
 
-// QuestionSchema.index( {title: 1, type: 1}, {unique: true
 
 SurveySchema.pre('save', function(next){
     let survey = this;
@@ -78,6 +84,7 @@ SurveySchema.methods.getPublicFields = function () {
     return {
         _id : this._id,
         title: this.title,
+        color: this.color,
         questions: this.questions,
         _creator: this._creator,
         lastModifiedTime: this.lastModifiedTime,
@@ -86,6 +93,18 @@ SurveySchema.methods.getPublicFields = function () {
 };
 
 
+
+
+// generate Color
+const randomColorType = {
+    luminosity: 'dark',
+    format: 'hsla',
+    alpha: 0.7,
+};
+
+function activityRandomColorGenerator(){
+    return randomColor(randomColorType);
+}
 
 function validateTitle(title){
     return typeof title === 'string' && title.length > 0;
