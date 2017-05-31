@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import {Segment, Image, List, Button, Header, Icon} from 'semantic-ui-react'
+import {Segment, Image, List, Button, Header, Icon, Label} from 'semantic-ui-react'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import PropTypes from "prop-types"
 import {DragSource, DropTarget} from 'react-dnd';
@@ -44,10 +44,13 @@ class ParticipantTrash extends React.Component {
 
         if(this.props.dragging){
             display = ( <div>
-                            <Icon   color={color}
+                            <Icon   corner={true}
+                                    fitted={true}
+                                    color={color}
                                     name="trash outline"
                                     size='massive'
                                     style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />
+                            <Label color="red" floating>{this.props.trashCount}</Label>
                             <h3><i>Trash goes here!</i></h3>
                         </div>
             );
