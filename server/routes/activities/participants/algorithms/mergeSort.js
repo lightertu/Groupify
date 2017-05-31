@@ -49,7 +49,7 @@ function splitSingleListToTwoLists(list){
 }
 
 function compareFcn(work1, work2){
-    return work1.num < work2.num;
+    return work1.numOfPotential < work2.numOfPotential;
 }
 
 module.exports = mergeSort;

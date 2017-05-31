@@ -12,9 +12,14 @@ const mergeSort = require("./mergeSort");
 
 function WorkObject (index, num, potn) {
     this.index 	= index;
-    this.num   	= num;  // number of potential partners
-    this.potn 	= potn; // potential partners
+    this.numOfPotential = num;  // number of potential partners
+    this.potnList = potn; // potential partners
 }
+
+let successRate = {
+    success: 0,
+    total: 0,
+};
 
 function createNestedBooleanArrayForAllPars(pars){
     let allAnswers = Set([]);
@@ -71,7 +76,7 @@ function createWorkList(nestedArray){
 function booleanArrayCompare(arrayA, arrayB){
     let res = 0;
     for (let i=0; i<arrayA.length; i++){
-        if ( arrayA[i] === arrayB[i] === true)
+        if ( arrayA[i] === true && arrayB[i] === true)
             res++;
     }
     return res;
@@ -79,7 +84,7 @@ function booleanArrayCompare(arrayA, arrayB){
 
 
 function compareNumOfWorkObject(work1, work2){
-    return work1.num < work2.num;
+    return work1.numOfPotential < work2.numOfPotential;
 }
 
 
@@ -90,7 +95,7 @@ function getOptimalGroupPartnersOfTheFirstOne(firstOne, notFinishedWObjs, groupS
     while (count !== 0 && i < notFinishedWObjs.length){
         const index = notFinishedWObjs[i].originIndex;
 
-        if (firstOne.potn[index] !== 0){
+        if (firstOne.potnList[index] !== 0){
             partnersIndexes.push(index);
             removeList.push(i);
             count--;
@@ -126,32 +131,30 @@ function groupTheRests(allGroups, rests, groupSize){
         }
         allGroups.push(group);
     }
-    // console.log(allGroups);
-    // console.log(rests);
+
     for (let k=0; k<numberOfRemains; k++){
         let randomNumber = generateRandomNumber(0, allGroups.length - 1);
-        // console.log(randomNumber + "  " + k + " " + allGroups[randomNumber] + " " + i);
-        allGroups[randomNumber].push(rests[i + k].originIndex);
+        allGroups[randomNumber].push(rests[i + k]);
+        successRate.success--;
     }
-// console.log("fdsafdsfsasdsd");
+
     return allGroups;
 }
 
 
-function generateGroupsForEveryWorkObject (sortedWList, groupSize, successRate){
+function generateGroupsForEveryWorkObject (sortedWList, groupSize){
     let allGroups = [], rests = [], notFinishedWObjs = [];
-// console.log("abc1");
+
     for (let i=0; i<sortedWList.length; i++){
         notFinishedWObjs.push({
             sortIndex: i,
             originIndex: sortedWList[i].index,
         });
     }
-    // console.log("abc2");
     while (notFinishedWObjs.length >= groupSize){
         const firstOne = sortedWList[notFinishedWObjs[0].sortIndex];
 
-        if (firstOne.num < groupSize - 1){
+        if (firstOne.numOfPotential < groupSize - 1){
             rests.push(firstOne.index);
         }
         else{
@@ -164,22 +167,22 @@ function generateGroupsForEveryWorkObject (sortedWList, groupSize, successRate){
             notFinishedWObjs.forEach(function (objectIndex) {
                 group.forEach(function (memberIndex) {
                     let wObject = sortedWList[objectIndex.sortIndex];
-                    if (wObject.potn[memberIndex] > 0){
-                        wObject.num--;
+                    if (wObject.potnList[memberIndex] > 0){
+                        wObject.numOfPotential--;
                     }
                 })
             })
 
-            successRate++;
+            successRate.success++;
         }
 
         notFinishedWObjs.splice(0, 1);
     }
-    // console.log("abc3");
+
     for (let j=0; j<notFinishedWObjs.length; j++){
-        rests.push(notFinishedWObjs[j]);
+        rests.push(notFinishedWObjs[j].originIndex);
     }
-    // console.log("abc4");
+
     return groupTheRests(allGroups, rests, groupSize);
 }
 
@@ -216,20 +219,18 @@ function greedyAlgorithm(pars, groupSize){
         return [];
     }
 
-    let successRate = 0;
-
     let nestedBoolArray = createNestedBooleanArrayForAllPars(pars);
 
     let workList = createWorkList(nestedBoolArray, booleanArrayCompare);
 
     let sortedWList = mergeSort(workList, compareNumOfWorkObject);
 
-    let groups = generateGroupsForEveryWorkObject(sortedWList, groupSize, successRate);
+    let groups = generateGroupsForEveryWorkObject(sortedWList, groupSize);
 
     groupingPars(groups, pars);
 
-    successRate = successRate/groups.length;
-    return successRate;
+    successRate.total = groups.length;
+    return successRate.success / successRate.total;
 
 }
 
