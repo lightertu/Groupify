@@ -62,6 +62,7 @@ module.exports = function (req, res, next) {
                 createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
                 return;
             }
+            console.log("here?````````````````````");
 
             console.log(algorithmFcn(activity.participants, activity.groupCapacity));
 

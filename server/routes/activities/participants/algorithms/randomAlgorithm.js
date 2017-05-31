@@ -75,7 +75,6 @@ function randomAlgorithm(pars, gpSize)
 	for (let i=0; i<groupNum; i++){
 		groupIndex[i] = i;
 	}
-	console.log(groupIndex);
 
 	for (let j=0; j<sLength; j++){
 		let num = getRandomNum(0, groupList.length-1);
