@@ -58,14 +58,9 @@ class _MenuOptions extends React.Component {
                         Activities
                     </Menu.Item>
                 </Link>
-                {/* this one is disabled for now
-                <Menu.Item disabled name='Surveys'>
-                    <Icon name='file text outline'/>
-                    Surveys
-                </Menu.Item>*/}
                 <Link to={ `/dashboard?view=surveys`}>
                     <Menu.Item name='surveys' active={ this.props.view === "surveys"}>
-                        <Icon name='bar chart'/>
+                        <Icon name='file text outline'/>
                         Surveys
                     </Menu.Item>
                 </Link>

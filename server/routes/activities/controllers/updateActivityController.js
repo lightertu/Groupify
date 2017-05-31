@@ -7,14 +7,14 @@ const ActivityValidator = require("../../../models/").ActivityValidator;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
-const properties = ['name', 'groupCapacity', 'totalCapacity', 'endDate'];
+const properties = ['title', 'groupCapacity', 'totalCapacity', 'endDate'];
 
 
 function validateInput(req) {
     let payload = req.body;
     return validateParameters(req.params)
         && validateFormat(payload, properties)
-        && ActivityValidator(payload.name, payload.groupCapacity,
+        && ActivityValidator(payload.title, payload.groupCapacity,
             payload.totalCapacity, payload.endDate);
 }
 
@@ -52,7 +52,7 @@ module.exports = function (req, res, next) {
             _id: activityId, _creator: userId, isDeleted: false},
         {
             $set: {
-                "name": req.body.name,
+                "title": req.body.title,
                 "endDate": new Date(req.body.endDate),
                 "totalCapacity": req.body.totalCapacity,
                 "groupCapacity": req.body.groupCapacity,
@@ -61,7 +61,7 @@ module.exports = function (req, res, next) {
         // this select the properties to show
         {
             projection: {
-                "name": 1,
+                "title": 1,
                 "endDate": 1,
                 "totalCapacity": 1,
                 "groupCapacity": 1,
