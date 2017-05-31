@@ -15,7 +15,6 @@ import {Map, List, Set} from 'immutable';
 export default class SurveysView extends React.Component {
     constructor (props) {
         super(props)
-        //TODO: trigger and action to fetch surveys data
     }
 
     static propTypes = {
@@ -151,11 +150,7 @@ export default class SurveysView extends React.Component {
                             updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
                             updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
                             updateSurveyCreateError={this.props.updateSurveyCreateError}
-
                             />
-
-                                                
-
                         </Card.Group> 
                     )
                 )}

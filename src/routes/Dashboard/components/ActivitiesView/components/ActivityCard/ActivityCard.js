@@ -17,6 +17,7 @@ export default class ActivityCard extends React.Component {
             deleteConfirmationOpen: false,
             activityInfoOpen: false
         }
+        this.displayFormattedEndDate = this.displayFormattedEndDate.bind(this);
     }
 
     static propTypes = {
@@ -29,6 +30,10 @@ export default class ActivityCard extends React.Component {
         totalCapacity: PropTypes.number.isRequired,
     }
 
+    displayFormattedEndDate () {
+        let date = new Date(this.props.endDate);
+        return ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
+    }
     /* handlers for opening and closing the modals */
     openDeleteConfirmationHandler = () => {
         this.state = this.setState({
@@ -122,7 +127,7 @@ export default class ActivityCard extends React.Component {
                     </Card.Header>
                     <Card.Meta>
                         <span className='date'>
-                            Ends on {this.props.endDate}
+                            Ends on {this.displayFormattedEndDate()}
                         </span>
                     </Card.Meta>
                 </Card.Content>
