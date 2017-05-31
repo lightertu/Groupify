@@ -16,11 +16,12 @@ let handleFetchingActivityList = (state, payload) => {
 
 }
 let handleFetchActivityListSuccess = (state, payload) => {
+    console.log(payload);
     let newActivitys = List([]);
     payload['activities'].forEach((activity) => {
         newActivitys = newActivitys.push(
             Map({
-                'title':activity.name, 
+                'title':activity.title, 
                 'activityId': activity._id, 
                 'color':activity.color,
                 'currentCapacity':activity.currentCapacity,

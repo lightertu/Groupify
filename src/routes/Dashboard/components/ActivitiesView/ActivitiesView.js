@@ -23,14 +23,20 @@ export default class ActivitiesView extends React.Component {
     }
 
     render () {
-        const renderActivityCards = () => {
-            return this.props.activitiesViewData.get('activities').map((activityObj) => (
+        let currentActivities = [];
+        let previousActivities = [];
+        let currentDate = Date.now();
+        this.props.activitiesViewData.get('activities').forEach((activityObj) => {
+            let endDate = new Date(activityObj.get('endDate'));
+            (endDate < currentDate)
+            ?
+            previousActivities.push(
                 <ActivityCard color={activityObj.get('color')}
                       activityId={activityObj.get('activityId')}
                       key={activityObj.get('activityId')}
                       name={activityObj.get('title')}
                       endDate={activityObj.get('endDate')}
-                      numberOfCurrentParticipants={ activityObj.get('currentCapacity') }
+                      currentCapacity={ activityObj.get('currentCapacity') }
                       groupCapacity={ activityObj.get('groupCapacity') }
                       totalCapacity={ activityObj.get('totalCapacity') }
                     
@@ -70,23 +76,71 @@ export default class ActivitiesView extends React.Component {
                       updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
                       updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                 />
-            ))
-        }
+            )           
+            :
+            currentActivities.push(
+                <ActivityCard color={activityObj.get('color')}
+                      activityId={activityObj.get('activityId')}
+                      key={activityObj.get('activityId')}
+                      name={activityObj.get('title')}
+                      endDate={activityObj.get('endDate')}
+                      currentCapacity={ activityObj.get('currentCapacity') }
+                      groupCapacity={ activityObj.get('groupCapacity') }
+                      totalCapacity={ activityObj.get('totalCapacity') }
+                    
+                      fetchActivityList={this.props.fetchActivityList}
+
+                      openEditModal={this.props.activitiesViewData.get('openEditModal')} 
+                      isEditing={this.props.activitiesViewData.get('isEditing')} 
+                      failedToEdit={this.props.activitiesViewData.get('failedToEdit')} 
+                      editError={this.props.activitiesViewData.get('editError')}
+                     
+                      openDeleteModal={this.props.activitiesViewData.get('openDeleteModal')} 
+                      isDeleting={this.props.activitiesViewData.get('isDeleting')} 
+                      failedToDelete={this.props.activitiesViewData.get('failedToDelete')} 
+                      deleteError={this.props.activitiesViewData.get('deleteError')} 
+
+                      updateActivityViewOpenEditModal={this.props.updateActivityViewOpenEditModal}
+                      updateActivityViewIsEditing={this.props.updateActivityViewIsEditing}
+                      updateActivityFailedToEdit={this.props.updateActivityFailedToEdit}
+                      updateActivityEditError={this.props.updateActivityEditError} 
+
+                      updateActivityViewOpenDeleteModal={this.props.updateActivityViewOpenDeleteModal}
+                      updateActivityViewIsDeleting={this.props.updateActivityViewIsDeleting}
+                      updateActivityFailedToDelete={this.props.updateActivityFailedToDelete}
+                      updateActivityDeleteError={this.props.updateActivityDeleteError}
+
+                      activityHolder={this.props.activitiesViewData.get('activityHolder')} 
+                      
+                      createActivity={this.props.createActivity} 
+                      updateActivity={this.props.updateActivity} 
+                      deleteActivity={this.props.deleteActivity} 
+                      
+                      updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
+                      updateActivityHolderSetId={this.props.updateActivityHolderSetId}
+                      updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
+                      updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
+                      updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
+                      updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                      updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
+                />
+            )
+        });
 
         return (
             <div>
                 <Header as='h2' style={{ display: "inline-block", marginBottom: "10px" }}>
-                    Current Activities: { this.props.activitiesViewData.get('currentCapacity') }
+                    Current Activities: { currentActivities.length}
                 </Header>
                 <hr style={{borderTop: '2px solid #8c8b8b', marginBottom: '15px'}}/>
                 <Card.Group>
-                    { renderActivityCards() }
+                    {currentActivities}
                     <CreateActivityCard color=''
                       activityId=''
                       key='CreateActivityCard_Key'
                       name=''
                       endDate=''
-                      numberOfCurrentParticipants=''
+                      currentCapacity=''
                       groupCapacity=''
                       totalCapacity=''
                     
@@ -117,6 +171,13 @@ export default class ActivitiesView extends React.Component {
                       updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                     
                     />
+                </Card.Group>
+                <Header as='h2' style={{ display: "inline-block", marginBottom: "10px" }}>
+                    Previous Activities: { previousActivities.length}
+                </Header>
+                <hr style={{borderTop: '2px solid #8c8b8b', marginBottom: '15px'}}/>
+                <Card.Group>
+                    {previousActivities}
                 </Card.Group>
             </div>
         )

@@ -91,7 +91,7 @@ const initialState = Map({
         activityHolder: Map({
             color: '',
             activityId: '',
-            surveyId: '592dd395e569b9132a0515a6',
+            surveyId: '',
             title: '',
             endDate: '',
             groupCapacity: 0,
@@ -100,7 +100,7 @@ const initialState = Map({
         activityTemplate: Map({
             color: '',
             activityId: '',
-            surveyId: '592dd395e569b9132a0515a6',
+            surveyId: '592e1673c6e4ce5094322934',
             title: 'test',
             endDate: '01/01/2018',
             groupCapacity: 1,

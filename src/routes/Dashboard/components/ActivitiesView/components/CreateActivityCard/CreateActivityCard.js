@@ -25,7 +25,7 @@ export default class CreateActivityCard extends React.Component {
 
     render () {
         return (
-            <Card style={{minHeight:'188.72px', maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
+            <Card style={{minHeight:'238.16px', maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateActivityModalHandler}>
                 <CreateActivityModal onClose={this.closeCreateActivityModalHandler }
                       createActivity={this.props.createActivity} 
                       activityHolder={this.props.activityHolder} 
