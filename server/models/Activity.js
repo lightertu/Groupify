@@ -40,7 +40,7 @@ let ActivitySchema = Schema({
         required: true,
     },
 
-    name: {
+    title: {
         type: String,
         default: "",
         required: true,
@@ -92,7 +92,7 @@ ActivitySchema.pre('save', function(next){
 
 ActivitySchema.methods.getPublicFields = function () {
     return {
-        name: this.name,
+        title: this.title,
         totalCapacity: this.totalCapacity,
         groupCapacity: this.groupCapacity,
         color: this.color,
@@ -121,8 +121,8 @@ function activityRandomColorGenerator(){
 
 
 // validate input
-function validateName(name){
-    return typeof name === 'string';
+function validateTitle(title){
+    return typeof title === 'string';
 }
 
 
@@ -135,8 +135,8 @@ function validateDate(date) {
     return typeof date === 'string' && validator.toDate(date) !== null;
 }
 
-function ActivityValidator(name, groupCap, totalCap, endD){
-    return validateName(name)
+function ActivityValidator(title, groupCap, totalCap, endD){
+    return validateTitle(title)
         && validateCapacities(groupCap, totalCap)
         && validateDate(endD);
 }
