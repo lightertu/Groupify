@@ -35,6 +35,8 @@ module.exports = function (req, res, next) {
     const userId = req.user._id;
     const payload = req.body;
 
+    console.log(payload);
+
     const newSurvey = new Survey({
         _creator: userId,
         title: payload.title,

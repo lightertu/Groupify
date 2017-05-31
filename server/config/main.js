@@ -6,6 +6,6 @@ const passport = require('passport');
 
 module.exports = {
     'secret': 'asdawldjal',
-    databaseUrl: 'mongodb://teamdivider:CIS4222017@ds137101.mlab.com:37101/teamdivider',
+    databaseUrl: 'mongodb://localhost:27017/teamdivider',
     authenticationMiddleware: passport.authenticate('jwt', { session: false }),
 };

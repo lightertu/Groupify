@@ -489,7 +489,8 @@ export default class SurveyInfoForm extends React.Component {
                                     ?
                                 <Form.Input
                                     type='number'
-
+                                    min='0'
+                                    step='1'
                                     value={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMaximum')}
@@ -652,6 +653,8 @@ export default class SurveyInfoForm extends React.Component {
                                     ?
                                 <Form.Input
                                     type='number'
+                                    min='0'
+                                    step='1'
                                     value={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMinimum')}
