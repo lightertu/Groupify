@@ -179,6 +179,7 @@ class GroupCard extends React.Component {
                 }
 
             }
+
             let keys = Object.keys(skills);
             for(i = 0; i < keys.length; i++) {
                 if(this.props.matching.has(keys[i])) {
@@ -195,36 +196,39 @@ class GroupCard extends React.Component {
             } else {
                 color = "red";
             }
-
-
         }
         
-         for(i = 0; i < this.props.filters.length; i++) {
-                if(this.props.filters[i] in daysToNums) {
-                    if(!days[daysToNums[this.props.filters[i]]]) {
-                        view = false;
-                        break;
-                    }
-                } else {
-                    if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
-                        view = false;
-                        break;
-                    }
-                }   
-            }
+        for(i = 0; i < this.props.filters.length; i++) {
+            if(this.props.filters[i] in daysToNums) {
+                if(!days[daysToNums[this.props.filters[i]]]) {
+                    view = false;
+                    break;
+                }
+            } else {
+                if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
+                    view = false;
+                    break;
+                }
+            }   
+        }
+
+        let background = "";
+        if(this.props.participants.some((el) => el.participantId == this.props.draggedUser)) {
+        background = "black";
+        }
 
         let lockIcon = "lock";
-        let popup = "click to lock in this group"
+        let popup = "click to lock in this group";
         if(this.props.unlocked) {
             lockIcon = "unlock";
-            popup = "click to unlock in this group"
-            color = "grey"
+            popup = "click to unlock in this group";
+            color = "grey";
         }
       
         let display;
         if(view) {
             display = (
-                        <Segment.Group raised style={ {cursor: "pointer"} }
+                        <Segment.Group raised style={ {cursor: "pointer", backgroundColor: background} }
                                onClick={ this.toggleMatchingStatus }
                                >
                             <Segment padded={ true } size="large" color={color} inverted={true}
