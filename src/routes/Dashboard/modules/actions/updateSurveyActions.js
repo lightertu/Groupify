@@ -15,7 +15,7 @@ let updateSurvey = (dispatch) => {
                 dispatch(updateSurveySuccess(response.data));
             })
             .catch((error) => {
-                console.log(error);
+                console.log(error.response.data.error);
                 dispatch(updateSurveyFailure(error));
             });
     }
