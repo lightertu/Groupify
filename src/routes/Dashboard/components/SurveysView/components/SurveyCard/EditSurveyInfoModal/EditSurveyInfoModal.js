@@ -57,7 +57,7 @@ export default class EditSurveyInfoModal extends React.Component {
         return (
             <Modal open={this.props.openEditModal} onUnmount={this.props.fetchSurveyList} size="small" dimmer={'blurring'}>
 
-                <Modal.Header> Edit Survey {this.props.name } </Modal.Header>
+                <Modal.Header> Edit Survey </Modal.Header>
                 <Modal.Content>
                     <Message negative floating hidden={!this.props.failedToEdit}
                         style={{textAlign:'center'}}

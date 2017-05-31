@@ -5,8 +5,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Header, Icon, Modal, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
 
-import randomColor from 'randomcolor'
-
 import SurveyCard from './components/SurveyCard'
 import CreateSurveyCard from './components/CreateSurveyCard/CreateSurveyCard'
 
