@@ -217,6 +217,7 @@ class ParticipantListSidebar extends React.Component {
                                         dragging={ this.props.dragging }
                                         trashed={ this.state.trashed }
                                         handleTrashed={ this.handleTrashed.bind(this) }
+                                        trashCount={ getUngroupedNumber(this.props.participants) }
                                         />
                         </Segment>
                     </div>
