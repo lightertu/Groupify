@@ -112,6 +112,7 @@ export class ActivityView extends React.Component {
                                        setCurrentlySelected={ this.setCurrentlySelected.bind(this) }
                                        toggleLock={ this.toggleLock.bind(this) }
                                        matching={ this.props.matching.get("matchingCriteria") }
+                                       draggedUser={ this.props.matching.get("current") }
                                        group={ i }
                                        unlocked={ this.props.unlocked.get(i) }
                                        filters={ this.state.filters }/>
