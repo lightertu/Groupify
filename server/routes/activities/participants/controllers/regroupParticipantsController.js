@@ -61,7 +61,8 @@ module.exports = function (req, res, next) {
                 return;
             }
 
-            const successRate = algorithmFcn(activity.participants, activity.groupCapacity);
+            // const successRate = algorithmFcn(activity.participants, activity.groupCapacity);
+            algorithmFcn(activity.participants, activity.groupCapacity);
 
             activity.participants.forEach(function (par) {
                 par.save().then(function (par) {
@@ -71,7 +72,7 @@ module.exports = function (req, res, next) {
 
             return res.status(HttpStatus.OK).json({
                 participants: activity.participants,
-                successRate: successRate.toFixed(2),
+                // successRate: successRate.toFixed(2),
             });
 
         })
