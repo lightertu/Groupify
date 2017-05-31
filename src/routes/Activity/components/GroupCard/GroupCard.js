@@ -171,7 +171,7 @@ class GroupCard extends React.Component {
         let i;
         let itemCount = this.props.matching.size;
         let view = true;
-
+        let result = 0;
         if(itemCount > 0) {
             for(i = 0; i < days.length; i++) {
                 if(this.props.matching.has(numsTodays[i]) && days[i]) {
@@ -187,7 +187,7 @@ class GroupCard extends React.Component {
                 }
             }
 
-            let result = (count/itemCount);
+            result = Math.round((count/itemCount)*100)/100;
 
             if(result > .70 || this.props.participants.length == 0) {
                 color = "green";
@@ -224,7 +224,17 @@ class GroupCard extends React.Component {
             popup = "click to unlock in this group";
             color = "grey";
         }
-      
+      //<Label attached='top left'> Group { this.props.groupNumber }</Label>
+      let test = {
+            top: 0,
+            left: 0,
+            marginTop: -24,
+            marginLeft: -24,
+            marginRight: 0,
+            paddingRight: 0,
+            marginBottom: 10
+      }
+
         let display;
         if(view) {
             display = (
@@ -234,7 +244,22 @@ class GroupCard extends React.Component {
                             <Segment padded={ true } size="large" color={color} inverted={true}
                                      style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
                             >
-                                <Label attached='top left'> Group { this.props.groupNumber }</Label>
+                                <div style={test}>
+                                    <Label.Group color={"blue"} attached='top left' size={"large"}>
+                                        <Label> 
+                                            <Popup
+                                                content={popup}
+                                                trigger={
+                                                <Icon   name={lockIcon}
+                                                        onClick={() => {this.props.toggleLock(this.props.group)}} 
+                                                        style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />}
+                                                        />
+                                                Group { this.props.groupNumber } &nbsp;
+                                                matching: &nbsp;{Math.round(result*100)}% 
+                                                
+                                        </Label>
+                                    </Label.Group>
+                                </div>
                                 <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                                     {
                                         this.props.participants.map((participant) =>
@@ -248,15 +273,7 @@ class GroupCard extends React.Component {
                                     }
                                     { generateEmptySpots() }
                                 </Card.Group>
-                                <Popup
-                                content={popup}
-                                trigger={<Label as='a' attached="bottom right">
-                                    <Icon   name={lockIcon}
-                                            size='large'
-                                            onClick={() => {this.props.toggleLock(this.props.group)}} 
-                                            style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />
-                                  </Label>}
-                                  />
+                        
                                 <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
                                        attached="top right">
                                     <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }

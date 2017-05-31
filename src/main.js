@@ -17,9 +17,12 @@ const initialState = window.__INITIAL_STATE__
 const store = createStore(initialState)
 
 // set auth token
+
 if (localStorage.jwtToken) {
     setAuthorizationToken(localStorage.jwtToken)
     store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
+
+
 }
 // ========================================================
 // Render Setup
