@@ -189,7 +189,6 @@ class GroupCard extends React.Component {
 
             result = Math.round((count/itemCount)*100)/100;
 
-
             if(result > .70 || this.props.participants.length == 0) {
                 color = "green";
             } else if(result > .45) {
@@ -246,20 +245,20 @@ class GroupCard extends React.Component {
                                      style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
                             >
                                 <div style={test}>
-                                <Label.Group attached='top left' size={"large"}>
-                                <Label> 
-                                    <Popup
-                                content={popup}
-                                trigger={
-                                        <Icon   name={lockIcon}
-                                                onClick={() => {this.props.toggleLock(this.props.group)}} 
-                                                style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />}
-                                                />
-                                        Group { this.props.groupNumber } &nbsp;
-                                         matching: {result*100} % 
-                                        
-                                </Label>
-                                </Label.Group>
+                                    <Label.Group color={"blue"} attached='top left' size={"large"}>
+                                        <Label> 
+                                            <Popup
+                                                content={popup}
+                                                trigger={
+                                                <Icon   name={lockIcon}
+                                                        onClick={() => {this.props.toggleLock(this.props.group)}} 
+                                                        style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />}
+                                                        />
+                                                Group { this.props.groupNumber } &nbsp;
+                                                matching: {Math.round(result*100)} % 
+                                                
+                                        </Label>
+                                    </Label.Group>
                                 </div>
                                 <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                                     {
