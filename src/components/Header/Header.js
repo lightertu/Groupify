@@ -33,9 +33,6 @@ class Header extends React.Component {
                      />
                      <Menu.Menu position='right'>
                          <Menu.Item>
-                             CIS 422 Software Methodology
-                         </Menu.Item>
-                         <Menu.Item>
                              <Dropdown trigger={
                                  <span>
                                     <Icon name='user' size={"large"} color={"grey"}/>
