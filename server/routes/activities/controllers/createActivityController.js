@@ -9,12 +9,12 @@ const Survey = require("../../../models").Survey;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
-const properties = ['name', 'groupCapacity', 'totalCapacity', 'endDate', 'surveyId'];
+const properties = ['title', 'groupCapacity', 'totalCapacity', 'endDate', 'surveyId'];
 
 
 function validateInput(payload) {
     return validateFormat(payload, properties)
-        && ActivityValidator(payload.name, payload.groupCapacity,
+        && ActivityValidator(payload.title, payload.groupCapacity,
             payload.totalCapacity, payload.endDate)
         && validateSurveyId(payload.surveyId);
 }
@@ -56,7 +56,7 @@ module.exports = function (req, res, next) {
             // then save the activity and add the activityId in user
             const newActivity = new Activity({
                 _creator: userId,
-                name: payload.name,
+                title: payload.title,
                 groupCapacity: payload.groupCapacity,
                 totalCapacity: payload.totalCapacity,
                 endDate: payload.endDate,
