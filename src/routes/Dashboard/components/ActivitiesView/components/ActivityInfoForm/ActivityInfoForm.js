@@ -19,7 +19,9 @@ export default class ActivityInfoForm extends React.Component {
                         onChange={(e) => this.props.updateActivityHolderSetTitle(e.target.value)}
                         value={this.props.activityHolder.get('title')}/>
                     <Form.Input label='Activity End Date' placeholder='Pick a Date'
+                        type='date' max='3000-12-31'
                         onChange={(e) => this.props.updateActivityHolderSetEndDate(e.target.value)}
+                        onBlur={(e) => this.props.updateActivityHolderSetEndDate(e.target.value)}
                         value={this.props.activityHolder.get('endDate')}/>
                 </Form.Group>
                 <Form.Group widths='equal'>

@@ -23,6 +23,12 @@ export default class Create extends React.Component {
             return;
         }
 
+        if (!Date.parse(this.props.activityHolder.get('endDate'))) {
+            this.props.updateActivityFailedToCreate(true); 
+            this.props.updateActivityCreateError('THE ACTIVITY MUST HAVE A VALID END DATE');
+            return;
+        }
+
         if (this.props.activityHolder.get('groupCapacity') <= 0) {
             this.props.updateActivityFailedToCreate(true); 
             this.props.updateActivityCreateError('GROUP CAPACITY MUST BE AT LEAST ONE PERSON');
@@ -37,8 +43,6 @@ export default class Create extends React.Component {
         }
 
 
-        //TODO: Validate end data
-
         this.props.updateActivityFailedToCreate(false); 
         this.props.updateActivityCreateError('');
         this.props.createActivity(this.props.activityHolder);
@@ -47,7 +51,8 @@ export default class Create extends React.Component {
 
     render() {
         return (
-            <Modal open={this.props.openCreateModal} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
+            <Modal open={this.props.openCreateModal} onUnmount={this.props.fetchActivityList}
+                onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
                 <Modal.Header> Create Activity </Modal.Header>
                 <Modal.Content>
                     <Message negative floating hidden={!this.props.failedToCreate}
