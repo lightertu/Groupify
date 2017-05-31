@@ -5,7 +5,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Dropdown, Icon, Popup } from 'semantic-ui-react'
 
-import randomColor from 'randomcolor'
 import EditActivityInfoModal from './EditActivityInfoModal'
 import DeleteActivityModal from './DeleteActivityModal'
 import { browserHistory } from 'react-router'
@@ -13,51 +12,29 @@ import { browserHistory } from 'react-router'
 export default class ActivityCard extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {
-            deleteConfirmationOpen: false,
-            activityInfoOpen: false
-        }
         this.displayFormattedEndDate = this.displayFormattedEndDate.bind(this);
     }
 
-    static propTypes = {
-        color: PropTypes.string.isRequired,
-        activityId: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        numberOfCurrentParticipants: PropTypes.number.isRequired,
-        groupCapacity: PropTypes.number.isRequired,
-        totalCapacity: PropTypes.number.isRequired,
-    }
-
     displayFormattedEndDate () {
-        let date = new Date(this.props.endDate);
-        return ((date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear());
+        return (new Date((this.props.endDate.split('T')[0]).replace(/-/g, '\/')).toLocaleDateString());
     }
+    
     /* handlers for opening and closing the modals */
-    openDeleteConfirmationHandler = () => {
-        this.state = this.setState({
-            deleteConfirmationOpen: true,
-            activityInfoOpen: false,
-        })
-    }
-    closeDeleteConfirmationHandler = () => {
-        this.state = this.setState({
-            deleteConfirmationOpen: false,
-            activityInfoOpen: false,
-        })
-    }
+
     openActivityInfoHandler = () => {
-        this.state = this.setState({
-            activityInfoOpen: true,
-            deleteConfirmationOpen: false,
-        })
+        this.props.updateActivityHolderGetActivity(this.props.activityId);
+        this.props.updateActivityViewOpenEditModal(true);
     }
     closeActivityInfoHandler = () => {
-        this.state = this.setState({
-            activityInfoOpen: false,
-            deleteConfirmationOpen: false,
-        })
+        this.props.updateActivityViewOpenEditModal(false);
+    }
+
+    openDeleteActivityHandler = () => {
+        this.props.updateActivityHolderGetActivity(this.props.activityId);
+        this.props.updateActivityViewOpenDeleteModal(true);
+    }
+    closeDeleteActivityHandler = () => {
+        this.props.updateActivityViewOpenDeleteModal(false);
     }
 
     activityCardOnClickHandler = () => {
@@ -72,29 +49,59 @@ export default class ActivityCard extends React.Component {
         return (
             <Card style={{maxWidth: '269.5px'}} link={false}>
                 {/* modal components has to stay inside for style reason */}
-                <DeleteActivityModal open={ this.state.deleteConfirmationOpen }
-                                     onClose={this.closeDeleteConfirmationHandler }
-                                     name={this.props.name}
-                                     activityId={this.props.activityId}/>
+                <DeleteActivityModal 
+                    onClose={this.closeDeleteActivityHandler}
+                    name={this.props.name}
+                    activityId={this.props.activityId}
+                     
+                    fetchActivityList={this.props.fetchActivityList}
 
-                <EditActivityInfoModal open={ this.state.activityInfoOpen }
-                                       onClose={this.closeActivityInfoHandler }
-                                       activityId={this.props.activityId}
-                                       name={this.props.name }
-                                       endDate={this.props.endDate}
-                                       groupCapacity={this.props.groupCapacity}
-                                       totalCapacity={this.props.totalCapacity}/>
+                    updateActivityViewIsDeleting={this.props.updateActivityViewIsDeleting}
+                    updateActivityFailedToDelete={this.props.updateActivityFailedToDelete}
+                    updateActivityDeleteError={this.props.updateActivityDeleteError}
+
+                    openDeleteModal={this.props.openDeleteModal} 
+                    isDeleting={this.props.isDeleting} 
+                    failedToDelete={this.props.failedToDelete} 
+                    deleteError={this.props.deleteError} 
+                    
+                    activityHolder={this.props.activityHolder} 
+                    deleteActivity={this.props.deleteActivity}
+                />
+
+                <EditActivityInfoModal
+                    fetchActivityList={this.props.fetchActivityList}
+                    updateActivityViewIsEditing={this.props.updateActivityViewIsEditing}
+                    updateActivityFailedToEdit={this.props.updateActivityFailedToEdit}
+                    updateActivityEditError={this.props.updateActivityEditError} 
+
+                    openEditModal={this.props.openEditModal} 
+                    isEditing={this.props.isEditing} 
+                    failedToEdit={this.props.failedToEdit} 
+                    editError={this.props.editError}
+
+                    onClose={this.closeActivityInfoHandler }
+                    activityId={this.props.activityId}
+                    name={this.props.name }
+
+                    activityHolder={this.props.activityHolder} 
+                    updateActivity={this.props.updateActivity} 
+
+                    updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
+                    updateActivityHolderSetId={this.props.updateActivityHolderSetId}
+                    updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
+                    updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
+                    updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
+                    updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                    updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
+                />
                 <div onClick={this.activityCardOnClickHandler}
                      style={{
                          padding: '1rem',
                          height: '130px',
                          textAlign: 'right',
                          cursor: 'pointer',
-                         background: randomColor({
-                         luminosity: 'dark',
-                         format: 'hsla', // e.g. 'hsla(27, 88.99%, 81.83%, 0.6450211517512798)'
-                         alpha: 0.7,
-                     })
+                         background: this.props.color, 
                      }}>
                     <Dropdown icon={ <Icon name="edit" size="big" inverted/>} style={{left: '2px', top: "5px"}}>
                         <Dropdown.Menu style={{left: '-48px'}}>
@@ -104,7 +111,7 @@ export default class ActivityCard extends React.Component {
 
                             <Dropdown.Item style={{color: 'red'}}
                                            text='Delete'
-                                           onClick={ this.openDeleteConfirmationHandler }/>
+                                           onClick={ this.openDeleteActivityHandler}/>
 
                         </Dropdown.Menu>
                     </Dropdown>
@@ -133,7 +140,7 @@ export default class ActivityCard extends React.Component {
                 </Card.Content>
                 <Card.Content extra>
                     <Icon name='user'/>
-                    {this.props.numberOfCurrentParticipants} / {this.props.totalCapacity}
+                    {this.props.currentCapacity} / {this.props.totalCapacity}
                 </Card.Content>
             </Card>
         )

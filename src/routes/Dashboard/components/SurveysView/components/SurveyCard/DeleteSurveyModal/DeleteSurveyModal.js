@@ -18,20 +18,20 @@ export default class DeleteSurveyModal extends React.Component {
     };
     
     deleteSurveyHandler(payload) {
-        this.props.deleteSurvey(this.props.surveyId);
+        this.props.deleteSurvey(this.props.surveyHolder.get('surveyId'));
     }
 
     render() {
         return (
             <Modal open={this.props.openDeleteModal} onUnmount={this.props.fetchSurveyList} size="small" dimmer={"blurring"}>
-                <Modal.Header> Delete Survey {this.props.name } </Modal.Header>
+                <Modal.Header> Delete Survey </Modal.Header>
                 <Modal.Content>
                     <Message negative floating hidden={!this.props.failedToDelete}
                         style={{textAlign:'center'}}
                     >
-                        <Message.Header>ERROR: {this.props.editDelete}</Message.Header>
+                        <Message.Header>ERROR: {this.props.deleteError}</Message.Header>
                     </Message>
-                    <p>Are you sure you want to delete survey {this.props.name} </p>
+                    <p>Are you sure you want to delete [{this.props.surveyHolder.get('title')}]</p>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button positive disabled={this.props.isDeleting}

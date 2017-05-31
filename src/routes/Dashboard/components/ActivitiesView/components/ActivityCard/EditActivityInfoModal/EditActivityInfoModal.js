@@ -3,60 +3,89 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { Button, Form, Modal, Message } from 'semantic-ui-react'
 import ActivityInfoForm from "../../ActivityInfoForm"
 
 export default class EditActivityInfoModal extends React.Component {
     constructor (props) {
         super(props)
+        this.updateActivityHandler = this.updateActivityHandler.bind(this);
     }
 
-    static propTypes = {
-        onClose: PropTypes.func.isRequired,
-        activityId: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        endDate: PropTypes.string.isRequired,
-        totalCapacity: PropTypes.number.isRequired,
-        groupCapacity: PropTypes.number.isRequired,
-    }
+    updateActivityHandler = (e) => {
+        if (this.props.activityHolder.get('title').trim().length <= 0) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('THE ACTIVITY MUST HAVE A TITLE');
+            return;
+        }
 
-    /* using error function to bind this */
-    saveChangeButtonHandler = (e) => {
-        /* the only thing this handler does it that it trigger the form to submit */
-        this.activityFormButton.click()
-        const close = this.props.onClose;
-        close();
-    };
+        if (!Date.parse(this.props.activityHolder.get('endDate'))) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('THE ACTIVITY MUST HAVE A VALID END DATE');
+            return;
+        }
 
-    updateActivity = (payload) => {
-        //TODO: implement submit form
-        console.log(payload);
+        if (this.props.activityHolder.get('groupCapacity') <= 0) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('GROUP CAPACITY MUST BE AT LEAST ONE PERSON');
+            return;
+        }
+
+
+        if (this.props.activityHolder.get('totalCapacity') <= 0) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('TOTAL CAPACITY MUST BE AT LEAST ONE PERSON');
+            return;
+        }
+
+        if (this.props.activityHolder.get('groupCapacity') > 
+                this.props.activityHolder.get('totalCapacity')) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('GROUP CAPACITY MUST NOT BE BIGGER THAN TOTAL CAPACITY');
+            return;
+        }
+
+
+        this.props.updateActivityFailedToEdit(false); 
+        this.props.updateActivityEditError('');
+        this.props.updateActivity(this.props.activityHolder);
     };
 
     render () {
         return (
-            <Modal open={this.props.open} onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
-                <Modal.Header> Edit Activity {this.props.name } </Modal.Header>
+            <Modal open={this.props.openEditModal} onUnmount={this.props.fetchActivityList} size="small" dimmer={'blurring'}>
+                <Modal.Header> Edit Activity </Modal.Header>
                 <Modal.Content>
+                    <Message negative floating hidden={!this.props.failedToEdit}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
+                    </Message>
 
-                    {/* this trigger the button inside the form however the button is hidden in css */}
-                    <ActivityInfoForm submitButtonRef = { (button) => { this.activityFormButton = button } }
-                                      activityId={this.props.activityId}
-                                      name={this.props.name}
-                                      endDate={this.props.endDate}
-                                      groupCapacity={this.props.groupCapacity}
-                                      totalCapacity={this.props.totalCapacity}
-                                      submitForm={this.updateActivity}/>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button negative onClick={ this.props.onClose }
-                            >
-                            Cancel
-                    </Button>
-                    <Button positive
-                            content='Save Changes'
-                            onClick={ this.saveChangeButtonHandler }
+                    <ActivityInfoForm 
+                        activityHolder={this.props.activityHolder} 
+                        updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
+                        updateActivityHolderSetId={this.props.updateActivityHolderSetId}
+                        updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
+                        updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
+                        updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
+                        updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                        updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                     />
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button negative 
+                            disabled={this.props.isCreating}
+                            onClick={ this.props.onClose }
+                        >
+                                Cancel
+                        </Button>
+                        <Button positive
+                            disabled={this.props.isCreating}
+                            loading={this.props.isCreating}
+                            content='Save Changes'
+                            onClick={ this.updateActivityHandler }
+                        />
                 </Modal.Actions>
             </Modal>
         )
