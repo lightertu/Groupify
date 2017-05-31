@@ -255,7 +255,7 @@ class GroupCard extends React.Component {
                                                         style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />}
                                                         />
                                                 Group { this.props.groupNumber } &nbsp;
-                                                matching: {Math.round(result*100)} % 
+                                                matching: &nbsp;{Math.round(result*100)}% 
                                                 
                                         </Label>
                                     </Label.Group>
