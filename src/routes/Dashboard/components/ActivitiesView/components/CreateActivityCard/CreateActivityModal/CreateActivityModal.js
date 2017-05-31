@@ -42,11 +42,17 @@ export default class Create extends React.Component {
             return;
         }
 
+        if (this.props.activityHolder.get('groupCapacity') > 
+                this.props.activityHolder.get('totalCapacity')) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('GROUP CAPACITY MUST NOT BE BIGGER THAN TOTAL CAPACITY');
+            return;
+        }
+
 
         this.props.updateActivityFailedToCreate(false); 
         this.props.updateActivityCreateError('');
         this.props.createActivity(this.props.activityHolder);
-        console.log(this.props.activityHolder);
     };
 
     render() {
