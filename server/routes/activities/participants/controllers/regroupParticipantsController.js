@@ -5,8 +5,6 @@ const HttpStatus = require("http-status-codes");
 
 const createErrorHandler = require("../../../utils").createErrorHandler;
 const Activity = require("../../../../models/").Activity;
-const User = require("../../../../models/").User;
-const Participant = require("../../../../models/").Participant;
 const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 
@@ -63,7 +61,7 @@ module.exports = function (req, res, next) {
                 return;
             }
 
-            console.log(algorithmFcn(activity.participants, activity.groupCapacity));
+            const successRate = algorithmFcn(activity.participants, activity.groupCapacity);
 
             activity.participants.forEach(function (par) {
                 par.save().then(function (par) {
@@ -72,7 +70,8 @@ module.exports = function (req, res, next) {
 
 
             return res.status(HttpStatus.OK).json({
-                participants: activity.participants
+                participants: activity.participants,
+                successRate: successRate.toFixed(2),
             });
 
         })
