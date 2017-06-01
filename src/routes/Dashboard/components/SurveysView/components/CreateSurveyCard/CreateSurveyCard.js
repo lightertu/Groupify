@@ -48,16 +48,26 @@ export default class CreateSurveyCard extends React.Component {
                         updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
                         updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
                         updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
-                        updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
-                        updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
-                        updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
-                        updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
-                        updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
-                        updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
-                        updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
-                        updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
-                        updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
-                        updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
+                        updateSurveyHolderQuestionSetTitle={
+                            this.props.updateSurveyHolderQuestionSetTitle}
+                        updateSurveyHolderQuestionSetTooltip={
+                            this.props.updateSurveyHolderQuestionSetTooltip}
+                        updateSurveyHolderQuestionSetFilter={
+                            this.props.updateSurveyHolderQuestionSetFilter}
+                        updateSurveyHolderQuestionToggleFilter={
+                            this.props.updateSurveyHolderQuestionToggleFilter}
+                        updateSurveyHolderQuestionToggleFilterMode={
+                            this.props.updateSurveyHolderQuestionToggleFilterMode}
+                        updateSurveyHolderQuestionSetAnswersMaximum={
+                            this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                        updateSurveyHolderQuestionSetAnswersMinimum={
+                            this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                        updateSurveyHolderQuestionToggleAnswersMaximum={
+                            this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                        updateSurveyHolderQuestionToggleAnswersMinimum={
+                            this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                        updateSurveyHolderQuestionIndex={
+                            this.props.updateSurveyHolderQuestionIndex}
 
                  />
 

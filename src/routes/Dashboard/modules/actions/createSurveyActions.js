@@ -3,6 +3,9 @@
  */
 import axios from "axios";
 const SERVER_URL = "http://localhost:3000";
+import {FETCH_SURVEY_LIST, 
+        fetchSurveyListFailure, 
+        fetchSurveyListSuccess} from './fetchSurveyListActions';
 
 /* fetching, get requests */
 export const CREATE_SURVEY = "CREATE_SURVEY";
@@ -11,10 +14,21 @@ let createSurvey = (dispatch) => {
         let url = SERVER_URL + "/api/surveys";
         axios.post(url, payload)
             .then((response) => {
-                dispatch(createSurveySuccess(response.data));
+                dispatch({type: FETCH_SURVEY_LIST});
+                axios.get(url)
+                    .then((fetchResponse) => {
+                        dispatch(fetchSurveyListSuccess(fetchResponse.data));
+                        dispatch(createSurveySuccess(response.data));
+                    })
+                    .catch((error) => {
+                        dispatch(fetchSurveyListFailure(error));
+                        dispatch(createSurveyFailure(error));
+                        console.log(error);
+                    });
+
             })
             .catch((error) => {
-                console.log(error.response.data.error);
+                console.log(error);
                 dispatch(createSurveyFailure(error));
             });
     }

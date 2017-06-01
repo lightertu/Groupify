@@ -154,15 +154,10 @@ export default class Create extends React.Component {
             })
         );
         return (
-            <Modal open={this.props.openCreateModal} onUnmount={this.props.fetchActivityList}
-                onClose={ this.props.onClose } size="small" dimmer={'blurring'}>
+            <Modal open={this.props.openCreateModal} 
+                onClose={ this.props.onClose } size="small" dimmer={false}>
                 <Modal.Header> Create Activity </Modal.Header>
                 <Modal.Content>
-                    <Message negative floating hidden={!this.props.failedToCreate}
-                        style={{textAlign:'center'}}
-                    >
-                        <Message.Header>ERROR: {this.props.createError}</Message.Header>
-                    </Message>
                     <ActivityInfoForm 
                         activityHolder={this.props.activityHolder} 
                         updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
@@ -234,7 +229,11 @@ export default class Create extends React.Component {
                         :
                             null
                     }
-
+                    <Message negative floating hidden={!this.props.failedToCreate}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.createError}</Message.Header>
+                    </Message>
                 </Modal.Content>
                 {
                     (

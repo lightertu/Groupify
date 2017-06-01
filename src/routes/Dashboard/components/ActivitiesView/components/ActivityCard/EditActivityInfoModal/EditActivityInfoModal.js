@@ -53,15 +53,9 @@ export default class EditActivityInfoModal extends React.Component {
 
     render () {
         return (
-            <Modal open={this.props.openEditModal} onUnmount={this.props.fetchActivityList} size="small" dimmer={'blurring'}>
+            <Modal open={this.props.openEditModal} size="small" dimmer={false}>
                 <Modal.Header> Edit Activity </Modal.Header>
                 <Modal.Content>
-                    <Message negative floating hidden={!this.props.failedToEdit}
-                        style={{textAlign:'center'}}
-                    >
-                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
-                    </Message>
-
                     <ActivityInfoForm 
                         activityHolder={this.props.activityHolder} 
                         updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
@@ -72,6 +66,11 @@ export default class EditActivityInfoModal extends React.Component {
                         updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
                         updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                     />
+                    <Message negative floating hidden={!this.props.failedToEdit}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
+                    </Message>
                     </Modal.Content>
                     <Modal.Actions>
                         <Button negative 
