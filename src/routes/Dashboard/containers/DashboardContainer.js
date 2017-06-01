@@ -36,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
     updateSurveyHolderQuestionToggleAnswersMaximum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleAnswersMaximum(dispatch),
     updateSurveyHolderQuestionToggleAnswersMinimum: Actions.updateSurveyHolderActions.updateSurveyHolderQuestionToggleAnswersMinimum(dispatch),
 
+
     updateSurveyViewOpenCreateModal: Actions.updateSurveyViewActions.updateSurveyViewOpenCreateModal(dispatch),
     updateSurveyViewIsCreating: Actions.updateSurveyViewActions.updateSurveyViewIsCreating(dispatch),
     updateSurveyFailedToCreate: Actions.updateSurveyViewActions.updateSurveyFailedToCreate(dispatch),
@@ -61,6 +62,8 @@ const mapDispatchToProps = (dispatch) => ({
     updateActivity: Actions.updateActivityActions.updateActivity(dispatch),
     deleteActivity: Actions.deleteActivityActions.deleteActivity(dispatch),
 
+    createSurveyFromActivity: Actions.createActivityActions.createSurveyFromActivity(dispatch),
+
     updateActivityHolderGetActivity: Actions.updateActivityHolderActions.updateActivityHolderGetActivity(dispatch),
     updateActivityHolderSetId: Actions.updateActivityHolderActions.updateActivityHolderSetId(dispatch),
     updateActivityHolderSetTitle: Actions.updateActivityHolderActions.updateActivityHolderSetTitle(dispatch),
@@ -74,6 +77,8 @@ const mapDispatchToProps = (dispatch) => ({
     updateActivityFailedToCreate: Actions.updateActivityViewActions.updateActivityFailedToCreate(dispatch),
     updateActivityCreateError: Actions.updateActivityViewActions.updateActivityCreateError(dispatch),
 
+    updateActivityViewSelectingSurvey: Actions.updateActivityViewActions.updateActivityViewSelectingSurvey(dispatch),
+    updateActivityViewCreatingSurvey: Actions.updateActivityViewActions.updateActivityViewCreatingSurvey(dispatch),
 
     updateActivityViewOpenEditModal: Actions.updateActivityViewActions.updateActivityViewOpenEditModal(dispatch),
     updateActivityViewIsEditing: Actions.updateActivityViewActions.updateActivityViewIsEditing(dispatch),

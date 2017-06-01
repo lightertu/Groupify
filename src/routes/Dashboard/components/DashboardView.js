@@ -20,6 +20,9 @@ const DashboardView = (props) => {
         switch (props.view) {
             case("activities"):
                 return <ActivitiesView
+
+                            /** Activity Tools**/
+
                             createActivity={props.createActivity} 
                             updateActivity={props.updateActivity} 
                             deleteActivity={props.deleteActivity} 
@@ -31,11 +34,17 @@ const DashboardView = (props) => {
                             updateActivityHolderGetActivity={props.updateActivityHolderGetActivity}
                             updateActivityHolderSetId={props.updateActivityHolderSetId}
                             updateActivityHolderSetTitle={props.updateActivityHolderSetTitle}
-                            updateActivityHolderSetTotalCapacity={props.updateActivityHolderSetTotalCapacity}
-                            updateActivityHolderSetGroupCapacity={props.updateActivityHolderSetGroupCapacity}
-                            updateActivityHolderSetCurrentCapacity={props.updateActivityHolderSetCurrentCapacity}
+                            updateActivityHolderSetTotalCapacity={
+                                props.updateActivityHolderSetTotalCapacity}
+                            updateActivityHolderSetGroupCapacity={
+                                props.updateActivityHolderSetGroupCapacity}
+                            updateActivityHolderSetCurrentCapacity={
+                                props.updateActivityHolderSetCurrentCapacity}
                             updateActivityHolderSetEndDate={props.updateActivityHolderSetEndDate}
                                                         
+                            updateActivityViewSelectingSurvey={props.updateActivityViewSelectingSurvey}
+                            updateActivityViewCreatingSurvey={props.updateActivityViewCreatingSurvey}
+
                             updateActivityViewOpenCreateModal={props.updateActivityViewOpenCreateModal}
                             updateActivityViewIsCreating={props.updateActivityViewIsCreating}
                             updateActivityFailedToCreate={props.updateActivityFailedToCreate}
@@ -50,7 +59,59 @@ const DashboardView = (props) => {
                             updateActivityViewIsDeleting={props.updateActivityViewIsDeleting}
                             updateActivityFailedToDelete={props.updateActivityFailedToDelete}
                             updateActivityDeleteError={props.updateActivityDeleteError}
-                
+               
+                            /** Survey Tools**/
+
+                            createSurveyFromActivity={props.createSurveyFromActivity} 
+                            
+                            createSurvey={props.createSurvey} 
+                            updateSurvey={props.updateSurvey} 
+                            deleteSurvey={props.deleteSurvey} 
+                            fetchSurveyList={props.fetchSurveyList} 
+
+                            surveysViewData={ props.surveysViewData }
+                            
+                                                
+                            updateSurveyHolderGetSurvey={props.updateSurveyHolderGetSurvey}
+                            updateSurveyHolderSetId={props.updateSurveyHolderSetId}
+                            updateSurveyHolderSetTitle={props.updateSurveyHolderSetTitle}
+                            updateSurveyHolderQuestionCreate={props.updateSurveyHolderQuestionCreate}
+                            updateSurveyHolderQuestionDelete={props.updateSurveyHolderQuestionDelete}
+                            updateSurveyHolderQuestionSetType={props.updateSurveyHolderQuestionSetType}
+
+                            updateSurveyHolderQuestionSetTitle={props.updateSurveyHolderQuestionSetTitle}
+                            updateSurveyHolderQuestionSetTooltip={
+                                props.updateSurveyHolderQuestionSetTooltip}
+                            updateSurveyHolderQuestionSetFilter={
+                                props.updateSurveyHolderQuestionSetFilter}
+                            updateSurveyHolderQuestionToggleFilter={
+                                props.updateSurveyHolderQuestionToggleFilter}
+                            updateSurveyHolderQuestionToggleFilterMode={
+                                props.updateSurveyHolderQuestionToggleFilterMode}
+                            updateSurveyHolderQuestionSetAnswersMaximum={
+                                props.updateSurveyHolderQuestionSetAnswersMaximum}
+                            updateSurveyHolderQuestionSetAnswersMinimum={
+                                props.updateSurveyHolderQuestionSetAnswersMinimum}
+                            updateSurveyHolderQuestionToggleAnswersMaximum={
+                                props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                            updateSurveyHolderQuestionToggleAnswersMinimum={
+                                props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                            updateSurveyHolderQuestionIndex={props.updateSurveyHolderQuestionIndex}
+                                
+                            updateSurveyViewOpenCreateModal={props.updateSurveyViewOpenCreateModal}
+                            updateSurveyViewIsCreating={props.updateSurveyViewIsCreating}
+                            updateSurveyFailedToCreate={props.updateSurveyFailedToCreate}
+                            updateSurveyCreateError={props.updateSurveyCreateError}
+
+                            updateSurveyViewOpenEditModal={props.updateSurveyViewOpenEditModal}
+                            updateSurveyViewIsEditing={props.updateSurveyViewIsEditing}
+                            updateSurveyFailedToEdit={props.updateSurveyFailedToEdit}
+                            updateSurveyEditError={props.updateSurveyEditError}
+
+                            updateSurveyViewOpenDeleteModal={props.updateSurveyViewOpenDeleteModal}
+                            updateSurveyViewIsDeleting={props.updateSurveyViewIsDeleting}
+                            updateSurveyFailedToDelete={props.updateSurveyFailedToDelete}
+                            updateSurveyDeleteError={props.updateSurveyDeleteError}
                        />;
             case("surveys"):
                 return <SurveysView 
@@ -70,14 +131,22 @@ const DashboardView = (props) => {
                             updateSurveyHolderQuestionSetType={props.updateSurveyHolderQuestionSetType}
 
                             updateSurveyHolderQuestionSetTitle={props.updateSurveyHolderQuestionSetTitle}
-                            updateSurveyHolderQuestionSetTooltip={props.updateSurveyHolderQuestionSetTooltip}
-                            updateSurveyHolderQuestionSetFilter={props.updateSurveyHolderQuestionSetFilter}
-                            updateSurveyHolderQuestionToggleFilter={props.updateSurveyHolderQuestionToggleFilter}
-                            updateSurveyHolderQuestionToggleFilterMode={props.updateSurveyHolderQuestionToggleFilterMode}
-                            updateSurveyHolderQuestionSetAnswersMaximum={props.updateSurveyHolderQuestionSetAnswersMaximum}
-                            updateSurveyHolderQuestionSetAnswersMinimum={props.updateSurveyHolderQuestionSetAnswersMinimum}
-                            updateSurveyHolderQuestionToggleAnswersMaximum={props.updateSurveyHolderQuestionToggleAnswersMaximum}
-                            updateSurveyHolderQuestionToggleAnswersMinimum={props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                            updateSurveyHolderQuestionSetTooltip={
+                                props.updateSurveyHolderQuestionSetTooltip}
+                            updateSurveyHolderQuestionSetFilter={
+                                props.updateSurveyHolderQuestionSetFilter}
+                            updateSurveyHolderQuestionToggleFilter={
+                                props.updateSurveyHolderQuestionToggleFilter}
+                            updateSurveyHolderQuestionToggleFilterMode={
+                                props.updateSurveyHolderQuestionToggleFilterMode}
+                            updateSurveyHolderQuestionSetAnswersMaximum={
+                                props.updateSurveyHolderQuestionSetAnswersMaximum}
+                            updateSurveyHolderQuestionSetAnswersMinimum={
+                                props.updateSurveyHolderQuestionSetAnswersMinimum}
+                            updateSurveyHolderQuestionToggleAnswersMaximum={
+                                props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                            updateSurveyHolderQuestionToggleAnswersMinimum={
+                                props.updateSurveyHolderQuestionToggleAnswersMinimum}
                             updateSurveyHolderQuestionIndex={props.updateSurveyHolderQuestionIndex}
                                 
                             updateSurveyViewOpenCreateModal={props.updateSurveyViewOpenCreateModal}
@@ -99,6 +168,9 @@ const DashboardView = (props) => {
                 return <AccountSettingView accountSettingsViewData={ props.accountSettingsViewData }/>;
             default:
                 return <ActivitiesView
+
+                            /** Activity Tools**/
+
                             createActivity={props.createActivity} 
                             updateActivity={props.updateActivity} 
                             deleteActivity={props.deleteActivity} 
@@ -110,11 +182,17 @@ const DashboardView = (props) => {
                             updateActivityHolderGetActivity={props.updateActivityHolderGetActivity}
                             updateActivityHolderSetId={props.updateActivityHolderSetId}
                             updateActivityHolderSetTitle={props.updateActivityHolderSetTitle}
-                            updateActivityHolderSetTotalCapacity={props.updateActivityHolderSetTotalCapacity}
-                            updateActivityHolderSetGroupCapacity={props.updateActivityHolderSetGroupCapacity}
-                            updateActivityHolderSetCurrentCapacity={props.updateActivityHolderSetCurrentCapacity}
+                            updateActivityHolderSetTotalCapacity={
+                                props.updateActivityHolderSetTotalCapacity}
+                            updateActivityHolderSetGroupCapacity={
+                                props.updateActivityHolderSetGroupCapacity}
+                            updateActivityHolderSetCurrentCapacity={
+                                props.updateActivityHolderSetCurrentCapacity}
                             updateActivityHolderSetEndDate={props.updateActivityHolderSetEndDate}
                                                         
+                            updateActivityViewSelectingSurvey={props.updateActivityViewSelectingSurvey}
+                            updateActivityViewCreatingSurvey={props.updateActivityViewCreatingSurvey}
+
                             updateActivityViewOpenCreateModal={props.updateActivityViewOpenCreateModal}
                             updateActivityViewIsCreating={props.updateActivityViewIsCreating}
                             updateActivityFailedToCreate={props.updateActivityFailedToCreate}
@@ -129,7 +207,60 @@ const DashboardView = (props) => {
                             updateActivityViewIsDeleting={props.updateActivityViewIsDeleting}
                             updateActivityFailedToDelete={props.updateActivityFailedToDelete}
                             updateActivityDeleteError={props.updateActivityDeleteError}
-                
+               
+                            /** Survey Tools**/
+
+                            createSurveyFromActivity={props.createSurveyFromActivity} 
+                            
+                            createSurvey={props.createSurvey} 
+                            updateSurvey={props.updateSurvey} 
+                            deleteSurvey={props.deleteSurvey} 
+                            fetchSurveyList={props.fetchSurveyList} 
+
+                            surveysViewData={ props.surveysViewData }
+                            
+                                                
+                            updateSurveyHolderGetSurvey={props.updateSurveyHolderGetSurvey}
+                            updateSurveyHolderSetId={props.updateSurveyHolderSetId}
+                            updateSurveyHolderSetTitle={props.updateSurveyHolderSetTitle}
+                            updateSurveyHolderQuestionCreate={props.updateSurveyHolderQuestionCreate}
+                            updateSurveyHolderQuestionDelete={props.updateSurveyHolderQuestionDelete}
+                            updateSurveyHolderQuestionSetType={props.updateSurveyHolderQuestionSetType}
+
+                            updateSurveyHolderQuestionSetTitle={
+                                props.updateSurveyHolderQuestionSetTitle}
+                            updateSurveyHolderQuestionSetTooltip={
+                                props.updateSurveyHolderQuestionSetTooltip}
+                            updateSurveyHolderQuestionSetFilter={
+                                props.updateSurveyHolderQuestionSetFilter}
+                            updateSurveyHolderQuestionToggleFilter={
+                                props.updateSurveyHolderQuestionToggleFilter}
+                            updateSurveyHolderQuestionToggleFilterMode={
+                                props.updateSurveyHolderQuestionToggleFilterMode}
+                            updateSurveyHolderQuestionSetAnswersMaximum={
+                                props.updateSurveyHolderQuestionSetAnswersMaximum}
+                            updateSurveyHolderQuestionSetAnswersMinimum={
+                                props.updateSurveyHolderQuestionSetAnswersMinimum}
+                            updateSurveyHolderQuestionToggleAnswersMaximum={
+                                props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                            updateSurveyHolderQuestionToggleAnswersMinimum={
+                                props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                            updateSurveyHolderQuestionIndex={props.updateSurveyHolderQuestionIndex}
+                                
+                            updateSurveyViewOpenCreateModal={props.updateSurveyViewOpenCreateModal}
+                            updateSurveyViewIsCreating={props.updateSurveyViewIsCreating}
+                            updateSurveyFailedToCreate={props.updateSurveyFailedToCreate}
+                            updateSurveyCreateError={props.updateSurveyCreateError}
+
+                            updateSurveyViewOpenEditModal={props.updateSurveyViewOpenEditModal}
+                            updateSurveyViewIsEditing={props.updateSurveyViewIsEditing}
+                            updateSurveyFailedToEdit={props.updateSurveyFailedToEdit}
+                            updateSurveyEditError={props.updateSurveyEditError}
+
+                            updateSurveyViewOpenDeleteModal={props.updateSurveyViewOpenDeleteModal}
+                            updateSurveyViewIsDeleting={props.updateSurveyViewIsDeleting}
+                            updateSurveyFailedToDelete={props.updateSurveyFailedToDelete}
+                            updateSurveyDeleteError={props.updateSurveyDeleteError}
                        />;
         }
     };

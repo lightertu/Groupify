@@ -89,7 +89,7 @@ export default class EditSurveyInfoModal extends React.Component {
                             updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
 
 
-                                      />
+                    />
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative 
