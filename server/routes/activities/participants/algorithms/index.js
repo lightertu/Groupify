@@ -1,8 +1,9 @@
-const greedy_algorithm = require('./greedy_algorithm');
+const greedyAlgorithm = require('./greedyAlgorithm');
 const randomAlgorithm = require('./randomAlgorithm');
-
+const selectAlgorithmAndReturnFunction = require('./selectAlgorithmAndReturnFunction');
 
 module.exports = {
-    greedy_algorithm,
+    greedyAlgorithm,
     randomAlgorithm,
+    selectAlgorithmAndReturnFunction,
 };

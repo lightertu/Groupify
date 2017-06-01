@@ -95,6 +95,7 @@ ActivitySchema.methods.getPublicFields = function () {
         totalCapacity: this.totalCapacity,
         color: this.color,
         groupCapacity: this.groupCapacity,
+        color: this.color,
         currentCapacity: this.currentCapacity,
         endDate: this.endDate,
         participants: this.participants,
@@ -120,8 +121,9 @@ function activityRandomColorGenerator(){
 
 
 // validate input
-function validateName(title){
-    console.log('title [' + title + '] is valid: ' + (typeof title === 'string'));
+
+function validateTitle(title){
+    // console.log('title [' + title + '] is valid: ' + (typeof title === 'string'));
     return typeof title === 'string';
 }
 
@@ -135,8 +137,9 @@ function validateDate(date) {
     return typeof date === 'string' && validator.toDate(date) !== null;
 }
 
-function ActivityValidator(title , groupCap, totalCap, endD){
-    return validateName(title)
+
+function ActivityValidator(title, groupCap, totalCap, endD){
+    return validateTitle(title)
         && validateCapacities(groupCap, totalCap)
         && validateDate(endD);
 }

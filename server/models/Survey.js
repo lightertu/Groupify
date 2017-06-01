@@ -70,6 +70,7 @@ let SurveySchema = Schema({
     }
 });
 
+
 SurveySchema.pre('save', function(next){
     let survey = this;
 
@@ -182,7 +183,6 @@ function validateFormat(payload, properties){
 
 
 function SurveyValidator(title, question) {
-    console.log("title " + validateTitle(title));
     return validateTitle(title) && validateQuestion(question);
 }
 
