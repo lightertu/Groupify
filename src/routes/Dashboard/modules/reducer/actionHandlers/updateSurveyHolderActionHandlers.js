@@ -15,6 +15,20 @@ let handleUpdateSurveyHolderGetSurvey= (state, payload) => {
                state.get('surveysViewData').get('surveys').get(index)
         )
     });
+    
+    newState = newState.updateIn(['activitiesViewData', 'creatingSurvey'], creatingSurvey=> {
+        return (
+            (index == -1) ?
+               true 
+            :
+               false
+        )
+    });
+
+    
+    newState = newState.setIn(['activitiesViewData', 'activityHolder', 'surveyId'], 
+        newState.get('surveysViewData').get('surveyHolder').get('surveyId')         
+    );
     return newState;
 }
 
