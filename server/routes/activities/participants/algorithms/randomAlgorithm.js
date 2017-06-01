@@ -6,12 +6,12 @@ Input and output are  array. If input is not array or size is not an positive nu
 
 Example:
 
-pars = [{_id: 1... , groupNumber: -1},
-                {_id: 2... , groupNumber:-1}],
-                {_id: 3... , groupNumber:-1}],
-                {_id: 4... , groupNumber:-1}],
-                {_id: 5... , groupNumber:-1}]
-                ]
+pars = [{... , groupNumber: -1},
+        {... , groupNumber:-1}],
+        {... , groupNumber:-1}],
+        {... , groupNumber:-1}],
+        {... , groupNumber:-1}]
+       ]
 size  = 2
  */
 
@@ -41,30 +41,27 @@ function getGroupList(groupNum, rest, size){
 }
 
 
-function validataInput(pars, size){
+function validateInput(pars, size){
     let result = Array.isArray(pars);
-    pars.forEach(function (p) {
-        result = result
-            && p.hasOwnProperty('_id')
-            && p.hasOwnProperty('groupNumber');
-        if (result){
-            result = result && ObjectIdIsValid(p._id)
-                && typeof p.groupNumber === 'number'
-                && p.groupNumber % 1 === 0;
-        }
-    });
-
-    return result
-        && typeof size !== 'number'
-        && size > 0
-        && size % 1 === 0;
+    if (result){
+        pars.forEach(function (p) {
+            result = result && p.toObject().hasOwnProperty('groupNumber');
+            if (result){
+                result = result && Number.isInteger(p.groupNumber);
+            }
+        });
+        return result
+            && Number.isInteger(size)
+            && size > 0;
+    }
 }
 
 
 
 function randomAlgorithm(pars, gpSize)
 {
-	if (!validataInput(pars, gpSize)){
+    console.log(pars);
+	if (!validateInput(pars, gpSize)){
 		return [];
 	}
 	let sLength = pars.length;

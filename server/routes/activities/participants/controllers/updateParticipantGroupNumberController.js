@@ -32,7 +32,7 @@ function validateParameters(prm) {
 }
 
 function validateGroupNumber(g) {
-    return Number.isInteger(g) && g>0;
+    return Number.isInteger(g) && g>-3;
 }
 
 module.exports = function (req, res, next) {
