@@ -31,6 +31,11 @@ class SurveyQuestionTableNewEntry extends React.Component {
             <Table.Row >
                 <Table.Cell  style={{width:'100%', padding:0, margin:0}}> 
                     <Button
+                        disabled={
+                            this.props.inActivitiesView 
+                            && this.props.selectingSurvey 
+                            && (!this.props.creatingSurvey)
+                        }
                         onClick={(e) => {
                             e.preventDefault(); 
                             this.props.updateSurveyHolderQuestionCreate()
@@ -92,10 +97,17 @@ class SurveyQuestionTableEntry extends React.Component {
                     </Label>
                 </Table.Cell >
                 <Table.Cell style={{padding:0, margin:0}}> 
-                    <Icon size='big' 
+                    <Button circular icon={<Icon name='remove' size='big' color='red'/>}
+                        disabled={
+                            this.props.inActivitiesView 
+                            && this.props.selectingSurvey 
+                            && (!this.props.creatingSurvey)
+                        }
                         onClick={() => {this.props.updateSurveyHolderQuestionDelete(this.props.index)}} 
-                        style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}} 
-                        name='close window' color='red' /> 
+                        style={{height:'100%', cursor:'pointer', marginTop:0, 
+                            marginBotton:0, backgroundColor:'rgba(0, 0, 0, 0.0)'
+                        }} 
+                    /> 
                 </Table.Cell> 
             </Table.Row>
         )
@@ -128,7 +140,11 @@ export default class SurveyQuestionTable extends React.Component {
                             <Table.HeaderCell colSpan='2' textAlign='center'>Questions</Table.HeaderCell>
                         </Table.Row>
                         <SurveyQuestionTableNewEntry
-                            updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate} 
+                            inActivitiesView = {this.props.inActivitiesView} 
+                            creatingSurvey={this.props.creatingSurvey} 
+                            selectingSurvey={this.props.selectingSurvey} 
+                            updateSurveyHolderQuestionCreate={
+                                this.props.updateSurveyHolderQuestionCreate} 
                         /> 
                     </Table.Header>
                 </Table>   
@@ -140,12 +156,17 @@ export default class SurveyQuestionTable extends React.Component {
                         <Table.Body>
                             {this.props.questions.map((question, index) => 
                                 <SurveyQuestionTableEntry  
+                                    inActivitiesView = {this.props.inActivitiesView} 
+                                    creatingSurvey={this.props.creatingSurvey} 
+                                    selectingSurvey={this.props.selectingSurvey} 
                                     key={'SurveyEntry_' + index} 
                                     index={index}
                                     title={question.get('title')}
     
-                                    updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
-                                    updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                                    updateSurveyHolderQuestionIndex={
+                                        this.props.updateSurveyHolderQuestionIndex}
+                                    updateSurveyHolderQuestionDelete={
+                                        this.props.updateSurveyHolderQuestionDelete}
                                     isSelected={this.props.surveyHolderQuestionIndex == index}
                                 />)
                             }

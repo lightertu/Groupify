@@ -39,8 +39,55 @@ let createActivityFailure = (error) => {
     return {type: CREATE_ACTIVITY_FAILURE, error: error};
 };
 
+
+
 export {
     createActivity,
     createActivitySuccess,
     createActivityFailure,
+}
+
+
+/** For Survey Creation from Activity View  **/
+
+/* fetching, get requests */
+export const CREATE_SURVEY_FROM_ACTIVITY = "CREATE_SURVEY_FROM_ACTIVITY";
+let createSurveyFromActivity = (dispatch) => {
+    return (payload) => {
+        let url = SERVER_URL + "/api/surveys";
+        axios.post(url, payload)
+            .then((response) => {
+                let newSurveyId = response.data.survey._id;
+                axios.get(url)
+                            .then((response) => {
+                                dispatch(createSurveyFromActivitySuccess(newSurveyId, response.data.surveys));
+                            })
+                            .catch((error) => {
+                                console.log(error);
+                                dispatch(createSurveyFromActivityFailure(error));
+                            })
+            })
+            .catch((error) => {
+                console.log(error);
+                dispatch(createSurveyFromActivityFailure(error));
+            });
+    }
+};
+
+/* fetch success */
+export const CREATE_SURVEY_FROM_ACTIVITY_SUCCESS = "CREATE_SURVEY_FROM_ACTIVITY_SUCCESS";
+let createSurveyFromActivitySuccess = (surveyId, surveys) => {
+    return {type: CREATE_SURVEY_FROM_ACTIVITY_SUCCESS, payload: {surveyId:surveyId, surveys:surveys}};
+};
+
+/* fetch failure */
+export const CREATE_SURVEY_FROM_ACTIVITY_FAILURE = "CREATE_SURVEY_FROM_ACTIVITY_FAILURE";
+let createSurveyFromActivityFailure = (error) => {
+    return {type: CREATE_SURVEY_FROM_ACTIVITY_FAILURE, error: error};
+};
+
+export {
+    createSurveyFromActivity,
+    createSurveyFromActivitySuccess,
+    createSurveyFromActivityFailure,
 }
