@@ -71,9 +71,12 @@ export default class ActivitiesView extends React.Component {
                       updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
                       updateActivityHolderSetId={this.props.updateActivityHolderSetId}
                       updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
-                      updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
-                      updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
-                      updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                      updateActivityHolderSetTotalCapacity={
+                          this.props.updateActivityHolderSetTotalCapacity}
+                      updateActivityHolderSetGroupCapacity={
+                          this.props.updateActivityHolderSetGroupCapacity}
+                      updateActivityHolderSetCurrentCapacity={
+                          this.props.updateActivityHolderSetCurrentCapacity}
                       updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                 />
             )           
@@ -119,9 +122,12 @@ export default class ActivitiesView extends React.Component {
                       updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
                       updateActivityHolderSetId={this.props.updateActivityHolderSetId}
                       updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
-                      updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
-                      updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
-                      updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                      updateActivityHolderSetTotalCapacity={
+                          this.props.updateActivityHolderSetTotalCapacity}
+                      updateActivityHolderSetGroupCapacity={
+                          this.props.updateActivityHolderSetGroupCapacity}
+                      updateActivityHolderSetCurrentCapacity={
+                          this.props.updateActivityHolderSetCurrentCapacity}
                       updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
                 />
             )
@@ -146,6 +152,12 @@ export default class ActivitiesView extends React.Component {
                     
                       fetchActivityList={this.props.fetchActivityList}
 
+                      updateActivityViewSelectingSurvey={this.props.updateActivityViewSelectingSurvey}
+                      updateActivityViewCreatingSurvey={this.props.updateActivityViewCreatingSurvey}
+
+                      creatingSurvey={this.props.activitiesViewData.get('creatingSurvey')} 
+                      selectingSurvey={this.props.activitiesViewData.get('selectingSurvey')} 
+
                       openCreateModal={this.props.activitiesViewData.get('openCreateModal')} 
                       isCreating={this.props.activitiesViewData.get('isCreating')} 
                       failedToCreate={this.props.activitiesViewData.get('failedToCreate')} 
@@ -157,19 +169,65 @@ export default class ActivitiesView extends React.Component {
                       updateActivityCreateError={this.props.updateActivityCreateError}
 
                       activityHolder={this.props.activitiesViewData.get('activityHolder')} 
-                      
+                       
                       createActivity={this.props.createActivity} 
                       updateActivity={this.props.updateActivity} 
                       deleteActivity={this.props.deleteActivity} 
+                                           
+                      createSurveyFromActivity={this.props.createSurveyFromActivity} 
                       
                       updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
                       updateActivityHolderSetId={this.props.updateActivityHolderSetId}
                       updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
-                      updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
-                      updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
-                      updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
+                      updateActivityHolderSetTotalCapacity={
+                          this.props.updateActivityHolderSetTotalCapacity}
+                      updateActivityHolderSetGroupCapacity={
+                          this.props.updateActivityHolderSetGroupCapacity}
+                      updateActivityHolderSetCurrentCapacity={
+                          this.props.updateActivityHolderSetCurrentCapacity}
                       updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
-                    
+                      
+                      /** Survey Tools (For survey creation selection) **/ 
+                      surveys={this.props.surveysViewData.get('surveys')} 
+                      surveyHolder={this.props.surveysViewData.get('surveyHolder')} 
+                      surveyHolderQuestionIndex={
+                          this.props.surveysViewData.get('surveyHolderQuestionIndex')} 
+
+                      createSurvey={this.props.createSurvey} 
+                      
+                      fetchSurveyList={this.props.fetchSurveyList}
+
+                      updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
+                      updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
+                      updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
+                      updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
+                      updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                      updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
+                      updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
+                      updateSurveyHolderQuestionSetTooltip={
+                          this.props.updateSurveyHolderQuestionSetTooltip}
+                      updateSurveyHolderQuestionSetFilter={
+                          this.props.updateSurveyHolderQuestionSetFilter}
+                      updateSurveyHolderQuestionToggleFilter={
+                          this.props.updateSurveyHolderQuestionToggleFilter}
+                      updateSurveyHolderQuestionToggleFilterMode={
+                          this.props.updateSurveyHolderQuestionToggleFilterMode}
+                      updateSurveyHolderQuestionSetAnswersMaximum={
+                          this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                      updateSurveyHolderQuestionSetAnswersMinimum={
+                          this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                      updateSurveyHolderQuestionToggleAnswersMaximum={
+                          this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                      updateSurveyHolderQuestionToggleAnswersMinimum={
+                          this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                      updateSurveyHolderQuestionIndex={
+                          this.props.updateSurveyHolderQuestionIndex}
+
+                      updateSurveyViewOpenCreateModal={this.props.updateSurveyViewOpenCreateModal}
+                      updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
+                      updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
+                      updateSurveyCreateError={this.props.updateSurveyCreateError}
+                   
                     />
                 </Card.Group>
                 <Header as='h2' style={{ display: "inline-block", marginBottom: "10px" }}>

@@ -68,6 +68,11 @@ const initialState = Map({
 
 
     activitiesViewData: Map({
+        selectingSurveyStage:false,
+        creatingNewSurvey:false,
+
+        isCreatingSurvey:false,
+        
         isLoading:true,
         failedToGet:false,
 
@@ -100,7 +105,7 @@ const initialState = Map({
         activityTemplate: Map({
             color: '',
             activityId: '',
-            surveyId: '592e1673c6e4ce5094322934',
+            surveyId: '592edc68c7a8e10b6bdf99ff',
             title: '',
             endDate: '',
             groupCapacity: 0,
@@ -133,6 +138,16 @@ let dashboardReducer = (state = initialState, action) => {
             return ActionHandlers.createActivityActionHandlers.handleCreateActivitySuccess(state, action.payload)
         case Actions.createActivityActions.CREATE_ACTIVITY_FAILURE:
             return ActionHandlers.fetchActivityListActionHandlers.handleFetchActivityListFailure(state, action.payload)
+
+
+        case Actions.createActivityActions.CREATE_SURVEY_FROM_ACTIVITY:
+            return ActionHandlers.createActivityActionHandlers.handleCreateSurveyFromActivity(state, action.payload)
+        case Actions.createActivityActions.CREATE_SURVEY_FROM_ACTIVITY_SUCCESS:
+            return ActionHandlers.createActivityActionHandlers.handleCreateSurveyFromActivitySuccess(state, action.payload)
+        case Actions.createActivityActions.CREATE_SURVEY_FROM_ACTIVITY_FAILURE:
+            return ActionHandlers.fetchActivityListActionHandlers.handleFetchSurveyFromActivityListFailure(state, action.payload)
+
+
 
         /* create update activity actions */
         case Actions.updateActivityActions.UPDATE_ACTIVITY:
@@ -276,6 +291,10 @@ let dashboardReducer = (state = initialState, action) => {
 
 
         /* activity view */
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_SELECTING_SURVEY:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewSelectingSurvey(state, action.payload);
+        case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_CREATING_SURVEY:
+            return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewCreatingSurvey(state, action.payload);
         case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_OPEN_CREATE_MODAL:
             return ActionHandlers.updateActivityViewActionHandlers.handleUpdateActivityViewOpenCreateModal(state, action.payload);
         case Actions.updateActivityViewActions.UPDATE_ACTIVITY_VIEW_IS_CREATING:
