@@ -9,6 +9,9 @@
  */
 import axios from "axios";
 const SERVER_URL = "http://localhost:3000";
+import {FETCH_ACTIVITY_LIST, 
+        fetchActivityListFailure, 
+        fetchActivityListSuccess} from './fetchActivityListActions';
 
 /* fetching, get requests */
 export const CREATE_ACTIVITY = "CREATE_ACTIVITY";
@@ -18,7 +21,17 @@ let createActivity = (dispatch) => {
         let url = SERVER_URL + "/api/activities";
         axios.post(url, payload)
             .then((response) => {
-                dispatch(createActivitySuccess(response.data));
+                dispatch({type: FETCH_ACTIVITY_LIST});
+                axios.get(url)
+                    .then((fetchResponse) => {
+                        dispatch(createActivitySuccess(response.data));
+                        dispatch(fetchActivityListSuccess(fetchResponse.data));
+                    })
+                    .catch((error) => {
+                        dispatch(createActivityFailure(error));
+                        dispatch(fetchActivityListFailure(error));
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error.response.data.error);

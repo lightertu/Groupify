@@ -25,16 +25,10 @@ export default class ActivityCard extends React.Component {
         this.props.updateActivityHolderGetActivity(this.props.activityId);
         this.props.updateActivityViewOpenEditModal(true);
     }
-    closeActivityInfoHandler = () => {
-        this.props.updateActivityViewOpenEditModal(false);
-    }
 
     openDeleteActivityHandler = () => {
         this.props.updateActivityHolderGetActivity(this.props.activityId);
         this.props.updateActivityViewOpenDeleteModal(true);
-    }
-    closeDeleteActivityHandler = () => {
-        this.props.updateActivityViewOpenDeleteModal(false);
     }
 
     activityCardOnClickHandler = () => {
@@ -49,52 +43,8 @@ export default class ActivityCard extends React.Component {
         return (
             <Card style={{maxWidth: '269.5px'}} link={false}>
                 {/* modal components has to stay inside for style reason */}
-                <DeleteActivityModal 
-                    onClose={this.closeDeleteActivityHandler}
-                    name={this.props.name}
-                    activityId={this.props.activityId}
-                     
-                    fetchActivityList={this.props.fetchActivityList}
+                {/* Matt's Note: since backend hoodup update, keeping modals here creates lag */}
 
-                    updateActivityViewIsDeleting={this.props.updateActivityViewIsDeleting}
-                    updateActivityFailedToDelete={this.props.updateActivityFailedToDelete}
-                    updateActivityDeleteError={this.props.updateActivityDeleteError}
-
-                    openDeleteModal={this.props.openDeleteModal} 
-                    isDeleting={this.props.isDeleting} 
-                    failedToDelete={this.props.failedToDelete} 
-                    deleteError={this.props.deleteError} 
-                    
-                    activityHolder={this.props.activityHolder} 
-                    deleteActivity={this.props.deleteActivity}
-                />
-
-                <EditActivityInfoModal
-                    fetchActivityList={this.props.fetchActivityList}
-                    updateActivityViewIsEditing={this.props.updateActivityViewIsEditing}
-                    updateActivityFailedToEdit={this.props.updateActivityFailedToEdit}
-                    updateActivityEditError={this.props.updateActivityEditError} 
-
-                    openEditModal={this.props.openEditModal} 
-                    isEditing={this.props.isEditing} 
-                    failedToEdit={this.props.failedToEdit} 
-                    editError={this.props.editError}
-
-                    onClose={this.closeActivityInfoHandler }
-                    activityId={this.props.activityId}
-                    name={this.props.name }
-
-                    activityHolder={this.props.activityHolder} 
-                    updateActivity={this.props.updateActivity} 
-
-                    updateActivityHolderGetActivity={this.props.updateActivityHolderGetActivity}
-                    updateActivityHolderSetId={this.props.updateActivityHolderSetId}
-                    updateActivityHolderSetTitle={this.props.updateActivityHolderSetTitle}
-                    updateActivityHolderSetTotalCapacity={this.props.updateActivityHolderSetTotalCapacity}
-                    updateActivityHolderSetGroupCapacity={this.props.updateActivityHolderSetGroupCapacity}
-                    updateActivityHolderSetCurrentCapacity={this.props.updateActivityHolderSetCurrentCapacity}
-                    updateActivityHolderSetEndDate={this.props.updateActivityHolderSetEndDate}
-                />
                 <div onClick={this.activityCardOnClickHandler}
                      style={{
                          padding: '1rem',
