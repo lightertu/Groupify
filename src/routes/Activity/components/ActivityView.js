@@ -65,7 +65,6 @@ export class ActivityView extends React.Component {
             }
         }
 
-        console.log(field);
         this.setState({field:field});
     }
 
@@ -74,6 +73,7 @@ export class ActivityView extends React.Component {
     }
 
     render() {
+        //console.log(this.props.filter);
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;

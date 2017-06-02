@@ -29,7 +29,8 @@ const mapStateToProps = (state, ownProps) => {
         groupCapacity: state.activity.get("groupCapacity"),
         totalCapacity: state.activity.get("totalCapacity"),
         matching: state.activity.get("matching"),
-        unlocked: state.activity.get("unlocked")
+        unlocked: state.activity.get("unlocked"),
+        filter: state.activity.get("filter")
     }
 };
 
