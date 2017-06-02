@@ -57,7 +57,7 @@ export class ActivityView extends React.Component {
                 field.splice(index, 1); // remove item from filter
             }
         } else {
-            if(event.target.getAttribute('name') != "-search") {
+            if(event.target.getAttribute('name') !== "-search") {
                 if(event.target.getAttribute('name') === null) {
                     field.push(event.target.parentNode.getAttribute('name')); // add item to filter
                 } else {
@@ -96,7 +96,7 @@ export class ActivityView extends React.Component {
             return groups;
         };
 
-        let dragging = (this.props.matching.get("current").length > 0) ? true : false;
+        let dragging = (this.props.matching.get("current").length > 0);
 
         let getGroupCards = (groups) => {
             return (
