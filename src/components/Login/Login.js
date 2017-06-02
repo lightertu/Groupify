@@ -1,25 +1,25 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router';
-import {Input,  Button, Form, Header, Card , Menu, Segment} from 'semantic-ui-react'
-import axios from 'axios';
-import TextInput from './TextInput';
+import { withRouter } from 'react-router'
+import { Input, Button, Form, Header, Card, Menu, Segment } from 'semantic-ui-react'
+import axios from 'axios'
+import TextInput from './TextInput'
 
-function ErrorMessage(props) {
+function ErrorMessage (props) {
     let wrapperStyles = {
         justifyContent: 'center',
-        margin: "auto",
-        marginBottom: "1em",
-        animation: "shake 150ms ease-in-out"
+        margin: 'auto',
+        marginBottom: '1em',
+        animation: 'shake 150ms ease-in-out'
     }
 
     let paraStyles = {
-         backgroundColor: "#FB4F4F",
-          color: "white",
-          margin: 0,
-          padding: "0.5em 1em",
-          fontSize: "0.8em",
-          fontFamily: 'arial',
-          userSelect: "none"
+        backgroundColor: '#FB4F4F',
+        color: 'white',
+        margin: 0,
+        padding: '0.5em 1em',
+        fontSize: '0.8em',
+        fontFamily: 'arial',
+        userSelect: 'none'
     }
 
     return (
@@ -32,118 +32,125 @@ function ErrorMessage(props) {
 }
 
 class Login extends Component {
-    constructor(props) {
-        super(props);
+    constructor (props) {
+        super(props)
         this.state = {
-            email: '', 
-            password: '', 
-            passwordConfirm: '', 
-            login: true, 
-            activeItem: 'Login', 
+            email: '',
+            password: '',
+            passwordConfirm: '',
+            login: true,
+            activeItem: 'Login',
             locks: [true, true, true, true, true]
-        };
+        }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleItemClick= this.handleItemClick.bind(this);
-        this.login = this.login.bind(this);
-        this._changeEmail = this._changeEmail.bind(this);
-        this._changePassword = this._changePassword.bind(this);
-        this._changePasswordConfirm = this._changePasswordConfirm.bind(this);
-        this._errorMessage = this._errorMessage.bind(this);
-        this._errorVisible = this._errorVisible.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleItemClick = this.handleItemClick.bind(this)
+        this.login = this.login.bind(this)
+        this._changeEmail = this._changeEmail.bind(this)
+        this._changePassword = this._changePassword.bind(this)
+        this._changePasswordConfirm = this._changePasswordConfirm.bind(this)
+        this._errorMessage = this._errorMessage.bind(this)
+        this._errorVisible = this._errorVisible.bind(this)
         this.passwordConfirmValidate = this.passwordConfirmValidate.bind(this)
-        this._releaseLock = this._releaseLock.bind(this);
-        this._setLock = this._setLock.bind(this);
+        this._releaseLock = this._releaseLock.bind(this)
+        this._setLock = this._setLock.bind(this)
     }
 
-    handleItemClick(e, { name }) {
-        this.setState({ activeItem: name, error: false, email: '', password: '', passwordConfirm: '', locks: [true, true, true , true, true]});
-        this.props.setErrorMessage("");
-        this.props.setErrorDisplay(false);
+    handleItemClick (e, {name}) {
+        this.setState({
+            activeItem: name,
+            error: false,
+            email: '',
+            password: '',
+            passwordConfirm: '',
+            locks: [true, true, true, true, true]
+        })
+        this.props.setErrorMessage('')
+        this.props.setErrorDisplay(false)
     }
 
-     _changeEmail(event) {
-      this.setState({email: event.target.value});
+    _changeEmail (event) {
+        this.setState({email: event.target.value})
     }
 
-      _errorMessage(error){
-        this.props.setErrorMessage(error);
-      }
+    _errorMessage (error) {
+        this.props.setErrorMessage(error)
+    }
 
-      _errorVisible(boolean){
-        this.props.setErrorDisplay(boolean);
-      }
+    _errorVisible (boolean) {
+        this.props.setErrorDisplay(boolean)
+    }
 
-      _releaseLock(value) {
-        let locks = this.state.locks;
-        locks[value] = false;
-        this.setState({locks: locks});
-      }
+    _releaseLock (value) {
+        let locks = this.state.locks
+        locks[value] = false
+        this.setState({locks: locks})
+    }
 
-      _setLock(value) {
-        let locks = this.state.locks;
-        locks[value] = true;
-        this.setState({locks: locks});
-      }
+    _setLock (value) {
+        let locks = this.state.locks
+        locks[value] = true
+        this.setState({locks: locks})
+    }
 
-      _changePassword(event) {
-        this.setState({password: event.target.value});
-      }
+    _changePassword (event) {
+        this.setState({password: event.target.value})
+    }
 
-    _changePasswordConfirm(event) {
-        this.setState({passwordConfirm: event.target.value});
-      }
+    _changePasswordConfirm (event) {
+        this.setState({passwordConfirm: event.target.value})
+    }
 
-    login(e) { // handles login
-        e.preventDefault();
-        if(!this.state.locks[0] && !this.state.locks[1]) {
-            this.props.fetchUser(this.state.email, this.state.password);
+    login (e) { // handles login
+        e.preventDefault()
+        if (!this.state.locks[0] && !this.state.locks[1]) {
+            this.props.fetchUser(this.state.email, this.state.password)
         }
-        this.setState({email: '', password: ''});
-        if(this.props.errorMessage == "") {
-            this.props.setErrorMessage("Both entries must be valid");
+        this.setState({email: '', password: ''})
+        if (this.props.errorMessage === '') {
+            this.props.setErrorMessage('Both entries must be valid')
         }
-        this.props.setErrorDisplay(true);
+        this.props.setErrorDisplay(true)
     }
 
-    handleSubmit(e) { // handles create user
-        e.preventDefault();
-        if(!this.state.locks[2] && !this.state.locks[3] && !this.state.locks[4]) {
-            this.props.generateUser(this.state.email, this.state.password);
+    handleSubmit (e) { // handles create user
+        e.preventDefault()
+        if (!this.state.locks[2] && !this.state.locks[3] && !this.state.locks[4]) {
+            this.props.generateUser(this.state.email, this.state.password)
         } else {
-            this.setState({email: '', password: '', passwordConfirm: ''});
-            if(this.props.errorMessage == "") {
-            this.props.setErrorMessage("All entries must be valid");
+            this.setState({email: '', password: '', passwordConfirm: ''})
+            if (this.props.errorMessage == '') {
+                this.props.setErrorMessage('All entries must be valid')
+            }
+            this.props.setErrorDisplay(true)
         }
-            this.props.setErrorDisplay(true);
-        }   
     }
 
-    validateEmail(value) {
+    validateEmail (value) {
         // regex from http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(value);
+        let re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return re.test(value)
     }
 
-    commonValidate(value) {
-        return true;
+    commonValidate (value) {
+        return true
     }
 
-    passwordConfirmValidate(value) {
-        return value === this.state.password;
+    passwordConfirmValidate (value) {
+        return value === this.state.password
     }
 
-    loginSuccess() {
-        this.props.router.push("/dashboard")
+    loginSuccess () {
+        this.props.router.push('/dashboard')
     }
 
-    render() {
+    render () {
         // response is the response from the server,
         // state is the state of user generation
-        const { response, state, loginState, login, auth, user, errorMessage, errorDisplay } = this.props 
+        const {response, state, loginState, login, auth, user, errorMessage, errorDisplay} = this.props
 
         const cardStyle = {
-            marginTop:'200px',
+            marginTop: '200px',
             padding: 0,
             zIndex: 3
         }
@@ -154,24 +161,34 @@ class Login extends Component {
             marginBottom: 40
         }
 
-        const { activeItem } = this.state
+        const {activeItem} = this.state
 
-        let loading = (<Button color={'green'}>Sign Up</Button>);
-        if(state == "generating user") {
-            loading = (<Button loading color={'green'}>Sign Up</Button>);
+        let loading = (<Button color={'green'}>Sign Up</Button>)
+        if (state === 'generating user') {
+            loading = (<Button loading color={'green'}>Sign Up</Button>)
         }
         console.log(errorMessage, errorDisplay)
         return (
-            <div style={{textAlign:'center'}}>
-                <Card centered style={cardStyle} >
-                        <Menu tabular attached='top' widths={2}>
-                            <Menu.Item name='Login' active={activeItem === 'Login'}  style={{borderBottom:0}} onClick={this.handleItemClick} />
-                            <Menu.Item name='Sign Up' active={activeItem === 'Sign Up'} style={{borderBottom:0}} onClick={this.handleItemClick} />
-                        </Menu>
+            <div style={{textAlign: 'center'}}>
+                <Card centered style={cardStyle}>
+                    <Menu tabular attached='top' widths={2}>
+                        <Menu.Item name='Login' active={activeItem === 'Login'} style={{borderBottom: 0}}
+                                   onClick={this.handleItemClick}/>
+                        <Menu.Item name='Sign Up' active={activeItem === 'Sign Up'} style={{borderBottom: 0}}
+                                   onClick={this.handleItemClick}/>
+                    </Menu>
                     {(activeItem === 'Login') ? (
-                        <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderRight:'1px solid #fff', borderLeft:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}} >
+                        <Card.Content style={{
+                            boxSizing: 'border-box',
+                            borderBottom: '1px solid #ccc',
+                            borderRight: '1px solid #fff',
+                            borderLeft: '1px solid #ccc',
+                            borderTop: '0px solid #ccc',
+                            borderRadius: '2px'
+                        }}>
                             <Form onSubmit={this.login}>
-                                {errorDisplay ? <ErrorMessage error={errorMessage} color={this.props.errorColor}/> : null}
+                                {errorDisplay ?
+                                    <ErrorMessage error={errorMessage} color={this.props.errorColor}/> : null}
                                 <TextInput
                                     label="Email"
                                     uniqueName="email"
@@ -214,9 +231,16 @@ class Login extends Component {
                             </Form>
                         </Card.Content>
                     ) : (
-                        <Card.Content style={{boxSizing:'border-box', borderBottom:'1px solid #ccc', borderLeft:'1px solid #fff', borderRight:'1px solid #ccc', borderTop:'0px solid #ccc', borderRadius:'2px'}}>
+                        <Card.Content style={{
+                            boxSizing: 'border-box',
+                            borderBottom: '1px solid #ccc',
+                            borderLeft: '1px solid #fff',
+                            borderRight: '1px solid #ccc',
+                            borderTop: '0px solid #ccc',
+                            borderRadius: '2px'
+                        }}>
                             <Form onSubmit={this.handleSubmit}>
-                                {errorDisplay ? <ErrorMessage error={errorMessage} /> : null}
+                                {errorDisplay ? <ErrorMessage error={errorMessage}/> : null}
                                 <TextInput
                                     label="Email"
                                     uniqueName="email"
@@ -255,7 +279,7 @@ class Login extends Component {
                                     setLock={this._setLock.bind(this)}
                                     lid={3}
                                     onChange={this._changePassword}/>
-                               <TextInput
+                                <TextInput
                                     label="Confirm Password"
                                     uniqueName="confirm_password"
                                     text="Confirm Password"

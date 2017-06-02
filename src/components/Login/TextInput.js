@@ -67,8 +67,6 @@ class TextInput extends Component {
 	handleBlur(e) {
 		let valid = this.props.validate(e.target.value);
 		this.validation(e.target.value, valid);
-		
-
 		// this.props.visible(this.state.errorVisible); // place functions in setState callback to make sure updates parent correctly
 		// this.props.setErrorMessage(this.state.errorMessage);
 		if(this.props.onChange) {

@@ -6,6 +6,8 @@ import setAuthorizationToken from '../../../../components/utils/setAuthorization
 const SERVER_URL = "http://localhost:3000";
 import { setCurrentUser } from "./authActions"
 import { SET_ERROR_MESSAGE } from "./errorActions"
+import { browserHistory } from "react-router"
+
 
 export const FETCH_USER = "FETCH_USER";
 let fetchUser = (dispatch) => {
@@ -34,16 +36,18 @@ let fetchUser = (dispatch) => {
                 setAuthorizationToken(token);
                 dispatch(setCurrentUser(token));
 
+                browserHistory.push("/dashboard")
+
                 dispatch({
                     type: SET_ERROR_MESSAGE,
                     message: data.message
                 });
+
+
             })
             .catch((error) => {
                 dispatch(fetchUserFailure(error, payload));
-                console.log(error.response.data.error)
-       
-
+                console.log(error)
                 dispatch({
                     type: SET_ERROR_MESSAGE,
                     message: error.response.data.error
