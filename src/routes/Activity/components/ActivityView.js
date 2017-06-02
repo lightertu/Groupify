@@ -39,7 +39,6 @@ export class ActivityView extends React.Component {
         this.props.fetchParticipantList(this.props.activityId);
 
         this.state = ({filters: []});
-        this.setFilterValues = this.setFilterValues.bind(this);
         this.toggleLock = this.toggleLock.bind(this);
 
     }
@@ -48,7 +47,7 @@ export class ActivityView extends React.Component {
         this.props.toggleLock(group);
     }
 
-    setFilterValues(input, event) {
+    setFilterValues = (input, event) => {
         let field = this.state[input];
         if(event.target.getAttribute('class') === "delete icon") {
             let item = event.target.parentNode.getAttribute('value');
@@ -65,6 +64,8 @@ export class ActivityView extends React.Component {
                 }
             }
         }
+
+        console.log(field);
         this.setState({field:field});
     }
 
@@ -115,7 +116,9 @@ export class ActivityView extends React.Component {
                                        draggedUser={ this.props.matching.get("current") }
                                        group={ i }
                                        unlocked={ this.props.unlocked.get(i) }
-                                       filters={ this.state.filters }/>
+                                       filters={ this.state.filters }
+                                       dragging={dragging}
+                            />
                         </Grid.Column>
                     )
                 )
@@ -136,7 +139,9 @@ export class ActivityView extends React.Component {
                         <FilterMenu activityId={ this.props.activityId }
                                     generateGroupAssignment={ this.props.generateGroupAssignment }
                                     filterValues={ this.props.matching.get("attributes") }
-                                    setFilterValues={ this.setFilterValues }/>
+                                    setFilterValues={ this.setFilterValues }
+                                    filterParticipants = { this.props.filterParticipants }
+                        />
                     }
                     
                     <Grid columns={ cardsPerRow }>

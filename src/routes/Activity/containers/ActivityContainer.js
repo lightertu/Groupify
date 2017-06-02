@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch) => ({
     updateParticipantGroupNumber: Actions.updateParticipantGroupNumberActions.updateParticipantGroupNumber(dispatch),
     generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
     sortParticipantsMatch: Actions.userMatchingActions.sortParticipants(dispatch), 
-    filterParticipantsMatch: Actions.userMatchingActions.filterParticipants(dispatch),
+    filterParticipantsMatch: Actions.filterParticipantsActions.filterParticipants(dispatch),
+    filterParticipants: Actions.filterParticipantsActions.filterParticipants(dispatch),
     createLocks: Actions.groupLockActions.createLocks(dispatch),
     toggleLock: Actions.groupLockActions.toggleLock(dispatch)
 });

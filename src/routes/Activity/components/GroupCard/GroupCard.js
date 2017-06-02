@@ -228,7 +228,7 @@ class GroupCard extends React.Component {
                     opacity: this.props.unlocked ? 0.5 : 1,
                     cursor: this.props.unlocked ? 'not-allowed' : 'default'
                 } }>
-                    <Segment padded={ true } size="large" color={matchingColor} inverted={true}
+                    <Segment padded={ true } size="large" color={this.props.dragging? matchingColor : ""} inverted={true}
                              style={{
                                  backgroundColor: '#fcfcfc',
                              }}
