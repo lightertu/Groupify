@@ -8,7 +8,7 @@ module.exports = function (req, res, next) {
     User.findOne({_id: req.user._id})
         .populate({
             path: 'activities',
-            select: 'title groupCapacity totalCapacity endDate lastModified participants currentCapacity color',
+            select: 'title groupCapacity totalCapacity endDate lastModified participants currentCapacity color lockedGroups',
             match: {isDeleted: false}
         })
         .exec()

@@ -51,6 +51,12 @@ let ActivitySchema = Schema({
         required: true,
     },
 
+    lockedGroups: {
+        type: [Number],
+        default: [],
+    },
+
+
     color: {
         type: String,
         default: activityRandomColorGenerator,
@@ -92,6 +98,7 @@ ActivitySchema.pre('save', function(next){
 
 ActivitySchema.methods.getPublicFields = function () {
     return {
+        _id: this._id,
         title: this.title,
         totalCapacity: this.totalCapacity,
         groupCapacity: this.groupCapacity,
@@ -100,6 +107,7 @@ ActivitySchema.methods.getPublicFields = function () {
         endDate: this.endDate,
         participants: this.participants,
         survey: this.survey,
+        lockedGroups: this.lockedGroups,
         lastModifiedTime: this.lastModifiedTime,
     };
 };
