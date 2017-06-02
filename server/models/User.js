@@ -23,11 +23,11 @@ let UserSchema = Schema({
         default: ""
     },
 
-    isNew: {
-        type: Boolean,
-        required: true,
-        default: true,
-    },
+    // isNewOne: {
+    //     type: Boolean,
+    //     required: true,
+    //     default: true,
+    // },
 
     password: {
         type: String,
