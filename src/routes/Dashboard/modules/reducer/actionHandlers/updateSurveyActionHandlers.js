@@ -14,7 +14,7 @@ let handleUpdateSurveyFailure = (state, payload) => {
 
 let handleUpdateSurveySuccess = (state, payload) => {
     let newState = state.setIn(['surveysViewData', 'isEditing'], false);
-    newState = state.setIn(['surveysViewData', 'openEditModal'], false);
+    newState = newState.setIn(['surveysViewData', 'openEditModal'], false);
     return newState;
 }
 

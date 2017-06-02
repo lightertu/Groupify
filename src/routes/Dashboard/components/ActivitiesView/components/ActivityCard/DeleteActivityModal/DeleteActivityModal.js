@@ -23,14 +23,9 @@ export default class DeleteActivityModal extends React.Component {
 
     render() {
         return (
-            <Modal open={this.props.openDeleteModal} onUnmount={this.props.fetchActivityList} size="small" dimmer={"blurring"}>
+            <Modal open={this.props.openDeleteModal} size="small" dimmer={"blurring"}>
                 <Modal.Header> Delete Activity </Modal.Header>
                 <Modal.Content>
-                    <Message negative floating hidden={!this.props.failedToDelete}
-                        style={{textAlign:'center'}}
-                    >
-                        <Message.Header>ERROR: {this.props.deleteError}</Message.Header>
-                    </Message>
                     <p>Are you sure you want to delete [{this.props.activityHolder.get('title')}] </p>
                 </Modal.Content>
                 <Modal.Actions>
@@ -44,6 +39,11 @@ export default class DeleteActivityModal extends React.Component {
                         labelPosition='right'
                         content='Delete'
                         onClick={this.deleteActivityHandler}/>
+                    <Message negative floating hidden={!this.props.failedToDelete}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.deleteError}</Message.Header>
+                    </Message>
                 </Modal.Actions>
             </Modal>
         );

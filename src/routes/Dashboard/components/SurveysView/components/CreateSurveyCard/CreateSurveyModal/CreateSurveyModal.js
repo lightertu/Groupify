@@ -53,7 +53,7 @@ export default class Create extends React.Component {
 
     render() {
         return (
-            <Modal open={this.props.openCreateModal} onUnmount={this.props.fetchSurveyList} size="small" dimmer={false}>
+            <Modal open={this.props.openCreateModal} size="small" dimmer={false}>
                 <Modal.Header> Create Survey </Modal.Header>
                 <Modal.Content>
                     <Message negative floating hidden={!this.props.failedToCreate}
