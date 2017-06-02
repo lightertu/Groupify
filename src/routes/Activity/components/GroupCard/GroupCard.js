@@ -34,26 +34,8 @@ class DraggableCard extends React.Component {
 
     render () {
         const {connectDragSource, isDragging, participant} = this.props
-
-        if (this.props.unlocked) {
-            return (
-                <div className="card" style={ {cursor: this.props.unlocked ? "not-allowed" : "default"} }>
-                    <ParticipantProfilePopup
-                        trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
-                        position="top right"
-                        offset={ 0 }
-                        name={ participant.name }
-                        image={ participant.image }
-                        groupNumber={participant.groupNumber }
-                        skills={ participant.skills }
-                        availability={ participant.availability }
-                        participantId={ participant.participantId }/>
-                </div>
-            )
-        }
-
-        return connectDragSource(
-            <div className="card" style={ {cursor: 'move'} }>
+        let participantCard =
+            <div className="card" style={ {cursor: this.props.unlocked ? 'not-allowed' : 'default'} }>
                 <ParticipantProfilePopup
                     trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
                     position="top right"
@@ -65,7 +47,12 @@ class DraggableCard extends React.Component {
                     availability={ participant.availability }
                     participantId={ participant.participantId }/>
             </div>
-        )
+
+        if (this.props.unlocked) {
+            return ( participantCard )
+        }
+
+        return connectDragSource(participantCard)
     }
 }
 
@@ -101,14 +88,11 @@ class GroupCard extends React.Component {
 
     constructor (props) {
         super(props)
-        this.state = {
-            matchingStatusOpen: true, availability: [], skills: []
-        }
-
-    }
-
-    toggleMatchingStatus = () => {
-        // this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
+        /*
+         this.state = {
+         matchingStatusOpen: true, availability: [], skills: []
+         }
+         */
     }
 
     render () {
@@ -233,25 +217,12 @@ class GroupCard extends React.Component {
             background = 'black'
         }
 
-        let lockIcon = 'lock'
         if (this.props.unlocked) {
-            lockIcon = 'unlock'
             matchingColor = 'grey'
         }
-        //<Label attached='top left'> Group { this.props.groupNumber }</Label>
-        let test = {
-            top: 0,
-            left: 0,
-            marginTop: -24,
-            marginLeft: -24,
-            marginRight: 0,
-            paddingRight: 0,
-            marginBottom: 10
-        }
 
-        let display
-        if (view) {
-            display = (
+        let display = (
+            <div>
                 <Segment.Group raised style={ {
                     backgroundColor: background,
                     opacity: this.props.unlocked ? 0.5 : 1,
@@ -263,10 +234,10 @@ class GroupCard extends React.Component {
                              }}
                     >
                         <Label onClick={() => {this.props.toggleLock(this.props.group)} }
-                               style={{ opacity: 2, cursor: "pointer" }}
+                               style={{opacity: 2, cursor: 'pointer'}}
                                attached={'top left'}
                         >
-                            <Icon name={ this.props.unlocked ? "lock" : "unlock" }/>
+                            <Icon name={ this.props.unlocked ? 'lock' : 'unlock' }/>
                             Group { this.props.groupNumber } &nbsp;
                             {/*matching: &nbsp;{Math.round(result*100)}% */}
 
@@ -291,30 +262,19 @@ class GroupCard extends React.Component {
                         </Label>
                     </Segment>
 
-                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                    { (this.props.participants.length > 0 ) &&
                     <AvailabilitySegment participants={ this.props.participants }
                                          isOver={ isOver }/> }
 
-                    { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
+                    { (this.props.participants.length > 0 ) &&
                     <SkillCountSegment participants={ this.props.participants }
                                        isOver={ isOver }/> }
                 </Segment.Group>
-            )
-        }
-
-        if (this.props.unlocked) { // if locked nothing can be dragged into it
-            return (
-                <div>
-                    {display}
-                </div>
-            )
-        }
-
-        return connectDropTarget(
-            <div>
-                {display}
             </div>
         )
+
+        return (this.props.unlocked) ? display : connectDropTarget(display)
+
     }
 }
 

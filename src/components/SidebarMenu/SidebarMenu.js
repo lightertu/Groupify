@@ -13,9 +13,11 @@ class Sidebar extends React.Component {
 
     render() {
         return (
-            <Menu vertical fixed={"left"} style={{width: "290px", paddingTop: "55px"}} size={this.props.size}>
-                { this.props.children }
-            </Menu>
+            <div style={{ overflow: "scroll"}}>
+                <Menu vertical fixed={"left"} style={{width: "290px", paddingTop: "55px", height: "100%"}} size={this.props.size}>
+                    { this.props.children }
+                </Menu>
+            </div>
         )
     }
 }
