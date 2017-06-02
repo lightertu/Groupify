@@ -88,6 +88,14 @@ ParticipantSchema.methods.getPublicFields = function () {
 };
 
 
+ParticipantSchema.methods.getTestFields = function () {
+    return {
+        name: this.name,
+        groupNumber: this.groupNumber,
+        lastModifiedTime: this.lastModifiedTime,
+    };
+};
+
 
 // validate input
 function validateName(name){
