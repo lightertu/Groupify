@@ -21,6 +21,7 @@ let createActivity = (dispatch) => {
                 dispatch(createActivitySuccess(response.data));
             })
             .catch((error) => {
+                console.log(error.response.data.error);
                 dispatch(createActivityFailure(error));
             });
     }

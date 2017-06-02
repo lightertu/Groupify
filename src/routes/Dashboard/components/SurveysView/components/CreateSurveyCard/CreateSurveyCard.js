@@ -11,12 +11,6 @@ import SurveyInfoForm from '../SurveyInfoForm/SurveyInfoForm'
 export default class CreateSurveyCard extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {
-            createSurveyModalOpen: false
-        }
-    }
-
-    static propTypes = {
     }
 
     /* handlers for opening and closing the modals */
@@ -31,42 +25,41 @@ export default class CreateSurveyCard extends React.Component {
 
     render () {
         return (
-            <Card style={{maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateSurveyModalHandler}>
+            <Card style={{minHeight:'188.72px', maxWidth: '269.5px', backgroundColor: "#e5e7e8"}} onClick={this.openCreateSurveyModalHandler}>
 
                 <CreateSurveyModal onClose={this.closeCreateSurveyModalHandler }
-                                    createSurvey={this.props.createSurvey}
-                                    surveyHolder={this.props.surveyHolder}
-                                    surveyHolderQuestionIndex={this.props.surveyHolderQuestionIndex}
+                        createSurvey={this.props.createSurvey}
+                        surveyHolder={this.props.surveyHolder}
+                        surveyHolderQuestionIndex={this.props.surveyHolderQuestionIndex}
 
-                                    fetchSurveyList={this.props.fetchSurveyList}
-                                    updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
-                                    updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
-                                    updateSurveyCreateError={this.props.updateSurveyCreateError}
+                        fetchSurveyList={this.props.fetchSurveyList}
+                        updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
+                        updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
+                        updateSurveyCreateError={this.props.updateSurveyCreateError}
 
-                                    openCreateModal={this.props.openCreateModal} 
-                                    isCreating={this.props.isCreating} 
-                                    failedToCreate={this.props.failedToCreate} 
-                                    createError={this.props.createError} 
+                        openCreateModal={this.props.openCreateModal} 
+                        isCreating={this.props.isCreating} 
+                        failedToCreate={this.props.failedToCreate} 
+                        createError={this.props.createError} 
 
-                                    open={ this.state.createSurveyModalOpen }
-                                    updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
-                                    updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
-                                    updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
-                                    updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
-                                    updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
-                                    updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
-                                    updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
-                                    updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
-                                    updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
-                                    updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
-                                    updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
-                                    updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
-                                    updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
-                                    updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
-                                    updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
-                                    updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
+                        updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
+                        updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
+                        updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
+                        updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
+                        updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                        updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
+                        updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
+                        updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
+                        updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
+                        updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
+                        updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
+                        updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                        updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                        updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                        updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                        updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
 
-                                     />
+                 />
 
                 <div style={{ textAlign: "center",
                               position: "relative",

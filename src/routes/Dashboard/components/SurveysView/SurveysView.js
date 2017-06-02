@@ -5,8 +5,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Header, Icon, Modal, Segment, Dimmer, Loader, Message } from 'semantic-ui-react'
 
-import randomColor from 'randomcolor'
-
 import SurveyCard from './components/SurveyCard'
 import CreateSurveyCard from './components/CreateSurveyCard/CreateSurveyCard'
 
@@ -15,7 +13,6 @@ import {Map, List, Set} from 'immutable';
 export default class SurveysView extends React.Component {
     constructor (props) {
         super(props)
-        //TODO: trigger and action to fetch surveys data
     }
 
     static propTypes = {
@@ -151,11 +148,7 @@ export default class SurveysView extends React.Component {
                             updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
                             updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
                             updateSurveyCreateError={this.props.updateSurveyCreateError}
-
                             />
-
-                                                
-
                         </Card.Group> 
                     )
                 )}

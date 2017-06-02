@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router';
 import {Input,  Button, Form, Header, Card , Menu, Segment} from 'semantic-ui-react'
 import axios from 'axios';
 import TextInput from './TextInput';
@@ -130,6 +131,10 @@ class Login extends Component {
 
     passwordConfirmValidate(value) {
         return value === this.state.password;
+    }
+
+    loginSuccess() {
+        this.props.router.push("/dashboard")
     }
 
     render() {
