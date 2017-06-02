@@ -64,19 +64,47 @@ export class ActivityView extends React.Component {
                 }
             }
         }
-
         this.setState({field:field});
     }
 
-    setCurrentlySelected(id) {
-        this.props.filterParticipantsMatch(id);
-    }
+    setCurrentlySelected(id) { this.props.filterParticipantsMatch(id); }
 
     render() {
-        //console.log(this.props.filter);
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
+
+        const refilterParticipants = (participants) => {
+            const hasSkills = (filterSkills, skills) => {
+                skills = skills.map( (skill) => (skill.name));
+
+                let result = true;
+                for (let i = 0; i < filterSkills.length; i++) {
+                    result &= skills.includes(filterSkills[i]);
+                }
+                return result;
+            }
+
+            const hasFilterValues = (filter, participant) => {
+                if (filter.length === 0) {
+                    return true;
+                }
+
+                const skills = participant.skills,
+                    availiblity = participant.availability;
+
+                return hasSkills(filter, skills);
+            }
+
+           return participants.filter(
+                (participant) => {
+                    return hasFilterValues(this.props.filter, participant);
+                }
+            )
+        }
+
+        /* the master participants list is filtered here it is just a hacky implementation*/
+        let participants = refilterParticipants(this.props.participants);
 
         let separateIntoGroups = (participants) => {
             let groups = [];
@@ -127,7 +155,7 @@ export class ActivityView extends React.Component {
        
         return (
             <div>
-                <ParticipantListSidebar participants={ this.props.participants }
+                <ParticipantListSidebar participants={ participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                         activityId={ this.props.activityId }
                                         setCurrentlySelected={this.setCurrentlySelected.bind(this)}
@@ -145,7 +173,7 @@ export class ActivityView extends React.Component {
                     }
                     
                     <Grid columns={ cardsPerRow }>
-                        { getGroupCards(separateIntoGroups(this.props.participants)) }
+                        { getGroupCards(separateIntoGroups(participants)) }
                     </Grid>
                 </ActivityCardViewWrapper>
             </div>
