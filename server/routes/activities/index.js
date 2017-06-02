@@ -16,6 +16,12 @@ activitiesRouter.get('/:activityId', authenticationMiddleware, activitiesControl
 activitiesRouter.put('/:activityId', authenticationMiddleware, activitiesControllers.updateActivityController);
 activitiesRouter.delete('/:activityId', authenticationMiddleware, activitiesControllers.deleteActivityController);
 
+activitiesRouter.post('/:activityId/lockedGroup/', authenticationMiddleware,
+                activitiesControllers.lockGroupInCertainActivityController);
+activitiesRouter.delete('/:activityId/lockedGroup/:groupNumber', authenticationMiddleware,
+                activitiesControllers.unlockGroupInCertainActivityController);
+
+
 activitiesRouter.use('/:activityId/participants', require('./participants'));
 
 module.exports = activitiesRouter;
