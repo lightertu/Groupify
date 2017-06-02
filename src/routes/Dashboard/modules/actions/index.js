@@ -1,5 +1,6 @@
 /**
  * Created by rui on 5/9/17.
+ * Updated by Matt on 5/30/17
  */
 
 // add more actions
@@ -13,6 +14,8 @@ import * as fetchActivityListActions from "./fetchActivityListActions"
 import * as createActivityActions from "./createActivityActions"
 import * as updateActivityActions from "./updateActivityActions"
 import * as deleteActivityActions from "./deleteActivityActions"
+import * as updateActivityHolderActions from "./updateActivityHolderActions"
+import * as updateActivityViewActions from "./updateActivityViewActions"
 import * as updateUserProfileActions from "./updateUserProfileActions"
 
 export {
@@ -27,5 +30,7 @@ export {
     createActivityActions,
     fetchActivityListActions,
     deleteActivityActions,
+    updateActivityHolderActions,
+    updateActivityViewActions,
     updateUserProfileActions,
 }

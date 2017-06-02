@@ -13,6 +13,13 @@ const properties = ['title', 'groupCapacity', 'totalCapacity', 'endDate', 'surve
 
 
 function validateInput(payload) {
+
+    console.log('payload: ');
+    console.log(payload);
+    console.log('Format is valid: ' + validateFormat(payload, properties));
+    console.log('Activity is valid: ' + ActivityValidator(payload.title, payload.groupCapacity,
+                            payload.totalCapacity, payload.endDate));
+    console.log('SurveyId [' + payload.surveyId + '] is valid: ' + (typeof title === 'string'));
     return validateFormat(payload, properties)
         && ActivityValidator(payload.title, payload.groupCapacity,
             payload.totalCapacity, payload.endDate)
@@ -26,6 +33,7 @@ function validateSurveyId(surveyId){
 function validateFormat(payload, properties){
     let res = true;
     properties.forEach(function (property) {
+        console.log(property + ' is included: ' + payload.hasOwnProperty(property));
         res = res && payload.hasOwnProperty(property);
     });
     return res;
@@ -41,7 +49,7 @@ module.exports = function (req, res, next) {
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
-
+    
 
     // first find survey by surveyId
     Survey.findOne(

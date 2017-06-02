@@ -16,19 +16,8 @@ export default class SurveyInfoForm extends React.Component {
         }
     }
 
-    handleChange = (e, {name, value}) => {
-        switch (name) {
-            case 'title':
-                this.props.updateSurveyHolderSetTitle(e.target.value);
-                break;
-            default:
-                break;
-        }
-    }
-
     handleSubmit  = (event) => {
         event.preventDefault()
-        // TODO: fire an action to update the store in the mean time put the thing in side of
     }
 
     render () {
@@ -489,7 +478,8 @@ export default class SurveyInfoForm extends React.Component {
                                     ?
                                 <Form.Input
                                     type='number'
-
+                                    min='0'
+                                    step='1'
                                     value={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMaximum')}
@@ -652,6 +642,8 @@ export default class SurveyInfoForm extends React.Component {
                                     ?
                                 <Form.Input
                                     type='number'
+                                    min='0'
+                                    step='1'
                                     value={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMinimum')}
