@@ -8,6 +8,8 @@ const createActivityController   = require("./createActivityController");
 const getOneActivityController   = require("./getOneActivityController");
 const deleteActivityController   = require("./deleteActivityController");
 const updateActivityController   = require("./updateActivityController");
+const lockGroupInCertainActivityController = require("./lockGroupInCertainActivityController");
+const unlockGroupInCertainActivityController = require("./unlockGroupInCertainActivityController")
 
 const activitiesControllers = {
     // create an activity
@@ -23,7 +25,13 @@ const activitiesControllers = {
     deleteActivityController,
 
     //update one activity
-    updateActivityController
+    updateActivityController,
+
+    // lock an group
+    lockGroupInCertainActivityController,
+
+    // unlock an group
+    unlockGroupInCertainActivityController
 };
 
 module.exports = activitiesControllers;
