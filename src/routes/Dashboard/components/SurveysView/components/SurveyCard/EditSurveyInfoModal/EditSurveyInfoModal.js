@@ -55,15 +55,9 @@ export default class EditSurveyInfoModal extends React.Component {
 
     render () {
         return (
-            <Modal open={this.props.openEditModal} onUnmount={this.props.fetchSurveyList} size="small" dimmer={'blurring'}>
-
+            <Modal open={this.props.openEditModal} size="small"dimmer={false}> 
                 <Modal.Header> Edit Survey </Modal.Header>
                 <Modal.Content>
-                    <Message negative floating hidden={!this.props.failedToEdit}
-                        style={{textAlign:'center'}}
-                    >
-                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
-                    </Message>
 
                     {/* this trigger the button inside the form however the button is hidden in css */}
                     <SurveyInfoForm
@@ -89,18 +83,23 @@ export default class EditSurveyInfoModal extends React.Component {
                             updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
 
 
-                                      />
+                    />
+                    <Message negative floating hidden={!this.props.failedToEdit}
+                        style={{textAlign:'center'}}
+                    >
+                        <Message.Header>ERROR: {this.props.editError}</Message.Header>
+                    </Message>
                 </Modal.Content>
                 <Modal.Actions>
                     <Button negative 
-                        disabled={this.props.isCreating}
+                        disabled={this.props.Editing}
                         onClick={ this.props.onClose }
                     >
                         Cancel
                     </Button>
                     <Button positive
-                        disabled={this.props.isCreating}
-                        loading={this.props.isCreating}
+                        disabled={this.props.isEditing}
+                        loading={this.props.isEditing}
                         content='Save Changes'
                         onClick={ this.updateSurveyHandler}
                     />

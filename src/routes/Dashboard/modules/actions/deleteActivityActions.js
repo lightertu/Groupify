@@ -9,6 +9,9 @@
  */
 import axios from "axios";
 const SERVER_URL = "http://localhost:3000";
+import {FETCH_ACTIVITY_LIST, 
+        fetchActivityListFailure, 
+        fetchActivityListSuccess} from './fetchActivityListActions';
 
 /* fetching, get requests */
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
@@ -19,7 +22,18 @@ let deleteActivity = (dispatch) => {
 
         axios.delete(url)
             .then((response) => {
-                dispatch(deleteActivitySuccess(response.data, activityId));
+                dispatch({type: FETCH_ACTIVITY_LIST});
+                let fetchUrl = SERVER_URL + "/api/activities";
+                axios.get(fetchUrl)
+                    .then((fetchResponse) => {
+                        dispatch(deleteActivitySuccess(response.data, activityId));
+                        dispatch(fetchActivityListSuccess(fetchResponse.data));
+                    })
+                    .catch((error) => {
+                        dispatch(deleteActivityFailure(error));
+                        dispatch(fetchActivityListFailure(error));
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 dispatch(deleteActivityFailure(error));

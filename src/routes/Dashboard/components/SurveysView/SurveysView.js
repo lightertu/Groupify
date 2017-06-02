@@ -7,7 +7,8 @@ import { Button, Card, Header, Icon, Modal, Segment, Dimmer, Loader, Message } f
 
 import SurveyCard from './components/SurveyCard'
 import CreateSurveyCard from './components/CreateSurveyCard/CreateSurveyCard'
-
+import EditSurveyInfoModal from './components/SurveyCard/EditSurveyInfoModal'
+import DeleteSurveyModal from './components/SurveyCard/DeleteSurveyModal'
 import {Map, List, Set} from 'immutable';
 
 export default class SurveysView extends React.Component {
@@ -21,6 +22,14 @@ export default class SurveysView extends React.Component {
 
     componentWillMount () {
        this.props.fetchSurveyList(); 
+    }
+
+    closeSurveyInfoHandler = () => {
+        this.props.updateSurveyViewOpenEditModal(false);
+    }
+
+    closeDeleteSurveyHandler = () => {
+        this.props.updateSurveyViewOpenDeleteModal(false);
     }
 
     render () {
@@ -116,7 +125,8 @@ export default class SurveysView extends React.Component {
                             { renderSurveyCards() }
                             <CreateSurveyCard 
                             surveyHolder={this.props.surveysViewData.get('surveyHolder')} 
-                            surveyHolderQuestionIndex={this.props.surveysViewData.get('surveyHolderQuestionIndex')} 
+                            surveyHolderQuestionIndex={
+                                this.props.surveysViewData.get('surveyHolderQuestionIndex')} 
 
                             openCreateModal={this.props.surveysViewData.get('openCreateModal')} 
                             isCreating={this.props.surveysViewData.get('isCreating')} 
@@ -130,22 +140,37 @@ export default class SurveysView extends React.Component {
                             updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
                             updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
                             updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
-                            updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
-                            updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
-                            updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
-                            updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
-                            updateSurveyHolderQuestionSetTooltip={this.props.updateSurveyHolderQuestionSetTooltip}
-                            updateSurveyHolderQuestionSetFilter={this.props.updateSurveyHolderQuestionSetFilter}
-                            updateSurveyHolderQuestionToggleFilter={this.props.updateSurveyHolderQuestionToggleFilter}
-                            updateSurveyHolderQuestionToggleFilterMode={this.props.updateSurveyHolderQuestionToggleFilterMode}
-                            updateSurveyHolderQuestionSetAnswersMaximum={this.props.updateSurveyHolderQuestionSetAnswersMaximum}
-                            updateSurveyHolderQuestionSetAnswersMinimum={this.props.updateSurveyHolderQuestionSetAnswersMinimum}
-                            updateSurveyHolderQuestionToggleAnswersMaximum={this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
-                            updateSurveyHolderQuestionToggleAnswersMinimum={this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
-                            updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex}
+                            updateSurveyHolderQuestionCreate={
+                                this.props.updateSurveyHolderQuestionCreate}
+                            updateSurveyHolderQuestionDelete={
+                                this.props.updateSurveyHolderQuestionDelete}
+                            updateSurveyHolderQuestionSetType={
+                                this.props.updateSurveyHolderQuestionSetType}
+                            updateSurveyHolderQuestionSetTitle={
+                                this.props.updateSurveyHolderQuestionSetTitle}
+                            updateSurveyHolderQuestionSetTooltip={
+                                this.props.updateSurveyHolderQuestionSetTooltip}
+                            updateSurveyHolderQuestionSetFilter={
+                                this.props.updateSurveyHolderQuestionSetFilter}
+                            updateSurveyHolderQuestionToggleFilter={
+                                this.props.updateSurveyHolderQuestionToggleFilter}
+                            updateSurveyHolderQuestionToggleFilterMode={
+                                this.props.updateSurveyHolderQuestionToggleFilterMode}
+                            updateSurveyHolderQuestionSetAnswersMaximum={
+                                this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                            updateSurveyHolderQuestionSetAnswersMinimum={
+                                this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                            updateSurveyHolderQuestionToggleAnswersMaximum={
+                                this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                            updateSurveyHolderQuestionToggleAnswersMinimum={
+                                this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                            updateSurveyHolderQuestionIndex={
+                                this.props.updateSurveyHolderQuestionIndex}
 
-                            updateSurveyViewOpenCreateModal={this.props.updateSurveyViewOpenCreateModal}
-                            updateSurveyViewIsCreating={this.props.updateSurveyViewIsCreating}
+                            updateSurveyViewOpenCreateModal={
+                                this.props.updateSurveyViewOpenCreateModal}
+                            updateSurveyViewIsCreating={
+                                this.props.updateSurveyViewIsCreating}
                             updateSurveyFailedToCreate={this.props.updateSurveyFailedToCreate}
                             updateSurveyCreateError={this.props.updateSurveyCreateError}
                             />
@@ -153,6 +178,68 @@ export default class SurveysView extends React.Component {
                     )
                 )}
 
+                <EditSurveyInfoModal
+                      fetchSurveyList={this.props.fetchSurveyList}
+                      updateSurveyViewIsEditing={this.props.updateSurveyViewIsEditing}
+                      updateSurveyFailedToEdit={this.props.updateSurveyFailedToEdit}
+                      updateSurveyEditError={this.props.updateSurveyEditError}
+
+                      surveyHolder={this.props.surveysViewData.get('surveyHolder')} 
+                      surveyHolderQuestionIndex={
+                            this.props.surveysViewData.get('surveyHolderQuestionIndex')} 
+
+                      openEditModal={this.props.surveysViewData.get('openEditModal')} 
+                      isEditing={this.props.surveysViewData.get('isEditing')} 
+                      failedToEdit={this.props.surveysViewData.get('failedToEdit')} 
+                      editError={this.props.surveysViewData.get('editError')} 
+
+                      onClose={this.closeSurveyInfoHandler }
+                      
+                      updateSurvey={this.props.updateSurvey} 
+ 
+                      updateSurveyHolderGetSurvey={this.props.updateSurveyHolderGetSurvey}
+                      updateSurveyHolderSetId={this.props.updateSurveyHolderSetId}
+                      updateSurveyHolderSetTitle={this.props.updateSurveyHolderSetTitle}
+                      updateSurveyHolderQuestionCreate={this.props.updateSurveyHolderQuestionCreate}
+                      updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete}
+                      updateSurveyHolderQuestionSetType={this.props.updateSurveyHolderQuestionSetType}
+                      updateSurveyHolderQuestionSetTitle={this.props.updateSurveyHolderQuestionSetTitle}
+                      updateSurveyHolderQuestionSetTooltip={
+                            this.props.updateSurveyHolderQuestionSetTooltip}
+                      updateSurveyHolderQuestionSetFilter={
+                            this.props.updateSurveyHolderQuestionSetFilter}
+                      updateSurveyHolderQuestionToggleFilter={
+                            this.props.updateSurveyHolderQuestionToggleFilter}
+                      updateSurveyHolderQuestionToggleFilterMode={
+                            this.props.updateSurveyHolderQuestionToggleFilterMode}
+                      updateSurveyHolderQuestionSetAnswersMaximum={
+                            this.props.updateSurveyHolderQuestionSetAnswersMaximum}
+                      updateSurveyHolderQuestionSetAnswersMinimum={
+                            this.props.updateSurveyHolderQuestionSetAnswersMinimum}
+                      updateSurveyHolderQuestionToggleAnswersMaximum={
+                            this.props.updateSurveyHolderQuestionToggleAnswersMaximum}
+                      updateSurveyHolderQuestionToggleAnswersMinimum={
+                            this.props.updateSurveyHolderQuestionToggleAnswersMinimum}
+                      updateSurveyHolderQuestionIndex={this.props.updateSurveyHolderQuestionIndex} 
+            />
+
+                <DeleteSurveyModal 
+                      onClose={this.closeDeleteSurveyHandler}
+                     
+                      surveyHolder={this.props.surveysViewData.get('surveyHolder')} 
+                      fetchSurveyList={this.props.fetchSurveyList}
+
+                      updateSurveyViewIsDeleting={this.props.updateSurveyViewIsDeleting}
+                      updateSurveyFailedToDelete={this.props.updateSurveyFailedToDelete}
+                      updateSurveyDeleteError={this.props.updateSurveyDeleteError}
+
+                      openDeleteModal={this.props.surveysViewData.get('openDeleteModal')} 
+                      isDeleting={this.props.surveysViewData.get('isDeleting')} 
+                      failedToDelete={this.props.surveysViewData.get('failedToDelete')} 
+                      deleteError={this.props.surveysViewData.get('deleteError')} 
+
+                      deleteSurvey={this.props.deleteSurvey}
+                />
             </div>
         )
     }

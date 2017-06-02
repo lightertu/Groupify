@@ -5,6 +5,16 @@
 import {Map, List, Set, OrderedSet} from 'immutable';
 
 /** Create Action Handlers  **/
+let handleUpdateActivityViewSelectingSurvey = (state, payload) => {
+    let newState = state.setIn(['activitiesViewData', 'selectingSurvey'], payload);
+    return newState;
+}
+
+let handleUpdateActivityViewCreatingSurvey = (state, payload) => {
+    let newState = state.setIn(['activitiesViewData', 'creatingSurvey'], payload);
+    return newState;
+}
+
 let handleUpdateActivityViewOpenCreateModal = (state, payload) => {
     let newState = state.setIn(['activitiesViewData', 'openCreateModal'], payload);
     return newState;
@@ -68,6 +78,9 @@ let handleUpdateActivityViewDeleteError = (state, payload) => {
 }
 
 export {
+    handleUpdateActivityViewSelectingSurvey,
+    handleUpdateActivityViewCreatingSurvey,
+
     handleUpdateActivityViewOpenCreateModal,
     handleUpdateActivityViewIsCreating,
     handleUpdateActivityViewFailedToCreate,

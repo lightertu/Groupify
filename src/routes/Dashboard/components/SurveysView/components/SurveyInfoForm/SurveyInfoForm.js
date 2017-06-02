@@ -61,13 +61,17 @@ export default class SurveyInfoForm extends React.Component {
                 <Form.Group widths='equal'>
 
                     <Form.Input label='Survey Name'
-                                name="title"
-                                placeholder='eg. Hair Color Survey'
-                                value={this.props.surveyHolder.get('title')}
-                                onChange={(e) => {this.props.updateSurveyHolderSetTitle(e.target.value)}}
+                        key={'SURVEY_' + this.props.surveyHolder.get('surveyId') + '_TITLE_KEY'}
+                        disabled={
+                            this.props.inActivitiesView 
+                            && this.props.selectingSurvey 
+                            && (!this.props.creatingSurvey)
+                        }
+                        name="title"
+                        placeholder='eg. Hair Color Survey'
+                        defaultValue={this.props.surveyHolder.get('title')}
+                        onBlur={(e) => {this.props.updateSurveyHolderSetTitle(e.target.value)}}
                     />
-
-                <button style={{display: 'none'}} type='submit' ref={this.props.submitButtonRef}>Submit</button>
                 </Form.Group>
                 <Divider />
                 <Form.Group widths='equal'>
@@ -78,13 +82,19 @@ export default class SurveyInfoForm extends React.Component {
                             :
                             <Segment basic>
                                 <Form.Input 
+                                    disabled={
+                                        this.props.inActivitiesView 
+                                        && this.props.selectingSurvey 
+                                        && (!this.props.creatingSurvey)
+                                    }
+                                    key={'QUESTION_' + this.props.surveyHolderQuestionIndex + '_TITLE'}
                                     style={{marginBottom:10, width:'100%'}}
                                     label='Question Title'
                                     name="title"
                                     placeholder='eg. Availability'
-                                    value={this.props.surveyHolder.get('questions')
+                                    defaultValue={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex).get('title')}
-                                    onChange={(e) => {this.props.updateSurveyHolderQuestionSetTitle(
+                                    onBlur={(e) => {this.props.updateSurveyHolderQuestionSetTitle(
                                         {
                                             'index': this.props.surveyHolderQuestionIndex,
                                             'title': e.target.value
@@ -93,6 +103,11 @@ export default class SurveyInfoForm extends React.Component {
 
                                 />
                                 <Form.Dropdown 
+                                    disabled={
+                                        this.props.inActivitiesView 
+                                        && this.props.selectingSurvey 
+                                        && (!this.props.creatingSurvey)
+                                    }
                                     floating
                                     labeled
                                     icon='chevron down'
@@ -143,7 +158,14 @@ export default class SurveyInfoForm extends React.Component {
                                         ).get('options').get('tooltip')
                                     )
                                     ?
-                                    <Form.Input 
+                                    <Form.Input
+                                        disabled={
+                                            this.props.inActivitiesView 
+                                            && this.props.selectingSurvey 
+                                            && (!this.props.creatingSurvey)
+                                        } 
+
+                                        key={'QUESTION_' + this.props.surveyHolderQuestionIndex + '_TOOLTIP'}
                                         style={{marginBottom:10, width:'100%'}}
                                         label={
                                                 <Label style={{
@@ -191,9 +213,9 @@ export default class SurveyInfoForm extends React.Component {
                                                 </Label>
                                         }
                                         name="tooltip"
-                                        value={this.props.surveyHolder.get('questions')
+                                        defaultValue={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex).get('tooltip')}
-                                        onChange={
+                                        onBlur={
                                             (e) => {this.props.updateSurveyHolderQuestionSetTooltip({
                                                 'index': this.props.surveyHolderQuestionIndex,
                                                 'tooltip': e.target.value
@@ -226,6 +248,11 @@ export default class SurveyInfoForm extends React.Component {
                                     )
                                     ?
                                 <Form.Dropdown 
+                                    disabled={
+                                        this.props.inActivitiesView 
+                                        && this.props.selectingSurvey 
+                                        && (!this.props.creatingSurvey)
+                                    }
                                     search
                                     multiple
                                     selection
@@ -477,10 +504,17 @@ export default class SurveyInfoForm extends React.Component {
                                     )
                                     ?
                                 <Form.Input
+                                    disabled={
+                                        this.props.inActivitiesView 
+                                        && this.props.selectingSurvey 
+                                        && (!this.props.creatingSurvey)
+                                    }
+
+                                    key={'QUESTION_' + this.props.surveyHolderQuestionIndex + '_ANSWERS_MAXIMUM'}
                                     type='number'
                                     min='0'
                                     step='1'
-                                    value={this.props.surveyHolder.get('questions')
+                                    defaultValue={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMaximum')}
                                     label={
@@ -609,10 +643,10 @@ export default class SurveyInfoForm extends React.Component {
                                         }
                                         </Label>
                                     }
-                                    onChange={(e, data) => {
+                                    onBlur={(e, data) => {
                                         this.props.updateSurveyHolderQuestionSetAnswersMaximum(
                                             {
-                                                value:parseInt(data.value),
+                                                value:parseInt(e.target.value),
                                                 index:this.props.surveyHolderQuestionIndex
                                             }
                                         );
@@ -641,10 +675,16 @@ export default class SurveyInfoForm extends React.Component {
                                     )
                                     ?
                                 <Form.Input
+                                    disabled={
+                                        this.props.inActivitiesView 
+                                        && this.props.selectingSurvey 
+                                        && (!this.props.creatingSurvey)
+                                    }
+                                    key={'QUESTION_' + this.props.surveyHolderQuestionIndex + '_ANSWERS_MINIUM'}
                                     type='number'
                                     min='0'
                                     step='1'
-                                    value={this.props.surveyHolder.get('questions')
+                                    defaultValue={this.props.surveyHolder.get('questions')
                                             .get(this.props.surveyHolderQuestionIndex)
                                             .get('answersMinimum')}
                                     label={
@@ -773,10 +813,10 @@ export default class SurveyInfoForm extends React.Component {
                                         }
                                         </Label>
                                     }
-                                    onChange={(e, data) => {
+                                    onBlur={(e, data) => {
                                         this.props.updateSurveyHolderQuestionSetAnswersMinimum(
                                             {
-                                                value:parseInt(data.value),
+                                                value:parseInt(e.target.value),
                                                 index:this.props.surveyHolderQuestionIndex
                                             }
                                         );
@@ -794,6 +834,11 @@ export default class SurveyInfoForm extends React.Component {
 
                     </div>
                     <SurveyQuestionTable
+
+                        inActivitiesView = {this.props.inActivitiesView} 
+                        creatingSurvey={this.props.creatingSurvey} 
+                        selectingSurvey={this.props.selectingSurvey} 
+
                         questions={this.props.surveyHolder.get('questions')} 
                         surveyHolderQuestionIndex={this.props.surveyHolderQuestionIndex}
                         updateSurveyHolderQuestionDelete={this.props.updateSurveyHolderQuestionDelete} 

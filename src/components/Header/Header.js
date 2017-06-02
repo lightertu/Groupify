@@ -1,5 +1,5 @@
 import React from 'react'
-import { withRouter } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
 
 class Header extends React.Component {
@@ -13,43 +13,49 @@ class Header extends React.Component {
     render() {
         const {activeItem} = this.state;
         const options = [
-            { key: 'profile', text: 'Your Profile' },
-            { key: 'activities', text: 'Activites ', src: '/activities' },
-            { key: 'dashboard', text: 'Dashboard', src: '/dashboard'},
-            { key: 'survey', text: 'Your Survey Forms' , src: '/surveys'},
+            { key: 'dashboard', text: 'Dashboard', src: `/dashboard`},
+            { key: 'activities', text: 'Activites ', src: `/dashboard?view=activities`},
+            { key: 'survey', text: 'Surveys' , src: `/dashboard?view=surveys`},
             { key: 'help', text: 'Help' },
-            { key: 'settings', text: 'Settings' },
+            { key: 'settings', text: 'Settings', src: `/dashboard?view=accountSettings`},
             { key: 'sign-out', text: 'Sign Out' },
         ];
 
-        let menuItems = options.map((op) => {
-            return <Dropdown.Item><a href={op.src}>{op.text}</a></Dropdown.Item>;
-        });
-        console.log(this.state.activeItem)
+        let menuItems = options.map((op) =>
+                        <Dropdown.Item as={Link} to={op.src} key={op.key}>
+                            {op.text}
+                        </Dropdown.Item>
+        );
 
         return (
-                <Menu size='small' attached="top" fixed="top" borderless style={ { height: "55px", zIndex: 1500 }} >
-                     <Menu.Item name='Team Divider'
-                                active={activeItem === 'Team Divider'}
-                                onClick={this.handleItemClick}
-                     />
-                     <Menu.Menu position='right'>
-                         <Menu.Item>
-                             <Dropdown as={"a"} trigger={
-                                 <span>
+            <Menu size='small' attached="top" fixed="top" borderless 
+                style={ { height: "55px", zIndex: 1500 }} 
+            >
+                <Menu.Item name='Team Divider'
+                    active={activeItem === 'Team Divider'}
+                    onClick={this.handleItemClick}
+                />
+                <Menu.Menu position='right'>
+                    <Menu.Item>
+                        <Dropdown
+                            trigger={
+                                <span>
                                     <Icon name='user' size={"large"} color={"grey"}/>
-                                 </span>
-                             }>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item disabled={true}><span>Signed in as <strong>Michael Young</strong></span></Dropdown.Item>
-                                    {menuItems}
-                                </Dropdown.Menu>
-                             </Dropdown>
-
-
-                         </Menu.Item>
-                     </Menu.Menu>
-                </Menu>
+                                </span>
+                            }
+                        >
+                            <Dropdown.Menu>
+                                <Dropdown.Item disabled={true}>
+                                    <span>
+                                        Signed in as <strong>Michael Young</strong>
+                                    </span>
+                                </Dropdown.Item>
+                                {menuItems}
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
         )
     }
 }
