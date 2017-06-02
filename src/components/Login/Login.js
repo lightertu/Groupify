@@ -168,6 +168,132 @@ class Login extends Component {
             loading = (<Button loading color={'green'}>Sign Up</Button>)
         }
         console.log(errorMessage, errorDisplay)
+
+        const loginForm =
+            <Card.Content style={{
+                boxSizing: 'border-box',
+                borderBottom: '1px solid #ccc',
+                borderRight: '1px solid #fff',
+                borderLeft: '1px solid #ccc',
+                borderTop: '0px solid #ccc',
+                borderRadius: '2px'
+            }}>
+                <Form onSubmit={this.login}>
+                    {errorDisplay ? <ErrorMessage error={errorMessage} color={this.props.errorColor}/> : null}
+                    <TextInput
+                        label="Email"
+                        uniqueName="email"
+                        text="Email Address"
+                        type="text"
+                        visible={this._errorVisible.bind(this)}
+                        setErrorMessage={this._errorMessage.bind(this)}
+                        required={true}
+                        minCharacters={3}
+                        validate={this.validateEmail.bind(this)}
+                        id="username"
+                        value={this.state.email}
+                        errorMessage="Name is invalid"
+                        emptyMessage="Name is required"
+                        tooShortMessage="That email is too short"
+                        releaseLock={this._releaseLock.bind(this)}
+                        setLock={this._setLock.bind(this)}
+                        lid={0}
+                        onChange={this._changeEmail}/>
+                    <TextInput
+                        label="Password"
+                        uniqueName="password"
+                        text="Password"
+                        type="password"
+                        visible={this._errorVisible.bind(this)}
+                        setErrorMessage={this._errorMessage.bind(this)}
+                        required={true}
+                        minCharacters={3}
+                        validate={this.commonValidate.bind(this)}
+                        id="password"
+                        value={this.state.password}
+                        errorMessage="Password is invalid"
+                        emptyMessage="Password is required"
+                        tooShortMessage="That password is too short"
+                        releaseLock={this._releaseLock.bind(this)}
+                        setLock={this._setLock.bind(this)}
+                        lid={1}
+                        onChange={this._changePassword}/>
+                    <Button color={'green'}>Login</Button>
+                </Form>
+            </Card.Content>
+
+        const signupForm =
+            <Card.Content style={{
+                boxSizing: 'border-box',
+                borderBottom: '1px solid #ccc',
+                borderLeft: '1px solid #fff',
+                borderRight: '1px solid #ccc',
+                borderTop: '0px solid #ccc',
+                borderRadius: '2px'
+            }}>
+                <Form onSubmit={this.handleSubmit}>
+                    {errorDisplay ? <ErrorMessage error={errorMessage}/> : null}
+                    <TextInput
+                        label="Email"
+                        uniqueName="email"
+                        text="Email Address"
+                        type="text"
+                        visible={this._errorVisible.bind(this)}
+                        setErrorMessage={this._errorMessage.bind(this)}
+                        required={true}
+                        minCharacters={3}
+                        validate={this.validateEmail.bind(this)}
+                        id="username"
+                        value={this.state.email}
+                        errorMessage="Name is invalid"
+                        emptyMessage="Name is required"
+                        tooShortMessage="That email is too short"
+                        releaseLock={this._releaseLock.bind(this)}
+                        setLock={this._setLock.bind(this)}
+                        lid={2}
+                        onChange={this._changeEmail}/>
+                    <TextInput
+                        label="Password"
+                        uniqueName="password"
+                        text="Password"
+                        type="password"
+                        visible={this._errorVisible.bind(this)}
+                        setErrorMessage={this._errorMessage.bind(this)}
+                        required={true}
+                        minCharacters={3}
+                        validate={this.commonValidate.bind(this)}
+                        id="password"
+                        value={this.state.password}
+                        errorMessage="Password is invalid"
+                        emptyMessage="Password is required"
+                        tooShortMessage="That password is too short"
+                        releaseLock={this._releaseLock.bind(this)}
+                        setLock={this._setLock.bind(this)}
+                        lid={3}
+                        onChange={this._changePassword}/>
+                    <TextInput
+                        label="Confirm Password"
+                        uniqueName="confirm_password"
+                        text="Confirm Password"
+                        type="password"
+                        visible={this._errorVisible.bind(this)}
+                        setErrorMessage={this._errorMessage.bind(this)}
+                        required={true}
+                        minCharacters={3}
+                        validate={this.passwordConfirmValidate.bind(this)}
+                        id="password"
+                        value={this.state.passwordConfirm}
+                        errorMessage="Password does not match"
+                        emptyMessage="Password is required"
+                        tooShortMessage="That password is too short"
+                        releaseLock={this._releaseLock.bind(this)}
+                        setLock={this._setLock.bind(this)}
+                        lid={4}
+                        onChange={this._changePasswordConfirm}/>
+                    {loading}
+                </Form>
+            </Card.Content>
+
         return (
             <div style={{textAlign: 'center'}}>
                 <Card centered style={cardStyle}>
@@ -177,131 +303,7 @@ class Login extends Component {
                         <Menu.Item name='Sign Up' active={activeItem === 'Sign Up'} style={{borderBottom: 0}}
                                    onClick={this.handleItemClick}/>
                     </Menu>
-                    {(activeItem === 'Login') ? (
-                        <Card.Content style={{
-                            boxSizing: 'border-box',
-                            borderBottom: '1px solid #ccc',
-                            borderRight: '1px solid #fff',
-                            borderLeft: '1px solid #ccc',
-                            borderTop: '0px solid #ccc',
-                            borderRadius: '2px'
-                        }}>
-                            <Form onSubmit={this.login}>
-                                {errorDisplay ?
-                                    <ErrorMessage error={errorMessage} color={this.props.errorColor}/> : null}
-                                <TextInput
-                                    label="Email"
-                                    uniqueName="email"
-                                    text="Email Address"
-                                    type="text"
-                                    visible={this._errorVisible.bind(this)}
-                                    setErrorMessage={this._errorMessage.bind(this)}
-                                    required={true}
-                                    minCharacters={3}
-                                    validate={this.validateEmail.bind(this)}
-                                    id="username"
-                                    value={this.state.email}
-                                    errorMessage="Name is invalid"
-                                    emptyMessage="Name is required"
-                                    tooShortMessage="That email is too short"
-                                    releaseLock={this._releaseLock.bind(this)}
-                                    setLock={this._setLock.bind(this)}
-                                    lid={0}
-                                    onChange={this._changeEmail}/>
-                                <TextInput
-                                    label="Password"
-                                    uniqueName="password"
-                                    text="Password"
-                                    type="password"
-                                    visible={this._errorVisible.bind(this)}
-                                    setErrorMessage={this._errorMessage.bind(this)}
-                                    required={true}
-                                    minCharacters={3}
-                                    validate={this.commonValidate.bind(this)}
-                                    id="password"
-                                    value={this.state.password}
-                                    errorMessage="Password is invalid"
-                                    emptyMessage="Password is required"
-                                    tooShortMessage="That password is too short"
-                                    releaseLock={this._releaseLock.bind(this)}
-                                    setLock={this._setLock.bind(this)}
-                                    lid={1}
-                                    onChange={this._changePassword}/>
-                                <Button color={'green'}>Login</Button>
-                            </Form>
-                        </Card.Content>
-                    ) : (
-                        <Card.Content style={{
-                            boxSizing: 'border-box',
-                            borderBottom: '1px solid #ccc',
-                            borderLeft: '1px solid #fff',
-                            borderRight: '1px solid #ccc',
-                            borderTop: '0px solid #ccc',
-                            borderRadius: '2px'
-                        }}>
-                            <Form onSubmit={this.handleSubmit}>
-                                {errorDisplay ? <ErrorMessage error={errorMessage}/> : null}
-                                <TextInput
-                                    label="Email"
-                                    uniqueName="email"
-                                    text="Email Address"
-                                    type="text"
-                                    visible={this._errorVisible.bind(this)}
-                                    setErrorMessage={this._errorMessage.bind(this)}
-                                    required={true}
-                                    minCharacters={3}
-                                    validate={this.validateEmail.bind(this)}
-                                    id="username"
-                                    value={this.state.email}
-                                    errorMessage="Name is invalid"
-                                    emptyMessage="Name is required"
-                                    tooShortMessage="That email is too short"
-                                    releaseLock={this._releaseLock.bind(this)}
-                                    setLock={this._setLock.bind(this)}
-                                    lid={2}
-                                    onChange={this._changeEmail}/>
-                                <TextInput
-                                    label="Password"
-                                    uniqueName="password"
-                                    text="Password"
-                                    type="password"
-                                    visible={this._errorVisible.bind(this)}
-                                    setErrorMessage={this._errorMessage.bind(this)}
-                                    required={true}
-                                    minCharacters={3}
-                                    validate={this.commonValidate.bind(this)}
-                                    id="password"
-                                    value={this.state.password}
-                                    errorMessage="Password is invalid"
-                                    emptyMessage="Password is required"
-                                    tooShortMessage="That password is too short"
-                                    releaseLock={this._releaseLock.bind(this)}
-                                    setLock={this._setLock.bind(this)}
-                                    lid={3}
-                                    onChange={this._changePassword}/>
-                                <TextInput
-                                    label="Confirm Password"
-                                    uniqueName="confirm_password"
-                                    text="Confirm Password"
-                                    type="password"
-                                    visible={this._errorVisible.bind(this)}
-                                    setErrorMessage={this._errorMessage.bind(this)}
-                                    required={true}
-                                    minCharacters={3}
-                                    validate={this.passwordConfirmValidate.bind(this)}
-                                    id="password"
-                                    value={this.state.passwordConfirm}
-                                    errorMessage="Password does not match"
-                                    emptyMessage="Password is required"
-                                    tooShortMessage="That password is too short"
-                                    releaseLock={this._releaseLock.bind(this)}
-                                    setLock={this._setLock.bind(this)}
-                                    lid={4}
-                                    onChange={this._changePasswordConfirm}/>
-                                {loading}
-                            </Form>
-                        </Card.Content>
-                    )}
+                    {(activeItem === 'Login') ? (loginForm ) : ( signupForm )}
                 </Card>
             </div>
         )
