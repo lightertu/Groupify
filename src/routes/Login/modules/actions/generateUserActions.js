@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { SET_ERROR_MESSAGE, SET_ERROR_TRUE } from "./errorActions"
+import { browserHistory } from "react-router"
 const SERVER_URL = "http://localhost:3000";
 
 export const GENERATE_USER = "GENERATE_USER";
@@ -34,9 +35,10 @@ let generateUser = (dispatch) => {
 
                 dispatch({
                     type: SET_ERROR_MESSAGE,
-                    message: "successfully created user "+email
+                    message: "Sign up successful, now login"
                 });
 
+                browserHistory.push("/login");
             })
             .catch((error) => {
                 dispatch(generateUserFailure(error, payload));

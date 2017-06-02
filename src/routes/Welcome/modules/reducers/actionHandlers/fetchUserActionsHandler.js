@@ -1,6 +1,6 @@
 let handleFetchUser = (state, payload) => {
     return  Object.assign({}, state, {
-      	loginsState: "fetching user",
+      	loginState: "fetching user",
         response: {},
         login: {},
         state: "waiting"

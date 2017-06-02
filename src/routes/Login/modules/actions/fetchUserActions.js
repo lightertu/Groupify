@@ -1,7 +1,6 @@
 // created by Joseph 5/11/17
 
 import axios from "axios";
-import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../../../components/utils/setAuthorizationToken';
 const SERVER_URL = "http://localhost:3000";
 import { setCurrentUser } from "./authActions"
