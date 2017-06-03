@@ -3,6 +3,28 @@
  */
 
 /** ACTIVITY VIEW CREATE ACTIONS **/
+export const UPDATE_ACTIVITY_VIEW_SELECTING_SURVEY = "UPDATE_ACTIVITY_VIEW_SELECTING_SURVEY";
+let updateActivityViewSelectingSurvey = (dispatch) =>      {
+
+    return (payload) => {
+
+        dispatch({type: UPDATE_ACTIVITY_VIEW_SELECTING_SURVEY, payload: payload});
+
+    }
+
+}
+
+export const UPDATE_ACTIVITY_VIEW_CREATING_SURVEY = "UPDATE_ACTIVITY_VIEW_CREATING_SURVEY";
+let updateActivityViewCreatingSurvey = (dispatch) =>      {
+
+    return (payload) => {
+
+        dispatch({type: UPDATE_ACTIVITY_VIEW_CREATING_SURVEY, payload: payload});
+
+    }
+
+}
+
 export const UPDATE_ACTIVITY_VIEW_OPEN_CREATE_MODAL = "UPDATE_ACTIVITY_VIEW_OPEN_CREATE_MODAL";
 let updateActivityViewOpenCreateModal  = (dispatch) =>      {
 
@@ -154,5 +176,7 @@ export {
     updateActivityViewIsDeleting,
     updateActivityFailedToDelete,  
     updateActivityDeleteError,
-
+    
+    updateActivityViewSelectingSurvey,
+    updateActivityViewCreatingSurvey,
 }

@@ -43,7 +43,7 @@ let SurveySchema = Schema({
 
     color: {
         type: String,
-        default: activityRandomColorGenerator,
+        default: surveyRandomColorGenerator,
     },
 
     questions:  [QuestionSchema],
@@ -102,7 +102,7 @@ const randomColorType = {
     alpha: 0.7,
 };
 
-function activityRandomColorGenerator(){
+function surveyRandomColorGenerator(){
     return randomColor(randomColorType);
 }
 

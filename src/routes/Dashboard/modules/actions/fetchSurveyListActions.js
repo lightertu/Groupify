@@ -12,7 +12,16 @@ let fetchSurveyList = (dispatch) => {
         let url = SERVER_URL + "/api/surveys";
         axios.get(url)
             .then((response) => {
-                dispatch(fetchSurveyListSuccess(response.data));
+                dispatch({type: FETCH_SURVEY_LIST});
+                let surveyUrl = SERVER_URL + "/api/surveys";
+                axios.get(surveyUrl)
+                    .then((response) => {
+                        dispatch(fetchSurveyListSuccess(response.data));
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data.error);
+                        console.log(error.response.data.error);
+                    });
             })
             .catch((error) => {
                 console.log(error.response.data.error);
