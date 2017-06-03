@@ -4,6 +4,7 @@ const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 const Activity = require("../../../models/").Activity;
 const ActivityValidator = require("../../../models/").ActivityValidator;
+const Participant = require("../../../models").Participant;
 const createErrorHandler = require("../../utils").createErrorHandler;
 
 
@@ -34,6 +35,33 @@ function validateFormat(payload, properties){
 }
 
 
+function checkTotalCapacity(newTotalC, oldTotalC, currentC){
+    return newTotalC >= oldTotalC || currentC < newTotalC;
+}
+
+function handleTheNewNumberOfGroups(newNumOfGroup, oldNumOfGroup, activity, res){
+    console.log(newNumOfGroup + " " + oldNumOfGroup);
+    if (newNumOfGroup < oldNumOfGroup){
+        activity.participants.forEach(function (parId){
+            Participant.findOneAndUpdate(
+                {
+                    _id: parId, _activity: activity._id, groupNumber: {  $gte: newNumOfGroup }, isDeleted: false,
+                },
+                {
+                    $set: {
+                        "lastModifiedAt": Date.now(),
+                        "groupNumber": -1,
+                    }
+                },
+                {new: true}
+            ).exec().then(function (par){
+                // do nothing here
+            }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+        });
+    }
+}
+
+
 
 module.exports = function (req, res, next) {
 
@@ -43,42 +71,51 @@ module.exports = function (req, res, next) {
         return;
     }
 
-
     const activityId = req.params.activityId,
-        userId = req.user._id;
+        userId = req.user._id,
+        payload = req.body;
 
-    Activity.findOneAndUpdate(
-        {
-            _id: activityId, _creator: userId, isDeleted: false},
-        {
-            $set: {
-                "title": req.body.title,
-                "endDate": new Date(req.body.endDate),
-                "totalCapacity": req.body.totalCapacity,
-                "groupCapacity": req.body.groupCapacity,
-            }
-        },
-        // this select the properties to show
-        {
-            projection: {
-                "title": 1,
-                "endDate": 1,
-                "totalCapacity": 1,
-                "groupCapacity": 1,
-                "participants": 1,
-            },
-            new: true,
-        }
-    )
+
+    Activity.findOne({
+        _id: activityId, _creator: userId, isDeleted: false
+    })
         .exec()
         .then(function (activity) {
-            if (activity === null) {
+            if (activity === null){
                 const errorMessage = "Cannot find activity has id: " + activityId;
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
-            return res.json({
-                activity: activity
-            });
+
+            // check if total capacity works: pass this test if newTotalC not < oldTotalC
+            if (!checkTotalCapacity(payload.totalCapacity, activity.totalCapacity, activity.currentCapacity)){
+                const errorMessage = "the new total capacity should at least greater than current capacity";
+                return createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+            }
+
+
+            // check if number of groups are changed. if so, let rest participants have groupNumber -1
+            let newNumOfGroup = payload.totalCapacity / payload.groupCapacity;
+            let oldNumOfGroup = activity.totalCapacity / activity.groupCapacity;
+
+            handleTheNewNumberOfGroups(newNumOfGroup, oldNumOfGroup, activity, res);
+
+
+            // now we can save the new data to activity model
+            activity.title = payload.title;
+            activity.endDate = new Date(payload.endDate);
+            activity.totalCapacity = payload.totalCapacity;
+            activity.groupCapacity = payload.groupCapacity;
+
+
+            activity.save()
+                .then(function (activity) {
+                    return res.json({
+                        activity: activity
+                    });
+                })
+                .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
 };
