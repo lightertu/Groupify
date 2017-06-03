@@ -83,12 +83,12 @@ module.exports = function (req, res, next) {
                     }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
                 });
 
-                // combine these two pars array to one since the pars should always be sorted by lastmodified
+                // combine these two pars array to one since the pars should always be sorted by lastModified
                 lockedPars.forEach(function (par) {
-                    parsToShowUp.push(par.getTestFields())
+                    parsToShowUp.push(par);
                 });
                 filteredPars.forEach(function (par) {
-                    parsToShowUp.push(par.getTestFields())
+                    parsToShowUp.push(par);
                 });
 
                 return res.status(HttpStatus.OK).json({
