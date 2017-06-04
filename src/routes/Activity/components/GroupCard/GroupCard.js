@@ -33,11 +33,11 @@ class DraggableCard extends React.Component {
     };
 
     render() {
-        const {connectDragSource, isDragging, participant} = this.props;
+        const {connectDragSource, isDragging, participant, num} = this.props;
 
         if(this.props.unlocked) {
             return (
-                    <div className="card" style={ {cursor: "move"} }>
+                    <div className={"card"} style={ {cursor: "move"} }>
                         <ParticipantProfilePopup
                             trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
                             position="top right"
@@ -110,6 +110,7 @@ class GroupCard extends React.Component {
     toggleMatchingStatus = () => {
         // this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
     };
+
 
     render() {
         const {connectDropTarget, isOver} = this.props;
@@ -215,12 +216,13 @@ class GroupCard extends React.Component {
             }
             return true;
 
-        }).map((participant) =>
+        }).map((participant, i) =>
             <DraggableCard 
                 participant={ participant } 
                 key={ participant.participantId } 
                 setCurrentlySelected={ this.props.setCurrentlySelected }
                 unlocked= { this.props.unlocked }
+                num={ i }
                 />
         );
 
@@ -255,7 +257,7 @@ class GroupCard extends React.Component {
                             <Segment padded={ true } size="large" color={color} inverted={true}
                                      style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
                             >
-                                <div style={test}>
+                                <div style={test}   id={"group"+this.props.group.toString()}>
                                     <Label.Group color={"blue"} attached='top left' size={"large"}>
                                         <Label> 
                                             <Popup

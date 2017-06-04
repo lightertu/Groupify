@@ -10,6 +10,7 @@ import ParticipantListSidebar from "./ParticipantListSidebar"
 import GroupCard from "./GroupCard/GroupCard"
 import FilterMenu from "./FilterMenu"
 import {ParticipantTypes} from "../constants/ParticipantTypes"
+var scrollToElement = require('scroll-to-element');
 
 
 const viewTarget = {
@@ -53,10 +54,49 @@ export class ActivityView extends React.Component {
         super(props);
         this.props.fetchParticipantList(this.props.activityId);
 
-        this.state = ({filters: []});
+        this.state = ({filters: [], group: 0, windowHeight: 500});
         this.setFilterValues = this.setFilterValues.bind(this);
         this.toggleLock = this.toggleLock.bind(this);
 
+    }
+
+    updateDimensions() {
+        this.setState({windowHeight: window.innerHeight});
+    }
+
+    componentDidMount() { // add event listener
+        this.updateDimensions();
+        window.addEventListener("resize", this.updateDimensions.bind(this));
+    }
+
+    componentWillUnmount() { // remove event listener
+        window.removeEventListener("resize", this.updateDimensions.bind(this));
+    }    
+
+    handleScroll(group) {
+        console.log(group)
+        // scrollToElement('#group'+group.toString(), {
+        //     offset: -170,
+        //     ease: 'linear',
+        //     duration: 1500,
+        //     alias: 'middle'
+        // });
+    }
+
+    onMouseMove(e) {
+        console.log(e.screenY)
+        console.log(this.state.windowHeight)
+        let group = this.state.group;
+
+        if(e.screenY < 200) {
+            if(group > 0) {
+                group--;
+            }
+        } else if(this.state.windowHeight - e.screenY < 50){
+            group++;
+        }
+        this.setState({group: group});
+        this.handleScroll(group);
     }
 
     toggleLock(group) {
@@ -138,7 +178,7 @@ export class ActivityView extends React.Component {
         };
        
         return (
-            <div>
+            <div onMouseMove={ this.onMouseMove.bind(this) }>
                 <ParticipantListSidebar participants={ this.props.participants }
                                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                         activityId={ this.props.activityId }
@@ -158,6 +198,7 @@ export class ActivityView extends React.Component {
                         { getGroupCards(separateIntoGroups(this.props.participants)) }
                     </Grid>
                     </ActivityCardViewWrapper>
+                    <div className="footer"></div>
 
             </div>
         )
