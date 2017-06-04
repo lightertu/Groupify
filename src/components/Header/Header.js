@@ -1,76 +1,93 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router';
-import {Button, Dropdown, Icon, Menu} from 'semantic-ui-react'
+import { Link } from 'react-router'
+import { Button, Dropdown, Icon, Menu } from 'semantic-ui-react'
 
-class Header extends React.Component {
-    constructor() {
-        super();
-        this.state = {activeItem: 'home'};
+class _SettingMenu extends React.Component {
+    constructor () {
+        super()
     }
 
-    handleItemClick = (e, {name}) => this.setState({activeItem: name})
-
-    render() {
-        const {activeItem} = this.state;
+    render () {
         const options = [
-            { key: 'dashboard', text: 'Dashboard', src: `/dashboard?view=activity`},
-            { key: 'settings', text: 'Settings', src: `/dashboard?view=accountSettings`},
-            { key: 'sign-out', text: 'Sign Out' },
-        ];
+            {key: 'dashboard', icon: 'dashboard', text: 'Dashboard', src: `/dashboard?view=activity`},
+            {key: 'settings', icon: 'setting', text: 'Settings', src: `/dashboard?view=accountSettings`},
+        ]
 
         let menuItems = options.map((op) =>
-                        <Dropdown.Item as={Link} to={op.src} key={op.key}>
-                            {op.text}
-                        </Dropdown.Item>
-        );
+            <Dropdown.Item as={Link} to={op.src} key={op.key}>
+                <Icon name={op.icon}/>{op.text}
+            </Dropdown.Item>)
 
+        const {unauthenticate} = this.props
         return (
-            <Menu size='small' attached="top" fixed="top" borderless 
-                style={ { height: "55px", zIndex: 1500 }} 
-            >
-                <Menu.Item name='Team Divider'
-                    active={activeItem === 'Team Divider'}
-                    onClick={this.handleItemClick}
-                />
-                <Menu.Menu position='right'>
-                    <Menu.Item>
-                        <Dropdown
-                            trigger={
+            <Menu.Menu position='right'>
+                <Menu.Item>
+                    <Dropdown
+                        trigger={
+                            <span>
+                                <Icon name='options' size={'large'} color={'grey'}/>
+                            </span>
+                        }
+                    >
+                        <Dropdown.Menu style={{marginTop: '20px'}}>
+                            <Dropdown.Item disabled={true}>
                                 <span>
-                                    <Icon name='user' size={"large"} color={"grey"}/>
+                                    Signed in as <strong>Michael Young</strong>
                                 </span>
-                            }
-                        >
-                            <Dropdown.Menu>
-                                <Dropdown.Item disabled={true}>
-                                    <span>
-                                        Signed in as <strong>Michael Young</strong>
-                                    </span>
-                                </Dropdown.Item>
-                                {menuItems}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Menu.Item>
-                </Menu.Menu>
-            </Menu>
+                            </Dropdown.Item>
+                            {menuItems}
+                            <Dropdown.Item onClick={unauthenticate}>
+                                <Icon name="sign out"/>Sign out
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </Menu.Item>
+            </Menu.Menu>
         )
     }
 }
 
-/*
- export const Header = () => (
- <div>
- <h1>React Redux cool Kit</h1>
- <IndexLink to='/' activeClassName='route--active'>
- Home
- </IndexLink>
- {' · '}
- <Link to='/counter' activeClassName='route--active'>
- Counter
- </Link>
- </div>
- )
- */
+class _AuthenticationMenu extends React.Component {
+    constructor () {
+        super()
+    }
 
+    redirectToLogin = () => { this.props.push('/login') }
+    redirectToSignup = () => { this.props.push('/signup') }
+
+    render () {
+        return (
+            <Menu.Menu position='right'>
+                <Menu.Item>
+                    <Button primary onClick={this.redirectToLogin}> <Icon name="sign in"/>log in</Button>
+                </Menu.Item>
+                <Menu.Item>
+                    <Button onClick={this.redirectToSignup}> <Icon name="add user"/>Sign up</Button>
+                </Menu.Item>
+            </Menu.Menu>
+        )
+    }
+}
+
+class Header extends React.Component {
+    constructor () {
+        super()
+    }
+
+    render () {
+        const {isAuthenticated, unauthenticate, push, replace} = this.props
+        let createMenuContent = () =>
+            isAuthenticated ? <_SettingMenu push={push} unauthenticate={unauthenticate}/> :
+                <_AuthenticationMenu push={push}/>
+
+        return (
+            <Menu size='small' attached="top" fixed="top"
+                  style={ {height: '55px', zIndex: 1500}}>
+                <Menu.Item name='Team Divider' onClick={this.handleItemClick}/>
+                { createMenuContent() }
+            </Menu>
+        )
+    }
+}
 
 export default Header

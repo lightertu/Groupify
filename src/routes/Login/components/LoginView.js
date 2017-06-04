@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import { Button, Grid, Header, Icon, Image, Label, Message, Segment } from 'semantic-ui-react'
 
-import { Form, Input, TextArea, Checkbox, Radio, RadioGroup, Dropdown, Select, } from 'formsy-semantic-ui-react'
+import { Form } from 'formsy-semantic-ui-react'
 
 class LoginView extends Component {
     constructor (props) {

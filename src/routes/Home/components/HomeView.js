@@ -22,8 +22,6 @@ export default class HomeView extends Component {
         }
     }
     render() {
-        console.log(this.props)
-
         return (
             <div style={{textAlign:'center', marginTop:'200px'}}>
                 <Header size='huge'>
