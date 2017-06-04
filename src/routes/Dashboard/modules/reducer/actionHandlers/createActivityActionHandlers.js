@@ -18,6 +18,7 @@ let handleCreateActivityFailure = (state, payload) => {
 let handleCreateActivitySuccess = (state, payload) => {
     let newState = state.setIn(['activitiesViewData', 'isCreating'], false);
     newState = newState.setIn(['activitiesViewData', 'openCreateModal'], false);
+    newState = newState.setIn(['activitiesViewData', 'selectingSurveyStage'], false);
     return newState;
 }
 

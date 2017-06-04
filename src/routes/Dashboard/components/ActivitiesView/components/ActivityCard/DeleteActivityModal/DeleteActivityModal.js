@@ -12,8 +12,6 @@ export default class DeleteActivityModal extends React.Component {
     }
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        activityId: PropTypes.string.isRequired,
         onClose: PropTypes.func.isRequired
     };
 

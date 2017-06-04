@@ -26,16 +26,17 @@ function validateFormat(payload, properties){
 
 
 module.exports = function (req, res, next) {
-    if (!validateInput(req)) {
-        const errorMessage = 'please give the correct payload';
-        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
-        return;
-    }
 
     const userId = req.user._id;
     const payload = req.body;
 
     console.log(payload);
+
+    if (!validateInput(req)) {
+        const errorMessage = 'please give the correct payload';
+        createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
+        return;
+    }
 
     const newSurvey = new Survey({
         _creator: userId,

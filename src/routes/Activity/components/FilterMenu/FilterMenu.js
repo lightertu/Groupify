@@ -11,14 +11,14 @@ class FilterMenu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputInverted: false
+            inputInverted: false,
         }
     }
 
     static propTypes = {
         generateGroupAssignment: PropTypes.func.isRequired,
         activityId: PropTypes.string.isRequired,
-
+        filterValues: PropTypes.object.isRequired,
     };
 
     generateGroupButtonHandlerMaker = (algorithmKey) => {
@@ -42,6 +42,11 @@ class FilterMenu extends React.Component {
     handleStickyStateChange = () => {
         this.setState({inputInverted: !this.state.inputInverted});
     };
+
+    handleChange = (e, { value }) => {
+        console.log(value);
+        this.props.filterParticipants(value);
+    }
 
     render() {
         const filterMenuStyle = {
@@ -96,8 +101,9 @@ class FilterMenu extends React.Component {
                                     options={options}
                                     multiple selection
                                     transparent
-                                    inverted={ this.state.inputInverted }
-                                    onChange={ this.props.setFilterValues.bind(this, "filters") }
+                                    //inverted={ this.state.inputInverted }
+                                    //onChange={ this.props.setFilterValues.bind(this, "filters") }
+                                    onChange={ this.handleChange }
                                 /> }
                             </Menu.Item>
 

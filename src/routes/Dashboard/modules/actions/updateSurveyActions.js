@@ -2,7 +2,7 @@
  * Created by Matt on 5/23/17.
  */
 import axios from "axios";
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "http://"+window.location.host;
 import {FETCH_SURVEY_LIST, 
         fetchSurveyListFailure, 
         fetchSurveyListSuccess} from './fetchSurveyListActions';

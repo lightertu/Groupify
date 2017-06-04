@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import {Label, Header, Button, Popup, Segment} from 'semantic-ui-react';
 import {Map, List, Set, OrderedSet} from 'immutable';
 
+const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 class TimeAvailabilityQuestionView extends React.Component {
     render() {
         return (
@@ -26,32 +28,32 @@ class TimeAvailabilityQuestionView extends React.Component {
                         </Header>
                 }
                         {
-                           this.props.answersFilter 
-                                .map(option => ( 
+                           weekDays 
+                                .map(day => ( 
                                     <Popup
-                                        key={"_Answer_" + this.props.index + "_." + option}
+                                        key={"_Answer_" + this.props.index + "_." + day}
                                         trigger={
                                             <Button 
                                                 disabled = {this.props.isSubmitting}
                                                 loading = {this.props.isSubmitting}
                                                 className={"ui " 
-                                                + ((this.props.answers.has(option)) ? " green " : " grey ")
+                                                + ((this.props.answers.has(day)) ? " green " : " grey ")
                                                 + " circular huge label"}
                                                 onClick={() => {
-                                                    (this.props.answers.has(option)) ? 
+                                                    (this.props.answers.has(day)) ? 
                                                         this.props.removeAnswer(
-                                                            this.props.index, option
+                                                            this.props.index, day 
                                                         )
                                                     :
                                                         this.props.addAnswer(
-                                                            this.props.index, option 
+                                                            this.props.index, day 
                                                         )
                                                 }}>
-                                                {option[0]}
+                                                {day[0]}
                                             </Button>
                                         }
                                         position='top center'
-                                        content={option}
+                                        content={day}
                                     />
                                 )
                             )

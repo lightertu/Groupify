@@ -10,6 +10,7 @@ const initialState = Map({
     groupCapacity: 0,
     totalCapacity: 0,
     unlocked: List([]),
+    filter: [],
     matching: Map({
         current: "",
         matchingParticipants: new Set(),
@@ -27,6 +28,9 @@ export default function activityReducer (state = initialState, action) {
             return ActionsHandlers.groupLockActionsHandlers.handleCreateLocks(state, action.payload); // delete this after server hookup
         case Actions.groupLockActions.TOGGLE_LOCK:
             return ActionsHandlers.groupLockActionsHandlers.handleToggleLock(state, action.payload);
+
+        case Actions.filterParticipantsActions.FILTER_PARTICIPANTS:
+            return ActionsHandlers.filterParticipantsActionsHandlers.handleFilterParticipants(state, action.payload);
 
         /* reduce userMatching */
         case Actions.userMatchingActions.SORT_PARTICIPANTS:

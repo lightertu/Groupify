@@ -17,8 +17,8 @@ let UserSchema = Schema({
 
     email: {
         type: String,
-        lowercase: true,
         unique: true,
+        lowercase: true,
         required: true,
         default: ""
     },

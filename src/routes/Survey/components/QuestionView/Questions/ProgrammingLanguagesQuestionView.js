@@ -5,27 +5,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Label, Header, Button, Input, Dropdown} from 'semantic-ui-react';
 import {Map, List, Set, OrderedSet} from 'immutable';
+import PROGRAMMING_LANGUAGES from './Constants'
 
-class MultiInputTextFieldQuestionView extends React.Component {
+class ProgrammingLanguagesQuestionView extends React.Component {
     render() {
-        let answersFilterOptions = [];
-
-        this.props.answersFilter.forEach((filter) => {
-            answersFilterOptions.push({
-                key:filter,
-                value:filter,
-                text:filter,
-            })
-        });
-
-        this.props.answers.forEach((answer) => {
-            answersFilterOptions.push({
-                key:answer,
-                value:answer,
-                text:answer,
-            })
-        });
-
         return (
             <div style={{textAlign: 'center', paddingTop:30}} >
                 <segment style={{textAlign: 'center'}} >
@@ -48,18 +31,13 @@ class MultiInputTextFieldQuestionView extends React.Component {
                             <Dropdown
                                 disabled = {this.props.isSubmitting}
                                 loading = {this.props.isSubmitting}
-                                allowAdditions={!this.props.answersEnableFilter}
                                 search
                                 multiple
                                 selection
-                                options={answersFilterOptions}
+                                options={PROGRAMMING_LANGUAGES}
                                 className='icon'
-                                value={this.props.answers.toArray()}
                                 onChange={(e, data) => {
                                    this.props.setAnswer(this.props.index, Set(data.value)); 
-                                }}
-                                onAddItem={(e, data) => {
-                                    this.props.addAnswer(this.props.index, data.value)
                                 }}
                             />
                         </div>
@@ -73,4 +51,4 @@ class MultiInputTextFieldQuestionView extends React.Component {
 }
 
 
-export default MultiInputTextFieldQuestionView;
+export default ProgrammingLanguagesQuestionView;
