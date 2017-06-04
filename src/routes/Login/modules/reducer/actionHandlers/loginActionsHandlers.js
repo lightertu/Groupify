@@ -10,5 +10,6 @@ let handleLoginSuccess = (state, payload) => {
 }
 
 export {
-    handleLogin
+    handleLogin,
+    handleLoginSuccess
 }

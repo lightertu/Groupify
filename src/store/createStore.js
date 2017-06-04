@@ -5,9 +5,6 @@ import makeRootReducer from './reducers'
 import {updateLocation} from './location'
 import { routerReducer, syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux'
 
-
-import generateUsers from "../routes/Activity/modules/UserGenerator"
-
 export default (initialState = {}) => {
     // ======================================================
     // Middleware Configuration
@@ -19,10 +16,7 @@ export default (initialState = {}) => {
     // ======================================================
 
     const routingMiddleware = routerMiddleware(browserHistory);
-    const routingEnhancer = compose(
-        // Middleware you want to use in development:
-        applyMiddleware(routingMiddleware),
-    )
+    const routingEnhancer = applyMiddleware(routingMiddleware);
 
     const enhancers = [routingEnhancer];
 

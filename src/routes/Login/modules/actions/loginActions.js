@@ -12,14 +12,13 @@ let login = (dispatch) => {
     return (email, password) => {
         let payload = {email: email, password: password}
 
+        console.log(payload);
+
         /* first dispatch an action so we know that user is logging in*/
         dispatch({type: LOGIN, payload: null})
 
         let url = SERVER_URL + '/api/auth/login'
-        axios.post(url, {
-            email: email,
-            password: password
-        })
+        axios.post(url, payload)
             .then((response) => {
                 /* this is the jwt token */
                 const token = response.data.token
@@ -36,6 +35,7 @@ let login = (dispatch) => {
                 dispatch(authenticationActions.authenticationSuccess(token))
             })
             .catch((error) => {
+                console.log("got here");
                 dispatch(loginFailure(error, payload))
             })
     }
@@ -44,10 +44,16 @@ let login = (dispatch) => {
 /* user failure */
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
 let loginFailure = (error, payload) => {
-    return {type: LOGIN_FAILURE, error: error, payload: payload}
+    return {type: LOGIN_FAILURE, payload: payload}
 }
 
-export const LOGIN_SUCCESS = 'LOGIN_FAILURE'
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 let loginSuccess = (error, payload) => {
     return {type: LOGIN_SUCCESS, error: error, payload: payload}
+}
+
+export {
+    login,
+    loginSuccess,
+    loginFailure
 }

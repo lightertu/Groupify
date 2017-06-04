@@ -1,29 +1,24 @@
 // We only need to import the modules necessary for initial render
 import CoreLayout from '../layouts/CoreLayout'
-import LoginRoute from './Login'
 import ActivityRoute from './Activity'
-import WelcomeRoute from './Welcome'
 import Dashboard from './Dashboard'
 import Survey from './Survey'
-import AuthRoute from './Auth'
+import LoginRoute from './Login'
 import PageNotFound from './PageNotFound'
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { routerReducer, syncHistoryWithStore, routerActions, routerMiddleware } from 'react-router-redux'
+
+/*home route*/
+import WelcomeRoute from './Welcome'
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
 export const createRoutes = (store) => {
-    const history = syncHistoryWithStore(browserHistory, store)
     return {
         path: '/',
-        history: history,
         component: CoreLayout,
         indexRoute: WelcomeRoute,
         childRoutes: [
             ActivityRoute(store),
             LoginRoute(store),
-            AuthRoute(store),
             Dashboard(store),
             Survey(store),
             PageNotFound(store),
