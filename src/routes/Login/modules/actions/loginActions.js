@@ -16,8 +16,6 @@ let login = (dispatch) => {
     return (email, password) => {
         let payload = {email: email, password: password}
 
-        console.log(payload);
-
         /* first dispatch an action so we know that user is logging in*/
         dispatch({type: LOGIN, payload: null})
 
@@ -30,8 +28,6 @@ let login = (dispatch) => {
                 /* store token in the local storage*/
                 localStorage.setItem('jwtToken', token)
 
-                dispatch(routerActions.replace("/dashboard"))
-
                 /* this will set the the authorization token in all axios requests. */
                 axios.defaults.headers.common['Authorization'] = token;
 
@@ -41,7 +37,7 @@ let login = (dispatch) => {
                 dispatch(authenticationActions.authenticationSuccess(token))
             })
             .catch((error) => {
-                console.log("got here");
+                console.log(error);
                 dispatch(loginFailure(error, payload))
             })
     }

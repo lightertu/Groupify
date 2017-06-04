@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Button, Form, Grid, Header, Image, Input, Message, Segment } from 'semantic-ui-react'
-import { browserHistory } from 'react-router'
+import { Button, Grid, Header, Image, Label, Message, Segment } from 'semantic-ui-react'
+
+import { Form, Input, TextArea, Checkbox, Radio, RadioGroup, Dropdown, Select, } from 'formsy-semantic-ui-react'
 
 class LoginView extends Component {
     constructor (props) {
         super(props)
-        this.state = {email: '', password: ''}
     }
 
     static propTypes = {
@@ -17,29 +17,22 @@ class LoginView extends Component {
     componentWillMount () {
         const {isAuthenticated, replace, redirect} = this.props
         if (isAuthenticated) {
-            browserHistory.push("/dashboard");
+            replace(redirect)
         }
     }
 
-    /*
     componentWillReceiveProps (nextProps) {
         const {isAuthenticated, replace, redirect} = nextProps
         const {isAuthenticated: wasAuthenticated} = this.props
-
-        console.log("logged in");
 
         if (!wasAuthenticated && isAuthenticated) {
             replace(redirect)
         }
     }
-    */
 
-    handleChange = (e, {name, value}) => this.setState({[name]: value})
-
-    handleSubmit = e => {
-        const {email, password} = this.state
+    handleOnValidSubmit = (formData) => {
+        const {email, password} = formData
         const {login} = this.props
-        e.preventDefault()
         login(email, password)
     }
 
@@ -47,19 +40,23 @@ class LoginView extends Component {
         return (
             <Grid centered verticalAlign="middle" columns={3}>
                 <Grid.Column textAlign="center">
+                    <Header as='h2' color='teal' style={{marginTop: '30%'}}>
+                        Login
+                    </Header>
                     <Segment>
-                        <Form size="large" onSubmit={this.handleSubmit}>
-                            <Header as='h2' color='teal'>
-                                Log-in
-                            </Header>
-                            <Form.Field>
-                                <Input fluid icon='user' iconPosition='left' placeholder='E-mail address'
-                                       name='email' value={this.state.email} onChange={this.handleChange}/>
-                            </Form.Field>
-                            <Form.Field>
-                                <Input fluid icon='lock' iconPosition='left' placeholder='Password' type="password"
-                                       name="password" value={this.state.password} onChange={this.handleChange}/>
-                            </Form.Field>
+                        <Form size="large"
+                              onValidSubmit={this.handleOnValidSubmit}>
+                            <Form.Input icon='user' iconPosition='left' placeholder='E-mail address'
+                                        name='email'
+                                        validations="isEmail"
+                                        errorLabel={ <Label color="red" pointing/> }
+                                        validationErrors={{
+                                            isEmail: 'This has to be your email',
+                                            isDefaultRequiredValue: 'required',
+                                        }}
+                            />
+                            <Form.Input icon='lock' iconPosition='left' placeholder='Password' type="password"
+                                        name="password"/>
                             <Button fluid color="teal" size="large">LOGIN</Button>
                         </Form>
                     </Segment>

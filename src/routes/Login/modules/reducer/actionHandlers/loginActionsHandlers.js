@@ -1,12 +1,11 @@
 import isEmpty from 'lodash/isEmpty'
 
 let handleLogin = (state, payload) => {
-    return state.set('authenticating', true)
+    return {something: "cool"}
 }
 
 let handleLoginSuccess = (state, payload) => {
-    return state.set('authenticating', false)
-                .set('jwtToken', payload.token)
+    return {bad: "shit"}
 }
 
 export {
