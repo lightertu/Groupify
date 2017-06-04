@@ -12,6 +12,7 @@ class LoginView extends Component {
     static propTypes = {
         login: PropTypes.func.isRequired,
         replace: PropTypes.func.isRequired,
+        push: PropTypes.func.isRequired,
         hideErrorMessage: PropTypes.func.isRequired,
         authenticating: PropTypes.bool.isRequired,
         authenticationFailed: PropTypes.bool.isRequired
@@ -37,6 +38,10 @@ class LoginView extends Component {
         const {email, password} = formData
         const {login} = this.props
         login(email, password)
+    }
+
+    redirectToSignup = () => {
+        this.props.push('/signup')
     }
 
     render () {
@@ -66,7 +71,7 @@ class LoginView extends Component {
                         </Form>
                     </Segment>
                     <Message>
-                        New to us? <a href="#">Sign Up</a>
+                        New to us? <a style={{cursor: 'pointer'}} onClick={this.redirectToSignup}>Sign up</a>
                     </Message>
                 </Grid.Column>
             </Grid>
