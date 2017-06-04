@@ -28,7 +28,7 @@ module.exports = function (req, res, next) {
     Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
         .populate({
             path: 'participants',
-            select: 'name image groupNumber surveyResponses  lastModified',
+            select: 'name image groupNumber surveyResponses lastModified',
             match: {isDeleted: false},
             options: {
                 sort: {lastModifiedAt: 1} // last modified appears first

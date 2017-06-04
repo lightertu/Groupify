@@ -5,6 +5,7 @@ const HttpStatus = require("http-status-codes");
 
 const createErrorHandler = require("../../../utils").createErrorHandler;
 const Activity = require("../../../../models/").Activity;
+const Participant = require("../../../../models/").Participant;
 const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 
@@ -44,39 +45,59 @@ module.exports = function (req, res, next) {
 
     // first find out if the activity exits and is valid
     Activity.findOne({
-        _id: activityId, _creator: userId, isDeleted: false, survey: {'$ne': []},
-    }).populate({
-        path: 'participants',
-        select: '_id name groupNumber surveyResponses lastModified',
-        match: {isDeleted: false},
-        options: {
-            sort: {lastModifiedAt: 1}
+        _id: activityId, _creator: userId, isDeleted: false,
+    }).exec().then(function (activity) {
+
+        if (activity === null){
+            const errorMessage = 'please give the correct activityId';
+            createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
+            return;
         }
-    })
-        .exec()
-        .then(function(activity){
-            if (activity === null && activity.survey.length !== 1){
-                const errorMessage = 'please give the correct activityId or the survey length is not 1';
-                createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
-                return;
-            }
 
-            // const successRate = algorithmFcn(activity.participants, activity.groupCapacity);
-            algorithmFcn(activity.participants, activity.groupCapacity);
+        // then we try to find the participant by activityID and other constraints
+        Participant.find({
+            // _activity: activityId, groupNumber: {'$nin': activity.lockedGroups}, isDeleted: false,
+            _activity: activityId, isDeleted: false,
+        }).sort({ lastModifiedAt: 1 })
+            .exec()
+            .then(function (pars) {
 
-            activity.participants.forEach(function (par) {
-                par.save().then(function (par) {
-                }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
-            });
+                let filteredPars = [];
+                let lockedPars = [];
+                let parsToShowUp = [];
 
+                pars.forEach(function (par) {
+                    if ( activity.lockedGroups.indexOf(par.groupNumber) === -1){
+                        filteredPars.push(par);
+                    }
+                    else{
+                        lockedPars.push(par);
+                    }
+                });
 
-            return res.status(HttpStatus.OK).json({
-                participants: activity.participants,
-                // successRate: successRate.toFixed(2),
-            });
+                // whatever the pars are empty or not, we go with algorithm, save and print the result
+                algorithmFcn(filteredPars, activity.groupCapacity, activity.lockedGroups);
 
-        })
-        .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+                filteredPars.forEach(function (par) {
+                    par.save().then(function (par) {
+                    }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+                });
+
+                // combine these two pars array to one since the pars should always be sorted by lastModified
+                lockedPars.forEach(function (par) {
+                    parsToShowUp.push(par);
+                });
+                filteredPars.forEach(function (par) {
+                    parsToShowUp.push(par);
+                });
+
+                return res.status(HttpStatus.OK).json({
+                    participants: parsToShowUp,
+                });
+
+            }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
+
+    }).catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));
 
 
 };

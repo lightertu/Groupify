@@ -187,12 +187,22 @@ function generateGroupsForEveryWorkObject (sortedWList, groupSize){
 }
 
 
-function groupingPars(groups, pars){
+function groupingPars(groups, pars, lockedGroup){
+    const sortedLockedGroup = lockedGroup.sort(function(a, b) {
+        return a - b;
+    });
 	for (let i=0; i<groups.length; i++){
+
+        let realGroupNumber = i;
+        sortedLockedGroup.forEach(function (lockedGroupNumber) {
+            if (realGroupNumber >= lockedGroupNumber){
+                realGroupNumber++;
+            }
+        });
 
 		for (let j=0; j<groups[i].length; j++){
 			let index = groups[i][j];
-			pars[index].groupNumber = i;
+			pars[index].groupNumber = realGroupNumber;
 		}
 	}
 	return pars;
@@ -214,7 +224,7 @@ function validateInput(pars, size){
     }
 }
 
-function greedyAlgorithm(pars, groupSize){
+function greedyAlgorithm(pars, groupSize, lockedGroup){
     if (!validateInput(pars, groupSize)){
         return [];
     }
@@ -227,7 +237,7 @@ function greedyAlgorithm(pars, groupSize){
 
     let groups = generateGroupsForEveryWorkObject(sortedWList, groupSize);
 
-    groupingPars(groups, pars);
+    groupingPars(groups, pars, lockedGroup);
 
     successRate.total = groups.length;
     return successRate.success / successRate.total;
