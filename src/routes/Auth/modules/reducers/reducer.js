@@ -1,21 +1,25 @@
-/**
- * Created by Joseph on 5/11/17.
- */
-import * as Actions from "../actions"
-import * as ActionsHandlers from "./actionHandlers"
+import { Map, List } from 'immutable'
+import * as Actions from '../actions'
 
-const initialState = {
-    response: { success: "", message: ""},
-    state: "waiting",
-    login: { success: "", message: ""},
-    loginState: "waiting",
-    isAuthenticated: false,
-    user: {},
-    errorDisplay: false,
-    errorMessage: "",
-    errorColor: ""
-};
+const initialState = Map({
+    jwtToken: localStorage.getItem('jwtToken') || null,
+    authenticating: false,
+})
 
-export default function activityReducer (state = initialState, action) {
-    return state;
-};
+export default (state = initialState, action) => {
+    switch (action.type) {
+        case(Actions.loginActions.LOGIN):
+            return state
+
+        case(Actions.loginActions.LOGIN_SUCCESS):
+            return state
+
+        case(Actions.loginActions.LOGIN_FAILURE):
+            return state
+
+        case(Actions.logoutActions.LOGOUT):
+            return state
+    }
+
+    return state
+}

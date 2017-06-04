@@ -1,12 +1,6 @@
-import * as fetchUserActionsHandlers from "./fetchUserActionsHandler"
-import * as generateUserActionsHandlers from "./generateUserActionsHandlers"
-import * as authActionsHandlers from "./authActionsHandlers"
-import * as errorActionsHandlers from "./errorActionsHandlers"
+import * as loginActionsHandlers from "./loginActionsHandlers"
 
 
 export {
-    generateUserActionsHandlers,
-    fetchUserActionsHandlers,
-    authActionsHandlers,
-    errorActionsHandlers
+    loginActionsHandlers,
 }
