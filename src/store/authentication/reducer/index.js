@@ -5,9 +5,9 @@ import { Map, List } from 'immutable'
 import * as Actions from '../actions'
 import * as ActionsHandlers from './actionHandlers'
 
-const initialState = {
+const initialState = Map({
     jwtToken: localStorage.getItem('jwtToken') || null
-}
+})
 
 export default (state = initialState, action) => {
     switch (action.type) {

@@ -1,14 +1,13 @@
+import { Map, List } from 'immutable'
 import * as Actions from '../actions'
 
-const initialState = {
-    isAuthenticated: false,
-    jwtToken: localStorage.getItem('jwtToken') || null
-}
+const initialState = Map({ })
 
-export default (state = initialState, action) => {
+export default function(state = initialState, action) {
     switch (action.type) {
         case(Actions.loginActions.LOGIN):
             return state
+
         case(Actions.loginActions.LOGIN_SUCCESS):
             return state
 

@@ -9,7 +9,7 @@ import {Map, List, Set, OrderedSet} from 'immutable';
 import jwt from 'jsonwebtoken';
 import axios from 'axios'
 import setAuthorizationToken from '../../../../../components/utils/setAuthorizationToken';
-import { setCurrentUser } from "../../../../../routes/Login/modules/actions/authActions"
+//import { setCurrentUser } from "../../../../../routes/Login/modules/actions/authActions"
 
 const SERVER_URL = "http://localhost:3000";
 

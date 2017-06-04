@@ -10,7 +10,6 @@ import { applyMiddleware, compose } from 'redux'
 
 // imports for web auth
 import jwt from 'jsonwebtoken'
-import { setCurrentUser } from './routes/Login/modules/actions/authActions'
 
 // ========================================================
 // Store Instantiation
@@ -21,13 +20,6 @@ const initialState = window.__INITIAL_STATE__
 const store = createStore(initialState)
 
 // set auth token
-
-/*
-if (localStorage.jwtToken) {
-    setAuthorizationToken(localStorage.jwtToken)
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
-}
-*/
 
 // ========================================================
 // Render Setup

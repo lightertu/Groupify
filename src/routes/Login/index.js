@@ -1,5 +1,26 @@
-import {injectReducer} from '../../store/reducers'
+import { injectReducer } from '../../store/reducers'
+import { Map, List } from 'immutable'
+import * as Actions from './modules/actions'
 
+const initialState = Map({ })
+
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case(Actions.loginActions.LOGIN):
+            return state
+
+        case(Actions.loginActions.LOGIN_SUCCESS):
+            return state
+
+        case(Actions.loginActions.LOGIN_FAILURE):
+            return state
+
+        case(Actions.logoutActions.LOGOUT):
+            return state
+    }
+
+    return state
+}
 export default (store) => ({
     path: 'login',
     /*  Async getComponent is only invoked when route matches   */
@@ -9,11 +30,10 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Login = require('./containers/LoginContainer').default;
-            const reducer = require('./modules/reducers/reducer').default;
-
-            /*  Add the reducer to the store on key 'counter'  */
-            injectReducer(store, {key: 'login', reducer});
+            const Login = require('./containers/loginContainer').default
+            const loginReducer = require('./modules/reducer').default
+            /*  The reducer is merged with global reducer */
+            injectReducer(store, {key: 'login', reducer})
 
             /*  Return getComponent   */
             cb(null, Login)
