@@ -10,10 +10,9 @@ export default (store) => ({
             /*  Webpack - use require callback to define
              dependencies for bundling   */
             const Login = require('./containers/authContainer').default;
-            //const reducer = require('./modules/reducers').default;
-
-            /*  Add the reducer to the store on key 'auth'  */
-            //injectReducer(store, {key: 'auth', reducer});
+            const authReducer = require('./modules/reducers')
+            /*  The reducer is merged with global reducer */
+            injectReducer(store, {key: 'auth', authReducer});
 
             /*  Return getComponent   */
             cb(null, Login)
