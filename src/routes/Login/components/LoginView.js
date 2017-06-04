@@ -42,7 +42,7 @@ class LoginView extends Component {
     render () {
         const {hideErrorMessage, authenticating, authenticationFailed} = this.props
         return (
-            <Grid centered verticalAlign="middle" columns={3}>
+            <Grid centered columns={3}>
                 <Grid.Column >
                     <Header as='h2' color='teal' style={{marginTop: '30%'}}>
                         Login

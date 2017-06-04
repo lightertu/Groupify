@@ -4,6 +4,7 @@ import ActivityRoute from './Activity'
 import Dashboard from './Dashboard'
 import Survey from './Survey'
 import LoginRoute from './Login'
+import SignupRoute from './Signup'
 import PageNotFound from './PageNotFound'
 
 /*home route*/
@@ -19,6 +20,7 @@ export const createRoutes = (store) => {
         childRoutes: [
             ActivityRoute(store),
             LoginRoute(store),
+            SignupRoute(store),
             Dashboard(store),
             Survey(store),
             PageNotFound(store),

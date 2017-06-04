@@ -4,8 +4,6 @@
 
 import axios from 'axios'
 import { authenticationActions } from '../../../../store/authentication/actions'
-import { browserHistory } from 'react-router'
-import {routerActions } from 'react-router-redux'
 
 const SERVER_URL = 'http://localhost:3000'
 export const LOGIN = 'LOGIN'
