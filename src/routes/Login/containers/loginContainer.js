@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     /* not sure what does it do, but it is quite important*/
     /* https://github.com/mjrussell/redux-auth-wrapper/blob/master/examples/localStorage/components/Login.js */
     replace:  (newLocation) => { dispatch(routerActions.replace(newLocation)) },
+    push:  (newLocation) => { dispatch(routerActions.push(newLocation)) },
     hideErrorMessage: () => {dispatch(Actions.loginActions.hideErrorMessage())},
     logout: Actions.logoutActions.logout(dispatch),
 })
