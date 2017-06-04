@@ -8,7 +8,7 @@ import SignupRoute from './Signup'
 import PageNotFound from './PageNotFound'
 
 /*home route*/
-import WelcomeRoute from './Welcome'
+import HomeRoute from './Home'
 
 /*  Note: Instead of using JSX, we recommend using react-router
  PlainRoute objects to build route definitions.   */
@@ -16,7 +16,7 @@ export const createRoutes = (store) => {
     return {
         path: '/',
         component: CoreLayout,
-        indexRoute: WelcomeRoute,
+        indexRoute: HomeRoute,
         childRoutes: [
             ActivityRoute(store),
             LoginRoute(store),
