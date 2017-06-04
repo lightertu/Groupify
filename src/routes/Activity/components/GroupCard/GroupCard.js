@@ -197,23 +197,9 @@ class GroupCard extends React.Component {
                 color = "red";
             }
         }
-        
-        // for(i = 0; i < this.props.filters.length; i++) { // this was used to filter groups
-        //     if(this.props.filters[i] in daysToNums) {
-        //         if(!days[daysToNums[this.props.filters[i]]]) {
-        //             view = false;
-        //             break;
-        //         }
-        //     } else {
-        //         if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
-        //             view = false;
-        //             break;
-        //         }
-        //     }   
-        // }
 
         let state = this;
-        let participants = this.props.participants.filter(function(participant) {
+        let participants = this.props.participants.filter(function(participant) { // filters and creates participant cards
             let i;
             for(i = 0; i < state.props.filters.length; i++) {
                 if(state.props.filters[i] in daysToNums) {
@@ -250,7 +236,7 @@ class GroupCard extends React.Component {
             popup = "click to unlock in this group";
             color = "grey";
         }
-      //<Label attached='top left'> Group { this.props.groupNumber }</Label>
+     
       let test = {
             top: 0,
             left: 0,
@@ -262,8 +248,7 @@ class GroupCard extends React.Component {
       }
 
         let display;
-        if(true) {
-            display = (
+        display = (
                         <Segment.Group raised style={ {cursor: "pointer", backgroundColor: background} }
                                onClick={ this.toggleMatchingStatus }
                                >
@@ -287,9 +272,7 @@ class GroupCard extends React.Component {
                                     </Label.Group>
                                 </div>
                                 <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                                    {
-                                        participants
-                                    }
+                                    { participants }
                                     { generateEmptySpots() }
                                 </Card.Group>
                         
@@ -306,7 +289,6 @@ class GroupCard extends React.Component {
                             <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
                 </Segment.Group>
                 );
-        }
 
         if(this.props.unlocked) { // if locked nothing can be dragged into it
             return (
