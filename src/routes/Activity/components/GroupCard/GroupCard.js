@@ -198,19 +198,45 @@ class GroupCard extends React.Component {
             }
         }
         
-        for(i = 0; i < this.props.filters.length; i++) {
-            if(this.props.filters[i] in daysToNums) {
-                if(!days[daysToNums[this.props.filters[i]]]) {
-                    view = false;
-                    break;
-                }
-            } else {
-                if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
-                    view = false;
-                    break;
-                }
-            }   
-        }
+        // for(i = 0; i < this.props.filters.length; i++) { // this was used to filter groups
+        //     if(this.props.filters[i] in daysToNums) {
+        //         if(!days[daysToNums[this.props.filters[i]]]) {
+        //             view = false;
+        //             break;
+        //         }
+        //     } else {
+        //         if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
+        //             view = false;
+        //             break;
+        //         }
+        //     }   
+        // }
+
+        let state = this;
+        let participants = this.props.participants.filter(function(participant) {
+            let i;
+            for(i = 0; i < state.props.filters.length; i++) {
+                if(state.props.filters[i] in daysToNums) {
+                    if(!participant.availability[daysToNums[state.props.filters[i]]]) {
+                        return false;
+                    }
+                } else {
+                    let skills = participant.skills.map((el) => { return el.name });
+                    if(skills.indexOf(state.props.filters[i]) == -1) {
+                        return false;
+                    }
+                }   
+            }
+            return true;
+
+        }).map((participant) =>
+            <DraggableCard 
+                participant={ participant } 
+                key={ participant.participantId } 
+                setCurrentlySelected={ this.props.setCurrentlySelected }
+                unlocked= { this.props.unlocked }
+                />
+        );
 
         let background = "";
         if(this.props.participants.some((el) => el.participantId == this.props.draggedUser)) {
@@ -236,7 +262,7 @@ class GroupCard extends React.Component {
       }
 
         let display;
-        if(view) {
+        if(true) {
             display = (
                         <Segment.Group raised style={ {cursor: "pointer", backgroundColor: background} }
                                onClick={ this.toggleMatchingStatus }
@@ -262,14 +288,7 @@ class GroupCard extends React.Component {
                                 </div>
                                 <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
                                     {
-                                        this.props.participants.map((participant) =>
-                                            <DraggableCard 
-                                                participant={ participant } 
-                                                key={ participant.participantId } 
-                                                setCurrentlySelected={ this.props.setCurrentlySelected }
-                                                unlocked= { this.props.unlocked }
-                                                />
-                                        )
+                                        participants
                                     }
                                     { generateEmptySpots() }
                                 </Card.Group>

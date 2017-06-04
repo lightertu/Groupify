@@ -15,7 +15,6 @@ import {ParticipantTypes} from "../constants/ParticipantTypes"
 const viewTarget = {
     drop(props, monitor) {
         props.setCurrentlySelected("");
-        console.log(props.groupNumber);
     }
 };
 
