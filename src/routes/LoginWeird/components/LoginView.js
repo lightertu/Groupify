@@ -2,21 +2,13 @@ import React, { Component, PropTypes } from 'react'
 
 import { Button, Form, Grid, Header, Image, Input, Message, Segment } from 'semantic-ui-react'
 
-function select (state, ownProps) {
-    const isAuthenticated = state.authentication.jwtToken !== null
-    const redirect = ownProps.location.query.redirect || '/dashboard'
-    return {
-        isAuthenticated,
-        redirect
-    }
-}
-
 class LoginView extends Component {
     constructor (props) {
         super(props)
         this.state = {email: '', password: ''}
     }
 
+    /*
     static propTypes = {
         login: PropTypes.func.isRequired,
         replace: PropTypes.func.isRequired
@@ -39,6 +31,7 @@ class LoginView extends Component {
             replace(redirect)
         }
     }
+    */
 
     handleChange = (e, {name, value}) => this.setState({[name]: value})
 

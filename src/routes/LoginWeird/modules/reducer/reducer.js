@@ -3,7 +3,7 @@ import * as Actions from '../actions'
 
 const initialState = Map({ })
 
-export default function(state = initialState, action) {
+export default function reducer (state = initialState, action) {
     switch (action.type) {
         case(Actions.loginActions.LOGIN):
             return state
@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
 
         case(Actions.logoutActions.LOGOUT):
             return state
+        default:
+            return state
     }
-
-    return state
 }
