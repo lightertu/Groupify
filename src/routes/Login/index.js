@@ -39,7 +39,7 @@ export default (store) => ({
             console.log(loginReducer);
             console.log(reducer);
             /*  The reducer is merged with global reducer */
-            injectReducer(store, {key: 'login', loginReducer})
+            injectReducer(store, {key: 'login', reducer: loginReducer})
 
             /*  Return getComponent   */
             cb(null, Login)

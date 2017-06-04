@@ -3,7 +3,7 @@ import CoreLayout from '../layouts/CoreLayout'
 import ActivityRoute from './Activity'
 import Dashboard from './Dashboard'
 import Survey from './Survey'
-import LoginRoute from './LoginWeird'
+import LoginRoute from './Login'
 import PageNotFound from './PageNotFound'
 
 /*home route*/

@@ -8,7 +8,6 @@ class LoginView extends Component {
         this.state = {email: '', password: ''}
     }
 
-    /*
     static propTypes = {
         login: PropTypes.func.isRequired,
         replace: PropTypes.func.isRequired
@@ -31,7 +30,6 @@ class LoginView extends Component {
             replace(redirect)
         }
     }
-    */
 
     handleChange = (e, {name, value}) => this.setState({[name]: value})
 
