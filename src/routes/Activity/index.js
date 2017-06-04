@@ -3,7 +3,6 @@
  */
 
 import {injectReducer} from '../../store/reducers'
-import UserIsAuthenticated from "../UserIsAuthenticated"
 
 export default (store) => ({
     path: 'activity',
@@ -16,14 +15,13 @@ export default (store) => ({
             /*  Webpack - use require callback to define
              dependencies for bundling   */
             const activity = require('./containers/ActivityContainer').default;
-            const securedActivity = UserIsAuthenticated(activity);
             /*  Add the reducer to the store on key 'counter'  */
             const reducer = require('./modules/reducer/reducer').default;
 
             injectReducer(store, {key: 'activity', reducer});
 
             /*  Return getComponent   */
-            cb(null, securedActivity)
+            cb(null, activity)
 
             /* Webpack named bundle   */
         }, 'activity')

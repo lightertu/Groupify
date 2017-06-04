@@ -54,8 +54,15 @@ let loginSuccess = (payload) => {
     return {type: LOGIN_SUCCESS, payload: payload}
 }
 
+export const HIDE_ERROR_MESSAGE = 'HIDE_ERROR_MESSAGE'
+let hideErrorMessage = (payload) => {
+    return {type: HIDE_ERROR_MESSAGE, payload: payload}
+}
+
+
 export {
     login,
     loginSuccess,
-    loginFailure
+    loginFailure,
+    hideErrorMessage
 }

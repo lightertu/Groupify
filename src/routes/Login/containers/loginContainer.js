@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     /* not sure what does it do, but it is quite important*/
     /* https://github.com/mjrussell/redux-auth-wrapper/blob/master/examples/localStorage/components/Login.js */
     replace:  (newLocation) => { dispatch(routerActions.replace(newLocation)) },
+    hideErrorMessage: () => {dispatch(Actions.loginActions.hideErrorMessage())},
     logout: Actions.logoutActions.logout(dispatch),
 })
 
@@ -22,6 +23,10 @@ const mapStateToProps = (state, ownProps) => {
     return {
         isAuthenticated: state.authentication.get("jwtToken"),
         redirect: ownProps.location.query.redirect || '/dashboard',
+
+        /* for UI */
+        authenticating: state.login.get("authenticating"),
+        authenticationFailed: state.login.get("authenticationFailed"),
     }
 }
 

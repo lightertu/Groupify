@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Button, Grid, Header, Image, Label, Message, Segment } from 'semantic-ui-react'
+import { Button, Grid, Header, Icon, Image, Label, Message, Segment } from 'semantic-ui-react'
 
 import { Form, Input, TextArea, Checkbox, Radio, RadioGroup, Dropdown, Select, } from 'formsy-semantic-ui-react'
 
@@ -11,7 +11,10 @@ class LoginView extends Component {
 
     static propTypes = {
         login: PropTypes.func.isRequired,
-        replace: PropTypes.func.isRequired
+        replace: PropTypes.func.isRequired,
+        hideErrorMessage: PropTypes.func.isRequired,
+        authenticating: PropTypes.bool.isRequired,
+        authenticationFailed: PropTypes.bool.isRequired
     }
 
     componentWillMount () {
@@ -37,12 +40,14 @@ class LoginView extends Component {
     }
 
     render () {
+        const {hideErrorMessage, authenticating, authenticationFailed} = this.props
         return (
             <Grid centered verticalAlign="middle" columns={3}>
-                <Grid.Column textAlign="center">
+                <Grid.Column >
                     <Header as='h2' color='teal' style={{marginTop: '30%'}}>
                         Login
                     </Header>
+                    {  authenticationFailed && <Message negative onDismiss={hideErrorMessage}> email or password is incorrect </Message>}
                     <Segment>
                         <Form size="large"
                               onValidSubmit={this.handleOnValidSubmit}>
@@ -56,8 +61,8 @@ class LoginView extends Component {
                                         }}
                             />
                             <Form.Input icon='lock' iconPosition='left' placeholder='Password' type="password"
-                                        name="password"/>
-                            <Button fluid color="teal" size="large">LOGIN</Button>
+                                        name="password" />
+                            <Button fluid color="teal" loading={authenticating} size="large">LOGIN</Button>
                         </Form>
                     </Segment>
                     <Message>
