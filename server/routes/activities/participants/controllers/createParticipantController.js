@@ -43,7 +43,9 @@ module.exports = function (req, res, next) {
 
     const payload = req.body;
     const activityId = req.params.activityId;
-
+    
+    console.log(payload);
+    console.log(payload.surveyResponses);
 
     // check if the activity is full. If so, then no other one can participate in
     Activity.findOne({_id: activityId, isDeleted: false})

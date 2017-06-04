@@ -30,17 +30,22 @@ let handleUpdateActivityHolderSetTitle = (state, payload) => {
 }
 
 let handleUpdateActivityHolderSetTotalCapacity = (state, payload) => {
-    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'totalCapacity'], payload);
+    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'totalCapacity'], 
+            (payload ? payload : 0));
     return newState;
 }
 
 let handleUpdateActivityHolderSetGroupCapacity = (state, payload) => {
-    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'groupCapacity'], payload);
+    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'groupCapacity'], 
+            (payload ? payload : 0));
+    return newState;
     return newState;
 }
 
 let handleUpdateActivityHolderSetCurrentCapacity = (state, payload) => {
-    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'currentCapacity'], payload);
+    let newState = state.setIn(['activitiesViewData', 'activityHolder', 'currentCapacity'], 
+            (payload ? payload : 0));
+    return newState;
     return newState;
 }
 

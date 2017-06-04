@@ -30,12 +30,12 @@ module.exports = function (req, res, next) {
         { _id: req.params.activityId, isDeleted: false, survey: {'$ne': []} })
         .exec()
         .then(function (activity) {
-            if (activity !== null && activity.survey.length === 1) {
+            if (activity !== null) {
                 return res.json({
-                    survey: activity.survey[0].getPublicFields()
+                    survey: activity.survey.getPublicFields()
                 });
             } else {
-                const errorMessage = "Cannot find an activity has id " + req.params.activityId + ", or it doesn't contain a survey";
+                const errorMessage = "Cannot find an activity has id " + req.params.activityId;
                 return createErrorHandler(res, HttpStatus.NOT_FOUND)(errorMessage);
             }
         })

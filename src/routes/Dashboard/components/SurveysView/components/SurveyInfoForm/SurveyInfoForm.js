@@ -1,5 +1,7 @@
 /*
  * Created by Matt on 5/23/17.
+ *  Matt's Note: This file needs to be modularized. 
+ *               Not a high priority at the moment but needs to be done.
  */
 
 import React from 'react'
@@ -29,7 +31,7 @@ export default class SurveyInfoForm extends React.Component {
                 value:question.get('type'),
                 text:question.get('display'),
                 content:<Segment>
-                            <Popup style={{zIndex:1001}}
+                            <Popup style={{zIndex:4444}}
                                 trigger={
                                     <Icon size='big' color='blue' name='help circle'/>
                                 }
@@ -56,7 +58,7 @@ export default class SurveyInfoForm extends React.Component {
             })
         );
         return (
-            <Form onSubmit={ this.handleSubmit}>
+            <Form onSubmit={ this.handleSubmit} style={{margin:0, padding:0, width :'98%'}}>
 
                 <Form.Group widths='equal'>
 
@@ -73,7 +75,9 @@ export default class SurveyInfoForm extends React.Component {
                         onBlur={(e) => {this.props.updateSurveyHolderSetTitle(e.target.value)}}
                     />
                 </Form.Group>
-                <Divider />
+                <Divider horizontal>
+                    Survey Questions
+                </Divider>
                 <Form.Group widths='equal'>
                     <div style={{width:'50%', marginRight:10}}>
                         {(this.props.surveyHolder.get('questions')
@@ -81,6 +85,7 @@ export default class SurveyInfoForm extends React.Component {
                             null
                             :
                             <Segment basic>
+                                <Divider horizontal style={{marginTop:0}}>Question Details</Divider>
                                 <Form.Input 
                                     disabled={
                                         this.props.inActivitiesView 
@@ -189,7 +194,7 @@ export default class SurveyInfoForm extends React.Component {
                                                         ).get('options').get('tooltipHint').length > 0
                                                     )
                                                     ?
-                                                        <Popup style={{zIndex:1001}}
+                                                        <Popup style={{zIndex:4444}}
                                                             trigger={
                                                                 <Icon 
                                                                     style={{marginLeft:5}}
@@ -285,7 +290,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersFilterHint').length > 0
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Icon 
                                                             style={{marginLeft:5, marginRight:0, paddingRight:0}}
@@ -316,7 +321,7 @@ export default class SurveyInfoForm extends React.Component {
                                                  .get('answersFilterEnableBlacklistMode')
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Checkbox
                                                             toggle 
@@ -397,7 +402,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersEnableFilter')
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Checkbox
                                                             toggle 
@@ -504,6 +509,8 @@ export default class SurveyInfoForm extends React.Component {
                                     )
                                     ?
                                 <Form.Input
+                                    step='1'
+                                    min='0'
                                     disabled={
                                         this.props.inActivitiesView 
                                         && this.props.selectingSurvey 
@@ -539,7 +546,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersMaximumHint').length > 0
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Icon 
                                                             style={{marginLeft:5, marginRight:0, paddingRight:0}}
@@ -569,7 +576,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersEnableMaximum')
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Checkbox
                                                             toggle 
@@ -634,7 +641,7 @@ export default class SurveyInfoForm extends React.Component {
                                                         this.props.surveyHolder.get('questions')
                                                             .get(this.props.surveyHolderQuestionIndex)
                                                             .get('type')
-                                                        ).get('options').get('answersMaximumHint')
+                                                        ).get('options').get('answersEnableMaximumHint')
                                                     }
                                                     position='top center'
                                                 />
@@ -675,6 +682,8 @@ export default class SurveyInfoForm extends React.Component {
                                     )
                                     ?
                                 <Form.Input
+                                    step='1'
+                                    min='0'
                                     disabled={
                                         this.props.inActivitiesView 
                                         && this.props.selectingSurvey 
@@ -709,7 +718,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersMinimumHint').length > 0
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Icon 
                                                             style={{marginLeft:5, marginRight:0, paddingRight:0}}
@@ -739,7 +748,7 @@ export default class SurveyInfoForm extends React.Component {
                                                 ).get('options').get('answersEnableMinimum')
                                             )
                                             ?
-                                                <Popup style={{zIndex:1001}}
+                                                <Popup style={{zIndex:4444}}
                                                     trigger={
                                                         <Checkbox
                                                             toggle 
@@ -804,7 +813,7 @@ export default class SurveyInfoForm extends React.Component {
                                                         this.props.surveyHolder.get('questions')
                                                             .get(this.props.surveyHolderQuestionIndex)
                                                             .get('type')
-                                                        ).get('options').get('answersMinimumHint')
+                                                        ).get('options').get('answersEnableMinimumHint')
                                                     }
                                                     position='top center'
                                                 />

@@ -16,9 +16,7 @@ const ParticipantSchema = new Schema({
     email: {
         type: String,
         lowercase: true,
-        unique: true,
         required: true,
-        default: ""
     },
 
     // _creator: {

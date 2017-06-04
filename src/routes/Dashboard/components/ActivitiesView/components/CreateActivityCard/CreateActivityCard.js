@@ -20,6 +20,7 @@ export default class CreateActivityCard extends React.Component {
     }
 
     closeCreateActivityModalHandler = () => {
+        this.props.updateActivityViewSelectingSurvey(false);
         this.props.updateActivityViewOpenCreateModal(false);
     }
 

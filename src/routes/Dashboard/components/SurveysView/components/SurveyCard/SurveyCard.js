@@ -26,7 +26,9 @@ export default class SurveyCard extends React.Component {
     }
 
     /* handlers for opening and closing the modals */
-
+    displayFormattedEndDate () {
+        return (new Date((this.props.createdAt.split('T')[0]).replace(/-/g, '\/')).toLocaleDateString());
+    }
     openSurveyInfoHandler = () => {
         this.props.updateSurveyHolderGetSurvey(this.props.surveyId);
         this.props.updateSurveyViewOpenEditModal(true);
@@ -38,11 +40,11 @@ export default class SurveyCard extends React.Component {
     }
 
     surveyCardOnClickHandler = () => {
-        browserHistory.push('/survey?id=' + this.props.surveyId)
+        //TODO: Implement Preview
     }
 
     surveyIconOnClick = () => {
-        browserHistory.push('/survey?id=' + this.props.surveyId)
+        //TODO: Implement Preview
     }
 
     render () {
@@ -77,15 +79,20 @@ export default class SurveyCard extends React.Component {
                             trigger={ <Icon style={{float: 'right', cursor: "pointer", marginTop: "7px"}}
                                             size="large"
                                             color="grey"
-                                            onClick={ this.surveyIconOnClick }
+                                            //onClick={ this.surveyIconOnClick }
                                             name='unhide'/> }
                             position='top right'
                             hoverable
                             wide
                         >   
-                            Preview
+                            Preview <p style={{color:'red'}}>NOT IMPLEMENTED</p>
                         </Popup>
                     </Card.Header>
+                    <Card.Meta>
+                        <span className='date'>
+                            Created At {this.displayFormattedEndDate()}
+                        </span>
+                    </Card.Meta>
                 </Card.Content>
             </Card>
         )
