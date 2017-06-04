@@ -43,13 +43,13 @@ let login = (dispatch) => {
 
 /* user failure */
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-let loginFailure = (error, payload) => {
-    return {type: LOGIN_FAILURE, payload: payload}
+let loginFailure = (error) => {
+    return {type: LOGIN_FAILURE, error: error}
 }
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-let loginSuccess = (error, payload) => {
-    return {type: LOGIN_SUCCESS, error: error, payload: payload}
+let loginSuccess = (payload) => {
+    return {type: LOGIN_SUCCESS, payload: payload}
 }
 
 export {

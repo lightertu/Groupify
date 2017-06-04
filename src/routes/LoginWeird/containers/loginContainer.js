@@ -7,7 +7,7 @@ import { routerActions } from 'react-router-redux'
  wiring in the actions and state necessary to render a presentational
  component - in this case, the counter:   */
 
-import authView from '../components/LoginView'
+import LoginView from '../components/LoginView'
 import * as Actions from '../modules/actions'
 
 const mapDispatchToProps = (dispatch) => ({
@@ -25,4 +25,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(authView)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginView)

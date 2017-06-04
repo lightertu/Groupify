@@ -2,7 +2,9 @@ import { injectReducer } from '../../store/reducers'
 import { Map, List } from 'immutable'
 import * as Actions from './modules/actions'
 
-const initialState = Map({ })
+const initialState = Map({
+    isLoginSuccess: false,
+})
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -13,7 +15,7 @@ const reducer = (state = initialState, action) => {
             return state
 
         case(Actions.loginActions.LOGIN_FAILURE):
-            return state
+            return state.set("isLoginSuccess", true);
 
         case(Actions.logoutActions.LOGOUT):
             return state
@@ -21,6 +23,8 @@ const reducer = (state = initialState, action) => {
 
     return state
 }
+
+
 export default (store) => ({
     path: 'login',
     /*  Async getComponent is only invoked when route matches   */
@@ -32,8 +36,10 @@ export default (store) => ({
              dependencies for bundling   */
             const Login = require('./containers/loginContainer').default
             const loginReducer = require('./modules/reducer').default
+            console.log(loginReducer);
+            console.log(reducer);
             /*  The reducer is merged with global reducer */
-            injectReducer(store, {key: 'login', reducer})
+            injectReducer(store, {key: 'login', loginReducer})
 
             /*  Return getComponent   */
             cb(null, Login)
