@@ -28,7 +28,7 @@ module.exports = function (req, res, next) {
 
     Activity.findOne(
         {_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
-        .select("title totalCapacity groupCapacity endDate participants survey")
+        .select("title totalCapacity groupCapacity endDate participants survey lockedGroups")
         .exec()
         .then(function (activity) {
             if (activity !== null) {

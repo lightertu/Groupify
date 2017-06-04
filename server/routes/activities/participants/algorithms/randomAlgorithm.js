@@ -57,10 +57,23 @@ function validateInput(pars, size){
 }
 
 
+function grouping(groupNumber, lockedGroup){
+    const sortedLockedGroup = lockedGroup.sort(function(a, b) {
+        return a - b;
+    });
 
-function randomAlgorithm(pars, gpSize)
+    let realGroupNumber = groupNumber;
+    sortedLockedGroup.forEach(function (lockedGroupNumber) {
+        if (realGroupNumber >= lockedGroupNumber){
+            realGroupNumber++;
+        }
+    });
+
+    return realGroupNumber;
+}
+
+function randomAlgorithm(pars, gpSize, lockedGroup)
 {
-    console.log(pars);
 	if (!validateInput(pars, gpSize)){
 		return [];
 	}
@@ -78,8 +91,9 @@ function randomAlgorithm(pars, gpSize)
 
 	for (let j=0; j<sLength; j++){
 		let num = getRandomNum(0, groupList.length-1);
-        pars[j].groupNumber = groupIndex[num];
+        pars[j].groupNumber = grouping(groupIndex[num], lockedGroup);
 		groupList[num] -= 1;
+
 		if (groupList[num] === 0){
 			groupList.splice(num, 1);
 			let k = num;
