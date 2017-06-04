@@ -4,7 +4,8 @@ import * as ActionHandlers from './actionHandlers'
 
 
 const initialState = Map({
-    loggedIn: false,
+    authenticating: false,
+    authenticationFailed: false
 })
 
 export default function reducer (state = initialState, action) {
@@ -16,10 +17,13 @@ export default function reducer (state = initialState, action) {
             return ActionHandlers.loginActionsHandlers.handleLoginSuccess(state, action.playload)
 
         case(Actions.loginActions.LOGIN_FAILURE):
-            return state
+            return ActionHandlers.loginActionsHandlers.handleLoginFailure(state, action.playload)
 
         case(Actions.logoutActions.LOGOUT):
             return state
+
+        case(Actions.loginActions.HIDE_ERROR_MESSAGE):
+            return ActionHandlers.loginActionsHandlers.handleHideErrorMessage(state, action.payload)
         default:
             return state
     }
