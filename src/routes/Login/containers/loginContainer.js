@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isAuthenticated: state.authentication.jwtToken !== null,
-        redirect: ownProps.location.query.redirect || '/dashboard'
+        isAuthenticated: state.authentication.get("jwtToken"),
+        redirect: ownProps.location.query.redirect || '/dashboard',
     }
 }
 
