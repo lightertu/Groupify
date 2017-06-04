@@ -13,10 +13,7 @@ class Header extends React.Component {
     render() {
         const {activeItem} = this.state;
         const options = [
-            { key: 'dashboard', text: 'Dashboard', src: `/dashboard`},
-            { key: 'activities', text: 'Activites ', src: `/dashboard?view=activities`},
-            { key: 'survey', text: 'Surveys' , src: `/dashboard?view=surveys`},
-            { key: 'help', text: 'Help' },
+            { key: 'dashboard', text: 'Dashboard', src: `/dashboard?view=activity`},
             { key: 'settings', text: 'Settings', src: `/dashboard?view=accountSettings`},
             { key: 'sign-out', text: 'Sign Out' },
         ];
