@@ -143,7 +143,13 @@ class ParticipantListSidebar extends React.Component {
 
         let getUngroupedNumber = (participants) => (
             participants.filter((participantObj) => (
-                participantObj.groupNumber < 0
+                participantObj.groupNumber == -1
+            )).length
+        );
+
+        let getTrashNumber = (participants) => (
+            participants.filter((participantObj) => (
+                participantObj.groupNumber == -2
             )).length
         );
 
@@ -217,7 +223,7 @@ class ParticipantListSidebar extends React.Component {
                                         dragging={ this.props.dragging }
                                         trashed={ this.state.trashed }
                                         handleTrashed={ this.handleTrashed.bind(this) }
-                                        trashCount={ getUngroupedNumber(this.props.participants) }
+                                        trashCount={ getTrashNumber(this.props.participants) }
                                         />
                         </Segment>
                     </div>

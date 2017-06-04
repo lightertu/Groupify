@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../../../../components/utils/setAuthorizationToken';
 const SERVER_URL = "http://localhost:3000";
 import { setCurrentUser } from "./authActions"
-import { SET_ERROR_MESSAGE } from "./errorActions"
+import { SET_ERROR_MESSAGE, SET_ERROR_COLOR } from "./errorActions"
 
 export const FETCH_USER = "FETCH_USER";
 let fetchUser = (dispatch) => {
@@ -38,11 +38,15 @@ let fetchUser = (dispatch) => {
                     type: SET_ERROR_MESSAGE,
                     message: data.message
                 });
+
+                dispatch({
+                    type: SET_ERROR_COLOR,
+                    color: "green"
+                });
             })
             .catch((error) => {
                 dispatch(fetchUserFailure(error, payload));
                 console.log(error.response.data.error)
-       
 
                 dispatch({
                     type: SET_ERROR_MESSAGE,

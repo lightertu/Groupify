@@ -4,20 +4,36 @@
  */
 import React from 'react'
 import {Grid, Segment} from 'semantic-ui-react'
-import {DragDropContext} from 'react-dnd';
+import {DragDropContext, DropTarget} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ParticipantListSidebar from "./ParticipantListSidebar"
-
 import GroupCard from "./GroupCard/GroupCard"
 import FilterMenu from "./FilterMenu"
+import {ParticipantTypes} from "../constants/ParticipantTypes"
 
+
+const viewTarget = {
+    drop(props, monitor) {
+        props.setCurrentlySelected("");
+        console.log(props.groupNumber);
+    }
+};
+
+@DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT],
+    viewTarget, (connect, monitor) => ({
+        connectDropTarget: connect.dropTarget(),
+        isOver: monitor.isOver(),
+    })
+)
 export class ActivityCardViewWrapper extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        return (
+        const {connectDropTarget, isOver} = this.props;
+
+        return connectDropTarget(
             <div className="" style={ {
                 marginTop: "3%",
                 paddingLeft: "290px",
@@ -130,7 +146,7 @@ export class ActivityView extends React.Component {
                                         setCurrentlySelected={this.setCurrentlySelected.bind(this)}
                                         dragging = { dragging }
                                         />
-                <ActivityCardViewWrapper>
+                    <ActivityCardViewWrapper setCurrentlySelected={ this.setCurrentlySelected.bind(this) }>
                     {
                         (this.props.participants.length > 0) &&
                         <FilterMenu activityId={ this.props.activityId }
@@ -142,7 +158,8 @@ export class ActivityView extends React.Component {
                     <Grid columns={ cardsPerRow }>
                         { getGroupCards(separateIntoGroups(this.props.participants)) }
                     </Grid>
-                </ActivityCardViewWrapper>
+                    </ActivityCardViewWrapper>
+
             </div>
         )
     }
