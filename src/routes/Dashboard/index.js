@@ -1,5 +1,7 @@
 import {injectReducer} from '../../store/reducers'
-import UserIsAuthenticated from "../UserIsAuthenticated"
+import UserIsAuthenticated from '../UserIsAuthenticated'
+
+const Dashboard = require('./containers/DashboardContainer').default;
 
 export default (store) => ({
     path: 'dashboard',
@@ -10,15 +12,13 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Dashboard = require('./containers/DashboardContainer').default;
-            const securedDashboard = UserIsAuthenticated(Dashboard);
             const reducer = require('./modules/reducer/reducer').default;
 
             /*  Add the reducer to the store on key 'counter'  */
             injectReducer(store, {key: 'dashboard', reducer});
 
             /*  Return getComponent   */
-            cb(null, securedDashboard)
+            cb(null, Dashboard)
 
             /* Webpack named bundle   */
         }, 'dashboard')

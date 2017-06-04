@@ -2,10 +2,7 @@ import { injectReducer } from '../../store/reducers'
 import { Map, List } from 'immutable'
 import * as Actions from './modules/actions'
 
-const initialState = Map({
-    isLoginSuccess: false,
-})
-
+const Login = require('./containers/loginContainer').default
 
 export default (store) => ({
     path: 'login',
@@ -16,10 +13,9 @@ export default (store) => ({
         require.ensure([], (require) => {
             /*  Webpack - use require callback to define
              dependencies for bundling   */
-            const Login = require('./containers/loginContainer').default
-            const loginReducer = require('./modules/reducer').default
+            const reducer = require('./modules/reducer').default
             /*  The reducer is merged with global reducer */
-            injectReducer(store, {key: 'login', reducer: loginReducer})
+            injectReducer(store, {key: 'login', reducer})
 
             /*  Return getComponent   */
             cb(null, Login)

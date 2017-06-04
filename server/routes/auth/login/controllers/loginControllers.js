@@ -17,7 +17,6 @@ const properties = ['email', 'password'];
 
 
 function validateInput(payload, properties) {
-    console.log(payload)
     return validateFormat(payload, properties)
         && UserLoginInfoValidator(payload.email, payload.password);
 }

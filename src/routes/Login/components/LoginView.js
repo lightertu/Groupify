@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
 import { Button, Form, Grid, Header, Image, Input, Message, Segment } from 'semantic-ui-react'
+import { browserHistory } from 'react-router'
 
 class LoginView extends Component {
     constructor (props) {
@@ -16,20 +17,22 @@ class LoginView extends Component {
     componentWillMount () {
         const {isAuthenticated, replace, redirect} = this.props
         if (isAuthenticated) {
-            console.log(redirect);
-            replace(redirect)
+            browserHistory.push("/dashboard");
         }
     }
 
+    /*
     componentWillReceiveProps (nextProps) {
         const {isAuthenticated, replace, redirect} = nextProps
         const {isAuthenticated: wasAuthenticated} = this.props
 
+        console.log("logged in");
+
         if (!wasAuthenticated && isAuthenticated) {
-            console.log("logged in");
             replace(redirect)
         }
     }
+    */
 
     handleChange = (e, {name, value}) => this.setState({[name]: value})
 

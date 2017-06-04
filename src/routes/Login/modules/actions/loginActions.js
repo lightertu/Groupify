@@ -4,9 +4,13 @@
 
 import axios from 'axios'
 import { authenticationActions } from '../../../../store/authentication/actions'
+import { browserHistory } from 'react-router'
+import {routerActions } from 'react-router-redux'
 
 const SERVER_URL = 'http://localhost:3000'
 export const LOGIN = 'LOGIN'
+
+
 
 let login = (dispatch) => {
     return (email, password) => {
@@ -25,6 +29,8 @@ let login = (dispatch) => {
 
                 /* store token in the local storage*/
                 localStorage.setItem('jwtToken', token)
+
+                dispatch(routerActions.replace("/dashboard"))
 
                 /* this will set the the authorization token in all axios requests. */
                 axios.defaults.headers.common['Authorization'] = token;
