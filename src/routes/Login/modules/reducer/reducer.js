@@ -1,7 +1,10 @@
 import { Map, List } from 'immutable'
 import * as Actions from '../actions'
 
-const initialState = Map({ })
+
+const initialState = Map({
+    isLoginSuccess: false,
+})
 
 export default function reducer (state = initialState, action) {
     switch (action.type) {
@@ -9,7 +12,7 @@ export default function reducer (state = initialState, action) {
             return state
 
         case(Actions.loginActions.LOGIN_SUCCESS):
-            return state
+            return state.set("isLoginSuccess", true);
 
         case(Actions.loginActions.LOGIN_FAILURE):
             return state

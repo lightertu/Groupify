@@ -7,18 +7,21 @@ import AppContainer from './containers/AppContainer'
 import setAuthorizationToken from './components/utils/setAuthorizationToken'
 import { applyMiddleware, compose } from 'redux'
 
-
 // imports for web auth
 import jwt from 'jsonwebtoken'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
+import baseHistory from "./store/baseHistory"
+import { syncHistoryWithStore } from 'react-router-redux'
 
 // ========================================================
 // Store Instantiation
 // ========================================================
 const initialState = window.__INITIAL_STATE__
 
-
 const store = createStore(initialState)
 
+const history = syncHistoryWithStore(baseHistory, store)
 // set auth token
 
 // ========================================================
@@ -30,7 +33,12 @@ let render = () => {
     const routes = require('./routes/index').default(store)
 
     ReactDOM.render(
-        <AppContainer store={store} routes={routes}/>
+        <Provider store={ store }>
+            <div>
+                <Router history={ history } children={ routes }>
+                </Router>
+            </div>
+        </Provider>
         , MOUNT_NODE
     )
 }
