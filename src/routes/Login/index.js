@@ -6,24 +6,6 @@ const initialState = Map({
     isLoginSuccess: false,
 })
 
-const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case(Actions.loginActions.LOGIN):
-            return state
-
-        case(Actions.loginActions.LOGIN_SUCCESS):
-            return state
-
-        case(Actions.loginActions.LOGIN_FAILURE):
-            return state.set("isLoginSuccess", true);
-
-        case(Actions.logoutActions.LOGOUT):
-            return state
-    }
-
-    return state
-}
-
 
 export default (store) => ({
     path: 'login',
@@ -36,8 +18,6 @@ export default (store) => ({
              dependencies for bundling   */
             const Login = require('./containers/loginContainer').default
             const loginReducer = require('./modules/reducer').default
-            console.log(loginReducer);
-            console.log(reducer);
             /*  The reducer is merged with global reducer */
             injectReducer(store, {key: 'login', reducer: loginReducer})
 
