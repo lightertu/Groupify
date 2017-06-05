@@ -15,10 +15,11 @@ const transparentImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0
 
 const participantCardItemSource = {
     beginDrag(props) {
+        console.log(props);
         props.setCurrentlySelected(props.participant.participantId) // set current selected card
         return {
-            participantId: props.participant.participantId,
-            oldGroupNumber: props.participant.groupNumber
+            participantId: props.participant.get('participantId'),
+            oldGroupNumber: props.participant.get('groupNumber')
         }
     }
 }
@@ -37,14 +38,14 @@ class DraggableCard extends React.Component {
         let participantCard =
             <div className="card" style={ {cursor: this.props.unlocked ? 'not-allowed' : 'default'} }>
                 <ParticipantProfilePopup
-                    trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
+                    trigger={ <Image src={ (isDragging) ? transparentImage : participant.get('image') }/> }
                     position="top right"
                     offset={ 0 }
-                    name={ participant.name }
-                    image={ participant.image }
-                    surveyResponses={ this.props.surveyResponses }
-                    groupNumber={participant.groupNumber }
-                    participantId={ participant.participantId }/>
+                    name={ participant.get('name') }
+                    image={ participant.get('image') }
+                    surveyResponses={ participant.get('surveyResponses') }
+                    groupNumber={participant.get('groupNumber') }
+                    participantId={ participant.get('participantId') }/>
             </div>
         if (this.props.unlocked) {
             return ( participantCard )
@@ -94,7 +95,7 @@ class GroupCard extends React.Component {
         const {connectDropTarget, isOver} = this.props
 
         let generateEmptySpots = () => {
-            let emptyNum = this.props.capacity - this.props.participants.size
+            let emptyNum = this.props.capacity - this.props.participants.length
             let result = []
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
@@ -161,12 +162,21 @@ class GroupCard extends React.Component {
                             Group { this.props.groupNumber } &nbsp;
                         </Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
+
+                            { this.props.participants.map((participant) =>
+                                <DraggableCard 
+                                    participant={ participant } 
+                                    key={ participant.participantId } 
+                                    setCurrentlySelected={ (v) => console.log(v)  }
+                                    unlocked= { this.props.unlocked }
+                                /> 
+                            )}
                             { generateEmptySpots() }
                         </Card.Group>
 
-                        <Label color={ pickCapacityLabelColor(this.props.participants.size, this.props.capacity) }
+                        <Label color={ pickCapacityLabelColor(this.props.participants.length, this.props.capacity) }
                                attached="top right">
-                            <Icon name='user'/> { this.props.participants.size} / { this.props.capacity }
+                            <Icon name='user'/> { this.props.participants.length} / { this.props.capacity }
                         </Label>
                     </Segment>
                     {

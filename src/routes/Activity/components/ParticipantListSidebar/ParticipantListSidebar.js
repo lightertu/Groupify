@@ -68,6 +68,7 @@ class Participant extends React.Component {
                 name={ this.props.name }
                 image={ this.props.image }
                 surveyResponses={ this.props.surveyResponses }
+                setCurrentlySelected={(v) => {console.log(v)}}
                 participantId={ this.props.participantId }
                 setCurrentlySelected={(v) => {console.log(v)}}/>
         )
@@ -77,6 +78,7 @@ class Participant extends React.Component {
                 name={ this.props.name }
                 image={ this.props.image }
                 surveyResponses={ this.props.surveyResponses }
+                setCurrentlySelected={(v) => {console.log(v)}}
                 groupNumber={ this.props.groupNumber }
                 position="right center"
                 offset={ 20 }
@@ -147,6 +149,7 @@ class ParticipantListSidebar extends React.Component {
                             participantId={ participantObj.get('participantId') }
                             surveyResponses={ participantObj.get('surveyResponses') }
                             name={ participantObj.get('name') }
+                            setCurrentlySelected={(v) => {console.log(v)}}
                             image={ participantObj.get('image') }
                             groupNumber={ participantObj.get('groupNumber') }
                         />
