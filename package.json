@@ -187,6 +187,7 @@
     "react-sticky": "^5.0.8",
     "redbox-react": "^1.2.10",
     "scandir": "^0.1.2",
+    "scroll-to-element": "^2.0.0",
     "semantic-ui-react": "^0.68.3",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",

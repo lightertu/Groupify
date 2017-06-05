@@ -3,6 +3,7 @@
  * Additions made by Joseph 5/28/17
  */
 import React from 'react'
+import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
 import {Icon, Card, Label, Segment, Image, Popup} from 'semantic-ui-react'
 import ParticipantProfilePopup from "../ParticipantProfilePopup";
@@ -14,7 +15,9 @@ import {ParticipantTypes} from "../../constants/ParticipantTypes"
 const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png";
 
 const participantCardItemSource = {
-    beginDrag(props) {
+    beginDrag(props, monitor) {
+        console.log(monitor);
+        console.log(monitor.getClientOffset())
         props.setCurrentlySelected(props.participant.participantId) // set current selected card
         return {
             participantId: props.participant.participantId,
@@ -25,16 +28,22 @@ const participantCardItemSource = {
 
 @DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantCardItemSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
+    isDragging: monitor.isDragging(),
+    coordinates: monitor.getClientOffset()
 }))
 class DraggableCard extends React.Component {
     static propTypes = {
         participant: PropTypes.object.isRequired
     };
 
-    render() {
-        const {connectDragSource, isDragging, participant, num} = this.props;
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.coordinates != null) {
+            this.props.onDragMove(nextProps.coordinates.y);
+        }
+    }
 
+    render() {
+        const {connectDragSource, isDragging, coordinates, participant, num} = this.props;
         if(this.props.unlocked) {
             return (
                     <div className={"card"} style={ {cursor: "move"} }>
@@ -110,6 +119,11 @@ class GroupCard extends React.Component {
     toggleMatchingStatus = () => {
         // this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
     };
+
+    componentDidUpdate() {
+        let node = ReactDOM.findDOMNode(this);
+        this.props.getGroupSize(node.scrollHeight);
+    }
 
 
     render() {
@@ -223,6 +237,7 @@ class GroupCard extends React.Component {
                 setCurrentlySelected={ this.props.setCurrentlySelected }
                 unlocked= { this.props.unlocked }
                 num={ i }
+                onDragMove={ this.props.onDragMove }
                 />
         );
 

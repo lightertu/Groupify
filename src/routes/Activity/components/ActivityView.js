@@ -3,6 +3,7 @@
  * Additions made by Joseph 5/28/17
  */
 import React from 'react'
+import ReactDOM from 'react-dom'
 import {Grid, Segment} from 'semantic-ui-react'
 import {DragDropContext, DropTarget} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
@@ -10,8 +11,11 @@ import ParticipantListSidebar from "./ParticipantListSidebar"
 import GroupCard from "./GroupCard/GroupCard"
 import FilterMenu from "./FilterMenu"
 import {ParticipantTypes} from "../constants/ParticipantTypes"
-var scrollToElement = require('scroll-to-element');
+let Scroll = require('react-scroll')
 
+var Events = Scroll.Events;
+var scroll = Scroll.animateScroll;
+var scrollSpy = Scroll.scrollSpy;
 
 const viewTarget = {
     drop(props, monitor) {
@@ -54,9 +58,11 @@ export class ActivityView extends React.Component {
         super(props);
         this.props.fetchParticipantList(this.props.activityId);
 
-        this.state = ({filters: [], group: 0, windowHeight: 500});
+        this.state = ({filters: [], windowHeight: 500, groupHeight: 140});
         this.setFilterValues = this.setFilterValues.bind(this);
         this.toggleLock = this.toggleLock.bind(this);
+        this.getGroupSize = this.getGroupSize.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
 
     }
 
@@ -67,36 +73,52 @@ export class ActivityView extends React.Component {
     componentDidMount() { // add event listener
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
+
+        Events.scrollEvent.register('begin', function(to, element) {
+          // console.log("begin", arguments);
+        });
+     
+        Events.scrollEvent.register('end', function(to, element) {
+          // console.log("end", arguments);
+        });
+     
+        scrollSpy.update();
     }
 
     componentWillUnmount() { // remove event listener
         window.removeEventListener("resize", this.updateDimensions.bind(this));
+
+        Events.scrollEvent.remove('begin');
+        Events.scrollEvent.remove('end');
     }    
 
-    handleScroll(group) {
-        console.log(group)
-        // scrollToElement('#group'+group.toString(), {
-        //     offset: -170,
-        //     ease: 'linear',
-        //     duration: 1500,
-        //     alias: 'middle'
-        // });
+    handleScroll(move) {
+        scroll.scrollMore(move, {
+            duration: 1000,
+            smooth: "linear"
+        });
     }
 
     onMouseMove(e) {
-        console.log(e.screenY)
-        console.log(this.state.windowHeight)
-        let group = this.state.group;
+        // this.upOrDOwn(e.screenY);
+    }
 
-        if(e.screenY < 200) {
-            if(group > 0) {
-                group--;
-            }
-        } else if(this.state.windowHeight - e.screenY < 50){
-            group++;
+    onDragMove(coor) {
+        this.upOrDOwn(coor)
+    }
+
+    upOrDOwn(num) {
+        let move = 0;
+        if(num < 200) {
+            move = -270;
+        } else if(this.state.windowHeight - num < 150){
+            move = 270;
         }
-        this.setState({group: group});
-        this.handleScroll(group);
+        this.handleScroll(move);
+    }
+
+    getGroupSize(size) {
+      //  this.setState({groupHeight: size});
     }
 
     toggleLock(group) {
@@ -170,7 +192,9 @@ export class ActivityView extends React.Component {
                                        draggedUser={ this.props.matching.get("current") }
                                        group={ i }
                                        unlocked={ this.props.unlocked.get(i) }
-                                       filters={ this.state.filters }/>
+                                       filters={ this.state.filters }
+                                       getGroupSize={ this.getGroupSize.bind(this) }
+                                       onDragMove={ this.onDragMove.bind(this) }/>
                         </Grid.Column>
                     )
                 )
