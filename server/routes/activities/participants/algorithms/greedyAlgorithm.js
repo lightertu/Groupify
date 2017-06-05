@@ -120,6 +120,15 @@ function generateRandomNumber(min, max){
 
 
 function groupTheRests(allGroups, rests, groupSize){
+    if (allGroups.length === 0){
+        let group = [];
+        rests.forEach(function (rest) {
+            group.push(rest);
+        })
+        allGroups.push(group);
+        return allGroups;
+    }
+
     let numberOfRestGroups = Math.floor(rests.length/groupSize);
     let numberOfRemains = rests.length % groupSize;
 
@@ -136,6 +145,7 @@ function groupTheRests(allGroups, rests, groupSize){
         let randomNumber = generateRandomNumber(0, allGroups.length - 1);
         allGroups[randomNumber].push(rests[i + k]);
         successRate.success--;
+
     }
 
     return allGroups;
@@ -144,16 +154,17 @@ function groupTheRests(allGroups, rests, groupSize){
 
 function generateGroupsForEveryWorkObject (sortedWList, groupSize){
     let allGroups = [], rests = [], notFinishedWObjs = [];
-
+console.log("11");
     for (let i=0; i<sortedWList.length; i++){
         notFinishedWObjs.push({
             sortIndex: i,
             originIndex: sortedWList[i].index,
         });
     }
+    console.log("22 " + notFinishedWObjs.length + " " + notFinishedWObjs[0].sortIndex);
     while (notFinishedWObjs.length >= groupSize){
         const firstOne = sortedWList[notFinishedWObjs[0].sortIndex];
-
+        console.log("33");
         if (firstOne.numOfPotential < groupSize - 1){
             rests.push(firstOne.index);
         }
@@ -178,11 +189,11 @@ function generateGroupsForEveryWorkObject (sortedWList, groupSize){
 
         notFinishedWObjs.splice(0, 1);
     }
-
+    console.log("11");
     for (let j=0; j<notFinishedWObjs.length; j++){
         rests.push(notFinishedWObjs[j].originIndex);
     }
-
+    console.log("11");
     return groupTheRests(allGroups, rests, groupSize);
 }
 
@@ -228,17 +239,17 @@ function greedyAlgorithm(pars, groupSize, lockedGroup){
     if (!validateInput(pars, groupSize)){
         return [];
     }
-
+console.log("1");
     let nestedBoolArray = createNestedBooleanArrayForAllPars(pars);
-
+    console.log("2");
     let workList = createWorkList(nestedBoolArray, booleanArrayCompare);
-
+    console.log("3");
     let sortedWList = mergeSort(workList, compareNumOfWorkObject);
-
+    console.log("4");
     let groups = generateGroupsForEveryWorkObject(sortedWList, groupSize);
-
+    console.log("5");
     groupingPars(groups, pars, lockedGroup);
-
+    console.log("6");
     successRate.total = groups.length;
     return successRate.success / successRate.total;
 

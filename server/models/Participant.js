@@ -16,16 +16,15 @@ const ParticipantSchema = new Schema({
     email: {
         type: String,
         lowercase: true,
-        unique: true,
         required: true,
         default: ""
     },
 
-    // _creator: {
-    //     type: Schema.ObjectId,
-    //     ref: 'User',
-    //     required: true,
-    // },
+    _creator: {
+        type: Schema.ObjectId,
+        ref: 'User',
+        required: true,
+    },
 
     _activity :{
         type: Schema.ObjectId,
@@ -79,7 +78,9 @@ ParticipantSchema.pre('save', function(next){
 
 ParticipantSchema.methods.getPublicFields = function () {
     return {
+        _id: this._id,
         name: this.name,
+        email: this.email,
         image: this.image,
         groupNumber: this.groupNumber,
         surveyResponses: this.surveyResponses,
