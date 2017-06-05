@@ -1,16 +1,23 @@
 /**
  * Created by rui on 4/18/17.
  */
-import { Map, List } from "immutable"
+import { Map, List, Set } from "immutable"
 import * as Actions from "../actions"
 import * as ActionsHandlers from "./actionsHandlers"
 
 const initialState = Map({
-    participants: [],
+    currentlyDragging: '',
+    
     groupCapacity: 0,
     totalCapacity: 0,
-    unlocked: List([]),
-    filter: [],
+
+    participants: List([]),
+
+    lockedGroups: Set([]),
+
+    allAnswers: Set([]),
+    filter: Set([]),
+
     matching: Map({
         current: "",
         matchingParticipants: new Set(),

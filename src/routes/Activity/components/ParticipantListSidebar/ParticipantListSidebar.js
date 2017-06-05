@@ -38,7 +38,8 @@ class DraggableParticipantListItem extends React.Component {
     render () {
         const {image, name, participantId, connectDragSource, isDragging} = this.props
         return connectDragSource(
-            <div className="item" {...this.props }
+            <div className="item" onMouseEnter={this.props.onMouseEnter} 
+                onMouseLeave={this.props.onMouseLeave}
                  style={ {visibility: isDragging ? 'hidden' : 'visible', cursor: 'move', padding: '7px'} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
@@ -51,12 +52,14 @@ class DraggableParticipantListItem extends React.Component {
 
 class Participant extends React.Component {
     static propTypes = {
+        /*
         participantId: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
         groupNumber: PropTypes.number.isRequired,
         availability: PropTypes.array.isRequired,
         skills: PropTypes.array.isRequired,
+        */
     }
 
     render () {
@@ -64,17 +67,17 @@ class Participant extends React.Component {
             <DraggableParticipantListItem
                 name={ this.props.name }
                 image={ this.props.image }
+                surveyResponses={ this.props.surveyResponses }
                 participantId={ this.props.participantId }
-                setCurrentlySelected={this.props.setCurrentlySelected}/>
+                setCurrentlySelected={(v) => {console.log(v)}}/>
         )
         return (
             <ParticipantProfilePopup
                 participantId={ this.props.participantId }
                 name={ this.props.name }
                 image={ this.props.image }
+                surveyResponses={ this.props.surveyResponses }
                 groupNumber={ this.props.groupNumber }
-                skills={ this.props.skills }
-                availability={ this.props.availability }
                 position="right center"
                 offset={ 20 }
                 hoverable
@@ -114,57 +117,40 @@ function collectDrop (connect, monitor) {
 class ParticipantListSidebar extends React.Component {
     constructor (props) {
         super(props)
-
-        this.state = ({trashed: false})
-        this.handleTrashed = this.handleTrashed.bind(this)
-
     }
 
     static propTypes = {
         activityId: PropTypes.string.isRequired,
-        participants: PropTypes.array.isRequired,
+        participants: PropTypes.object.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
-    }
-
-    handleTrashed () {
-        this.setState({trashed: true})
-        let start = new Date().getTime()
-        let end = start
-        while (end < start + 3000) {
-            end = new Date().getTime()
-        }
-
-        this.setState({trashed: false})
     }
 
     render () {
         const {connectDropTarget, isOver} = this.props
 
-        let getUngroupedNumber = (participants) => (
-            participants.filter((participantObj) => (
-                participantObj.groupNumber < 0
-            )).length
+        let getUngroupedNumber = () => (
+            this.props.participants.filter((participantObj) => (
+                participantObj.get('groupNumber') < 0
+            )).size
         )
+
 
         let generateSidebarList = (participants) => (
             <List verticalAlign='middle' size="large" selection>
                 {
-                    participants.filter((participantObj) => (
-                        participantObj.groupNumber == -1
-                    ))
-
-                        .map((participantObj) => (
-                            <Participant
-                                key={ participantObj.participantId }
-                                participantId={ participantObj.participantId }
-                                name={ participantObj.name }
-                                image={ participantObj.image }
-                                groupNumber={ participantObj.groupNumber }
-                                skills={ participantObj.skills }
-                                availability={ participantObj.availability }
-                                setCurrentlySelected={ this.props.setCurrentlySelected }
-                            />
-                        ))
+                    participants.filter((participantObj) => {
+                        return (participantObj.get('groupNumber') === -1);
+                    })
+                    .map((participantObj) => {
+                        return <Participant
+                            key={ participantObj.get('participantId') }
+                            participantId={ participantObj.get('participantId') }
+                            surveyResponses={ participantObj.get('surveyResponses') }
+                            name={ participantObj.get('name') }
+                            image={ participantObj.get('image') }
+                            groupNumber={ participantObj.get('groupNumber') }
+                        />
+                    })
                 }
             </List>
         )
@@ -194,7 +180,6 @@ class ParticipantListSidebar extends React.Component {
                 </Header>
             </div>
         )
-
         return connectDropTarget(
             <div>
                 <MuiThemeProvider>
@@ -203,28 +188,22 @@ class ParticipantListSidebar extends React.Component {
                         open={ true }
                         zDepth={ 1 }
                         width={290}
-                        containerStyle={ {backgroundColor: (!this.props.isOver) ? '#F6F7F9' : '#EFF0F2'} }
+                        containerStyle={{backgroundColor: (!this.props.isOver) ? '#F6F7F9' : '#EFF0F2'}}
                         style={ {zIndex: '1000 !important',  width: "290px"} }
                     >
 
                         <div style={ participantsListStyle }>
                             <Segment basic>
                                 {
-                                    (this.props.participants.length <= 0) ? generateEmptyMessage() : ((getUngroupedNumber(this.props.participants)) ? generateSidebarList(this.props.participants) : generateEmailButton())
+                                    (this.props.participants.size <= 0) ? 
+                                        generateEmptyMessage() 
+                                    : 
+                                        ((getUngroupedNumber(this.props.participants)) ? 
+                                            generateSidebarList(this.props.participants) 
+                                        : 
+                                            generateEmailButton())
                                 }
 
-                                {/*
-                                 <ParticipantTrash
-                                 participants={ this.props.participants }
-                                 updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                 activityId={ this.props.activityId }
-                                 setCurrentlySelected={this.props.setCurrentlySelected}
-                                 dragging={ this.props.dragging }
-                                 trashed={ this.state.trashed }
-                                 handleTrashed={ this.handleTrashed.bind(this) }
-                                 trashCount={ getUngroupedNumber(this.props.participants) }
-                                 />
-                                 */}
                             </Segment>
                         </div>
                     </Drawer>
