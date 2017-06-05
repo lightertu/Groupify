@@ -93,6 +93,7 @@ export class ActivityView extends React.Component {
     }    
 
     handleScroll(move) {
+
         scroll.scrollMore(move, {
             duration: 1000,
             smooth: "linear"
@@ -109,9 +110,9 @@ export class ActivityView extends React.Component {
 
     upOrDOwn(num) {
         let move = 0;
-        if(num < 200) {
+        if(num < 250) {
             move = -270;
-        } else if(this.state.windowHeight - num < 150){
+        } else if(this.state.windowHeight - num < 250){
             move = 270;
         }
         this.handleScroll(move);

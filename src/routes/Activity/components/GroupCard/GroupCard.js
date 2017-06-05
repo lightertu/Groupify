@@ -36,8 +36,17 @@ class DraggableCard extends React.Component {
         participant: PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            coordinate: null
+        };
+
+    }
+
     componentWillReceiveProps(nextProps) {
         if(nextProps.coordinates != null) {
+            this.setState({coordinate: nextProps.coordinates.y});
             this.props.onDragMove(nextProps.coordinates.y);
         }
     }
