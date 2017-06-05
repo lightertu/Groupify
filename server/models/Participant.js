@@ -32,8 +32,8 @@ const ParticipantSchema = new Schema({
     },
 
     image: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        default: "",
     },
 
 

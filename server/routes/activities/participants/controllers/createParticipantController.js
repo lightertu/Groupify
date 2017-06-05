@@ -11,6 +11,28 @@ const HttpStatus = require("http-status-codes");
 
 const properties = ['name', 'image', 'email', 'surveyResponses'];
 
+const images = [
+    "https://react.semantic-ui.com/assets/images/avatar/large/jenny.jpg",
+    "https://react.semantic-ui.com/assets/images/avatar/large/justen.jpg",
+    "https://react.semantic-ui.com/assets/images/avatar/large/stevie.jpg",
+    "https://react.semantic-ui.com/assets/images/avatar/large/veronika.jpg",
+    "https://semantic-ui.com/images/avatar/large/steve.jpg",
+    "https://semantic-ui.com/images/avatar2/large/kristy.png",
+    "https://semantic-ui.com/images/avatar2/large/matthew.png",
+    "https://semantic-ui.com/images/avatar2/large/molly.png",
+    "https://semantic-ui.com/images/avatar2/large/elyse.png",
+    "https://semantic-ui.com/images/avatar/large/daniel.jpg",
+    "https://semantic-ui.com/images/avatar/large/helen.jpg",
+
+];
+
+let randomBetween = (minVal, maxVal) => {
+    return Math.floor(Math.random() * (maxVal-minVal+1)) + minVal;
+};
+
+function pickImage () {
+    return images[randomBetween(0, images.length-1)];
+};
 
 function validateInput(req) {
     let payload = req.body;
@@ -64,7 +86,7 @@ module.exports = function (req, res, next) {
                 _activity: activityId,
                 email: payload.email,
                 name: payload.name,
-                image: payload.image,
+                image: pickImage(),
                 surveyResponses: payload.surveyResponses,
             });
             newParticipant.save()
