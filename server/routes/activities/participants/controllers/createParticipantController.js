@@ -84,6 +84,7 @@ module.exports = function (req, res, next) {
             // save a new participant
             const newParticipant = new Participant({
                 _activity: activityId,
+                _creator: activity._creator,
                 email: payload.email,
                 name: payload.name,
                 image: pickImage(),
