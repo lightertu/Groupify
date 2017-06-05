@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
  component - in this case */
 import ActivityView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
+import UserIsAuthenticated from '../../UserIsAuthenticated'
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,4 +40,4 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityView);
+export default UserIsAuthenticated(connect(mapStateToProps, mapDispatchToProps)(ActivityView));

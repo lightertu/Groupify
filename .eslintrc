@@ -10,22 +10,32 @@
     "promise"
   ],
   "env": {
-    "browser" : true
+    "browser": true
   },
   "globals": {
-    "__DEV__"      : false,
-    "__TEST__"     : false,
-    "__PROD__"     : false,
-    "__COVERAGE__" : false
+    "__DEV__": false,
+    "__TEST__": false,
+    "__PROD__": false,
+    "__COVERAGE__": false
   },
   "rules": {
-    "key-spacing"          : 0,
-//  "jsx-quotes"           : [0, "prefer-single"],
-    "jsx-quotes"           : 0,
-    "max-len"              : [2, 120, 2],
+    "key-spacing": 0,
+    //  "jsx-quotes"           : [0, "prefer-single"],
+    "jsx-quotes": 0,
+    "max-len": [
+      2,
+      120,
+      2
+    ],
     //  "object-curly-spacing" : [2, "always"],
-    "object-curly-spacing" : ["error", "never"],
-    "semi"                 : [2, "always"],
-    "indent"               : 0
+    "object-curly-spacing": [
+      "error",
+      "never"
+    ],
+    "semi": [
+      2,
+      "always"
+    ],
+    "indent": 0
   }
 }

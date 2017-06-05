@@ -5,25 +5,25 @@ import createStore from './store/createStore'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import AppContainer from './containers/AppContainer'
 import setAuthorizationToken from './components/utils/setAuthorizationToken'
+import { applyMiddleware, compose } from 'redux'
 
 // imports for web auth
 import jwt from 'jsonwebtoken'
-import { setCurrentUser } from './routes/Login/modules/actions/authActions'
+import { Provider } from 'react-redux'
+import { Router } from 'react-router'
+import baseHistory from "./store/baseHistory"
+import { syncHistoryWithStore } from 'react-router-redux'
 
 // ========================================================
 // Store Instantiation
 // ========================================================
 const initialState = window.__INITIAL_STATE__
+
 const store = createStore(initialState)
 
+const history = syncHistoryWithStore(baseHistory, store)
 // set auth token
 
-if (localStorage.jwtToken) {
-    setAuthorizationToken(localStorage.jwtToken)
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
-
-
-}
 // ========================================================
 // Render Setup
 // ========================================================
@@ -33,7 +33,12 @@ let render = () => {
     const routes = require('./routes/index').default(store)
 
     ReactDOM.render(
-        <AppContainer store={store} routes={routes}/>
+        <Provider store={ store }>
+            <div>
+                <Router history={ history } children={ routes }>
+                </Router>
+            </div>
+        </Provider>
         , MOUNT_NODE
     )
 }
