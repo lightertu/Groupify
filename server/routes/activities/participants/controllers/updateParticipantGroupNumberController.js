@@ -45,6 +45,7 @@ module.exports = function (req, res, next) {
 
     Participant.findOneAndUpdate(
         {_id: req.params.participantId, _activity: req.params.activityId, _creator: req.user._id, isDeleted: false},
+        // {_id: req.params.participantId, _activity: req.params.activityId, isDeleted: false},
         {
             // we have to check if the groupNumber is less than the number of groups
             $set: {

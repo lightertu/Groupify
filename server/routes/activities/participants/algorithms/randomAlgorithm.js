@@ -23,8 +23,14 @@ function getRandomNum(min, max){
 	return Math.floor(Math.random() * (max-min+1)) + min;
 }
 
-function getGroupList(groupNum, rest, size){
-	let lr = [], res = [];
+function getGroupDistribution(groupNum, rest, size){
+    let lr = [], res = [];
+
+    if (groupNum === 0){
+        res.push(rest);
+        return res;
+    }
+
 	let i, j, k;
 	for (i=0; i<rest; i++){
 		lr[i] = getRandomNum(0, groupNum-1);
@@ -57,7 +63,7 @@ function validateInput(pars, size){
 }
 
 
-function grouping(groupNumber, lockedGroup){
+function getRealGroupNumber(groupNumber, lockedGroup){
     const sortedLockedGroup = lockedGroup.sort(function(a, b) {
         return a - b;
     });
@@ -77,25 +83,25 @@ function randomAlgorithm(pars, gpSize, lockedGroup)
 	if (!validateInput(pars, gpSize)){
 		return [];
 	}
-	let sLength = pars.length;
-	let groupNum = Math.floor(sLength/gpSize);
+	let parsNum = pars.length;
+	let groupNum = Math.floor(parsNum/gpSize);
 
 	//there will be r group with size one more than default size.
 	let rest = pars.length % gpSize;
 
-	let groupList = getGroupList(groupNum, rest, gpSize);
+	let groupDistribution = getGroupDistribution(groupNum, rest, gpSize);
 	let groupIndex =[];
-	for (let i=0; i<groupNum; i++){
+	for (let i=0; i<groupDistribution.length; i++){
 		groupIndex[i] = i;
 	}
 
-	for (let j=0; j<sLength; j++){
-		let num = getRandomNum(0, groupList.length-1);
-        pars[j].groupNumber = grouping(groupIndex[num], lockedGroup);
-		groupList[num] -= 1;
+	for (let j=0; j<parsNum; j++){
+		let num = getRandomNum(0, groupDistribution.length-1);
+        pars[j].groupNumber = getRealGroupNumber(groupIndex[num], lockedGroup);
+		groupDistribution[num] -= 1;
 
-		if (groupList[num] === 0){
-			groupList.splice(num, 1);
+		if (groupDistribution[num] === 0){
+			groupDistribution.splice(num, 1);
 			let k = num;
 			while (k < groupIndex.length-1){
 				groupIndex[k] = groupIndex[k+1];
