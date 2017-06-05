@@ -42,12 +42,10 @@ class DraggableCard extends React.Component {
                     offset={ 0 }
                     name={ participant.name }
                     image={ participant.image }
+                    surveyResponses={ this.props.surveyResponses }
                     groupNumber={participant.groupNumber }
-                    skills={ participant.skills }
-                    availability={ participant.availability }
                     participantId={ participant.participantId }/>
             </div>
-
         if (this.props.unlocked) {
             return ( participantCard )
         }
@@ -78,28 +76,25 @@ const participantTarget = {
 )
 class GroupCard extends React.Component {
     static propTypes = {
+        /*
         activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         capacity: PropTypes.number.isRequired,
         groupNumber: PropTypes.number.isRequired,
         itemsPerRow: PropTypes.number.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
+        */
     }
 
     constructor (props) {
         super(props)
-        /*
-         this.state = {
-         matchingStatusOpen: true, availability: [], skills: []
-         }
-         */
     }
 
     render () {
         const {connectDropTarget, isOver} = this.props
 
         let generateEmptySpots = () => {
-            let emptyNum = this.props.capacity - this.props.participants.length
+            let emptyNum = this.props.capacity - this.props.participants.size
             let result = []
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
@@ -146,89 +141,14 @@ class GroupCard extends React.Component {
             return skillCountMap
         }
 
-        let skills = generateSkillCountMap(this.props.participants)
-        let days = overAllAvailability(this.props.participants)
-        let numsTodays = {
-            1: 'monday',
-            2: 'tuseday',
-            3: 'wednesday',
-            4: 'thursday',
-            5: 'friday',
-            6: 'saturday',
-            0: 'sunday'
-        }
-        let daysToNums = {
-            'monday': 1,
-            'tuseday': 2,
-            'wednesday': 3,
-            'thursday': 4,
-            'friday': 5,
-            'saturday': 6,
-            'sunday': 0
-        }
-        let count = 0
-        let matchingColor = ''
-        let i
-        let itemCount = this.props.matching.size
-        let view = true
-        let result = 0
-        if (itemCount > 0) {
-            for (i = 0; i < days.length; i++) {
-                if (this.props.matching.has(numsTodays[i]) && days[i]) {
-                    count++
-                }
-
-            }
-
-            let keys = Object.keys(skills)
-            for (i = 0; i < keys.length; i++) {
-                if (this.props.matching.has(keys[i])) {
-                    count++
-                }
-            }
-
-            result = Math.round((count / itemCount) * 100) / 100
-
-            if (result > .70 || this.props.participants.length === 0) {
-                matchingColor = 'green'
-            } else if (result > .45) {
-                matchingColor = 'yellow'
-            } else {
-                matchingColor = 'red'
-            }
-        }
-
-        for (i = 0; i < this.props.filters.length; i++) {
-            if (this.props.filters[i] in daysToNums) {
-                if (!days[daysToNums[this.props.filters[i]]]) {
-                    view = false
-                    break
-                }
-            } else {
-                if (Object.keys(skills).indexOf(this.props.filters[i]) === -1) {
-                    view = false
-                    break
-                }
-            }
-        }
-
-        let background = ''
-        if (this.props.participants.some((el) => el.participantId === this.props.draggedUser)) {
-            background = 'black'
-        }
-
-        if (this.props.unlocked) {
-            matchingColor = 'grey'
-        }
-
         let display = (
             <div>
                 <Segment.Group raised style={ {
-                    backgroundColor: background,
+                    backgroundColor: 'white',
                     opacity: this.props.unlocked ? 0.5 : 1,
                     cursor: this.props.unlocked ? 'not-allowed' : 'default'
                 } }>
-                    <Segment padded={ true } size="large" color={this.props.dragging? matchingColor : ""} inverted={true}
+                    <Segment padded={ true } size="large" inverted={true}
                              style={{
                                  backgroundColor: '#fcfcfc',
                              }}
@@ -239,36 +159,19 @@ class GroupCard extends React.Component {
                         >
                             <Icon name={ this.props.unlocked ? 'lock' : 'unlock' }/>
                             Group { this.props.groupNumber } &nbsp;
-                            {/*matching: &nbsp;{Math.round(result*100)}% */}
-
                         </Label>
                         <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                            {
-                                this.props.participants.map((participant) =>
-                                    <DraggableCard
-                                        participant={ participant }
-                                        key={ participant.participantId }
-                                        setCurrentlySelected={ this.props.setCurrentlySelected }
-                                        unlocked={ this.props.unlocked }
-                                    />
-                                )
-                            }
                             { generateEmptySpots() }
                         </Card.Group>
 
-                        <Label color={ pickCapacityLabelColor(this.props.participants.length, this.props.capacity) }
+                        <Label color={ pickCapacityLabelColor(this.props.participants.size, this.props.capacity) }
                                attached="top right">
-                            <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
+                            <Icon name='user'/> { this.props.participants.size} / { this.props.capacity }
                         </Label>
                     </Segment>
-
-                    { (this.props.participants.length > 0 ) &&
-                    <AvailabilitySegment participants={ this.props.participants }
-                                         isOver={ isOver }/> }
-
-                    { (this.props.participants.length > 0 ) &&
-                    <SkillCountSegment participants={ this.props.participants }
-                                       isOver={ isOver }/> }
+                    {
+                        //Question Segment
+                    }
                 </Segment.Group>
             </div>
         )

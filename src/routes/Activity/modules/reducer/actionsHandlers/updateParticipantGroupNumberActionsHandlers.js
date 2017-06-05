@@ -14,21 +14,16 @@ let arrayObjectIndexOf = (myArray, searchTerm, property) => {
 };
 
 let handleUpdateParticipantGroupsNumber = (state, payload) => {
-    let newState = (JSON.parse(JSON.stringify(state))),
-
-    participantId = payload.participantId,
-    oldGroupNumber = payload.oldGroupNumber,
-    newGroupNumber = payload.newGroupNumber,
-    participants = newState.participants,
-    participantIndex = arrayObjectIndexOf(participants, participantId, "participantId");
-
-    // console.log(JSON.stringify(participantIndex, null, 2));
-    participants[participantIndex].groupNumber = newGroupNumber;
-    let temp = Object.assign({}, participants[participantIndex]);
-    participants.splice(participantIndex, 1);
-    participants.push(temp);
-    let update = state.set("participants", participants);
-    return update;
+    console.log(payload)
+        console.log(state)
+    let index = state.get('participants')
+                .findIndex((participant) => (participant.get('participantId') === payload.participantId)) 
+    let newState = ((index == -1) ?
+            state.setIn(['participants', index], payload.newGroupNumber)
+        :
+            state)
+    
+    return newState;
 };
 
 let handleUpdateParticipantGroupsNumberSuccess = (state, payload) => {

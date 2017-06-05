@@ -13,7 +13,7 @@ let submitSurvey = (dispatch) => {
         payload.questions.forEach((question) => {
             surveyResponses.push(
                 {
-                    question:question.get('title'),
+                    question:question.get('type'),
                     answer:question.get('answers')
                 }   
             );       

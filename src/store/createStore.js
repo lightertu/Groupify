@@ -3,6 +3,7 @@ import thunk from 'redux-thunk'
 import {browserHistory} from 'react-router'
 import makeRootReducer from './reducers'
 import {updateLocation} from './location'
+import Immutable from 'immutable';
 
 import generateUsers from "../routes/Activity/modules/UserGenerator"
 
@@ -20,7 +21,11 @@ export default (initialState = {}) => {
     let composeEnhancers = compose;
 
     if (__DEV__) {
-        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            serialize: {
+                immutable: Immutable
+            }
+        });
         if (typeof composeWithDevToolsExtension === 'function') {
             composeEnhancers = composeWithDevToolsExtension
         }

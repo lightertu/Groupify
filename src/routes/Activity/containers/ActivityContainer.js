@@ -25,12 +25,17 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state, ownProps) => {
     return {
         activityId: ownProps.location.query.id,
-        participants: state.activity.get("participants"),
+
         groupCapacity: state.activity.get("groupCapacity"),
         totalCapacity: state.activity.get("totalCapacity"),
-        matching: state.activity.get("matching"),
-        unlocked: state.activity.get("unlocked"),
-        filter: state.activity.get("filter")
+
+        participants: state.activity.get("participants"),
+
+        lockedGroups: state.activity.get("lockedGroups"),
+
+        allAnswers: state.activity.get("allAnswers"),
+        filter: state.activity.get("filter"),
+
     }
 };
 

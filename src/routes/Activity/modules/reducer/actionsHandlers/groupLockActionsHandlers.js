@@ -10,8 +10,9 @@ let handleCreateLocks = (state, payload) => {
 }
 
 let handleToggleLock = (state, payload) => {
+    console.log('Toggle');
 	let update = state.setIn(["unlocked", payload], !state.getIn(["unlocked", payload]));
-	return update;
+	return state;
 }
 
 export {
