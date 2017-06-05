@@ -4,7 +4,6 @@
 
 import React from 'react'
 import {Segment, Image, List, Button, Header, Icon, Label} from 'semantic-ui-react'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 import PropTypes from "prop-types"
 import {DragSource, DropTarget} from 'react-dnd';
 import {ParticipantTypes} from "../../constants/ParticipantTypes"
@@ -58,13 +57,7 @@ class ParticipantTrash extends React.Component {
 
         return connectDropTarget(
             <div style={{position: "fixed", bottom: 100, left: 75, textAlign: "center"}}>
-                <CSSTransitionGroup
-                    transitionName="example"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={700}>
-                    {display}
-                </CSSTransitionGroup>
-            </div>              
+            </div>
         )
     }
 }

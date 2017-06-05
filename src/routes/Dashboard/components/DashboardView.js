@@ -4,6 +4,7 @@ import DashboardSideMenu from "./DashboardSideMenu/DashboardSideMenu";
 import ActivitiesView from "./ActivitiesView";
 import SurveysView from "./SurveysView";
 import AccountSettingView from "./AccountSettingView";
+import UserIsAuthenticated from '../../UserIsAuthenticated'
 
 const _DashboardContentWrapper = (props) => (
     <div style={ {
