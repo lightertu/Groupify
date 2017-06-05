@@ -57,7 +57,6 @@ export class ActivityView extends React.Component {
                 })
             }
             this.props.participants.forEach((participant) => {
-                console.log(participant);
                 let participantGroupNumber = participant.get('groupNumber');
                 if (participantGroupNumber >= 0 && participantGroupNumber < numOfGroups) {
                     groups[participantGroupNumber].participants.push(participant);
@@ -68,7 +67,6 @@ export class ActivityView extends React.Component {
         };
 
         let getGroupCards = (groups) => {
-            console.log(this.props.activityId)
             return (
                 groups.map(
                     (group, i) => (
@@ -94,6 +92,7 @@ export class ActivityView extends React.Component {
                 <ParticipantListSidebar 
                         key={"ParticipantListSidebar_" + this.props.participants.size}
                         participants={ this.props.participants }
+                        setCurrentlySelected={(v) => {console.log(v)}}
                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                         activityId={ this.props.activityId }
                 />

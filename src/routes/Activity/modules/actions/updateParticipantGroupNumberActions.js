@@ -15,17 +15,15 @@ let updateParticipantGroupNumber = (dispatch) => {
             oldGroupNumber: oldGroupNumber,
             newGroupNumber: newGroupNumber
         };
-
+        console.log('-------------------------------');
+        console.log({groupNumber:payload.newGroupNumber});
         dispatch({
             type: UPDATE_PARTICIPANT_GROUP_NUMBER,
             payload: payload
         });
 
-        let url = SERVER_URL + "/api/activities/" + activityId + "/participants/" + participantId;
-        axios.put(url, {
-            oldGroupsNumber: oldGroupNumber,
-            newGroupNumber: newGroupNumber
-        })
+        let url = SERVER_URL + "/api/activities/" + activityId + "/participants/" + participantId + '/groupNumber';
+        axios.put(url, {groupNumber:payload.newGroupNumber})
             .then((response) => {
                 dispatch(updateParticipantGroupNumberSuccess(response));
             })

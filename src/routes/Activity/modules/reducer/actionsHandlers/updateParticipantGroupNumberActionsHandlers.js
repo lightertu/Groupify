@@ -18,10 +18,12 @@ let handleUpdateParticipantGroupsNumber = (state, payload) => {
         console.log(state)
     let index = state.get('participants')
                 .findIndex((participant) => (participant.get('participantId') === payload.participantId)) 
+                console.log(payload.participantId)
+                console.log(index)
     let newState = ((index == -1) ?
-            state.setIn(['participants', index], payload.newGroupNumber)
+            state
         :
-            state)
+            state.setIn(['participants', index, 'groupNumber'], payload.newGroupNumber))
     
     return newState;
 };

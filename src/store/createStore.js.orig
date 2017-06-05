@@ -2,10 +2,16 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import baseHistory from './baseHistory'
 import makeRootReducer from './reducers'
+<<<<<<< HEAD
+import {updateLocation} from './location'
+import Immutable from 'immutable';
+
+import generateUsers from "../routes/Activity/modules/UserGenerator"
+=======
 import { updateLocation } from './location'
 import { routerMiddleware } from 'react-router-redux'
 import { browserHistory } from 'react-router'
-import Immutable from 'immutable';
+>>>>>>> fix-login
 
 export default (initialState = {}) => {
     // ======================================================
@@ -25,11 +31,15 @@ export default (initialState = {}) => {
     let composeEnhancers = compose
 
     if (__DEV__) {
+<<<<<<< HEAD
         const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
             serialize: {
                 immutable: Immutable
             }
         });
+=======
+        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+>>>>>>> fix-login
         if (typeof composeWithDevToolsExtension === 'function') {
             composeEnhancers = composeWithDevToolsExtension
         }
@@ -62,4 +72,3 @@ export default (initialState = {}) => {
 
     return store
 }
-
