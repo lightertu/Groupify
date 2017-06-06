@@ -9,7 +9,8 @@ const getOneActivityController   = require("./getOneActivityController");
 const deleteActivityController   = require("./deleteActivityController");
 const updateActivityController   = require("./updateActivityController");
 const lockGroupInCertainActivityController = require("./lockGroupInCertainActivityController");
-const unlockGroupInCertainActivityController = require("./unlockGroupInCertainActivityController")
+const unlockGroupInCertainActivityController = require("./unlockGroupInCertainActivityController");
+const emailParticipantsForCertainActivityController = require("./emailParticipantsForCertainActivityController");
 
 const activitiesControllers = {
     // create an activity
@@ -24,14 +25,17 @@ const activitiesControllers = {
     // delete one activity
     deleteActivityController,
 
-    //update one activity
+    // update one activity
     updateActivityController,
 
     // lock an group
     lockGroupInCertainActivityController,
 
     // unlock an group
-    unlockGroupInCertainActivityController
+    unlockGroupInCertainActivityController,
+
+    // send email to participants
+    emailParticipantsForCertainActivityController,
 };
 
 module.exports = activitiesControllers;

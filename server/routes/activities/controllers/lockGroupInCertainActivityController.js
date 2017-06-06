@@ -49,8 +49,6 @@ module.exports = function (req, res, next) {
     const activityId = req.params.activityId;
     const groupNumber = req.body.groupNumber;
 
-    console.log(groupNumber);
-
     Activity.findOneAndUpdate(
         {
             _id: activityId, _creator: userId, isDeleted: false},
