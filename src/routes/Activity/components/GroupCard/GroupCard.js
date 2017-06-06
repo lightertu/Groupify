@@ -166,7 +166,7 @@ class GroupCard extends React.Component {
                             { this.props.participants.map((participant) =>
                                 <DraggableCard 
                                     participant={ participant } 
-                                    key={ participant.participantId } 
+                                    key={ participant.get('participantId') } 
                                     setCurrentlySelected={ (v) => console.log(v)  }
                                     unlocked= { this.props.unlocked }
                                 /> 
