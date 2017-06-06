@@ -7,6 +7,7 @@ import { Segment, Image, List, Button, Header, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { DragSource, DropTarget } from 'react-dnd'
 
+import {Map, Set} from 'immutable';
 import ParticipantProfilePopup from '../ParticipantProfilePopup'
 import { ParticipantTypes } from '../../constants/ParticipantTypes'
 import SidebarMenu from '../../../../components/SidebarMenu/SidebarMenu'
@@ -37,10 +38,16 @@ class DraggableParticipantListItem extends React.Component {
 
     render () {
         const {image, name, participantId, connectDragSource, isDragging} = this.props
+        let allAnswers = Set([]);
+        this.props.surveyResponses.forEach((response) => {
+            allAnswers = allAnswers.union(response.get('answer'));
+        });
+        let filteredOut=this.props.filter.size > 0 && !(this.props.filter.isSubset(allAnswers))
         return connectDragSource(
             <div className="item" onMouseEnter={this.props.onMouseEnter} 
                 onMouseLeave={this.props.onMouseLeave}
-                 style={ {visibility: isDragging ? 'hidden' : 'visible', cursor: 'move', padding: '7px'} }>
+                 style={{ visibility: (isDragging || filteredOut) ? 'hidden' : 'visible', 
+                     cursor: 'move', padding: '7px'} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
@@ -68,6 +75,7 @@ class Participant extends React.Component {
                 name={ this.props.name }
                 image={ this.props.image }
                 surveyResponses={ this.props.surveyResponses }
+                filter={this.props.filter}
                 setCurrentlySelected={(v) => {console.log(v)}}
                 participantId={ this.props.participantId }
                 setCurrentlySelected={(v) => {console.log(v)}}/>
@@ -79,6 +87,7 @@ class Participant extends React.Component {
                 image={ this.props.image }
                 surveyResponses={ this.props.surveyResponses }
                 setCurrentlySelected={(v) => {console.log(v)}}
+                filter={this.props.filter}
                 groupNumber={ this.props.groupNumber }
                 position="right center"
                 offset={ 20 }
@@ -136,7 +145,6 @@ class ParticipantListSidebar extends React.Component {
             )).size
         )
 
-
         let generateSidebarList = (participants) => (
             <List verticalAlign='middle' size="large" selection>
                 {
@@ -148,6 +156,7 @@ class ParticipantListSidebar extends React.Component {
                             key={ participantObj.get('participantId') }
                             participantId={ participantObj.get('participantId') }
                             surveyResponses={ participantObj.get('surveyResponses') }
+                            filter={this.props.filter}
                             name={ participantObj.get('name') }
                             setCurrentlySelected={(v) => {console.log(v)}}
                             image={ participantObj.get('image') }

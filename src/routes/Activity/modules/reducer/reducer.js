@@ -7,6 +7,7 @@ import * as ActionsHandlers from "./actionsHandlers"
 
 const initialState = Map({
     currentlyDragging: '',
+    isRunningAlgorithm: false,
     
     groupCapacity: 0,
     totalCapacity: 0,
@@ -31,13 +32,11 @@ export default function activityReducer (state = initialState, action) {
     switch(action.type) {
 
         /* reduce group locks */
-        case Actions.groupLockActions.CREATE_LOCKS:
-            return ActionsHandlers.groupLockActionsHandlers.handleCreateLocks(state, action.payload); // delete this after server hookup
         case Actions.groupLockActions.TOGGLE_LOCK:
             return ActionsHandlers.groupLockActionsHandlers.handleToggleLock(state, action.payload);
 
-        case Actions.filterParticipantsActions.FILTER_PARTICIPANTS:
-            return ActionsHandlers.filterParticipantsActionsHandlers.handleFilterParticipants(state, action.payload);
+        case Actions.filterParticipantsActions.SET_FILTER:
+            return ActionsHandlers.filterParticipantsActionsHandlers.handleSetFilter(state, action.payload);
 
         /* reduce userMatching */
         case Actions.userMatchingActions.SORT_PARTICIPANTS:
@@ -67,9 +66,9 @@ export default function activityReducer (state = initialState, action) {
         case Actions.generateGroupAssignmentActions.GENERATE_GROUP_ASSIGNMENT:
             return ActionsHandlers.generateGroupAssignmentActionsHandlers.handleGenerateGroupAssignment(state, action.payload);
         case Actions.generateGroupAssignmentActions.GENERATE_GROUP_ASSIGNMENT_SUCCESS:
-            return ActionsHandlers.generateGroupAssignmentActionsHandlers.handleGenerateGroupAssignmentFailure(state, action.payload);
-        case Actions.generateGroupAssignmentActions.GENERATE_GROUP_ASSIGNMENT_FAILURE:
             return ActionsHandlers.generateGroupAssignmentActionsHandlers.handleGenerateGroupAssignmentSuccess(state, action.payload);
+        case Actions.generateGroupAssignmentActions.GENERATE_GROUP_ASSIGNMENT_FAILURE:
+            return ActionsHandlers.generateGroupAssignmentActionsHandlers.handleGenerateGroupAssignmentFailure(state, action.payload);
         default:
             return state;
     }

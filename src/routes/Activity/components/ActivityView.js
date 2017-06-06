@@ -72,15 +72,18 @@ export class ActivityView extends React.Component {
                     (group, i) => (
                         <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
+                                       key = {"GC_" + i}
+                                       isLocked = {this.props.lockedGroups.has(i)}
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
+                                       filter={this.props.filter}
                                        itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
                                        setCurrentlySelected={(v) => console.log(v) }
                                        toggleLock={(v) => console.log(v)  }
                                        group={ i }
-                                       unlocked={ this.props.lockedGroups.get(i)}
+                                       toggleLock={this.props.toggleLock}
                             />
                         </Grid.Column>
                     )
@@ -94,9 +97,19 @@ export class ActivityView extends React.Component {
                         participants={ this.props.participants }
                         setCurrentlySelected={(v) => {console.log(v)}}
                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                        filter={this.props.filter}
                         activityId={ this.props.activityId }
                 />
                 <ActivityCardViewWrapper setCurrentlySelected={(v) => console.log(v) }>
+                {
+                    (this.props.participants.size > 0) &&
+                    <FilterMenu activityId={ this.props.activityId }
+                                isRunningAlgorithm = {this.props.isRunningAlgorithm}
+                                allAnswers={this.props.allAnswers}
+                                filter={this.props.filter}
+                                generateGroupAssignment={ this.props.generateGroupAssignment }
+                                setFilter={ this.props.setFilter}/>
+                }
                 <Grid columns={ cardsPerRow }>
                     { getGroupCards(separateParticipantsIntoGroups()) }
                 </Grid>
