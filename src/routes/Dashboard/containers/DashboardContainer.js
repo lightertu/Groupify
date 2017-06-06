@@ -1,4 +1,5 @@
 import {connect} from 'react-redux'
+import UserIsAuthenticated from "../../UserIsAuthenticated"
 
 /*  This is a container component. Notice it does not contain any JSX,
  nor does it import React. This component is **only** responsible for
@@ -116,4 +117,5 @@ const mapStateToProps = (state, ownProps) => {
  Selectors are composable. They can be used as input to other selectors.
  https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardView)
+export default UserIsAuthenticated(connect(mapStateToProps, mapDispatchToProps)(DashboardView))
+

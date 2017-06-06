@@ -43,6 +43,9 @@ module.exports = function (req, res, next) {
 
             return res.json({
                 participants: activity.participants,
+                lockedGroups: activity.lockedGroups,
+                totalCapacity: activity.totalCapacity,
+                groupCapacity: activity.groupCapacity,
             })
         })
         .catch(createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR));

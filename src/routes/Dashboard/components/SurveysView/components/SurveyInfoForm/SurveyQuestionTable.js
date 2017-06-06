@@ -4,7 +4,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Button, Card, Dropdown, Form, Header, Icon, Modal, Segment, Divider, Table, Label, Menu } from 'semantic-ui-react'
+import { Button, Card, Dropdown, Form, Header, Icon, Modal, Segment, Divider, Table, Label, Menu, Popup, List} from 'semantic-ui-react'
 
 class SurveyQuestionTableNewEntry extends React.Component {
     constructor (props) {
@@ -28,7 +28,7 @@ class SurveyQuestionTableNewEntry extends React.Component {
 
     render () {
         return (
-            <Table.Row >
+            <Table.Row style={{margin:0, padding:0}} >
                 <Table.Cell  style={{width:'100%', padding:0, margin:0}}> 
                     <Button
                         disabled={
@@ -137,7 +137,45 @@ export default class SurveyQuestionTable extends React.Component {
                 <Table style={{marginBottom:0}}>
                     <Table.Header>
                         <Table.Row>
-                            <Table.HeaderCell colSpan='2' textAlign='center'>Questions</Table.HeaderCell>
+                            <Table.HeaderCell colSpan='2' textAlign='center'>
+                                Question Manager
+                                <Popup style={{zIndex:4444}}
+                                    flowing
+                                    hideOnScroll
+                                    trigger={
+                                        <Icon size='large' color='blue' name='help circle'/>
+                                    }
+                                    content={
+                                        <List bulleted style={{fontSize:16}}>
+                                            <List.Item>
+                                                Create questions by clicking on 
+                                                [
+                                                    <Icon size='large' 
+                                                        style={{fontSize:16, height:'100%', marginTop:0, marginBotton:0}} 
+                                                        name='plus' color='green' 
+                                                     /> 
+                                                    New Question
+                                                ] 
+                                            </List.Item>
+                                            <List.Item>
+                                                Navigate between questions by clicking on any question 
+                                                title
+                                            </List.Item>
+                                            <List.Item>
+                                                Delete questions by clicking on 
+                                                    <Icon size='large' 
+                                                        style={{fontSize:16, height:'100%', 
+                                                            marginTop:0, marginBotton:0,
+                                                            marginLeft:2, marginRight:5
+                                                        }} 
+                                                        name='remove' color='red' 
+                                                     /> 
+                                            </List.Item>
+                                        </List>
+                                    }
+                                    position='top center'
+                                />
+                            </Table.HeaderCell>
                         </Table.Row>
                         <SurveyQuestionTableNewEntry
                             inActivitiesView = {this.props.inActivitiesView} 

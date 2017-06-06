@@ -124,7 +124,7 @@ let handleUpdateSurveyHolderQuestionToggleFilterMode= (state, payload) => {
 let handleUpdateSurveyHolderQuestionSetAnswersMaximum= (state, payload) => {
     let newState = state.updateIn(['surveysViewData', 'surveyHolder', 'questions', 
         payload.index, 'answersMaximum'], (value) => {
-            return payload.value;
+            return (payload.value ? payload.value : 0);
     });
     return newState;
 }
@@ -132,7 +132,7 @@ let handleUpdateSurveyHolderQuestionSetAnswersMaximum= (state, payload) => {
 let handleUpdateSurveyHolderQuestionSetAnswersMinimum= (state, payload) => {
     let newState = state.updateIn(['surveysViewData', 'surveyHolder', 'questions', 
         payload.index, 'answersMinimum'], (value) => {
-            return payload.value;
+            return (payload.value ? payload.value : 0);
     });
     return newState;
 }

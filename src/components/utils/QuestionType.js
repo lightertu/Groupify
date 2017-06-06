@@ -7,17 +7,17 @@ import {Map, List} from 'immutable';
 
 
 let QuestionTypes = Map({
-    CircleSelection: Map({
-        type:'CircleSelection',
-        display:'Circle Selection',
-        description:'This type allows participants to selected multiple answers from a list of options',
+    TimeAvailability: Map({
+        type:'TimeAvailability',
+        display:'Time Availability',
+        description:'This type allows participants to select days of the week',
         options:Map({
             'tooltip':true,
             'tooltipHint':'Descripe the question to your participants',
             'tooltipLabel':'Description',
-             
+            
             'answersEnableMaximum':true,
-            'answersEnableMaximumHint':'',
+            'answersEnableMaximumHint':'This toggle enables the maximum answers limit',
             'answersEnableMaximumTrueLabel':'Enabled',
             'answersEnableMaximumFalseLabel':'Disabled',
             
@@ -26,7 +26,91 @@ let QuestionTypes = Map({
             'answersMaximumLabel':'Maximum Answers Limit',
             
             'answersEnableMinimum':true,
-            'answersEnableMinimumHint':'',
+            'answersEnableMinimumHint':'This toggle enables the minimum answers limit',
+            'answersEnableMinimumTrueLabel':'Enabled',
+            'answersEnableMinimumFalseLabel':'Disabled',
+            
+            'answersMinimum':true,
+            'answersMinimumHint':'Minimum amount of answers allowed. (Must be less than 8)',
+            'answersMinimumLabel':'Minimum Answers Limit',
+            
+            'answersEnableFilter':false,
+            'answersEnableFilterHint':'When filter is enabeled, only options in this list can be selected',
+            'answersEnableFilterTrueLabel':'Enabled',
+            'answersEnableFilterFalseLabel':'Disabled',
+            
+            'answersFilter':false,
+            'answersFilterHint':'When filter is enabeled, participant will only be able to select answers from this field',
+            'answersFilterLabel':'Limit Options',
+            
+            'answersFilterEnableBlacklistMode':false,
+            'answersFilterEnableBlacklistModeHint':'Blacklist: block filter entries. Whitelist: allow filter entries.',
+            'answersFilterEnableBlacklistModeTrueLabel':'Blacklist',
+            'answersFilterEnableBlacklistModeFalseLabel':'Whitelist',
+        })  
+    }),
+    ProgrammingLanguages: Map({
+        type:'ProgrammingLanguages',
+        display:'Programming Languages',
+        description:'This type allows participants select programming languages',
+        options:Map({
+            'tooltip':true,
+            'tooltipHint':'Descripe the question to your participants',
+            'tooltipLabel':'Description',
+            
+            'answersEnableMaximum':true,
+            'answersEnableMaximumHint':'This toggle enables the maximum answers limit',
+            'answersEnableMaximumTrueLabel':'Enabled',
+            'answersEnableMaximumFalseLabel':'Disabled',
+            
+            'answersMaximum':true,
+            'answersMaximumHint':'Maximum amount of answers allowed.',
+            'answersMaximumLabel':'Maximum Answers Limit',
+            
+            'answersEnableMinimum':true,
+            'answersEnableMinimumHint':'This toggle enables the minimum answers limit',
+            'answersEnableMinimumTrueLabel':'Enabled',
+            'answersEnableMinimumFalseLabel':'Disabled',
+            
+            'answersMinimum':true,
+            'answersMinimumHint':'Minimum amount of answers allowed.',
+            'answersMinimumLabel':'Minimum Answers Limit',
+            
+            'answersEnableFilter':false,
+            'answersEnableFilterHint':'Toggles between Limited and Unlimited answers. In Limited mode, studennts can only choose from this list of options. in Unlimited mode, Students may add their own answers',
+            'answersEnableFilterTrueLabel':'Limited',
+            'answersEnableFilterFalseLabel':'Unlimited',
+            
+            'answersFilter':false,
+            'answersFilterHint':'When filter is enabeled, participant will only be able to select answers from this field',
+            'answersFilterLabel':'Options',
+            
+            'answersFilterEnableBlacklistMode':false,
+            'answersFilterEnableBlacklistModeHint':'Blacklist: block filter entries. Whitelist: allow filter entries.',
+            'answersFilterEnableBlacklistModeTrueLabel':'Blacklist',
+            'answersFilterEnableBlacklistModeFalseLabel':'Whitelist',
+        })  
+    }),
+    CircleSelection: Map({
+        type:'CircleSelection',
+        display:'Radio Button Selection',
+        description:'This type allows participants to toggle choises from a set of radio buttons representing options',
+        options:Map({
+            'tooltip':true,
+            'tooltipHint':'Descripe the question to your participants',
+            'tooltipLabel':'Description',
+             
+            'answersEnableMaximum':true,
+            'answersEnableMaximumHint':'This toggle enables the maximum answers limit',
+            'answersEnableMaximumTrueLabel':'Enabled',
+            'answersEnableMaximumFalseLabel':'Disabled',
+            
+            'answersMaximum':true,
+            'answersMaximumHint':'Maximum amount of answers allowed.',
+            'answersMaximumLabel':'Maximum Answers Limit',
+            
+            'answersEnableMinimum':true,
+            'answersEnableMinimumHint':'This toggle enables the minimum answers limit',
             'answersEnableMinimumTrueLabel':'Enabled',
             'answersEnableMinimumFalseLabel':'Disabled',
             
@@ -59,7 +143,7 @@ let QuestionTypes = Map({
             'tooltipLabel':'Description',
             
             'answersEnableMaximum':true,
-            'answersEnableMaximumHint':'',
+            'answersEnableMaximumHint':'This toggle enables the maximum answers limit',
             'answersEnableMaximumTrueLabel':'Enabled',
             'answersEnableMaximumFalseLabel':'Disabled',
             
@@ -68,7 +152,7 @@ let QuestionTypes = Map({
             'answersMaximumLabel':'Maximum Answers Limit',
             
             'answersEnableMinimum':true,
-            'answersEnableMinimumHint':'',
+            'answersEnableMinimumHint':'This toggle enables the minimum answers limit',
             'answersEnableMinimumTrueLabel':'Enabled',
             'answersEnableMinimumFalseLabel':'Disabled',
             
@@ -77,15 +161,15 @@ let QuestionTypes = Map({
             'answersMinimumLabel':'Minimum Answers Limit',
             
             'answersEnableFilter':true,
-            'answersEnableFilterHint':'Limit the answers allowed to answers seperated by comma in this field.',
+            'answersEnableFilterHint':'When filter is enabeled, only options in this list can be selected',
             'answersEnableFilterTrueLabel':'Enabled',
             'answersEnableFilterFalseLabel':'Disabled',
             
             'answersFilter':true,
-            'answersFilterHint':'When filter is enabeled, only optiosn in this list can be selected',
-            'answersFilterLabel':'Filter',
+            'answersFilterHint':'When filter is enabeled, participant will only be able to select answers from this field',
+            'answersFilterLabel':'Limit Options',
             
-            'answersFilterEnableBlacklistMode':true,
+            'answersFilterEnableBlacklistMode':false,
             'answersFilterEnableBlacklistModeHint':'Blacklist: block filter entries. Whitelist: allow filter entries.',
             'answersFilterEnableBlacklistModeTrueLabel':'Blacklist',
             'answersFilterEnableBlacklistModeFalseLabel':'Whitelist',
@@ -93,41 +177,41 @@ let QuestionTypes = Map({
     }),
     'SingleInputTextField': Map({
         type:'SingleInputTextField',
-        display:'Single Answer Text-Field',
-        description:'This type allows participants to enter a single textual answer',
+        display:'Text Field',
+        description:'This type allows participants to enter information into an Open-Ended Text Field',
         options:Map({
             'tooltip':true,
             'tooltipHint':'Descripe the question to your participants',
             'tooltipLabel':'Description',
             
-            'answersEnableMaximum':true,
+            'answersEnableMaximum':false,
             'answersEnableMaximumHint':'',
             'answersEnableMaximumTrueLabel':'Enabled',
             'answersEnableMaximumFalseLabel':'Disabled',
             
-            'answersMaximum':true,
+            'answersMaximum':false,
             'answersMaximumHint':'Maximum amount of characters allowed.',
             'answersMaximumLabel':'Maximum Character Limit',
             
-            'answersEnableMinimum':true,
+            'answersEnableMinimum':false,
             'answersEnableMinimumHint':'',
             'answersEnableMinimumTrueLabel':'Enabled',
             'answersEnableMinimumFalseLabel':'Disabled',
             
-            'answersMinimum':true,
+            'answersMinimum':false,
             'answersMinimumHint':'Minimum amount of characters allowed.',
-            'answersMinimumLabel':'Minimum Characters Limit',
+            'answersMinimumLabel':'Minimum Character Limit',
             
-            'answersEnableFilter':true,
-            'answersEnableFilterHint':'Limit the answers allowed to answers seperated by comma in this field.',
+            'answersEnableFilter':false,
+            'answersEnableFilterHint':'Limit the answers allowed to only these options.',
             'answersEnableFilterTrueLabel':'Enabled',
             'answersEnableFilterFalseLabel':'Disabled',
             
-            'answersFilter':true,
-            'answersFilterHint':'When filter is enabeled, only optiosn in this list can be selected',
+            'answersFilter':false,
+            'answersFilterHint':'When filter is enabeled, only options in this list can be selected',
             'answersFilterLabel':'Filter',
             
-            'answersFilterEnableBlacklistMode':true,
+            'answersFilterEnableBlacklistMode':false,
             'answersFilterEnableBlacklistModeHint':'Blacklist: block filter entries. Whitelist: allow filter entries.',
             'answersFilterEnableBlacklistModeTrueLabel':'Blacklist',
             'answersFilterEnableBlacklistModeFalseLabel':'Whitelist',

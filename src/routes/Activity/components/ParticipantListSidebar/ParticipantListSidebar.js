@@ -3,24 +3,27 @@
  */
 
 import React from 'react'
-import {Segment, Image, List, Button, Header, Icon} from 'semantic-ui-react'
-import PropTypes from "prop-types"
-import {DragSource, DropTarget} from 'react-dnd';
+import { Segment, Image, List, Button, Header, Icon } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
+import { DragSource, DropTarget } from 'react-dnd'
 
-import ParticipantProfilePopup from "../ParticipantProfilePopup";
-import {ParticipantTypes} from "../../constants/ParticipantTypes"
-import SidebarMenu from "../../../../components/SidebarMenu/SidebarMenu";
-import ParticipantTrash from "./ParticipantTrash";
+import {Map, Set} from 'immutable';
+import ParticipantProfilePopup from '../ParticipantProfilePopup'
+import { ParticipantTypes } from '../../constants/ParticipantTypes'
+import SidebarMenu from '../../../../components/SidebarMenu/SidebarMenu'
+import ParticipantTrash from './ParticipantTrash'
+
+import { Drawer, MuiThemeProvider } from 'material-ui'
 
 const participantSidebarItemSource = {
     beginDrag(props) {
-        props.setCurrentlySelected(props.participantId);
+        props.setCurrentlySelected(props.participantId)
         return {
             participantId: props.participantId,
             oldGroupNumber: -1
-        };
+        }
     }
-};
+}
 
 @DragSource(ParticipantTypes.UNGROUPED_PARTICIPANT, participantSidebarItemSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -31,13 +34,20 @@ class DraggableParticipantListItem extends React.Component {
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
         participantId: PropTypes.string.isRequired
-    };
+    }
 
-    render() {
-        const {image, name, participantId, connectDragSource, isDragging} = this.props;
+    render () {
+        const {image, name, participantId, connectDragSource, isDragging} = this.props
+        let allAnswers = Set([]);
+        this.props.surveyResponses.forEach((response) => {
+            allAnswers = allAnswers.union(response.get('answer'));
+        });
+        let filteredOut=this.props.filter.size > 0 && !(this.props.filter.isSubset(allAnswers))
         return connectDragSource(
-            <div className="item" {...this.props }
-                 style={ {visibility: isDragging ? "hidden" : "visible", cursor: "move", padding:"7px" } }>
+            <div className="item" onMouseEnter={this.props.onMouseEnter} 
+                onMouseLeave={this.props.onMouseLeave}
+                 style={{ visibility: (isDragging || filteredOut) ? 'hidden' : 'visible', 
+                     cursor: 'move', padding: '7px'} }>
                 <Image size="mini" shape="rounded" verticalAlign="middle" src={ image }/>
                 <List.Content>
                     <List.Header> { name } </List.Header>
@@ -49,30 +59,36 @@ class DraggableParticipantListItem extends React.Component {
 
 class Participant extends React.Component {
     static propTypes = {
+        /*
         participantId: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         image: PropTypes.string.isRequired,
         groupNumber: PropTypes.number.isRequired,
         availability: PropTypes.array.isRequired,
         skills: PropTypes.array.isRequired,
-    };
+        */
+    }
 
-    render() {
+    render () {
         const draggableParticipantListItem = (
             <DraggableParticipantListItem
                 name={ this.props.name }
                 image={ this.props.image }
+                surveyResponses={ this.props.surveyResponses }
+                filter={this.props.filter}
+                setCurrentlySelected={(v) => {console.log(v)}}
                 participantId={ this.props.participantId }
-                setCurrentlySelected={this.props.setCurrentlySelected}/>
-        );
+                setCurrentlySelected={(v) => {console.log(v)}}/>
+        )
         return (
             <ParticipantProfilePopup
                 participantId={ this.props.participantId }
                 name={ this.props.name }
                 image={ this.props.image }
+                surveyResponses={ this.props.surveyResponses }
+                setCurrentlySelected={(v) => {console.log(v)}}
+                filter={this.props.filter}
                 groupNumber={ this.props.groupNumber }
-                skills={ this.props.skills }
-                availability={ this.props.availability }
                 position="right center"
                 offset={ 20 }
                 hoverable
@@ -84,15 +100,14 @@ class Participant extends React.Component {
     }
 }
 
-const participantsListStyle = {
-};
+const participantsListStyle = { marginTop: "55px"}
 
 const participantSidebarTarget = {
     drop(props, monitor) {
         //console.log(JSON.stringify(monitor.getItem(), null, 2));
-        props.setCurrentlySelected(""); // resets curretly selected user
-        let droppedItem = monitor.getItem();
-        if(monitor.isOver()) {
+        props.setCurrentlySelected('') // resets curretly selected user
+        let droppedItem = monitor.getItem()
+        if (monitor.isOver()) {
             props.updateParticipantGroupNumber(
                 props.activityId,
                 droppedItem.participantId,
@@ -100,9 +115,9 @@ const participantSidebarTarget = {
                 -1)
         }
     },
-};
+}
 
-function collectDrop(connect, monitor) {
+function collectDrop (connect, monitor) {
     return {
         connectDropTarget: connect.dropTarget(),
         isOver: monitor.isOver(),
@@ -111,67 +126,49 @@ function collectDrop(connect, monitor) {
 
 @DropTarget(ParticipantTypes.GROUPED_PARTICIPANT, participantSidebarTarget, collectDrop)
 class ParticipantListSidebar extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = ({trashed: false});
-        this.handleTrashed = this.handleTrashed.bind(this);
-
+    constructor (props) {
+        super(props)
     }
-
 
     static propTypes = {
         activityId: PropTypes.string.isRequired,
-        participants: PropTypes.array.isRequired,
+        participants: PropTypes.object.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
-    };
-
-    handleTrashed() {
-        this.setState({trashed: true});
-        let start = new Date().getTime();
-        let end = start;
-        while(end < start + 3000) {
-            end = new Date().getTime();
-        }
-
-
-        this.setState({trashed: false});
     }
 
-    render() {
-        const {connectDropTarget, isOver} = this.props;
+    render () {
+        const {connectDropTarget, isOver} = this.props
 
-        let getUngroupedNumber = (participants) => (
-            participants.filter((participantObj) => (
-                participantObj.groupNumber < 0
-            )).length
-        );
+        let getUngroupedNumber = () => (
+            this.props.participants.filter((participantObj) => (
+                participantObj.get('groupNumber') < 0
+            )).size
+        )
 
         let generateSidebarList = (participants) => (
             <List verticalAlign='middle' size="large" selection>
                 {
-                    participants.filter((participantObj) => (
-                        participantObj.groupNumber == -1
-                    ))
-
-                        .map((participantObj) => (
-                            <Participant
-                                key={ participantObj.participantId }
-                                participantId={ participantObj.participantId }
-                                name={ participantObj.name }
-                                image={ participantObj.image }
-                                groupNumber={ participantObj.groupNumber }
-                                skills={ participantObj.skills }
-                                availability={ participantObj.availability }
-                                setCurrentlySelected={ this.props.setCurrentlySelected }
-                            />
-                        ))
+                    participants.filter((participantObj) => {
+                        return (participantObj.get('groupNumber') === -1);
+                    })
+                    .map((participantObj) => {
+                        return <Participant
+                            key={ participantObj.get('participantId') }
+                            participantId={ participantObj.get('participantId') }
+                            surveyResponses={ participantObj.get('surveyResponses') }
+                            filter={this.props.filter}
+                            name={ participantObj.get('name') }
+                            setCurrentlySelected={(v) => {console.log(v)}}
+                            image={ participantObj.get('image') }
+                            groupNumber={ participantObj.get('groupNumber') }
+                        />
+                    })
                 }
             </List>
-        );
+        )
 
         let generateEmailButton = () => (
-            <div style={ {paddingTop: "200%", textAlign: "center"} }>
+            <div style={ {paddingTop: '200%', textAlign: 'center'} }>
                 <Header as='h2'>
                     All Grouped!
                     <Header.Subheader>
@@ -179,14 +176,14 @@ class ParticipantListSidebar extends React.Component {
                     </Header.Subheader>
                 </Header>
                 <Button color="green">
-                    <Icon name='send' />
+                    <Icon name='send'/>
                     Send out Email
                 </Button>
             </div>
-        );
+        )
 
         let generateEmptyMessage = () => (
-            <div style={ {paddingTop: "200%", textAlign: "center"} }>
+            <div style={ {paddingTop: '200%', textAlign: 'center'} }>
                 <Header as='h2'>
                     Get a coffee
                     <Header.Subheader>
@@ -194,37 +191,38 @@ class ParticipantListSidebar extends React.Component {
                     </Header.Subheader>
                 </Header>
             </div>
-        );
-
+        )
         return connectDropTarget(
             <div>
-                <SidebarMenu size="large" style={ {backgroundColor: (!this.props.isOver) ? "#F6F7F9" : "#EFF0F2"} }>
-                    <div style={ participantsListStyle }>
-                        <Segment basic>
-                            {
-                                (this.props.participants.length <= 0) ?
-                                    generateEmptyMessage() :
-                                    ((getUngroupedNumber(this.props.participants)) ?
-                                        generateSidebarList(this.props.participants) :
-                                        generateEmailButton())
-                            }
+                <MuiThemeProvider>
+                    <Drawer
+                        docked={ true }
+                        open={ true }
+                        zDepth={ 1 }
+                        width={290}
+                        containerStyle={{backgroundColor: (!this.props.isOver) ? '#F6F7F9' : '#EFF0F2'}}
+                        style={ {zIndex: '1000 !important',  width: "290px"} }
+                    >
 
-                            <ParticipantTrash 
-                                participants={ this.props.participants }
-                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                        activityId={ this.props.activityId }
-                                        setCurrentlySelected={this.props.setCurrentlySelected}
-                                        dragging={ this.props.dragging }
-                                        trashed={ this.state.trashed }
-                                        handleTrashed={ this.handleTrashed.bind(this) }
-                                        trashCount={ getUngroupedNumber(this.props.participants) }
-                                        />
-                        </Segment>
-                    </div>
-                </SidebarMenu>
+                        <div style={ participantsListStyle }>
+                            <Segment basic>
+                                {
+                                    (this.props.participants.size <= 0) ? 
+                                        generateEmptyMessage() 
+                                    : 
+                                        ((getUngroupedNumber(this.props.participants)) ? 
+                                            generateSidebarList(this.props.participants) 
+                                        : 
+                                            generateEmailButton())
+                                }
+
+                            </Segment>
+                        </div>
+                    </Drawer>
+                </MuiThemeProvider>
             </div>
         )
     }
 }
 
-export default ParticipantListSidebar;
+export default ParticipantListSidebar
