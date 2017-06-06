@@ -2,6 +2,38 @@ import React, { Component, PropTypes } from 'react'
 import { Button, Grid, Header, Icon, Image, Label, Message, Segment } from 'semantic-ui-react'
 import { Form, Input, TextArea, Checkbox, Radio, RadioGroup, Dropdown, Select, } from 'formsy-semantic-ui-react'
 
+class CountDownTimer extends Component {
+    constructor (props) {
+        super(props)
+        this.state = {
+            secondsRemaining: 0
+        }
+    }
+
+    static propTypes = {
+        secondsRemaining: PropTypes.number.isRequired,
+    }
+
+    componentDidMount () {
+        this.setState({secondsRemaining: this.props.secondsRemaining})
+        this.interval = setInterval(() => {
+                this.setState({secondsRemaining: this.state.secondsRemaining - 1})
+                if (this.state.secondsRemaining <= 0) {
+                    clearInterval(this.interval)
+                }
+            }
+            , 1000)
+    }
+
+    componentWillUnmount () {
+        clearInterval(this.interval)
+    }
+
+    render () {
+        return <span>{this.state.secondsRemaining}</span>
+    }
+}
+
 class SignupView extends Component {
     constructor (props) {
         super(props)
@@ -43,10 +75,10 @@ class SignupView extends Component {
                     </Header>
                     {  signupFailure && <Message negative onDismiss={hideErrorMessage}> Duplicate Email </Message>}
                     {  signupSuccess &&
-                       <Message positive>
-                           <Message.Header>Signup Success</Message.Header>
-                           <p>Redirect to <b>Login</b> in 3 Seconds ...</p>
-                       </Message>
+                    <Message positive>
+                        <Message.Header>Signup Success</Message.Header>
+                        <p>Redirect to <b>Login</b> in <CountDownTimer secondsRemaining={3} /> Seconds ...</p>
+                    </Message>
                     }
 
                     <Segment>

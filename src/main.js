@@ -13,6 +13,7 @@ import { Provider } from 'react-redux'
 import { Router } from 'react-router'
 import baseHistory from "./store/baseHistory"
 import { syncHistoryWithStore } from 'react-router-redux'
+import  axios from 'axios'
 
 // ========================================================
 // Store Instantiation
@@ -24,6 +25,8 @@ const store = createStore(initialState)
 const history = syncHistoryWithStore(baseHistory, store)
 // set auth token
 
+/* here we need to */
+axios.defaults.headers.common['Authorization'] = localStorage.getItem("jwtToken");
 // ========================================================
 // Render Setup
 // ========================================================
