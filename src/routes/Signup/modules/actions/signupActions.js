@@ -5,7 +5,7 @@
 import axios from 'axios'
 import {routerActions } from 'react-router-redux'
 
-const SERVER_URL = 'http://localhost:3000'
+const SERVER_URL = "http://" + window.location.host;
 export const SIGNUP = 'SIGNUP'
 
 
