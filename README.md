@@ -15,7 +15,7 @@ After you have installed Node.js and MongoDB make sure the `node`, `mongod`, `ya
 
 ```bash
 # this will clone the 'submission' branch
-git clone https://github.com/lightertu/TeamDivider/tree/submission <path>
+git clone https://github.com/lightertu/TeamDivider <path>
 
 # installing all the project dependencies
 cd <path>/TeamDivider
