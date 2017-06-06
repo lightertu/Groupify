@@ -23,8 +23,8 @@ git clone https://github.com/lightertu/TeamDivider <path>
 cd <path>/TeamDivider
 npm install
 
-// make sure mongodb is running
-// sudo mongod
+# make sure mongodb is running
+# sudo mongod
 
 # to serve the web page
 yarn start
