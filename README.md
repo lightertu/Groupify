@@ -7,7 +7,7 @@ A web application to help activity organizer divide participants into different 
 
 ## Dependecies Required to Deploy
 * Node.js v6.10.x 
-* MongoDB v3.4.x
+* MongoDB v3.4.x (We are currently using an online MongoDB service `mlab`, you need this dependency unless you want to use your own database)
 * [Yarn v0.23.x](https://yarnpkg.com/en/)
 
 ## How to Deploy
