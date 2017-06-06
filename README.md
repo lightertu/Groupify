@@ -1,5 +1,6 @@
 # Team Divider (<a href="http://138.197.196.92:3000/" target="_blank">Demo</a>)
 [Presentation Slides](https://docs.google.com/presentation/d/1cKuBquG4TE3nPYi-Fv0Z636KcucX01P-X7M6cCBjcbg/edit?usp=sharing)
+
 A web application to help activity organizer divide participants into different teams.
 
 ## ScreenShots
