@@ -32,36 +32,12 @@ const initialState = Map({
         surveyHolder: Map({
             title: '',
             surveyId:'',
-            questions : List([
-                Map({
-                    'type':'',
-                    'title':'',
-                    'tooltip':'',
-
-                    'answers':Set([]),
-
-                    'answersEnableMaximum':false, 'answersMaximum':0,
-                    'answersEnableMinimum':false, 'answersMinimum':0,
-                    'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 
-                    'answersFilter':OrderedSet([]),
-                }),])
+            questions : List([])
         }),
         surveyTemplate: Map({
             title: '',
             surveyId:'',
-            questions : List([
-                Map({
-                    'type':'',
-                    'title':'',
-                    'tooltip':'',
-
-                    'answers':Set([]),
-
-                    'answersEnableMaximum':false, 'answersMaximum':0,
-                    'answersEnableMinimum':false, 'answersMinimum':0,
-                    'answersEnableFilter':false, 'answersFilterEnableBlacklistMode':false, 
-                    'answersFilter':OrderedSet([]),
-                }),])
+            questions : List([])
         }),
 
     }),
@@ -145,7 +121,7 @@ let dashboardReducer = (state = initialState, action) => {
         case Actions.createActivityActions.CREATE_SURVEY_FROM_ACTIVITY_SUCCESS:
             return ActionHandlers.createActivityActionHandlers.handleCreateSurveyFromActivitySuccess(state, action.payload)
         case Actions.createActivityActions.CREATE_SURVEY_FROM_ACTIVITY_FAILURE:
-            return ActionHandlers.fetchActivityListActionHandlers.handleFetchSurveyFromActivityListFailure(state, action.payload)
+            return ActionHandlers.createActivityActionHandlers.handleFetchSurveyFromActivityListFailure(state, action.payload)
 
 
 

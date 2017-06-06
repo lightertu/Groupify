@@ -1,26 +1,38 @@
-import {applyMiddleware, compose, createStore} from 'redux'
+import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
-import {browserHistory} from 'react-router'
+import baseHistory from './baseHistory'
 import makeRootReducer from './reducers'
-import {updateLocation} from './location'
-
-import generateUsers from "../routes/Activity/modules/UserGenerator"
+import { updateLocation } from './location'
+import { routerMiddleware } from 'react-router-redux'
+import { browserHistory } from 'react-router'
+import Immutable from 'immutable';
 
 export default (initialState = {}) => {
     // ======================================================
     // Middleware Configuration
     // ======================================================
-    const middleware = [thunk];
 
     // ======================================================
     // Store Enhancers
     // ======================================================
-    const enhancers = [];
 
-    let composeEnhancers = compose;
+    /* create routing middleware */
+    const routingMiddleware = routerMiddleware(baseHistory)
+
+    const middleware = [thunk]
+    const enhancers = []
+
+    let composeEnhancers = compose
 
     if (__DEV__) {
-        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+        const composeWithDevToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? 
+            window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+                serialize: {
+                    immutable: Immutable
+                }
+            }) 
+        : 
+           potcompose;
         if (typeof composeWithDevToolsExtension === 'function') {
             composeEnhancers = composeWithDevToolsExtension
         }
@@ -33,22 +45,24 @@ export default (initialState = {}) => {
         makeRootReducer(),
         initialState,
         composeEnhancers(
+            applyMiddleware(routingMiddleware),
             applyMiddleware(...middleware),
             ...enhancers
         )
-    );
+    )
 
-    store.asyncReducers = {};
+    store.asyncReducers = {}
 
     // To unsubscribe, invoke `store.unsubscribeHistory()` anytime
-    store.unsubscribeHistory = browserHistory.listen(updateLocation(store));
+    // store.unsubscribeHistory = browserHistory.listen(updateLocation(store))
 
     if (module.hot) {
         module.hot.accept('./reducers', () => {
-            const reducers = require('./reducers').default;
+            const reducers = require('./reducers').default
             store.replaceReducer(reducers(store.asyncReducers))
         })
     }
 
     return store
 }
+

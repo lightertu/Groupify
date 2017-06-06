@@ -40,6 +40,7 @@ let handleFetchSurveyListSuccess = (state, payload) => {
                 'title':survey.title, 
                 'surveyId': survey._id, 
                 'color':survey.color,
+                'createdAt':survey.createdAt,
                 'questions':newQuestions
             })
         ) 

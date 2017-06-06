@@ -17,7 +17,6 @@ const ParticipantSchema = new Schema({
         type: String,
         lowercase: true,
         required: true,
-        default: ""
     },
 
     _creator: {
@@ -33,8 +32,8 @@ const ParticipantSchema = new Schema({
     },
 
     image: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        default: "",
     },
 
 
