@@ -6,6 +6,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import AppContainer from './containers/AppContainer'
 import setAuthorizationToken from './components/utils/setAuthorizationToken'
 import { applyMiddleware, compose } from 'redux'
+import axios from 'axios';
 
 // imports for web auth
 import jwt from 'jsonwebtoken'
@@ -31,6 +32,9 @@ const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
     const routes = require('./routes/index').default(store)
+
+    //always grab the token from local storage to solve inconsistency
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem("jwtToken");
 
     ReactDOM.render(
         <Provider store={ store }>

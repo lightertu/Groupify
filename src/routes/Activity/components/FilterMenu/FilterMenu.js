@@ -4,31 +4,27 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import {Button, Dropdown, Input, Menu, Segment} from 'semantic-ui-react'
+import {Map, List, Set} from 'immutable';
 import {Sticky} from "react-sticky";
 
 
 class FilterMenu extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            inputInverted: false,
-        }
     }
 
     static propTypes = {
         generateGroupAssignment: PropTypes.func.isRequired,
         activityId: PropTypes.string.isRequired,
-        filterValues: PropTypes.object.isRequired,
     };
 
     generateGroupButtonHandlerMaker = (algorithmKey) => {
         let random = () => {
-            this.props.generateGroupAssignment(this.props.activityId, "random");
+            this.props.generateGroupAssignment(this.props.activityId, "randomAlgorithm");
         };
         let greedy = () => {
-            this.props.generateGroupAssignment(this.props.activityId, "greedy");
+            this.props.generateGroupAssignment(this.props.activityId, "greedyAlgorithm");
         };
-
         switch (algorithmKey) {
             case("random"):
                 return random;
@@ -40,12 +36,9 @@ class FilterMenu extends React.Component {
     };
 
     handleStickyStateChange = () => {
-        this.setState({inputInverted: !this.state.inputInverted});
     };
 
     handleChange = (e, { value }) => {
-        console.log(value);
-        this.props.filterParticipants(value);
     }
 
     render() {
@@ -75,10 +68,15 @@ class FilterMenu extends React.Component {
             height: 45
         };
         
-        const [...keys] = this.props.filterValues.keys();
-        const options = Object.keys(keys[0]).map(function(key, i) {
-            return {key: i, text: key, value: key, name: key};
-        })       
+        let answersFilterOptions = [];
+        this.props.allAnswers.forEach((answer) => {
+            answersFilterOptions.push({
+                key:answer,
+                value:answer,
+                text:answer,
+            })
+        });
+
 
         return (
             <div>
@@ -93,35 +91,41 @@ class FilterMenu extends React.Component {
                             <Menu.Item fitted>
                                 { <Dropdown
                                     icon='search'
-                                    iconPosition='left'
                                     placeholder='Search . . .'
                                     size="large"
                                     style={inputStyle}
                                     search={true}
-                                    options={options}
+                                    value={this.props.filter.toArray()}
+                                    onChange={(e, data) => {
+                                       this.props.setFilter(Set(data.value)); 
+                                    }}
+                                    options={answersFilterOptions}
                                     multiple selection
-                                    transparent
                                     //inverted={ this.state.inputInverted }
                                     //onChange={ this.props.setFilterValues.bind(this, "filters") }
-                                    onChange={ this.handleChange }
+                                    //onChange={ this.handleChange }
                                 /> }
                             </Menu.Item>
 
                             <Menu.Menu position='right'>
                                 <Button icon='users'
+                                        loading = {this.props.isRunningAlgorithm}
+                                        disabled= {this.props.isRunningAlgorithm}
                                         content='Smart'
                                         size="medium"
                                         color="green"
                                         style={ buttonStyle }
-                                        onClick={ this.generateGroupButtonHandlerMaker("random") }
+                                        onClick={ this.generateGroupButtonHandlerMaker("greedy") }
                                 />
 
                                 <Button icon='shuffle'
+                                        loading = {this.props.isRunningAlgorithm}
+                                        disabled= {this.props.isRunningAlgorithm}
                                         content='Random '
                                         size="medium"
                                         color="yellow"
                                         style={ buttonStyle }
-                                        onClick={ this.generateGroupButtonHandlerMaker("greedy") }
+                                        onClick={ this.generateGroupButtonHandlerMaker("random") }
                                 />
                             </Menu.Menu>
                         </Menu>

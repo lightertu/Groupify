@@ -15,8 +15,6 @@ let updateParticipantGroupNumber = (dispatch) => {
             oldGroupNumber: oldGroupNumber,
             newGroupNumber: newGroupNumber
         };
-        console.log('-------------------------------');
-        console.log({groupNumber:payload.newGroupNumber});
         dispatch({
             type: UPDATE_PARTICIPANT_GROUP_NUMBER,
             payload: payload
