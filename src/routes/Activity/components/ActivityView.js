@@ -81,7 +81,6 @@ export class ActivityView extends React.Component {
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
                                        setCurrentlySelected={(v) => console.log(v) }
-                                       toggleLock={(v) => console.log(v)  }
                                        group={ i }
                                        toggleLock={this.props.toggleLock}
                             />
