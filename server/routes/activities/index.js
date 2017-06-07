@@ -21,6 +21,9 @@ activitiesRouter.post('/:activityId/lockedGroup/', authenticationMiddleware,
 activitiesRouter.delete('/:activityId/lockedGroup/:groupNumber', authenticationMiddleware,
                 activitiesControllers.unlockGroupInCertainActivityController);
 
+activitiesRouter.post('/:activityId/sendEmail', authenticationMiddleware,
+                activitiesControllers.emailParticipantsForCertainActivityController);
+
 
 activitiesRouter.use('/:activityId/participants', require('./participants'));
 
