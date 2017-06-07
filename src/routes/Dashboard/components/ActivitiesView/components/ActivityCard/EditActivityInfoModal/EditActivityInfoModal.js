@@ -45,6 +45,12 @@ export default class EditActivityInfoModal extends React.Component {
             return;
         }
 
+        if (this.props.activityHolder.get('currentCapacity') >= 
+                this.props.activityHolder.get('totalCapacity')) {
+            this.props.updateActivityFailedToEdit(true); 
+            this.props.updateActivityEditError('TOTAL CAPACITY MUST NOT BE BIGGER THAN CURRENT CAPACITY');
+            return;
+        }
 
         this.props.updateActivityFailedToEdit(false); 
         this.props.updateActivityEditError('');
@@ -80,8 +86,8 @@ export default class EditActivityInfoModal extends React.Component {
                                 Cancel
                         </Button>
                         <Button positive
-                            disabled={this.props.isCreating}
-                            loading={this.props.isCreating}
+                            disabled={this.props.isLoading}
+                            loading={this.props.isLoading}
                             content='Save Changes'
                             onClick={ this.updateActivityHandler }
                         />
