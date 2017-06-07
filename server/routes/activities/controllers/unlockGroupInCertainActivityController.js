@@ -38,6 +38,9 @@ module.exports = function (req, res, next) {
     const userId = req.user._id;
     const activityId = req.params.activityId;
     const groupNumber = parseInt(req.params.groupNumber, 10);
+    console.log("GN")
+    console.log(groupNumber)
+    console.log("GN")
 
     Activity.findOneAndUpdate(
         {

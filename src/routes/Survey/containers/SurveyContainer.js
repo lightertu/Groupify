@@ -13,40 +13,40 @@ import * as Actions from "../modules/actions"
 
 
 const mapDispatchToProps = (dispatch) => ({
-    createSurveyQuestion: Actions.createSurveyQuestionActions.createSurveyQuestion(dispatch),
-    deleteSurveyQuestion: Actions.deleteSurveyQuestionActions.deleteSurveyQuestion(dispatch),
+    fetchSurvey: Actions.fetchSurveyActions.fetchSurvey(dispatch),
+    submitSurvey: Actions.submitSurveyActions.submitSurvey(dispatch),
+
+    setIsSubmitting: Actions.submitSurveyActions.setIsSubmitting(dispatch),
+    setFailedToSubmit: Actions.submitSurveyActions.setFailedToSubmit(dispatch),
+    setSubmitError: Actions.submitSurveyActions.setSubmitError(dispatch),
+
+    setName : Actions.updateSurveyQuestionActions.setName(dispatch),
+    setEmail : Actions.updateSurveyQuestionActions.setEmail(dispatch),
     
-    addSurveyQuestionAnswer: Actions.addSurveyQuestionAnswerActions.addSurveyQuestionAnswer(dispatch),
-    removeSurveyQuestionAnswer: Actions.removeSurveyQuestionAnswerActions.removeSurveyQuestionAnswer(dispatch),
-    clearSurveyQuestionAnswers: Actions.clearSurveyQuestionAnswersActions.clearSurveyQuestionAnswers(dispatch),
-
-    enableSurveyQuestionAnswersMaximum: Actions.enableSurveyQuestionAnswersMaximumActions.enableSurveyQuestionAnswersMaximum(dispatch),
-    disableSurveyQuestionAnswersMaximum: Actions.disableSurveyQuestionAnswersMaximumActions.disableSurveyQuestionAnswersMaximum(dispatch),
-
-    enableSurveyQuestionAnswersMinimum: Actions.enableSurveyQuestionAnswersMinimumActions.enableSurveyQuestionAnswersMinimum(dispatch),
-    disableSurveyQuestionAnswersMinimum: Actions.disableSurveyQuestionAnswersMinimumActions.disableSurveyQuestionAnswersMinimum(dispatch),
-
-    setSurveyQuestionAnswersMaximum: Actions.setSurveyQuestionAnswersMaximumActions.setSurveyQuestionAnswersMaximum(dispatch),
-
-    setSurveyQuestionAnswersMinimum: Actions.setSurveyQuestionAnswersMinimumActions.setSurveyQuestionAnswersMinimum(dispatch),
-
-    enableSurveyQuestionAnswersFilter: Actions.enableSurveyQuestionAnswersFilterActions.enableSurveyQuestionAnswersFilter(dispatch),
-    disableSurveyQuestionAnswersFilter: Actions.disableSurveyQuestionAnswersFilterActions.disableSurveyQuestionAnswersFilter(dispatch),
-
-    enableSurveyQuestionAnswersFilterBlacklistMode: Actions.enableSurveyQuestionAnswersFilterBlacklistModeActions.enableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
-    disableSurveyQuestionAnswersFilterBlacklistMode: Actions.disableSurveyQuestionAnswersFilterBlacklistModeActions.disableSurveyQuestionAnswersFilterBlacklistMode(dispatch),
-
-    addSurveyQuestionAnswersFilter: Actions.addSurveyQuestionAnswersFilterActions.addSurveyQuestionAnswersFilter(dispatch),
-    removeSurveyQuestionAnswersFilter: Actions.removeSurveyQuestionAnswersFilterActions.removeSurveyQuestionAnswersFilter(dispatch),
-    clearSurveyQuestionAnswersFilters: Actions.clearSurveyQuestionAnswersFiltersActions.clearSurveyQuestionAnswersFilters(dispatch),
-
-
+    addAnswer : Actions.updateSurveyQuestionActions.addAnswer(dispatch),
+    removeAnswer : Actions.updateSurveyQuestionActions.removeAnswer(dispatch),
+    setAnswer : Actions.updateSurveyQuestionActions.setAnswer(dispatch),
+    clearAnswers : Actions.updateSurveyQuestionActions.clearAnswers(dispatch),
 });
 
 const mapStateToProps = (state, ownProps) => {
     return {
+        name: state.survey.get('name'),
+        email: state.survey.get('email'),
+
+        isLoading: state.survey.get('isLoading'),
+        failedToGet: state.survey.get('failedToGet'),
+
+        title: state.survey.get('title'),
         questions : state.survey.get('questions'),
-        survey: state.survey
+
+        submitted: state.survey.get('submitted'),
+        failedToSubmit: state.survey.get('failedToSubmit'),
+        submitError: state.survey.get('submitError'),
+        isSubmitting: state.survey.get('isSubmitting'),
+
+
+        activityId: ownProps.location.query.id,
     }
 };
 

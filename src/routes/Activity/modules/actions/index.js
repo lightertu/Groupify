@@ -6,11 +6,13 @@ import * as updateParticipantGroupNumberActions from "./updateParticipantGroupNu
 import * as generateGroupAssignmentActions from "./generateGroupAssignmentActions"
 import * as userMatchingActions from "./userMatchingActions"
 import * as groupLockActions from "./groupLockActions"
+import * as filterParticipantsActions from "./filterParticipantsActions"
 
 export {
     fetchParticipantListActions,
     updateParticipantGroupNumberActions,
     generateGroupAssignmentActions,
     userMatchingActions,
-    groupLockActions
+    groupLockActions,
+    filterParticipantsActions
 }

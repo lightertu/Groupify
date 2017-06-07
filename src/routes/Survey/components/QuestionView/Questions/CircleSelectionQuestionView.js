@@ -3,50 +3,62 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Label, Header, Button} from 'semantic-ui-react';
+import {Label, Header, Button, Popup, Segment} from 'semantic-ui-react';
 import {Map, List, Set, OrderedSet} from 'immutable';
 
-class CircleSelectionQuestionView extends React.Component {
+class TimeAvailabilityQuestionView extends React.Component {
     render() {
         return (
-            <div style={{textAlign: 'center', paddingTop:30}} >
-                <segment style={{textAlign: 'center'}} >
-                    <Header as='h1' textAlign='center'>{this.props.title}</Header>
-                    <Header as='h4' textAlign='center'>{this.props.tooltip}</Header>
-                        <div style={{textAlign: 'center'}}>
-                            {
-                                this.props.answersFilter
-                                    .map(answer => ( 
-                                        <Button className={"ui " 
-                                        + ((this.props.answers.has(answer)) ? " green " : " grey ")
-                                        + " circular huge label"}
-                                        key={"_Answer." + answer}
-                                        onClick={() => {
-                                            (this.props.answers.has(answer)) ? 
-                                                this.props.removeSurveyQuestionAnswer(
-                                                    this.props.type, this.props.title, answer
-                                                )
-                                            :
-                                                this.props.addSurveyQuestionAnswer(
-                                                    this.props.type, this.props.title, answer
-                                                )
-
-
-                                        }}>
-                                            {answer[0]}
-                                        </Button>
-                                    )
+            <Segment vertical style={{textAlign: 'center', paddingBottom:30}} >
+                <Header as='h1' textAlign='center'>{this.props.title}</Header>
+                <Header as='h3' textAlign='center'>{this.props.tooltip}</Header>
+                {((this.props.answersEnableMinimum) && (this.props.answersEnableMaximum)) ?
+                        <Header as='h5' textAlign='center'>
+                        {'Must select at least ' + this.props.answersMinimum
+                            + ' and at most ' + this.props.answersMaximum}
+                        </Header>
+                    :
+                        <Header as='h5' textAlign='center'>
+                            {(this.props.answersEnableMinimum) &&
+                            'Must select at least ' + this.props.answersMinimum}
+                            {(this.props.answersEnableMaximum) &&
+                                'Must select at most ' + this.props.answersMaximum}
+                        </Header>
+                }
+                        {
+                           this.props.answersFilter 
+                                .map(option => ( 
+                                    <Popup
+                                        key={"_Answer_" + this.props.index + "_." + option}
+                                        trigger={
+                                            <Button 
+                                                disabled = {this.props.isSubmitting}
+                                                loading = {this.props.isSubmitting}
+                                                className={"ui " 
+                                                + ((this.props.answers.has(option)) ? " green " : " grey ")
+                                                + " circular huge label"}
+                                                onClick={() => {
+                                                    (this.props.answers.has(option)) ? 
+                                                        this.props.removeAnswer(
+                                                            this.props.index, option
+                                                        )
+                                                    :
+                                                        this.props.addAnswer(
+                                                            this.props.index, option 
+                                                        )
+                                                }}>
+                                                {option[0]}
+                                            </Button>
+                                        }
+                                        position='top center'
+                                        content={option}
+                                    />
                                 )
-                            }
-                        </div>
-                </segment> 
-           </div>
+                            )
+                        }
+            </Segment> 
        );
     }
-
-
-
 }
 
-
-export default CircleSelectionQuestionView;
+export default TimeAvailabilityQuestionView;

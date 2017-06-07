@@ -3,25 +3,25 @@
  * Additions made by Joseph 5/28/17
  */
 import React from 'react'
-import PropTypes from 'prop-types';
-import {Icon, Card, Label, Segment, Image, Popup} from 'semantic-ui-react'
-import ParticipantProfilePopup from "../ParticipantProfilePopup";
-import {DragSource, DropTarget} from 'react-dnd';
-import {AvailabilitySegment, SkillCountSegment} from "./MatchingStatusSegments"
+import PropTypes from 'prop-types'
+import { Icon, Card, Label, Segment, Image, Popup, Dimmer } from 'semantic-ui-react'
+import ParticipantProfilePopup from '../ParticipantProfilePopup'
+import { DragSource, DropTarget } from 'react-dnd'
+import { Map, List, Set } from "immutable"
+import { ParticipantTypes } from '../../constants/ParticipantTypes'
+import * as renderFunctions from './renderFunctions'
 
-import {ParticipantTypes} from "../../constants/ParticipantTypes"
-
-const transparentImage = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png";
+const transparentImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Transparent_square.svg/2000px-Transparent_square.svg.png'
 
 const participantCardItemSource = {
     beginDrag(props) {
         props.setCurrentlySelected(props.participant.participantId) // set current selected card
         return {
-            participantId: props.participant.participantId,
-            oldGroupNumber: props.participant.groupNumber
-        };
+            participantId: props.participant.get('participantId'),
+            oldGroupNumber: props.participant.get('groupNumber')
+        }
     }
-};
+}
 
 @DragSource(ParticipantTypes.GROUPED_PARTICIPANT, participantCardItemSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
@@ -30,49 +30,40 @@ const participantCardItemSource = {
 class DraggableCard extends React.Component {
     static propTypes = {
         participant: PropTypes.object.isRequired
-    };
+    }
 
-    render() {
-        const {connectDragSource, isDragging, participant} = this.props;
-
-        if(this.props.unlocked) {
-            return (
-                    <div className="card" style={ {cursor: "move"} }>
-                        <ParticipantProfilePopup
-                            trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
-                            position="top right"
-                            offset={ 0 }
-                            name={ participant.name }
-                            image={ participant.image }
-                            groupNumber={participant.groupNumber }
-                            skills={ participant.skills }
-                            availability={ participant.availability }
-                            participantId={ participant.participantId }/>
-                    </div>
-                )
-        }
-
-        return connectDragSource(
-            <div className="card" style={ {cursor: "move"} }>
+    render () {
+        const {connectDragSource, isDragging, participant} = this.props
+        let surveyResponses = participant.get('surveyResponses')
+        let allAnswers = Set([]);
+        surveyResponses.forEach((response) => {
+            allAnswers = allAnswers.union(response.get('answer'));
+        });
+        let filteredOut=this.props.filter.size > 0 && !(this.props.filter.isSubset(allAnswers))
+        let participantCard =
+            <div className="card" style={ {cursor: this.props.isLocked? 'not-allowed' : 'default'} }>
                 <ParticipantProfilePopup
-                    trigger={ <Image src={ (isDragging) ? transparentImage : participant.image }/> }
+                    trigger={ <Image src={ (isDragging) ? transparentImage : participant.get('image') }/> }
                     position="top right"
                     offset={ 0 }
-                    name={ participant.name }
-                    image={ participant.image }
-                    groupNumber={participant.groupNumber }
-                    skills={ participant.skills }
-                    availability={ participant.availability }
-                    participantId={ participant.participantId }/>
+                    name={ participant.get('name') }
+                    image={ participant.get('image') }
+                    surveyResponses={surveyResponses}
+                    groupNumber={participant.get('groupNumber') }
+                    participantId={ participant.get('participantId') }/>
             </div>
-        )
+        if (this.props.isLocked) {
+            return ( participantCard )
+        }
+
+        return (filteredOut ? null :  connectDragSource(participantCard))
     }
 }
 
 const participantTarget = {
     drop(props, monitor) {
-        props.setCurrentlySelected(""); // resets curretly selected user
-        const participantDropped = monitor.getItem();
+        props.setCurrentlySelected('') // resets curretly selected user
+        const participantDropped = monitor.getItem()
         if (props.groupNumber !== participantDropped.oldGroupNumber) {
             props.updateParticipantGroupNumber(
                 props.activityId,
@@ -81,7 +72,7 @@ const participantTarget = {
                 props.groupNumber)
         }
     }
-};
+}
 
 @DropTarget([ParticipantTypes.GROUPED_PARTICIPANT, ParticipantTypes.UNGROUPED_PARTICIPANT],
     participantTarget, (connect, monitor) => ({
@@ -91,218 +82,109 @@ const participantTarget = {
 )
 class GroupCard extends React.Component {
     static propTypes = {
+        /*
         activityId: PropTypes.string.isRequired,
         participants: PropTypes.array.isRequired,
         capacity: PropTypes.number.isRequired,
         groupNumber: PropTypes.number.isRequired,
         itemsPerRow: PropTypes.number.isRequired,
         updateParticipantGroupNumber: PropTypes.func.isRequired
-    };
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            matchingStatusOpen: true, availability: [], skills: []
-        };
-
+        */
     }
 
-    toggleMatchingStatus = () => {
-        // this.setState({matchingStatusOpen: !this.state.matchingStatusOpen});
-    };
+    constructor (props) {
+        super(props)
+    }
 
-    render() {
-        const {connectDropTarget, isOver} = this.props;
+    render () {
+        const {connectDropTarget, isOver} = this.props
 
         let generateEmptySpots = () => {
-            let emptyNum = this.props.capacity - this.props.participants.length;
-            let result = [];
+            let emptyNum = this.props.capacity - this.props.participants.length
+            let result = []
             for (let i = 0; i < emptyNum; i++) {
                 result.push(
                     <Card image={ transparentImage } key={ i }/>
                 )
             }
-            return result;
-        };
-        let pickLabelColor = (size, capacity) => {
+            return result
+        }
+        let pickCapacityLabelColor = (size, capacity) => {
             if (size === capacity)
-                return "green";
+                return 'green'
             else if (size > capacity)
-                return "red";
+                return 'red'
             else
-                return null;
-        };
-
-        let overAllAvailability = (participants) => {
-            if (participants.length <= 0) {
-                return [false, false, false, false, false, false, false];
-            }
-            return participants.reduce((acc, participant) => {
-                for (let i = 0; i <  7; i++) {
-                    acc[i] = acc[i] && participant.availability[i];
-                }
-
-                return acc;
-            }, [true, true, true, true, true, true, true]);
-        };
-
-        let generateSkillCountMap = (participants) => {
-            let skillCountMap = {};
-            for (let i = 0; i < participants.length; i++) {
-                let skills = participants[i].skills;
-                for (let j = 0; j < skills.length; j++) {
-                    let skillName = skills[j].name;
-                    if (!(skillName in skillCountMap)) {
-                        skillCountMap[skillName] = 1;
-                    } else {
-                        skillCountMap[skillName]++;
-                    }
-                }
-            }
-            return skillCountMap;
-    };
-
-        let skills = generateSkillCountMap(this.props.participants);
-        let days = overAllAvailability(this.props.participants)
-        let numsTodays = {1: "monday", 2: "tuseday", 3: "wednesday", 4: "thursday", 5: "friday", 6: "saturday", 0: "sunday"};
-        let daysToNums = {"monday": 1, "tuseday": 2, "wednesday": 3, "thursday": 4, "friday": 5, "saturday": 6, "sunday": 0}
-        let count = 0;
-        let color = "";
-        let i;
-        let itemCount = this.props.matching.size;
-        let view = true;
-        let result = 0;
-        if(itemCount > 0) {
-            for(i = 0; i < days.length; i++) {
-                if(this.props.matching.has(numsTodays[i]) && days[i]) {
-                    count++;
-                }
-
-            }
-
-            let keys = Object.keys(skills);
-            for(i = 0; i < keys.length; i++) {
-                if(this.props.matching.has(keys[i])) {
-                    count++;
-                }
-            }
-
-            result = Math.round((count/itemCount)*100)/100;
-
-            if(result > .70 || this.props.participants.length == 0) {
-                color = "green";
-            } else if(result > .45) {
-                color = "yellow";
-            } else {
-                color = "red";
-            }
+                return null
         }
-        
-        for(i = 0; i < this.props.filters.length; i++) {
-            if(this.props.filters[i] in daysToNums) {
-                if(!days[daysToNums[this.props.filters[i]]]) {
-                    view = false;
-                    break;
-                }
-            } else {
-                if(Object.keys(skills).indexOf(this.props.filters[i]) == -1) {
-                    view = false;
-                    break;
-                }
-            }   
-        }
-
-        let background = "";
-        if(this.props.participants.some((el) => el.participantId == this.props.draggedUser)) {
-        background = "black";
-        }
-
-        let lockIcon = "lock";
-        let popup = "click to lock in this group";
-        if(this.props.unlocked) {
-            lockIcon = "unlock";
-            popup = "click to unlock in this group";
-            color = "grey";
-        }
-      //<Label attached='top left'> Group { this.props.groupNumber }</Label>
-      let test = {
-            top: 0,
-            left: 0,
-            marginTop: -24,
-            marginLeft: -24,
-            marginRight: 0,
-            paddingRight: 0,
-            marginBottom: 10
-      }
-
-        let display;
-        if(view) {
-            display = (
-                        <Segment.Group raised style={ {cursor: "pointer", backgroundColor: background} }
-                               onClick={ this.toggleMatchingStatus }
-                               >
-                            <Segment padded={ true } size="large" color={color} inverted={true}
-                                     style={ {backgroundColor: (!isOver) ? "#fcfcfc" : "#EFF0F2"}  }
-                            >
-                                <div style={test}>
-                                    <Label.Group color={"blue"} attached='top left' size={"large"}>
-                                        <Label> 
-                                            <Popup
-                                                content={popup}
-                                                trigger={
-                                                <Icon   name={lockIcon}
-                                                        onClick={() => {this.props.toggleLock(this.props.group)}} 
-                                                        style={{height:'100%', cursor:'pointer', marginTop:0, marginBotton:0}}  />}
-                                                        />
-                                                Group { this.props.groupNumber } &nbsp;
-                                                matching: &nbsp;{Math.round(result*100)}% 
-                                                
-                                        </Label>
-                                    </Label.Group>
-                                </div>
-                                <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
-                                    {
-                                        this.props.participants.map((participant) =>
-                                            <DraggableCard 
-                                                participant={ participant } 
-                                                key={ participant.participantId } 
-                                                setCurrentlySelected={ this.props.setCurrentlySelected }
-                                                unlocked= { this.props.unlocked }
-                                                />
-                                        )
-                                    }
-                                    { generateEmptySpots() }
-                                </Card.Group>
-                        
-                                <Label color={ pickLabelColor(this.props.participants.length, this.props.capacity) }
-                                       attached="top right">
-                                    <Icon name='user'/> { this.props.participants.length } / { this.props.capacity }
-                                </Label>
-                            </Segment>
-
-                            { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
-                            <AvailabilitySegment participants={ this.props.participants } isOver={ isOver }/> }
-
-                            { (this.props.participants.length > 0 && this.state.matchingStatusOpen ) &&
-                            <SkillCountSegment participants={ this.props.participants } isOver={ isOver }/> }
-                </Segment.Group>
+        let responses = List([]); 
+        this.props.participants.forEach((participant) => {
+            participant.get('surveyResponses').forEach((response, index) => {
+                (responses.size < (index + 1)) ?
+                        (responses = responses
+                                    .push(Map({question:response.get('question'), 
+                                                answer:response.get('answer')})))
+                    :
+                        (responses = responses
+                                    .updateIn([index, 'answer'], answer => {
+                                        return answer.intersect(response.get('answer'))
+                                    }))                            
+            })
+        });
+       
+        let answerSegments = [];
+        responses.forEach((response, index) => {
+            (renderFunctions[response.get('question')]) &&
+                answerSegments.push(
+                    renderFunctions[response.get('question')](response.get('answer'), index)
                 );
-        }
-
-        if(this.props.unlocked) { // if locked nothing can be dragged into it
-            return (
-                <div>
-                    {display}
-                </div>
-                )
-        } 
-
-        return connectDropTarget(
+        })
+        let display = (
             <div>
-                {display}
+                <Segment.Group raised style={ {
+                    backgroundColor: 'white',
+                    opacity: this.props.isLocked? 0.5 : 1,
+                    cursor: this.props.isLocked? 'not-allowed' : 'default'
+                } }>
+                    <Segment padded={ true } size="large" inverted={true}
+                             style={{
+                                 backgroundColor: '#fcfcfc',
+                             }}
+                    >
+                        <Label onClick={() => {this.props.toggleLock(this.props.group, this.props.isLocked, this.props.activityId)} }
+                               style={{opacity: 2, cursor: 'pointer'}}
+                               attached={'top left'}
+                        >
+                            <Icon name={ this.props.isLocked? 'lock' : 'unlock' }/>
+                            Group { this.props.groupNumber } &nbsp;
+                        </Label>
+                        <Card.Group itemsPerRow={ this.props.itemsPerRow} stackable>
+
+                            { this.props.participants.map((participant) =>
+                                <DraggableCard 
+                                    participant={ participant } 
+                                    key={ participant.get('participantId') } 
+                                    filter={this.props.filter}
+                                    setCurrentlySelected={ (v) => console.log(v)  }
+                                    isLocked= { this.props.isLocked}
+                                /> 
+                            )}
+                            { generateEmptySpots() }
+                        </Card.Group>
+
+                        <Label color={ pickCapacityLabelColor(this.props.participants.length, this.props.capacity) }
+                               attached="top right">
+                            <Icon name='user'/> { this.props.participants.length} / { this.props.capacity }
+                        </Label>
+                    </Segment>
+                    {answerSegments}
+                </Segment.Group>
             </div>
         )
+
+        return (this.props.isLocked) ? display : connectDropTarget(display)
+
     }
 }
 
-export default GroupCard;
+export default GroupCard

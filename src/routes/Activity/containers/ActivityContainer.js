@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
  component - in this case */
 import ActivityView from '../components/ActivityView'
 import * as Actions from "../modules/actions"
+import UserIsAuthenticated from '../../UserIsAuthenticated'
 
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,19 +18,26 @@ const mapDispatchToProps = (dispatch) => ({
     generateGroupAssignment: Actions.generateGroupAssignmentActions.generateGroupAssignment(dispatch),
     sortParticipantsMatch: Actions.userMatchingActions.sortParticipants(dispatch), 
     filterParticipantsMatch: Actions.userMatchingActions.filterParticipants(dispatch),
-    createLocks: Actions.groupLockActions.createLocks(dispatch),
+    setFilter: Actions.filterParticipantsActions.setFilter(dispatch),
     toggleLock: Actions.groupLockActions.toggleLock(dispatch)
 });
 
 const mapStateToProps = (state, ownProps) => {
     return {
         activityId: ownProps.location.query.id,
-        participants: state.activity.get("participants"),
+
         groupCapacity: state.activity.get("groupCapacity"),
         totalCapacity: state.activity.get("totalCapacity"),
-        matching: state.activity.get("matching"),
-        unlocked: state.activity.get("unlocked")
+
+        participants: state.activity.get("participants"),
+
+        lockedGroups: state.activity.get("lockedGroups"),
+
+        allAnswers: state.activity.get("allAnswers"),
+        filter: state.activity.get("filter"),
+
+        isRunningAlgorithm: state.activity.get("isRunningAlgorithm"),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityView);
+export default UserIsAuthenticated(connect(mapStateToProps, mapDispatchToProps)(ActivityView));

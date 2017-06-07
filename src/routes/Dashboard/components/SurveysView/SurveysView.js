@@ -40,7 +40,7 @@ export default class SurveysView extends React.Component {
                               surveyId={surveyObj.get('surveyId')}
                               name={surveyObj.get('title')}
                               key={surveyObj.get('surveyId')}
-                               
+                              createdAt={surveyObj.get('createdAt')} 
                               fetchSurveyList={this.props.fetchSurveyList}
 
                               openEditModal={this.props.surveysViewData.get('openEditModal')} 

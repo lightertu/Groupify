@@ -16,8 +16,6 @@ export default class EditSurveyInfoModal extends React.Component {
 
     static propTypes = {
         onClose: PropTypes.func.isRequired,
-        surveyId: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
     }
 
     updateSurveyHandler = (payload) => {
