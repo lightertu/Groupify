@@ -12,8 +12,6 @@ export default class DeleteSurveyModal extends React.Component {
     }
 
     static propTypes = {
-        name: PropTypes.string.isRequired,
-        surveyId: PropTypes.string.isRequired,
         onClose: PropTypes.func.isRequired
     };
     

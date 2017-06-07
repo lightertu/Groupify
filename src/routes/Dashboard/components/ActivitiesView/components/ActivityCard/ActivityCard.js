@@ -5,6 +5,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Dropdown, Icon, Popup } from 'semantic-ui-react'
 
+import CopyToClipboard from 'react-copy-to-clipboard';
+
 import EditActivityInfoModal from './EditActivityInfoModal'
 import DeleteActivityModal from './DeleteActivityModal'
 import { browserHistory } from 'react-router'
@@ -39,7 +41,11 @@ export default class ActivityCard extends React.Component {
         browserHistory.push('/survey?id=' + this.props.activityId)
     }
 
+
     render () {
+        
+        const surveyLink = 'http://' + window.location.host + '/survey?id=' + this.props.activityId;
+        
         return (
             <Card style={{maxWidth: '269.5px'}} link={false}>
                 {/* modal components has to stay inside for style reason */}
@@ -73,13 +79,16 @@ export default class ActivityCard extends React.Component {
                             trigger={ <Icon style={{float: 'right', cursor: "zoom-in", marginTop: "7px"}}
                                             size="large"
                                             color="grey"
-                                            onClick={ this.surveyIconOnClick }
+                                            onClick={() => window.open(surveyLink, '_blank'
+                                            )}
                                             name='file text outline'/> }
                             position='top right'
                             hoverable
                             wide
-                        >   <div><code>http://address/survey?id=...</code></div>
-                            <Button fluid size="small"><Icon name="copy"/>Copy Survey Url</Button>
+                        >   <div><code>http://{window.location.host}/survey?id={this.props.activityId}</code></div>
+                            <CopyToClipboard text={surveyLink}>        
+                                <Button fluid size="small"><Icon name="copy"/>Copy Survey Url</Button>
+                            </CopyToClipboard>
                         </Popup>
                     </Card.Header>
                     <Card.Meta>

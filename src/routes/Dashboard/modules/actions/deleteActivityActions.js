@@ -8,7 +8,7 @@
  * Created by rui on 5/2/17.
  */
 import axios from "axios";
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "http://"+window.location.host;
 import {FETCH_ACTIVITY_LIST, 
         fetchActivityListFailure, 
         fetchActivityListSuccess} from './fetchActivityListActions';

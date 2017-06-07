@@ -11,7 +11,7 @@
  * Created by rui on 4/18/17.
  */
 import axios from "axios";
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "http://"+window.location.host;
 
 /* fetching, get requests */
 export const UPDATE_USER_PROFILE = "UPDATE_USER_PROFILE";

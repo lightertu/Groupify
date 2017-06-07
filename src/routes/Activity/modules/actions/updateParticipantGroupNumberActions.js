@@ -2,7 +2,7 @@
  * Created by rui on 5/9/17.
  */
 import axios from "axios";
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "http://" + window.location.host;
 
 /* update put requests */
 export const UPDATE_PARTICIPANT_GROUP_NUMBER = "UPDATE_PARTICIPANT_GROUP";
@@ -15,17 +15,13 @@ let updateParticipantGroupNumber = (dispatch) => {
             oldGroupNumber: oldGroupNumber,
             newGroupNumber: newGroupNumber
         };
-
         dispatch({
             type: UPDATE_PARTICIPANT_GROUP_NUMBER,
             payload: payload
         });
 
-        let url = SERVER_URL + "/api/activities/" + activityId + "/participants/" + participantId;
-        axios.put(url, {
-            oldGroupsNumber: oldGroupNumber,
-            newGroupNumber: newGroupNumber
-        })
+        let url = SERVER_URL + "/api/activities/" + activityId + "/participants/" + participantId + '/groupNumber';
+        axios.put(url, {groupNumber:payload.newGroupNumber})
             .then((response) => {
                 dispatch(updateParticipantGroupNumberSuccess(response));
             })

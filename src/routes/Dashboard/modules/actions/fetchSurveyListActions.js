@@ -2,7 +2,7 @@
  * Created by Matt on 5/23/17.
  */
 import axios from "axios";
-const SERVER_URL = "http://localhost:3000";
+const SERVER_URL = "http://"+window.location.host;
 
 /* fetching, get requests */
 export const FETCH_SURVEY_LIST = "FETCH_SURVEY_LIST";
@@ -19,7 +19,6 @@ let fetchSurveyList = (dispatch) => {
                         dispatch(fetchSurveyListSuccess(response.data));
                     })
                     .catch((error) => {
-                        console.log(error.response.data.error);
                         console.log(error.response.data.error);
                     });
             })

@@ -46,7 +46,26 @@ export default class Create extends React.Component {
 
         if (questionMissingType) {
             this.props.updateActivityFailedToCreate(true); 
-            this.props.updateActivityCreateError('EACH QUESTION MUST HAVE A TYPE');
+            this.props.updateActivityCreateError('QUESTION "'
+                    + questionMissingType[1].get('title')  
+                    +'" MUST HAVE A TYPE');
+            return;
+        }
+
+        let questionMinHigherThanMax = this.props.surveyHolder.get('questions').findEntry((question) => {
+                return (
+                    question.get('answersEnableMinimum') && question.get('answersEnableMaximum') 
+                        && (question.get('answersMinimum') > question.get('answersMaximum'))
+                )
+            }
+        )
+
+        if (questionMinHigherThanMax ) {
+            this.props.updateActivityFailedToCreate(true); 
+            this.props.updateActivityCreateError('QUESTION "'
+                   + questionMinHigherThanMax[1].get('title')  
+                   +'"  MUST NOT HAVE A MAXIMUM ANSWER LIMIT THAT IS LOWER THAN THE MINIMUM ANSWER LIMIT'
+            );
             return;
         }
 
@@ -154,7 +173,7 @@ export default class Create extends React.Component {
             })
         );
         return (
-            <Modal open={this.props.openCreateModal} 
+            <Modal style={{zIndex:4000}} open={this.props.openCreateModal} 
                 onClose={ this.props.onClose } size="small" dimmer={false}>
                 <Modal.Header> Create Activity </Modal.Header>
                 <Modal.Content>
@@ -187,6 +206,7 @@ export default class Create extends React.Component {
                                 <Divider horizontal> 
                                     {this.props.creatingSurvey ? 'New Survey' : 'Preview'}
                                 </Divider>
+                                <div style={{padding:0, margin:0, maxHeight:400, overflowY:'auto', overflowX:'hidden'}}>
                                 <SurveyInfoForm
                                     name={this.props.name}
                                     surveyId={this.props.surveyId}
@@ -225,6 +245,8 @@ export default class Create extends React.Component {
                                     creatingSurvey={this.props.creatingSurvey} 
                                     selectingSurvey={this.props.selectingSurvey} 
                                 />
+
+                                </div>
                             </Segment>
                         :
                             null
@@ -254,7 +276,7 @@ export default class Create extends React.Component {
                                 <Button positive
                                     disabled={this.props.isCreating}
                                     loading={this.props.isCreating}
-                                    content='Create Survey'
+                                    content='Save Survey'
                                     onClick={this.createSurveyHandler}
                                 />
                             </Modal.Actions>                                 

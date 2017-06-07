@@ -53,7 +53,7 @@ export default class EditActivityInfoModal extends React.Component {
 
     render () {
         return (
-            <Modal open={this.props.openEditModal} size="small" dimmer={false}>
+            <Modal open={this.props.openEditModal} size="small" dimmer={'blurring'}>
                 <Modal.Header> Edit Activity </Modal.Header>
                 <Modal.Content>
                     <ActivityInfoForm 

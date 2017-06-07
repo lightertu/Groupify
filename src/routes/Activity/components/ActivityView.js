@@ -3,10 +3,12 @@
  * Additions made by Joseph 5/28/17
  */
 import React from 'react'
-import {Grid, Segment} from 'semantic-ui-react'
+import {Grid, Segment, Button} from 'semantic-ui-react'
 import {DragDropContext} from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ParticipantListSidebar from "./ParticipantListSidebar"
+
+import {Map, List, Set} from 'immutable';
 
 import GroupCard from "./GroupCard/GroupCard"
 import FilterMenu from "./FilterMenu"
@@ -36,48 +38,17 @@ export class ActivityCardViewWrapper extends React.Component {
 export class ActivityView extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    componentWillMount() {
         this.props.fetchParticipantList(this.props.activityId);
-
-        this.state = ({filters: []});
-        this.setFilterValues = this.setFilterValues.bind(this);
-        this.toggleLock = this.toggleLock.bind(this);
-
     }
-
-    toggleLock(group) {
-        this.props.toggleLock(group);
-    }
-
-    setFilterValues(input, event) {
-        let field = this.state[input];
-        if(event.target.getAttribute('class') === "delete icon") {
-            let item = event.target.parentNode.getAttribute('value');
-            let index = field.indexOf(item)
-            if(index >= 0) {
-                field.splice(index, 1); // remove item from filter
-            }
-        } else {
-            if(event.target.getAttribute('name') != "-search") {
-                if(event.target.getAttribute('name') === null) {
-                    field.push(event.target.parentNode.getAttribute('name')); // add item to filter
-                } else {
-                    field.push(event.target.getAttribute('name')); // add item to filter
-                }
-            }
-        }
-        this.setState({field:field});
-    }
-
-    setCurrentlySelected(id) {
-        this.props.filterParticipantsMatch(id);
-    }
-
-    render() {
+    render (){  
         const itemsPerRow = 10;
         const cardsPerRow = 1;
         let numOfGroups = this.props.totalCapacity / this.props.groupCapacity;
-
-        let separateIntoGroups = (participants) => {
+        
+        let separateParticipantsIntoGroups = () => {
             let groups = [];
             for (let i = 0; i < numOfGroups; i++) {
                 groups.push({
@@ -85,18 +56,15 @@ export class ActivityView extends React.Component {
                     participants: []
                 })
             }
-
-            for (let i = 0; i < participants.length; i++) {
-                let participantGroupNumber = participants[i].groupNumber;
+            this.props.participants.forEach((participant) => {
+                let participantGroupNumber = participant.get('groupNumber');
                 if (participantGroupNumber >= 0 && participantGroupNumber < numOfGroups) {
-                    groups[participantGroupNumber].participants.push(participants[i]);
+                    groups[participantGroupNumber].participants.push(participant);
                 }
-            }
+            });
 
             return groups;
         };
-
-        let dragging = (this.props.matching.get("current").length > 0) ? true : false;
 
         let getGroupCards = (groups) => {
             return (
@@ -104,46 +72,49 @@ export class ActivityView extends React.Component {
                     (group, i) => (
                         <Grid.Column stretched key={ group.groupNumber }>
                             <GroupCard participants={ group.participants }
+                                       key = {"GC_" + i}
+                                       isLocked = {this.props.lockedGroups.has(i)}
                                        capacity={ this.props.groupCapacity }
                                        groupNumber={ group.groupNumber }
+                                       filter={this.props.filter}
                                        itemsPerRow={ itemsPerRow }
                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                                        activityId={ this.props.activityId }
-                                       setCurrentlySelected={ this.setCurrentlySelected.bind(this) }
-                                       toggleLock={ this.toggleLock.bind(this) }
-                                       matching={ this.props.matching.get("matchingCriteria") }
-                                       draggedUser={ this.props.matching.get("current") }
+                                       setCurrentlySelected={(v) => console.log(v) }
+                                       toggleLock={(v) => console.log(v)  }
                                        group={ i }
-                                       unlocked={ this.props.unlocked.get(i) }
-                                       filters={ this.state.filters }/>
+                                       toggleLock={this.props.toggleLock}
+                            />
                         </Grid.Column>
                     )
                 )
             )
         };
-       
         return (
             <div>
-                <ParticipantListSidebar participants={ this.props.participants }
-                                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
-                                        activityId={ this.props.activityId }
-                                        setCurrentlySelected={this.setCurrentlySelected.bind(this)}
-                                        dragging = { dragging }
-                                        />
-                <ActivityCardViewWrapper>
-                    {
-                        (this.props.participants.length > 0) &&
-                        <FilterMenu activityId={ this.props.activityId }
-                                    generateGroupAssignment={ this.props.generateGroupAssignment }
-                                    filterValues={ this.props.matching.get("attributes") }
-                                    setFilterValues={ this.setFilterValues }/>
-                    }
-                    
-                    <Grid columns={ cardsPerRow }>
-                        { getGroupCards(separateIntoGroups(this.props.participants)) }
-                    </Grid>
+                <ParticipantListSidebar 
+                        key={"ParticipantListSidebar_" + this.props.participants.size}
+                        participants={ this.props.participants }
+                        setCurrentlySelected={(v) => {console.log(v)}}
+                        updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
+                        filter={this.props.filter}
+                        activityId={ this.props.activityId }
+                />
+                <ActivityCardViewWrapper setCurrentlySelected={(v) => console.log(v) }>
+                {
+                    (this.props.participants.size > 0) &&
+                    <FilterMenu activityId={ this.props.activityId }
+                                isRunningAlgorithm = {this.props.isRunningAlgorithm}
+                                allAnswers={this.props.allAnswers}
+                                filter={this.props.filter}
+                                generateGroupAssignment={ this.props.generateGroupAssignment }
+                                setFilter={ this.props.setFilter}/>
+                }
+                <Grid columns={ cardsPerRow }>
+                    { getGroupCards(separateParticipantsIntoGroups()) }
+                </Grid>
                 </ActivityCardViewWrapper>
-            </div>
+            </div>        
         )
     }
 }

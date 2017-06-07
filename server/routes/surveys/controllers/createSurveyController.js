@@ -31,10 +31,10 @@ module.exports = function (req, res, next) {
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
-
+  
     const userId = req.user._id;
     const payload = req.body;
-
+  
     const newSurvey = new Survey({
         _creator: userId,
         title: payload.title,
