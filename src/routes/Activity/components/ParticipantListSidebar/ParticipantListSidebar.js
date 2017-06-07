@@ -76,7 +76,6 @@ class Participant extends React.Component {
                 image={ this.props.image }
                 surveyResponses={ this.props.surveyResponses }
                 filter={this.props.filter}
-                setCurrentlySelected={(v) => {console.log(v)}}
                 participantId={ this.props.participantId }
                 setCurrentlySelected={(v) => {console.log(v)}}/>
         )
@@ -136,6 +135,11 @@ class ParticipantListSidebar extends React.Component {
         updateParticipantGroupNumber: PropTypes.func.isRequired
     }
 
+
+    sendEmailOnClick = () => {
+
+    }
+
     render () {
         const {connectDropTarget, isOver} = this.props
 
@@ -168,14 +172,14 @@ class ParticipantListSidebar extends React.Component {
         )
 
         let generateEmailButton = () => (
-            <div style={ {paddingTop: '200%', textAlign: 'center'} }>
+            <div style={ {marginTop: '100%', textAlign: 'center', position: "absolute"} }>
                 <Header as='h2'>
                     All Grouped!
                     <Header.Subheader>
                         Next step is to notify all the students
                     </Header.Subheader>
                 </Header>
-                <Button color="green">
+                <Button color="green" onClick={this.sendEmailOnClick}>
                     <Icon name='send'/>
                     Send out Email
                 </Button>
@@ -183,7 +187,7 @@ class ParticipantListSidebar extends React.Component {
         )
 
         let generateEmptyMessage = () => (
-            <div style={ {paddingTop: '200%', textAlign: 'center'} }>
+            <div style={ {marginTop: '100%', textAlign: 'center', position: "absolute"} }>
                 <Header as='h2'>
                     Get a coffee
                     <Header.Subheader>
