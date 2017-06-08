@@ -18,6 +18,7 @@ let fetchActivityList = (dispatch) => {
                 dispatch(fetchActivityListSuccess(response.data));
             })
             .catch((error) => {
+                console.log(error);
                 dispatch(fetchActivityListFailure(error));
             });
     }

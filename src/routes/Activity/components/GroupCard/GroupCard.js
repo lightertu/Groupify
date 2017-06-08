@@ -123,12 +123,17 @@ class GroupCard extends React.Component {
                 (responses.size < (index + 1)) ?
                         (responses = responses
                                     .push(Map({question:response.get('question'), 
-                                                answer:response.get('answer')})))
+                                                answers:List(response.get('answer')),
+                                                answersInCommon:response.get('answer')
+                                    })))
                     :
-                        (responses = responses
-                                    .updateIn([index, 'answer'], answer => {
+                        ((responses = responses
+                                    .updateIn([index, 'answers'], answer => {
+                                        return answer.concat(response.get('answer'))
+                                    })) && (responses = responses
+                                    .updateIn([index, 'answersInCommon'], answer => {
                                         return answer.intersect(response.get('answer'))
-                                    }))                            
+                                    })))   
             })
         });
        
@@ -136,7 +141,7 @@ class GroupCard extends React.Component {
         responses.forEach((response, index) => {
             (renderFunctions[response.get('question')]) &&
                 answerSegments.push(
-                    renderFunctions[response.get('question')](response.get('answer'), index)
+                    renderFunctions[response.get('question')](response.get('answers'), index, this.props.participants.length, response.get('answersInCommon'))
                 );
         })
         let display = (

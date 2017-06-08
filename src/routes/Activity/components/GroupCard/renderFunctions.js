@@ -8,7 +8,8 @@ import {Map, List, Set} from 'immutable';
 import {Card, Popup, Image, Label, Button, Icon, Segment} from 'semantic-ui-react'
 import getColorByLanguage from  "../../modules/LanguageColorMap";
 
-function TimeAvailability (answers, sIndex) {
+function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
+
     let weekdays= ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let labels = [];
     weekdays.forEach((day, index) => {
@@ -30,15 +31,19 @@ function TimeAvailability (answers, sIndex) {
    );
 }
 
-function ProgrammingLanguages (answers, sIndex) {
+function ProgrammingLanguages (answers, sIndex, totalPars) {
+    let count = answers.countBy(x => {return x});
     return (
         <Segment  key = {"PLGCR_SEGMENT_" + sIndex} basic>
             <Label.Group style={ {marginTop: "-1%"} } size="medium">
                 {
-                    answers.map((answer, index) =>
-                        <Label as='a' key={"GC_" + sIndex + "_PLGCR_"+index+"_"+answer} 
-                        style = {{backgroundColor: getColorByLanguage(answer), color: "white"}} >
-                            { answer }
+                    count.map((number, language) =>
+                        <Label as='a' key={"GC_" + sIndex + "_PLGCR_"+language+"_"+number} 
+                        style = {{backgroundColor: getColorByLanguage(language), color: "white"}} >
+                            {language}
+                        <Label.Detail style={ {color: "white"} }> 
+                            {Math.floor((number / totalPars) * 100)}%
+                        </Label.Detail>
                         </Label>)
                 }
             </Label.Group>
@@ -46,10 +51,10 @@ function ProgrammingLanguages (answers, sIndex) {
     );
 }
 
-function CircleSelection (answers, sIndex) {
+function CircleSelection (dontReallyCare, sIndex, dontCare, answers) {
     let labels = [];
-    weekdays.forEach((day, index) => {
-         labels.push(<Label circular key = {"GC_" + sIndex + "_CSGCR_"+index+"_"+day } 
+    answers.forEach((answer, index) => {
+         labels.push(<Label circular key = {"GC_" + sIndex + "_CSGCR_"+index+"_"+answer} 
                         as='a' color="green">{ day[0] }
          </Label>)
     })
@@ -62,7 +67,7 @@ function CircleSelection (answers, sIndex) {
    );
 }
 
-function MultiInputTextField (answers, sIndex) {
+function MultiInputTextField (dontCare, sIndex, dontCareEither, answers) {
     return (
         <Segment basic key = {"MTFGCR_SEGMENT_" + sIndex} >
             <Label.Group style={ {marginTop: "-1%"} } size="medium">
