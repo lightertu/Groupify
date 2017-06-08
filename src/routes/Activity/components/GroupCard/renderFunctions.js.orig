@@ -8,21 +8,19 @@ import {Map, List, Set} from 'immutable';
 import {Card, Popup, Image, Label, Button, Icon, Segment} from 'semantic-ui-react'
 import getColorByLanguage from  "../../modules/LanguageColorMap";
 
-const radioAnswersStyle = {
+<<<<<<< HEAD
+function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
+
+=======
+const answersStyle = {
     paddingTop: "0%",
     paddingBottom: "1%",
     paddingLeft: "0%",
     backgroundColor: "#F4F5F7"
 }
 
-const answersStyle = {
-    paddingTop: "0%",
-    paddingBottom: "1%",
-    paddingLeft: "2%",
-    backgroundColor: "#F4F5F7"
-}
-function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
-
+function TimeAvailability (answers, sIndex) {
+>>>>>>> 1cd6307f3ab4d7ba17922bf6df669edd6632288a
     let weekdays= ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let labels = [];
     weekdays.forEach((day, index) => {
@@ -36,7 +34,7 @@ function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
                  </Label>)
     })
     return (
-            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ radioAnswersStyle }>
+            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ answersStyle }>
                 <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     {labels}
                 </Label.Group>
@@ -72,7 +70,7 @@ function CircleSelection (dontReallyCare, sIndex, dontCare, answers) {
          </Label>)
     })
     return (
-            <Segment basic  key = {"CSGCR_SEGMENT_" + sIndex} style={ radioAnswersStyle}>
+            <Segment basic  key = {"CSGCR_SEGMENT_" + sIndex} style={ answersStyle }>
                 <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     {labels}
                 </Label.Group>
