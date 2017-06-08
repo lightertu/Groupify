@@ -9,9 +9,9 @@ import {Card, Popup, Image, Label, Button, Icon, Segment} from 'semantic-ui-reac
 import getColorByLanguage from  "../../modules/LanguageColorMap";
 
 const answersStyle = {
-    paddingTop: "0%",
+    paddingTop: "1%",
     paddingBottom: "1%",
-    paddingLeft: "0%",
+    paddingLeft: "3%",
     backgroundColor: "#F4F5F7"
 }
 
@@ -28,8 +28,14 @@ function TimeAvailability (answers, sIndex) {
                                 as='a'>{ day[0] }
                  </Label>)
     })
+    {/* availability */}
     return (
-            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ answersStyle }>
+            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ {
+                paddingTop: "0%",
+                paddingBottom: "1%",
+                paddingLeft: "1%",
+                backgroundColor: "#F4F5F7"
+            } }>
                 <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     {labels}
                 </Label.Group>
@@ -39,7 +45,12 @@ function TimeAvailability (answers, sIndex) {
 
 function ProgrammingLanguages (answers, sIndex) {
     return (
-        <Segment  key = {"PLGCR_SEGMENT_" + sIndex} basic style={ answersStyle }>
+        <Segment  key = {"PLGCR_SEGMENT_" + sIndex} basic style={ {
+            paddingTop: "1%",
+            paddingBottom: "1%",
+            paddingLeft: "3%",
+            backgroundColor: "#F4F5F7"
+        } }>
             <Label.Group style={ {marginTop: "-1%"} } size="medium">
                 {
                     answers.map((answer, index) =>
