@@ -71,7 +71,7 @@ class LoginView extends Component {
                         </Form>
                     </Segment>
                     <Message>
-                        New to us? <a style={{cursor: 'pointer'}} onClick={this.redirectToSignup}>Sign up</a>
+                        New to Groupify? <a style={{cursor: 'pointer'}} onClick={this.redirectToSignup}>Sign up</a>
                     </Message>
                 </Grid.Column>
             </Grid>

@@ -8,21 +8,19 @@ import {Map, List, Set} from 'immutable';
 import {Card, Popup, Image, Label, Button, Icon, Segment} from 'semantic-ui-react'
 import getColorByLanguage from  "../../modules/LanguageColorMap";
 
-const radioAnswersStyle = {
-    paddingTop: "0%",
-    paddingBottom: "1%",
-    paddingLeft: "3%",
-    backgroundColor: "#F4F5F7"
-}
+<<<<<<< HEAD
+function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
 
+=======
 const answersStyle = {
     paddingTop: "0%",
     paddingBottom: "1%",
-    paddingLeft: "2%",
+    paddingLeft: "0%",
     backgroundColor: "#F4F5F7"
 }
-function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
 
+function TimeAvailability (answers, sIndex) {
+>>>>>>> 1cd6307f3ab4d7ba17922bf6df669edd6632288a
     let weekdays= ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let labels = [];
     weekdays.forEach((day, index) => {
@@ -35,14 +33,8 @@ function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
                                 as='a'>{ day[0] }
                  </Label>)
     })
-    {/* availability */}
     return (
-            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ {
-                paddingTop: "0%",
-                paddingBottom: "1%",
-                paddingLeft: "1%",
-                backgroundColor: "#F4F5F7"
-            } }>
+            <Segment basic key = {"TAGCR_SEGMENT_" + sIndex} style={ answersStyle }>
                 <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     {labels}
                 </Label.Group>
@@ -53,12 +45,7 @@ function TimeAvailability (dontReallyCare, sIndex, dontCare, answers) {
 function ProgrammingLanguages (answers, sIndex, totalPars) {
     let count = answers.countBy(x => {return x});
     return (
-        <Segment  key = {"PLGCR_SEGMENT_" + sIndex} basic style={ {
-            paddingTop: "1%",
-            paddingBottom: "1%",
-            paddingLeft: "3%",
-            backgroundColor: "#F4F5F7"
-        } }>
+        <Segment  key = {"PLGCR_SEGMENT_" + sIndex} basic style={ answersStyle }>
             <Label.Group style={ {marginTop: "-1%"} } size="medium">
                 {
                     count.map((number, language) =>
@@ -83,7 +70,7 @@ function CircleSelection (dontReallyCare, sIndex, dontCare, answers) {
          </Label>)
     })
     return (
-            <Segment basic  key = {"CSGCR_SEGMENT_" + sIndex} style={ radioAnswersStyle}>
+            <Segment basic  key = {"CSGCR_SEGMENT_" + sIndex} style={ answersStyle }>
                 <Label.Group circular size={"big"} style={ {marginLeft: "2%", paddingTop: "2%"} }>
                     {labels}
                 </Label.Group>
