@@ -139,16 +139,27 @@ class GroupCard extends React.Component {
                     renderFunctions[response.get('question')](response.get('answer'), index)
                 );
         })
+
+        let groupCardColor = () =>{
+            if (this.props.isLocked) {
+                return "#a6a6a6"
+            } else if (this.props.isOver) {
+                return "#f9f9f9"
+            } else {
+                return '#fcfcfc'
+            }
+        }
+
         let display = (
             <div>
                 <Segment.Group raised style={ {
-                    backgroundColor: 'white',
+                    backgroundColor: "white",
                     opacity: this.props.isLocked? 0.5 : 1,
                     cursor: this.props.isLocked? 'not-allowed' : 'default'
                 } }>
                     <Segment padded={ true } size="large" inverted={true}
                              style={{
-                                 backgroundColor: '#fcfcfc',
+                                 backgroundColor: groupCardColor()
                              }}
                     >
                         <Label onClick={() => {this.props.toggleLock(this.props.group, this.props.isLocked, this.props.activityId)} }
