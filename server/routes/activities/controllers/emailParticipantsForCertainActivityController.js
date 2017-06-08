@@ -4,9 +4,8 @@ const ObjectIdIsValid = require("mongoose").Types.ObjectId.isValid;
 
 const Activity = require("../../../models").Activity;
 
-const sendgridAPIKey = require("../../../config/main").SENDGRID_API_KEY;
-const sendgrid = require("sendgrid")(sendgridAPIKey);
-const mailHelper = require('sendgrid').mail;
+const sendGridAPIKey = require("../../../config/main").SENDGRID_API_KEY;
+
 
 
 function groupParticipantsByGroupNumber (pars) {
@@ -75,6 +74,13 @@ module.exports = function (req, res, next) {
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
+    if (typeof sendGridAPIKey === 'undefined' || sendGridAPIKey === null){
+        const errorMessage = 'Server terminal does not have the environment variable "SENDGRID_API_KEY". Please run the related bash script first.';
+        createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR)(errorMessage);
+        return;
+    }
+    const sendGrid = require("sendgrid")(sendGridAPIKey);
+    const mailHelper = require('sendgrid').mail;
 
     Activity.findOne({_id: req.params.activityId, _creator: req.user._id, isDeleted: false})
         .populate({
@@ -101,13 +107,13 @@ module.exports = function (req, res, next) {
                     const content    = new mailHelper.Content('text/html', generateHTMLText(member, group, activity));
                     const email       = new mailHelper.Mail(from_email, subject, to_email, content);
 
-                    const emailRequest = sendgrid.emptyRequest({
+                    const emailRequest = sendGrid.emptyRequest({
                         method: 'POST',
                         path: '/v3/mail/send',
                         body: email.toJSON()
                     });
 
-                    sendgrid.API(emailRequest, function (error, response) {
+                    sendGrid.API(emailRequest, function (error, response) {
                         if (error !== null){
                             console.log(error);
                             return;
