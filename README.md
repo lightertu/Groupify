@@ -68,6 +68,7 @@ Add `C:\Windows\System32\` to the `PATH` Environment variable
 
 
 # Future Features
+* docker integration
 * filtering and search based on questions in the survey on the group assignment page
 * Smart Layout: generate different layouts given different group capacities
 * Allow modifying activity infomation such as group capacity, total number of participants, on the grouping page
