@@ -137,7 +137,7 @@ class ParticipantListSidebar extends React.Component {
 
 
     sendEmailOnClick = () => {
-
+	this.props.emailParticipants(this.props.activityId);
     }
 
     render () {

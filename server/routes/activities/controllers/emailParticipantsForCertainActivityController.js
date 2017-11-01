@@ -45,7 +45,7 @@ function generateHTMLText (participant, group, activity) {
         text += 'Currently, you are the only one in this group. We would add more people to your group!<br><br>';
     }
     else if (partnerNameList.length === 1){
-        text += 'Your partners is ' + partnerNameList[0] + "!<br><br>";
+        text += 'Your partners are ' + partnerNameList[0] + "!<br><br>";
     }
     else{
         text += 'Your partners are ';
@@ -74,11 +74,14 @@ module.exports = function (req, res, next) {
         createErrorHandler(res, HttpStatus.BAD_REQUEST)(errorMessage);
         return;
     }
+	console.log('HERE')
     if (typeof sendGridAPIKey === 'undefined' || sendGridAPIKey === null){
         const errorMessage = 'Server terminal does not have the environment variable "SENDGRID_API_KEY". Please run the related bash script first.';
         createErrorHandler(res, HttpStatus.INTERNAL_SERVER_ERROR)(errorMessage);
         return;
     }
+
+	console.log('HERE2')
     const sendGrid = require("sendgrid")(sendGridAPIKey);
     const mailHelper = require('sendgrid').mail;
 

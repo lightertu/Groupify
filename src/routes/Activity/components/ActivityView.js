@@ -95,6 +95,7 @@ export class ActivityView extends React.Component {
                         key={"ParticipantListSidebar_" + this.props.participants.size}
                         participants={ this.props.participants }
                         setCurrentlySelected={(v) => {console.log(v)}}
+			emailParticipants={this.props.emailParticipants}
                         updateParticipantGroupNumber={ this.props.updateParticipantGroupNumber }
                         filter={this.props.filter}
                         activityId={ this.props.activityId }

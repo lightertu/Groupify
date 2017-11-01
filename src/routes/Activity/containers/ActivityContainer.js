@@ -19,7 +19,8 @@ const mapDispatchToProps = (dispatch) => ({
     sortParticipantsMatch: Actions.userMatchingActions.sortParticipants(dispatch), 
     filterParticipantsMatch: Actions.userMatchingActions.filterParticipants(dispatch),
     setFilter: Actions.filterParticipantsActions.setFilter(dispatch),
-    toggleLock: Actions.groupLockActions.toggleLock(dispatch)
+    toggleLock: Actions.groupLockActions.toggleLock(dispatch),
+    emailParticipants: Actions.emailParticipantsActions.emailParticipants(dispatch),
 });
 
 const mapStateToProps = (state, ownProps) => {

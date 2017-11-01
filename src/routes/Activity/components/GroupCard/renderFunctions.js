@@ -79,7 +79,7 @@ function CircleSelection (dontReallyCare, sIndex, dontCare, answers) {
     let labels = [];
     answers.forEach((answer, index) => {
          labels.push(<Label circular key = {"GC_" + sIndex + "_CSGCR_"+index+"_"+answer} 
-                        as='a' color="green">{ day[0] }
+                        as='a' color="green">{ answer[0] }
          </Label>)
     })
     return (

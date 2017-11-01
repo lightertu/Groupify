@@ -35,9 +35,9 @@ function ProgrammingLanguages (answers) {
 
 function CircleSelection (answers) {
     let labels = [];
-    weekdays.forEach((day, index) => {
-         labels.push(<Label circular key = {"AVQR_"+index+"_"+day } 
-                        as='a' color="green">{ day[0] }
+    answers.forEach((answer, index) => {
+         labels.push(<Label circular key = {"AVQR_"+index+"_"+answer} 
+                        as='a' color="green">{ answer[0] }
          </Label>)
     })
     return labels;

@@ -32,8 +32,8 @@ export default (initialState = {}) => {
                 }
             }) 
         : 
-           potcompose;
-        if (typeof composeWithDevToolsExtension === 'function') {
+       	    null 
+	if (typeof composeWithDevToolsExtension === 'function') {
             composeEnhancers = composeWithDevToolsExtension
         }
     }
