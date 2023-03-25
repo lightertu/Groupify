@@ -10,6 +10,7 @@ class AppContainer extends Component {
         routes: PropTypes.object.isRequired,
         store: PropTypes.object.isRequired
     };
+    // console.log('AppContainer');
 
     /*<div style={{height: '100%'}}>*/
     render() {
